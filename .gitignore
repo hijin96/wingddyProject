@@ -4,9 +4,8 @@
 .target/
 /Servers
 .target
-/target/
-/target
-\target
+target/
+
 
 ### Java ###
 # Compiled class file
