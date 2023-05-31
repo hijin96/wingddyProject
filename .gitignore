@@ -3,6 +3,8 @@
 .settings/
 .target/
 /Servers
+.target
+/target/
 
 ### Java ###
 # Compiled class file
