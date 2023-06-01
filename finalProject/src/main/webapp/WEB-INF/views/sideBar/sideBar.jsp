@@ -307,24 +307,22 @@
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>마이페이지</span></a>
               <ul class="dropdown-menu">
-                <li><a href="gmaps-advanced-route.html">캘린더</a></li>
+                <li><a href="calendar">캘린더</a></li>
                 <li><a href="gmaps-draggable-marker.html">내정보수정</a></li>
               </ul>
             </li>    
                <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a></li>
                <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>			
-               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
+               <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
             <c:choose>
               <c:when test="${not empty loginUser}">
-
                 <li class="menu-header">Profile</li>
                 <li class="dropdown">
                   <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>${loginUser.memberName}</span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="auth-forgot-password.html">Forgot Password</a></li> 
-                    <li><a href="auth-login.html">Logout</a></li> 
-                    <li><a href="auth-register.html">Register</a></li> 
-                    <li><a href="auth-reset-password.html">Reset Password</a></li> 
+                    <li><a href="logout.me">Logout</a></li> 
+                    <li><a href="#">Information</a></li> 
+                    <li><a href="#">Reset Password</a></li> 
                   </ul>
                 </li>
               </c:when>
@@ -333,10 +331,10 @@
                 <li class="dropdown">
                   <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Insert Login</span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="auth-forgot-password.html">Forgot Password</a></li> 
                     <li><a href="loginForm.me">Login</a></li> 
-                    <li><a href="auth-register.html">Register</a></li> 
-                    <li><a href="auth-reset-password.html">Reset Password</a></li> 
+                    <li><a href="enrollForm.me">EnrollForm</a></li> 
+                    <li><a href="#">Forgot ID</a></li> 
+                    <li><a href="#">Forgot Password</a></li> 
                   </ul>
                 </li>
               </c:otherwise>
