@@ -24,11 +24,10 @@ public class VocaController {
 		
 		Member m = ((Member)session.getAttribute("loginUser"));
 		
-		ArrayList<VocaBook> list = vocaService.selectVocaBookList(/*m.getMemberNo()*/2);
+		ArrayList<VocaBook> bookList = vocaService.selectVocaBookList(/*m.getMemberNo()*/2);
 		
-		System.out.println(list);
 		
-		mv.addObject("list", list).setViewName("voca/vocaMain");
+		mv.addObject("bookList", bookList).setViewName("voca/vocaMain");
 		
 		return mv;
 	}
