@@ -307,7 +307,7 @@
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>마이페이지</span></a>
               <ul class="dropdown-menu">
-                <li><a href="gmaps-advanced-route.html">캘린더</a></li>
+                <li><a href="calendar">캘린더</a></li>
                 <li><a href="gmaps-draggable-marker.html">내정보수정</a></li>
               </ul>
             </li>    
