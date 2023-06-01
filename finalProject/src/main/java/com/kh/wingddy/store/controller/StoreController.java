@@ -27,6 +27,9 @@ public class StoreController {
 	public String storewish() {
 		return "store/storewishlist";
 	}
-	
+	@RequestMapping("shoppinglist")
+	public String storeshoplist() {
+		return "store/storeShoppingList";
+	}
 	
 }
