@@ -19,7 +19,7 @@
 
         <div class="section-body">
             <div style="text-align: center;">
-                <input type="button" value="A" class="btn btn-primary btn-lg">
+                <input type="button" value="A" class="btn btn-warning btn-lg">
                 <input type="button" value="B" class="btn btn-primary btn-lg">
                 <input type="button" value="C" class="btn btn-primary btn-lg">
                 <input type="button" value="D" class="btn btn-primary btn-lg">
@@ -46,11 +46,92 @@
                 <input type="button" value="Y" class="btn btn-primary btn-lg">
                 <input type="button" value="Z" class="btn btn-primary btn-lg">
             </div>
-            
+             
             <br><br>
 
             <div>
-                
+                <div class="row">
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <article class="article article-style-c">
+                          <div class="article-header">
+                            <div class="article-image">
+                                <p style="text-align: center; font-size: 150px; margin-top: 100px;">A</p>
+                            </div>
+                          </div>
+                          <div class="article-details">
+                            <div class="article-category"><a href="#">닉네임</a> <div class="bullet"></div> <a href="#">2023-05-04</a></div>
+                          
+                            <div class="article-user">
+                              <div class="article-user-details">
+                                <div class="user-detail-name">
+                                  <a href="#">제목</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </article>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <article class="article article-style-c">
+                          <div class="article-header">
+                            <div class="article-image">
+                                <p style="text-align: center; font-size: 150px; margin-top: 100px;">A</p>
+                            </div>
+                          </div>
+                          <div class="article-details">
+                            <div class="article-category"><a href="#">닉네임</a> <div class="bullet"></div> <a href="#">2023-05-04</a></div>
+                          
+                            <div class="article-user">
+                              <div class="article-user-details">
+                                <div class="user-detail-name">
+                                  <a href="#">제목</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </article>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <article class="article article-style-c">
+                          <div class="article-header">
+                            <div class="article-image">
+                                <p style="text-align: center; font-size: 150px; margin-top: 100px;">A</p>
+                            </div>
+                          </div>
+                          <div class="article-details">
+                            <div class="article-category"><a href="#">닉네임</a> <div class="bullet"></div> <a href="#">2023-05-04</a></div>
+                          
+                            <div class="article-user">
+                              <div class="article-user-details">
+                                <div class="user-detail-name">
+                                  <a href="#">제목</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </article>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <article class="article article-style-c">
+                          <div class="article-header">
+                            <div class="article-image">
+                                <p style="text-align: center; font-size: 150px; margin-top: 100px;">A</p>
+                            </div>
+                          </div>
+                          <div class="article-details">
+                            <div class="article-category"><a href="#">닉네임</a> <div class="bullet"></div> <a href="#">2023-05-04</a></div>
+                          
+                            <div class="article-user">
+                              <div class="article-user-details">
+                                <div class="user-detail-name">
+                                  <a href="#">제목</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </article>
+                    </div>
+                  </div>
             </div>
 
 	        
