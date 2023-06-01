@@ -152,7 +152,7 @@
                 </a>
                 <a href="#" class="dropdown-item">
                   <div class="dropdown-item-avatar">
-                    <img alt="image" src="resources/resources/assets/img/avatar/avatar-4.png" class="rounded-circle">
+                    <!-- <img alt="image" src="resources/resources/assets/img/avatar/avatar-4.png" class="rounded-circle"> -->
                   </div>
                   <div class="dropdown-item-desc">
                     <b>Ardian Rahardiansyah</b>
@@ -367,12 +367,13 @@
   <script src="resources/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 
   <!-- Page Specific JS File -->
-  <script src="resources/resources/assets/js/page/index.js"></script>
+  <!-- <script src="resources/resources/assets/js/page/index.js"></script> -->
   
   <!-- Template JS File -->
   <script src="resources/assets/js/scripts.js"></script>
   <script src="resources/assets/js/custom.js"></script>
 <!-- Code injected by live-server -->
+<!-- 
 <script>
 	// <![CDATA[  <-- For SVG support
 	if ('WebSocket' in window) {
@@ -410,5 +411,6 @@
 	}
 	// ]]>
 </script>
+ -->
 
 </html>
