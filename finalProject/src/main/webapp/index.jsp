@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
+	<jsp:include page="/WEB-INF/views/sideBar/sideBar.jsp"/>
 </body>
 </html>
