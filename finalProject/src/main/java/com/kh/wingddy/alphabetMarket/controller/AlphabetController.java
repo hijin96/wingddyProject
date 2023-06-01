@@ -12,10 +12,28 @@ public class AlphabetController {
 	@Autowired
 	private AlphabetService AlphabetService;
 	
-	@RequestMapping("alphabet.main")
-	public String include() {
+	@RequestMapping("main.aph")
+	public String main() {
 		
-		return "AlphabetMarket/main";
+		return "alphabetMarket/alphabetMarketMain";
+	}
+	
+	@RequestMapping("enroll.aph")
+	public String enroll() {
+		
+		return "alphabetMarket/alphabetMarketEnroll";
+	}
+	
+	@RequestMapping("myAlphabet.aph")
+	public String myAlphabet() {
+		
+		return "alphabetMarket/myAlphabet";
+	}
+	
+	@RequestMapping("makeWords.aph")
+	public String makeWords() {
+		
+		return "alphabetMarket/makeWords";
 	}
 
 }

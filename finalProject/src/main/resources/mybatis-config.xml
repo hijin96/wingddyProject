@@ -11,6 +11,7 @@
 	<typeAliases>
 		<typeAlias type="com.kh.wingddy.member.model.vo.Member" alias="member"/>
 		<typeAlias type="com.kh.wingddy.voca.model.vo.ClassVocaBook" alias="vocaBook"/>
+		<typeAlias type="com.kh.wingddy.calendar.model.vo.Calendar" alias="calendar" />
 	</typeAliases>
 	
 	<mappers>
@@ -19,6 +20,7 @@
 		<mapper resource="/mappers/letter/letter-mapper.xml" />
 		<mapper resource="/mappers/manitto/manitto-mapper.xml" />
 		<mapper resource="/mappers/voca/voca-mapper.xml"/>
+		<mapper resource="/mappers/calendar/calendar-mapper.xml" />
 	</mappers>
 	
 </configuration>
