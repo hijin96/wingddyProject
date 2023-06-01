@@ -32,7 +32,7 @@ public class CalendarServiceImpl implements CalendarService {
 
 	@Override
 	public int insertSchedule(Calendar c) {
-		return 0;
+		return calendarDao.insertSchedule(sqlSession, c);
 	}
 
 	@Override
