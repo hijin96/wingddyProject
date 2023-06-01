@@ -42,7 +42,7 @@
               <div class="card-header"><h4>Enroll</h4></div>
 
               <div class="card-body">
-                <form method="POST">
+                <form method="POST" action="">
                   <div class="row">
                     <div class="form-group col-6">
                       <label for="frist_name">Your ID</label>
@@ -51,6 +51,13 @@
                     <div class="form-group col-6">
                       <label for="last_name">Your Name</label>
                       <input id="last_name" type="text" class="form-control" name="memberName" placeholder="Please Enter Name">
+                    </div>
+                    <!--중복체크-->
+                    <div class="form-group col-6">
+                      <label for="first_name">asd</label>
+                    </div>
+                    <div class="form-group col-6">
+                      <label for="last_name">sda</label>
                     </div>
                   </div>
 
@@ -117,6 +124,29 @@
       </div>
     </section>
   </div>
+  <script>
+    window.onload = function(){
+      
+      const getIdCheck= RegExp(/^[a-zA-Z0-9]{5,13}$/);
+      const getPwCheck= RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
+      const getName= RegExp(/^[가-힣]+$/);
+      const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+      const getPhone = RegExp(/^[0-9]{11}$/);
+      const IdLength = document.getElementById('frist_name').length;
+      var httpRequest;
+      console.log(IdLength);
+    }
+    if(IdLength == 5){
+
+      const dupliId = function(){
+          httpRequest = new XMLHttpRequest();
+
+          const memberIdEl = document.getElementById('frist_name');
+          const memberId = memberIdEl.value;
+          console.log(memberId);
+      }
+    }
+  </script>
 
   <!-- General JS Scripts -->
   <script src="resources/assets/modules/jquery.min.js"></script>
