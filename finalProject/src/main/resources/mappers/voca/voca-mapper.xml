@@ -13,6 +13,12 @@
 		<result column="CLASS_NAME" property="className"/>
 	</resultMap>
 	
+	<resultMap type="voca" id="vocaResultSet">
+		<result column="BOOK_NO" property="bookNo"/>
+		<result column="VOCA_EN" property="vocaEnglish"/>
+		<result column="VOCA_KR" property="vocaKorean"/>
+	</resultMap>
+	
 	<select id="selectVocaBookList" parameterType="_int" resultMap="vocaBookResultSet">
 		SELECT
 		       BOOK_NO
@@ -22,4 +28,34 @@
 		 WHERE
 		       MEMBER_NO = #{memNo}
 	</select>
+	
+	<select id="selectVocaList" resultMap="vocaResultSet">
+		SELECT
+		       BOOK_NO
+		      ,VOCA_EN
+		      ,VOCA_KR
+		  FROM
+		       VOCA
+		 WHERE
+		       BOOK_NO = #{bookNo}
+	</select>
+	
+	
+	<!-- 선생님일 경우 (나중에 학생일 경우도 추가) -->
+	<select id="selectClassVocaBookList" resultMap="vocaBookResultSet">
+		SELECT
+		       CLASS_NO
+		      ,CLASS_NAME
+		      ,BOOK_NO
+		      ,BOOK_NAME
+		  FROM
+		       CLASSROOM
+		  JOIN
+		       CLASS_VOCABOOK USING (CLASS_NO)
+		  JOIN
+		       VOCABOOK USING(BOOK_NO)
+		 WHERE
+		       CLASSROOM.MEMBER_NO = #{memNo}
+	</select>
+	
 </mapper>
