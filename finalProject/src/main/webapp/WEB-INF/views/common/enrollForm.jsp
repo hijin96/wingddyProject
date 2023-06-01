@@ -54,7 +54,7 @@
                     </div>
                     <!--중복체크-->
                     <div class="form-group col-6">
-                      <label for="first_name">asd</label>
+                      <label for="first_name" id="chkId">asd</label>
                     </div>
                     <div class="form-group col-6">
                       <label for="last_name">sda</label>
@@ -127,25 +127,31 @@
   <script>
     window.onload = function(){
       
+      idInput.addEventListener("keyup", ()=> keyupInput());
+
+      
+    }
+    function keyupInput(){
       const getIdCheck= RegExp(/^[a-zA-Z0-9]{5,13}$/);
       const getPwCheck= RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
       const getName= RegExp(/^[가-힣]+$/);
       const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
       const getPhone = RegExp(/^[0-9]{11}$/);
-      const IdLength = document.getElementById('frist_name').length;
-      var httpRequest;
-      console.log(IdLength);
-    }
-    if(IdLength == 5){
+      const idInput = document.getElementById('frist_name');
+      const idValue = idInput.value;
+      const idLength = idValue.length;
 
-      const dupliId = function(){
-          httpRequest = new XMLHttpRequest();
+      if(idLength >= 5){
 
-          const memberIdEl = document.getElementById('frist_name');
-          const memberId = memberIdEl.value;
-          console.log(memberId);
+        httpRequest = new XMLHttpRequest();
+
+        const textEl = document.getElementById('chkId');
+        const text = textEl.value;
+        textEl.value = '';
+        
       }
     }
+
   </script>
 
   <!-- General JS Scripts -->
