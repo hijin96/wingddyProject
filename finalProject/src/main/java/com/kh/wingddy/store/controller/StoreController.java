@@ -19,4 +19,14 @@ public class StoreController {
 	public String storeCart() {
 		return "store/storecart";
 	}
+	@RequestMapping("storebuy")
+	public String storebuy() {
+		return "store/storebuy";
+	}
+	@RequestMapping("storewish")
+	public String storewish() {
+		return "store/storewishlist";
+	}
+	
+	
 }
