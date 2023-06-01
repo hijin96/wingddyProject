@@ -9,7 +9,7 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="com.kh.wingddy.memeber.model.vo.Member" alias="member"/>
+		<typeAlias type="com.kh.wingddy.member.model.vo.Member" alias="member"/>
 	</typeAliases>
 	
 	<mappers>
