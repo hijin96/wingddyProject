@@ -314,21 +314,36 @@
                <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a></li>
                <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>			
                <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
+            <c:choose>
+              <c:when test="${not empty loginUser}">
 
-          </div>        
-            <li class="menu-header">Pages</li>
-            <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Auth</span></a>
-              <ul class="dropdown-menu">
-                <li><a href="auth-forgot-password.html">Forgot Password</a></li> 
-                <li><a href="auth-login.html">Login</a></li> 
-                <li><a href="auth-register.html">Register</a></li> 
-                <li><a href="auth-reset-password.html">Reset Password</a></li> 
-              </ul>
-            </li>
+                <li class="menu-header">Profile</li>
+                <li class="dropdown">
+                  <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>${loginUser.memberName}</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="auth-forgot-password.html">Forgot Password</a></li> 
+                    <li><a href="auth-login.html">Logout</a></li> 
+                    <li><a href="auth-register.html">Register</a></li> 
+                    <li><a href="auth-reset-password.html">Reset Password</a></li> 
+                  </ul>
+                </li>
+              </c:when>
+              <c:otherwise>
+                <li class="menu-header">Profile</li>
+                <li class="dropdown">
+                  <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Insert Login</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="auth-forgot-password.html">Forgot Password</a></li> 
+                    <li><a href="loginForm.me">Login</a></li> 
+                    <li><a href="auth-register.html">Register</a></li> 
+                    <li><a href="auth-reset-password.html">Reset Password</a></li> 
+                  </ul>
+                </li>
+              </c:otherwise>
+            </c:choose>
           </ul>
           <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-            <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
+            <a href="#" class="btn btn-primary btn-lg btn-block btn-icon-split">
               <i class="fas fa-rocket"></i> 버튼버튼메인으로?
             </a>
           </div>        
