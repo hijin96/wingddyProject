@@ -28,8 +28,12 @@ public class StoreController {
 		return "store/storewishlist";
 	}
 	@RequestMapping("shoppinglist")
-	public String storeshoplist() {
+	public String storeShoppingList() {
 		return "store/storeShoppingList";
+	}
+	@RequestMapping("orderInfo")
+	public String orderInfo() {
+		return "store/orderInfo";
 	}
 	
 }
