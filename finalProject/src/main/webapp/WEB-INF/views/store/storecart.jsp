@@ -31,7 +31,7 @@
 <title>장바구니</title>
 </head>
 <body>
-    <div id="app">
+    <div id="storecart">
         <div>
             <jsp:include page="../sideBar/sideBar.jsp" />
              <div class="main-content">
@@ -47,11 +47,11 @@
                                             <thead>
                                                 <tr>
                                                     <th>체크박스</th>
-                                                    <th>Images</th>
-                                                    <th>Product Name</th>
-                                                    <th>Price</th>
-                                                    <th>Quantity</th>
-                                                    <th>Total</th>
+                                                    <th>상품이미지</th>
+                                                    <th>상품명</th>
+                                                    <th>가격</th>
+                                                    <th>수량</th>
+                                                    <th>소계</th>
                                                     <!-- <th>Remove</th> -->
                                                 </tr>
                                             </thead>
@@ -62,7 +62,7 @@
                                                         <input type="checkbox" value="cart-checkbox"/>
                                                     </td>
                                                     <td class="thumbnail-img">
-                                                        <a href="#"> <img class="img-fluid" src="images/img-pro-03.jpg" alt="" /></a>
+                                                        <a href="#"> <img class="img-fluid" src="resources/images/img-pro-03.jpg" alt="" /></a>
                                                     </td>
                                                     <td class="name-pr">
                                                         <a href="#"> Lorem ipsum dolor sit amet  </a>
@@ -97,7 +97,11 @@
                                 </div>
                                 <div class="col-lg-6 col-sm-6">
                                     <div class="update-box">
-                                        <input value="Update Cart" type="submit"> 
+                                        <input value="수정하기" type="submit" name="Update Cart">
+                                        <input value="삭제하기" type="submit" name="delete Cart"> 
+                                        <input value="구매하기" type="submit" name="buyCart">
+                                        
+                                    
                                     </div>
                                 </div>
                             </div>
@@ -106,15 +110,15 @@
                                 <div class="col-lg-8 col-sm-12"></div>
                                 <div class="col-lg-4 col-sm-12">
                                     <div class="order-box">
-                                        <h3>Order summary</h3>
+                                        <h3>주문금액</h3>
                                         <div class="d-flex">
-                                            <h4>Sub Total</h4>
+                                            <h4>상품합계</h4>
                                             <div class="ml-auto font-weight-bold"> $ 130 </div>
                                         </div>
-                                        <div class="d-flex">
+                                        <!-- <div class="d-flex">
                                             <h4>Discount</h4>
                                             <div class="ml-auto font-weight-bold"> $ 40 </div>
-                                        </div>
+                                        </div> -->
                                         <hr class="my-1">
                                         <div class="d-flex">
                                             <h4>Coupon Discount</h4>
@@ -125,17 +129,17 @@
                                             <div class="ml-auto font-weight-bold"> $ 2 </div>
                                         </div>
                                         <div class="d-flex">
-                                            <h4>Shipping Cost</h4>
-                                            <div class="ml-auto font-weight-bold"> Free </div>
+                                            <h4>배송비</h4>
+                                            <div class="ml-auto font-weight-bold"> 무료 </div>
                                         </div>
                                         <hr>
                                         <div class="d-flex gr-total">
-                                            <h5>Grand Total</h5>
+                                            <h5>결제 예정금액</h5>
                                             <div class="ml-auto h5"> $ 388 </div>
                                         </div>
                                         <hr> </div>
                                 </div>
-                                <div class="col-12 d-flex shopping-box"><a href="checkout.html" class="ml-auto btn hvr-hover">Checkout</a> </div>
+                                <div class="col-12 d-flex shopping-box"><a href="checkout.html" class="ml-auto btn hvr-hover">결제하기</a> </div>
                             </div>
 
                         </div>

@@ -105,9 +105,8 @@
 									<ul>
 										<li>
 											<div class="form-group quantity-box">
-												<label class="control-label">Quantity</label> <input
-													class="form-control" value="0" min="0" max="20"
-													type="number">
+												<label class="control-label">수량</label>
+												 <input class="form-control" value="1" min="0" max="20" type="number">
 											</div>
 										</li>
 									</ul>
@@ -125,24 +124,7 @@
 												위시리스트</a> <a class="btn hvr-hover" href="#">
 												<i class="fas fa-sync-alt"></i> Add to Compare</a>
 										</div>
-										<div class="share-bar">
-											<a class="btn hvr-hover" href="#">
-												<i class="fab fa-facebook" aria-hidden="true"></i>
-											</a> 
-											<a class="btn hvr-hover" href="#">
-												<i class="fab fa-google-plus" aria-hidden="true"></i>
-											</a> 
-											<a class="btn hvr-hover" href="#">
-												<i class="fab fa-twitter" aria-hidden="true"></i>
-											</a> 
-											<a class="btn hvr-hover" href="#">
-												<i class="fab fa-pinterest-p" aria-hidden="true"></i>
-											</a> 
-											<a class="btn hvr-hover" href="#">
-												<i class="fab fa-whatsapp" aria-hidden="true"></i>
-											</a>
-										</div>
-										
+	
 									</div>
 								</div>
 							</div>
@@ -189,7 +171,7 @@
 							<hr>
 							<a href="#" class="btn hvr-hover">상품후기더보기</a>
 						</div>
-					  </div>
+					</div>
 				</div>
 
 
