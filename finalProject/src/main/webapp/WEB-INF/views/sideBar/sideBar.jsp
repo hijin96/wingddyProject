@@ -6,7 +6,8 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>사이드바욥</title>
+
+  <title>사이드바</title>
 
 
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" scope="session"/>
@@ -32,7 +33,8 @@
 
   gtag('config', 'UA-94034622-3');
 </script>
-<!-- /END GA --></head>
+<!-- /END GA -->
+</head>
 
 <body>
   <div id="app">
@@ -150,7 +152,7 @@
                 </a>
                 <a href="#" class="dropdown-item">
                   <div class="dropdown-item-avatar">
-                    <img alt="image" src="resources/resources/assets/img/avatar/avatar-4.png" class="rounded-circle">
+                    <!-- <img alt="image" src="resources/resources/assets/img/avatar/avatar-4.png" class="rounded-circle"> -->
                   </div>
                   <div class="dropdown-item-desc">
                     <b>Ardian Rahardiansyah</b>
@@ -250,7 +252,7 @@
                   <i class="fas fa-cog"></i> Settings
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item has-icon text-danger">
+                  <a href="logout.me" class="dropdown-item has-icon text-danger">
                   <i class="fas fa-sign-out-alt"></i> Logout
                   </a>
                   </div>
@@ -305,28 +307,41 @@
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>마이페이지</span></a>
               <ul class="dropdown-menu">
-                <li><a href="gmaps-advanced-route.html">캘린더</a></li>
+                <li><a href="calendar">캘린더</a></li>
                 <li><a href="gmaps-draggable-marker.html">내정보수정</a></li>
               </ul>
             </li>    
                <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a></li>
                <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>			
                <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
-               <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-          </div>        
-            <li class="menu-header">Pages</li>
-            <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Auth</span></a>
-              <ul class="dropdown-menu">
-                <li><a href="auth-forgot-password.html">Forgot Password</a></li> 
-                <li><a href="auth-login.html">Login</a></li> 
-                <li><a href="auth-register.html">Register</a></li> 
-                <li><a href="auth-reset-password.html">Reset Password</a></li> 
-              </ul>
-            </li>
+            <c:choose>
+              <c:when test="${not empty loginUser}">
+                <li class="menu-header">Profile</li>
+                <li class="dropdown">
+                  <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>${loginUser.memberName}</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="logout.me">Logout</a></li> 
+                    <li><a href="#">Information</a></li> 
+                    <li><a href="#">Reset Password</a></li> 
+                  </ul>
+                </li>
+              </c:when>
+              <c:otherwise>
+                <li class="menu-header">Profile</li>
+                <li class="dropdown">
+                  <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Insert Login</span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="loginForm.me">Login</a></li> 
+                    <li><a href="enrollForm.me">EnrollForm</a></li> 
+                    <li><a href="#">Forgot ID</a></li> 
+                    <li><a href="#">Forgot Password</a></li> 
+                  </ul>
+                </li>
+              </c:otherwise>
+            </c:choose>
           </ul>
           <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-            <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
+            <a href="#" class="btn btn-primary btn-lg btn-block btn-icon-split">
               <i class="fas fa-rocket"></i> 버튼버튼메인으로?
             </a>
           </div>        
@@ -352,12 +367,13 @@
   <script src="resources/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 
   <!-- Page Specific JS File -->
-  <script src="resources/resources/assets/js/page/index.js"></script>
+  <!-- <script src="resources/resources/assets/js/page/index.js"></script> -->
   
   <!-- Template JS File -->
   <script src="resources/assets/js/scripts.js"></script>
   <script src="resources/assets/js/custom.js"></script>
 <!-- Code injected by live-server -->
+<!-- 
 <script>
 	// <![CDATA[  <-- For SVG support
 	if ('WebSocket' in window) {
@@ -395,5 +411,6 @@
 	}
 	// ]]>
 </script>
+ -->
 
 </html>

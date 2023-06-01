@@ -8,16 +8,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div id="app">
-<div>
-<jsp:include page="sideBar.jsp" />
-     <div class="main-content">
-     <br><br><br><br><br><br><br>
-       	 	여기가 메인 콘텐츠 영역입니다~!
-      </div>
-</div>
-
-</div>
+	<div id="app">
+		<div>
+			<jsp:include page="sideBar.jsp" />
+			<div class="main-content">
+				<br><br><br><br><br><br><br>
+			       	 	여기가 메인 콘텐츠 영역입니다~!
+			</div>
+		</div>
+	
+	</div>
 
 
 </body>

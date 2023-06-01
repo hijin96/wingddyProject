@@ -39,4 +39,14 @@ public class MemberController {
 		return "common/loginForm";
 	}
 	
+	@RequestMapping("logout.me")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "sideBar/sideBar";
+	}
+	
+	@RequestMapping("enrollForm.me")
+	public String enrollForm() {
+		return "common/enrollForm";
+	}
 }
