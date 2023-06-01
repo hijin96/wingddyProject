@@ -297,8 +297,8 @@
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>스토어</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="bootstrap-alert.html">장바구니</a></li>
-                <li><a class="nav-link" href="bootstrap-badge.html">배송조회</a></li>
+                <li><a class="nav-link" href="storemain">스토어로이동</a></li>
+                <li><a class="nav-link" href="bootstrap-badge.html">장바구니</a></li>
                 <li><a class="nav-link" href="bootstrap-breadcrumb.html">위시리스트</a></li>
                 <li><a class="nav-link" href="bootstrap-buttons.html">구매목록</a></li>
               </ul>
