@@ -16,21 +16,10 @@
 	<select id="selectVocaBookList" parameterType="_int" resultMap="vocaBookResultSet">
 		SELECT
 		       BOOK_NO
-		      ,MEMBER_NAME
 		      ,BOOK_NAME
-		      ,C.CLASS_NAME CLASS_NAME
 		  FROM
-		       VOCABOOK V
-		  LEFT 
-		  JOIN
-		       CLASS_VOCABOOK CV USING (BOOK_NO)
-		  LEFT
-		  JOIN
-		       CLASSROOM C ON (CV.CLASS_NO = C.CLASS_NO)
-		  LEFT
-		  JOIN
-		       MEMBER M ON (M.MEMBER_NO = C.MEMBER_NO)
+		       VOCABOOK 
 		 WHERE
-		       V.MEMBER_NO = #{memNo}
+		       MEMBER_NO = #{memNo}
 	</select>
 </mapper>
