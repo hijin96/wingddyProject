@@ -1,9 +1,12 @@
 package com.kh.wingddy.member.model.service;
 
+import com.kh.wingddy.member.model.vo.Member;
+
 public interface MemberService {
 
 	// 회원 로그인 메소드 (select)
 	// 로그인시 받은 member 객체 (ID, PWD) 비밀번호는 DB에 저장된 암호화된 비밀번호의 salt값을 비교
+	public Member loginMember(Member m);
 	
 	// 회원 회원가입 메소드 (insert member, attachment) 
 	// 회원가입 종류(NAVER, KAKAO, GOOGLE, WINGDDY 중 WINGDDY 회원의 경우만 해당)
