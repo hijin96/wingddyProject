@@ -9,7 +9,6 @@
 
   <title>사이드바</title>
 
-
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" scope="session"/>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="${contextPath}/resources/assets/modules/bootstrap/css/bootstrap.min.css">
@@ -297,10 +296,10 @@
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>스토어</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="bootstrap-alert.html">장바구니</a></li>
-                <li><a class="nav-link" href="bootstrap-badge.html">배송조회</a></li>
-                <li><a class="nav-link" href="bootstrap-breadcrumb.html">위시리스트</a></li>
-                <li><a class="nav-link" href="bootstrap-buttons.html">구매목록</a></li>
+                <li><a class="nav-link" href="storemain">스토어로이동</a></li>
+                <li><a class="nav-link" href="storecart">장바구니</a></li>
+                <li><a class="nav-link" href="storewish">위시리스트</a></li>
+                <li><a class="nav-link" href="storebuy">구매목록</a></li>
               </ul>
             </li>
             <li class="menu-header">소제목 넣을지 뺄지</li>
@@ -334,7 +333,7 @@
                     <li><a href="loginForm.me">Login</a></li> 
                     <li><a href="enrollForm.me">EnrollForm</a></li> 
                     <li><a href="#">Forgot ID</a></li> 
-                    <li><a href="#">Forgot Password</a></li> 
+                    <li><a href="errorPage.me">Forgot Password</a></li> 
                   </ul>
                 </li>
               </c:otherwise>

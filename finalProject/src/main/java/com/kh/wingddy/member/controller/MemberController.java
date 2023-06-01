@@ -29,7 +29,7 @@ public class MemberController {
 			mv.setViewName("sideBar/sideBar");
 		} else {
 			session.setAttribute("alertMsg", "로그인실패");
-			mv.setViewName("redirect:/");
+			mv.setViewName("common/errorPage");
 		}
 		return mv;
 	}
@@ -54,8 +54,13 @@ public class MemberController {
 	@RequestMapping("enrollMember.me")
 	public String insertMember(Member m, Model model) {
 		
-		return memberService.insertMember(m) > 0 ? "sideBar/sideBar":"redirect:/";
+		return memberService.insertMember(m) > 0 ? "sideBar/sideBar":"common/errorPage";
 		
+	}
+	
+	@RequestMapping("errorPage.me")
+	public String error() {
+		return "common/errorPage";
 	}
 	
 }
