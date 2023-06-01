@@ -1,25 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+
   <title>사이드바</title>
 
+
+	<c:set var="contextPath" value="${pageContext.request.contextPath}" scope="session"/>
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/modules/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/modules/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/fontawesome/css/all.min.css">
 
   <!-- CSS Libraries -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/modules/jqvmap/dist/jqvmap.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/modules/summernote/summernote-bs4.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/jqvmap/dist/jqvmap.min.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/summernote/summernote-bs4.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
 
   <!-- Template CSS -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/components.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/css/style.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/css/components.css">
 <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
 <script>
@@ -29,7 +33,8 @@
 
   gtag('config', 'UA-94034622-3');
 </script>
-<!-- /END GA --></head>
+<!-- /END GA -->
+</head>
 
 <body>
   <div id="app">
@@ -230,32 +235,50 @@
               </div>
             </div>
           </li>
-          <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-            <img alt="image" src="resources/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
-            <div class="dropdown-menu dropdown-menu-right">
-              <div class="dropdown-title">Logged in 5 min ago</div>
-              <a href="features-profile.html" class="dropdown-item has-icon">
-                <i class="far fa-user"></i> Profile
-              </a>
-              <a href="features-activities.html" class="dropdown-item has-icon">
-                <i class="fas fa-bolt"></i> Activities
+          <c:choose>
+            <c:when test="${not empty loginUser}">
+              <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                  <img alt="image" src="resources/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+                  <div class="d-sm-none d-lg-inline-block">${loginUser.memberName}</div></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                  <div class="dropdown-title">Logged in 5 min ago</div>
+                  <a href="features-profile.html" class="dropdown-item has-icon">
+                  <i class="far fa-user"></i> Profile
+                  </a>
+                  <a href="features-activities.html" class="dropdown-item has-icon">
+                  <i class="fas fa-bolt"></i> Activities
+                  </a>
+                  <a href="features-settings.html" class="dropdown-item has-icon">
+                  <i class="fas fa-cog"></i> Settings
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="#" class="dropdown-item has-icon text-danger">
+                  <i class="fas fa-sign-out-alt"></i> Logout
+                  </a>
+                  </div>
+              </li>
+            </c:when>
+            <c:otherwise>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                <div class="dropdown-menu dropdown-menu-right">
               </a>
               <a href="features-settings.html" class="dropdown-item has-icon">
-                <i class="fas fa-cog"></i> Settings
+                <i class="fas fa-cog"></i> EnrollForm
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item has-icon text-danger">
-                <i class="fas fa-sign-out-alt"></i> Logout
+              <a href="loginForm.me" class="dropdown-item has-icon text-danger">
+                <i class="fas fa-sign-out-alt"></i> Login
               </a>
             </div>
           </li>
+            </c:otherwise>
+          </c:choose>
         </ul>
       </nav>
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="index.html">Stisla</a>
+            <a href="${contextPath}"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Ft0B9e%2Fbtsh9BI8zya%2FUifPbFfhfWwk7NzrRCW6J0%2Fimg.png" alt="메인페이지로고" width="250px" height="50px"/></a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">St</a>
@@ -270,7 +293,7 @@
                 <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
               </ul>
             </li>
-           <!--  <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>����������</span></a></li> -->
+           <!--  <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>마이페이지</span></a></li> -->
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>스토어</span></a>
               <ul class="dropdown-menu">
@@ -291,7 +314,7 @@
                <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a></li>
                <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>			
                <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
-               <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+
           </div>        
             <li class="menu-header">Pages</li>
             <li class="dropdown">
