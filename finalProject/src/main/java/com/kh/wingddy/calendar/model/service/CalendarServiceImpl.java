@@ -21,8 +21,8 @@ public class CalendarServiceImpl implements CalendarService {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public ArrayList<Calendar> selectSchedule(Member m) {
-		return null;
+	public ArrayList<Calendar> selectScheduleList(int memberNo) {
+		return calendarDao.selectScheduleList(sqlSession, memberNo);
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class CalendarServiceImpl implements CalendarService {
 
 	@Override
 	public int insertSchedule(Calendar c) {
-		return 0;
+		return calendarDao.insertSchedule(sqlSession, c);
 	}
 
 	@Override

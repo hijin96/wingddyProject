@@ -23,5 +23,13 @@ public class StoreController {
 	public String storebuy() {
 		return "store/storebuy";
 	}
+	@RequestMapping("storewish")
+	public String storewish() {
+		return "store/storewishlist";
+	}
+	@RequestMapping("shoppinglist")
+	public String storeshoplist() {
+		return "store/storeShoppingList";
+	}
 	
 }

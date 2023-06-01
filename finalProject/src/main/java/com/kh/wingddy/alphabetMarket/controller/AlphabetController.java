@@ -35,5 +35,12 @@ public class AlphabetController {
 		
 		return "alphabetMarket/makeWords";
 	}
+	
+
+	@RequestMapping("detail.aph")
+	public String mkDetailView() {
+		
+		return "alphabetMarket/alphabetMarketDetail";
+	}
 
 }

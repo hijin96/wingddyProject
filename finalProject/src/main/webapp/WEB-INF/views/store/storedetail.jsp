@@ -113,19 +113,53 @@
 
 									<div class="price-box-bar">
 										<div class="cart-and-bay-btn">
-											<a class="btn hvr-hover" data-fancybox-close="" href="#"> 구매하기
-												New</a> <a class="btn hvr-hover" data-fancybox-close="" href="#">장바구니담기 </a>
+											<a class="btn btn-info" data-fancybox-close="" href="#"> 구매하기 New</a> 
+											<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">장바구니!!</button>
+										<div class="add-to-btn">
+											<div class="add-comp">
+												<a class="btn hvr-hover" href="#"> <i class="fas fa-heart"></i>위시리스트</a> 
+											</div>
 										</div>
+										
+										</div>
+										
+										
+										
 									</div>
 
-									<div class="add-to-btn">
+									
+										<!--장바구니 모달창 -->						
+										<div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+								          <div class="modal-dialog" role="document">
+								            <div class="modal-content">
+								              <div class="modal-header">
+								                <h5 class="modal-title">Modal title</h5>
+								                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								                  <span aria-hidden="true">&times;</span>
+								                </button>
+								              </div>
+								              <div class="modal-body">
+								                <p>Modal body text goes here.</p>
+								              </div>
+								              <div class="modal-footer bg-whitesmoke br">
+								                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								                <button type="button" class="btn btn-primary">Save changes</button>
+								              </div>
+								            </div>
+								          </div>
+								        </div>
+								
+																	
+									
+									
+
+							<!-- 		<div class="add-to-btn">
 										<div class="add-comp">
-											<a class="btn hvr-hover" href="#"><i class="fas fa-heart"></i>
-												위시리스트</a> <a class="btn hvr-hover" href="#">
-												<i class="fas fa-sync-alt"></i> Add to Compare</a>
+											<a class="btn hvr-hover" href="#"> <i class="fas fa-heart"></i>위시리스트</a> 
+											<a class="btn hvr-hover" href="#"> <i class="fas fa-sync-alt"></i> Add to Compare</a>
 										</div>
 	
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
