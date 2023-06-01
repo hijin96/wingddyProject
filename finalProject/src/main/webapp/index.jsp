@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Wingddy</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/sideBar/sideBar.jsp"/>
