@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,19 +8,21 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>사이드바욥</title>
 
+
+	<c:set var="contextPath" value="${pageContext.request.contextPath}" scope="session"/>
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/modules/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/modules/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/fontawesome/css/all.min.css">
 
   <!-- CSS Libraries -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/modules/jqvmap/dist/jqvmap.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/modules/summernote/summernote-bs4.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/jqvmap/dist/jqvmap.min.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/summernote/summernote-bs4.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
 
   <!-- Template CSS -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/components.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/css/style.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/css/components.css">
 <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
 <script>
@@ -278,7 +280,7 @@
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="/wingddy"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Ft0B9e%2Fbtsh9BI8zya%2FUifPbFfhfWwk7NzrRCW6J0%2Fimg.png" alt="메인페이지로고" width="250px" height="50px"/></a>
+            <a href="${contextPath}"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Ft0B9e%2Fbtsh9BI8zya%2FUifPbFfhfWwk7NzrRCW6J0%2Fimg.png" alt="메인페이지로고" width="250px" height="50px"/></a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">St</a>
