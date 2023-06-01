@@ -23,5 +23,17 @@ public class AlphabetController {
 		
 		return "alphabetMarket/alphabetMarketEnroll";
 	}
+	
+	@RequestMapping("myAlphabet.aph")
+	public String myAlphabet() {
+		
+		return "alphabetMarket/myAlphabet";
+	}
+	
+	@RequestMapping("makeWords.aph")
+	public String makeWords() {
+		
+		return "alphabetMarket/makeWords";
+	}
 
 }
