@@ -25,7 +25,7 @@ public class MemberController {
 		
 		if(loginUser != null) {
 			session.setAttribute("loginUser", loginUser);
-			mv.setViewName("common/menubar");
+			mv.setViewName("sideBar/sideBar");
 		} else {
 			session.setAttribute("alertMsg", "로그인실패");
 			mv.setViewName("redirect:/");
