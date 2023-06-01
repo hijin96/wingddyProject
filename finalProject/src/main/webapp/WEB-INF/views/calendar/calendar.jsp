@@ -14,9 +14,7 @@
 	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.css' rel='stylesheet' />
 	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js'></script>
 <style>
-	#sidebar-area{
-		
-	}
+
 	#btn-modal{
 		margin : 10px;
 	}
@@ -35,6 +33,7 @@
 		margin : auto;
 	}
 	#todayTomorrowSchedule >div{
+		margin-top : 50px;
 		padding : 5px;
 	}
 	#todayTomorrowSchedule .date{
@@ -61,10 +60,11 @@
 </style>
 </head>
 <body>
-
+<div id="app">
+<div>
 	<jsp:include page="/WEB-INF/views/sideBar/sideBar.jsp"/>
 	
-	<div id="wrap">
+	<div class="main-content">
     	
     	<div id="todayTomorrowSchedule">
 			<div id="todaySchedule" class="schedule-tt">
@@ -167,7 +167,8 @@
 		</div>
 		
 	</div>
-	
+</div>	
+</div>	
 	<script>
 	   
 	    
