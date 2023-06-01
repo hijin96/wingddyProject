@@ -9,9 +9,11 @@
 	</settings>
 	
 	<typeAliases>
+		<typeAlias type="com.kh.wingddy.memeber.model.vo.Member" alias="member"/>
 	</typeAliases>
 	
 	<mappers>
+		<mapper resource="/mappers/member/member-mapper.xml" />
 	</mappers>
 	
 </configuration>
