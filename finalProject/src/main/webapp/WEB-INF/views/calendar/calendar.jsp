@@ -187,7 +187,7 @@
 	        	googleCalendarApiKey : 'AIzaSyDFV8dRGYeO2k9b_bAtA6yueCxVEl3FuYU',
 	        	events : {
 	        			googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
-	        			color : 'white',
+	        			color : 'transparent',
 	        			textColor : 'gray'
 	        		},
         		eventClick : function(info){
