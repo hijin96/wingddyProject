@@ -9,7 +9,6 @@
 
   <title>사이드바</title>
 
-
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" scope="session"/>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="${contextPath}/resources/assets/modules/bootstrap/css/bootstrap.min.css">
@@ -334,7 +333,7 @@
                     <li><a href="loginForm.me">Login</a></li> 
                     <li><a href="enrollForm.me">EnrollForm</a></li> 
                     <li><a href="#">Forgot ID</a></li> 
-                    <li><a href="#">Forgot Password</a></li> 
+                    <li><a href="errorPage.me">Forgot Password</a></li> 
                   </ul>
                 </li>
               </c:otherwise>
