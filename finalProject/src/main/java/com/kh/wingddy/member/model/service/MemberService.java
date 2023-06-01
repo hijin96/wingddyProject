@@ -10,7 +10,7 @@ public interface MemberService {
 	
 	// 회원 회원가입 메소드 (insert member, attachment) 
 	// 회원가입 종류(NAVER, KAKAO, GOOGLE, WINGDDY 중 WINGDDY 회원의 경우만 해당)
-	
+	public int insertMember(Member m);
 	// 회원 아이디 찾기 (이메일 인증) select  
 	// 이메일 인증 성공시 DB에 저장되있는 회원의 ID값 출력
 	 
