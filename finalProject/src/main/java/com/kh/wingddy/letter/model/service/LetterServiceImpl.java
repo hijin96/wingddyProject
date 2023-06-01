@@ -1,19 +1,18 @@
-package com.kh.wingddy.manitto.model.service;
+package com.kh.wingddy.letter.model.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.wingddy.manitto.model.dao.ManittoDao;
+import com.kh.wingddy.letter.model.dao.LetterDao;
 
 @Service
-public class ManittoServiceImpl implements ManittoService{
+public class LetterServiceImpl implements LetterService{
+
 	
 	@Autowired
-	private ManittoDao manittoDao;
+	private LetterDao letterDao;
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
-
 }
