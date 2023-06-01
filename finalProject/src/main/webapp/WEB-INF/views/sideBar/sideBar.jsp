@@ -6,7 +6,8 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>사이드바욥</title>
+
+  <title>사이드바</title>
 
 
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" scope="session"/>
@@ -32,7 +33,8 @@
 
   gtag('config', 'UA-94034622-3');
 </script>
-<!-- /END GA --></head>
+<!-- /END GA -->
+</head>
 
 <body>
   <div id="app">
@@ -311,8 +313,8 @@
             </li>    
                <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a></li>
                <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>			
-               <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
-               <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
+
           </div>        
             <li class="menu-header">Pages</li>
             <li class="dropdown">

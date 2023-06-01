@@ -10,6 +10,7 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.wingddy.member.model.vo.Member" alias="member"/>
+		<typeAlias type="com.kh.wingddy.voca.model.vo.Voca" alias="voca"/>
 	</typeAliases>
 	
 	<mappers>
@@ -17,6 +18,7 @@
 		<mapper resource="/mappers/alphabet/alphabet-mapper.xml" />
 		<mapper resource="/mappers/letter/letter-mapper.xml" />
 		<mapper resource="/mappers/manitto/manitto-mapper.xml" />
+		<mapper resource="/mappers/voca/voca-mapper.xml"/>
 	</mappers>
 	
 </configuration>
