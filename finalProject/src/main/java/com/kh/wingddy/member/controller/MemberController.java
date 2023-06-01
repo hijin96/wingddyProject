@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,4 +50,12 @@ public class MemberController {
 	public String enrollForm() {
 		return "common/enrollForm";
 	}
+	
+	@RequestMapping("enrollMember.me")
+	public String insertMember(Member m, Model model) {
+		
+		return memberService.insertMember(m) > 0 ? "sideBar/sideBar":"redirect:/";
+		
+	}
+	
 }

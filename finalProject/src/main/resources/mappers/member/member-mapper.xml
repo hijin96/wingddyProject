@@ -32,4 +32,29 @@
 		  AND  MEMBER_PWD = #{memberPwd}
 		  AND  STATUS_YN = 'N'
 	</select>
+	
+	<insert id="insertMember" parameterType="member">
+		INSERT 
+		  INTO MEMBER
+		       (
+		       MEMBER_NO,
+               MEMBER_ID,
+               MEMBER_PWD, 
+               MEMBER_NAME,
+               EMAIL, 
+               PHONE,
+               MEMBER_TYPE, 
+               ENROLL_DATE 
+               ) 
+        VALUES(
+        	   SEQ_MNO.NEXTVAL,
+               #{memberId},
+               #{memberPwd},
+               #{memberName},
+               #{email},
+               #{phone},
+               'S',
+               SYSDATE
+               )      
+	</insert>
 </mapper>

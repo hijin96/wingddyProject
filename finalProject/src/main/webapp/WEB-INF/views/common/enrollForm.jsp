@@ -42,7 +42,7 @@
               <div class="card-header"><h4>Enroll</h4></div>
 
               <div class="card-body">
-                <form method="POST" action="">
+                <form method="POST" action="enrollMember.me">
                   <div class="row">
                     <div class="form-group col-6">
                       <label for="frist_name">Your ID</label>
@@ -109,7 +109,7 @@
                   </div>
 
                   <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" disabled>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
                       Join Wingddy
                     </button>
                   </div>
@@ -125,12 +125,14 @@
     </section>
   </div>
   <script>
+    /*
     window.onload = function(){
       
       idInput.addEventListener("keyup", ()=> keyupInput());
 
       
     }
+    */
     function keyupInput(){
       const getIdCheck= RegExp(/^[a-zA-Z0-9]{5,13}$/);
       const getPwCheck= RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
@@ -140,7 +142,7 @@
       const idInput = document.getElementById('frist_name');
       const idValue = idInput.value;
       const idLength = idValue.length;
-
+      /*
       if(idLength >= 5){
 
         httpRequest = new XMLHttpRequest();
@@ -149,7 +151,16 @@
         const text = textEl.value;
         textEl.value = '';
         
+        httpRequest.onreadystatechange = () => {
+
+          if(httpRequest.readyState === XMLHttpRequest.DONE){
+            if(httpRequest.status === 200){
+              
+            }
+          }
+        }
       }
+      */
     }
 
   </script>
