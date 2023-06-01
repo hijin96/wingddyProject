@@ -45,4 +45,8 @@ public class MemberController {
 		return "sideBar/sideBar";
 	}
 	
+	@RequestMapping("enrollForm.me")
+	public String enrollForm() {
+		return "common/enrollForm";
+	}
 }
