@@ -23,6 +23,13 @@ public class MemberController {
 		
 		Member loginUser = memberService.loginMember(m);
 		
+		if(loginUser != null) {
+			session.setAttribute("loginUser", loginUser);
+			mv.setViewName("redirect:/");
+		} else {
+			session.setAttribute("alertMsg", "로그인실패");
+			mv.setViewName("redirect:/");
+		}
 		return mv;
 	}
 }
