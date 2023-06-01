@@ -36,6 +36,7 @@
 									<div class="col-sm-12 col-md-7">
 										<input type="text" class="form-control" placeholder="writing the meaning" required>
 									</div>
+									
 								</div>
 							</div>
 						</form>
