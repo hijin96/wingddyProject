@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>���̵�ٿ�</title>
+  <title>사이드바</title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/modules/bootstrap/css/bootstrap.min.css">
@@ -263,7 +263,7 @@
           <ul class="sidebar-menu">
             <li class="menu-header">Starter</li>
             <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Ŭ����</span></a>
+              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>클래스</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="layout-default.html">Default Layout</a></li>
                 <li><a class="nav-link" href="layout-transparent.html">Transparent Sidebar</a></li>
@@ -272,25 +272,25 @@
             </li>
            <!--  <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>����������</span></a></li> -->
             <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>�����</span></a>
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>스토어</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="bootstrap-alert.html">��ٱ���</a></li>
-                <li><a class="nav-link" href="bootstrap-badge.html">�����ȸ</a></li>
-                <li><a class="nav-link" href="bootstrap-breadcrumb.html">���ø���Ʈ</a></li>
-                <li><a class="nav-link" href="bootstrap-buttons.html">���Ÿ��</a></li>
+                <li><a class="nav-link" href="bootstrap-alert.html">장바구니</a></li>
+                <li><a class="nav-link" href="bootstrap-badge.html">배송조회</a></li>
+                <li><a class="nav-link" href="bootstrap-breadcrumb.html">위시리스트</a></li>
+                <li><a class="nav-link" href="bootstrap-buttons.html">구매목록</a></li>
               </ul>
             </li>
-            <li class="menu-header">������ ������ ����</li>
+            <li class="menu-header">소제목 넣을지 뺄지</li>
             <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>����������</span></a>
+              <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>마이페이지</span></a>
               <ul class="dropdown-menu">
-                <li><a href="gmaps-advanced-route.html">Ķ����</a></li>
-                <li><a href="gmaps-draggable-marker.html">����������</a></li>
+                <li><a href="gmaps-advanced-route.html">캘린더</a></li>
+                <li><a href="gmaps-draggable-marker.html">내정보수정</a></li>
               </ul>
             </li>    
-               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>���ĺ�����</span></a></li>
-               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>���������</span></a></li>			
-               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>�ܾ���</span></a></li>
+               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a></li>
+               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>			
+               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
                <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
           </div>        
             <li class="menu-header">Pages</li>
@@ -306,7 +306,7 @@
           </ul>
           <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
             <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
-              <i class="fas fa-rocket"></i> ��ư��ư��������?
+              <i class="fas fa-rocket"></i> 버튼버튼메인으로?
             </a>
           </div>        
           </aside>
