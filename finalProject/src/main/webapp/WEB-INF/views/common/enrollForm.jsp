@@ -45,7 +45,7 @@
                 <form method="POST" action="enrollMember.me">
                   <div class="row">
                     <div class="form-group col-6">
-                      <label for="frist_name">Your ID</label><button type="button" class="btn btn-icon btn-success" onclick="checkId();" style="margin-left:150px;">check ID</button>
+                      <label for="frist_name">Your ID</label><button type="button" id="checkBtn" class="btn btn-icon btn-success" onclick="checkId();" style="margin-left:195px; height:30px;" disabled=true;>check ID</button>
                       <input id="frist_name" type="text" class="form-control" name="memberId" autofocus required placeholder="Please Enter ID">
                     </div>
                     <div class="form-group col-6">
@@ -149,32 +149,15 @@
         //console.log(idValue);
         httpRequest = new XMLHttpRequest();
 
-        const textEl = document.getElementById('chkId');
-        const text = textEl.value;
+        var textEl = document.getElementById('chkId');
+        var text = textEl.value;
         textEl.value = '';
         if(!getIdCheck.test(idValue)){
           textEl.innerText = '아이디는 첫글자 영문,그 외 영문자/숫자로 4~12자로 입력해주세요.';
+          document.getElementById('checkBtn').disabled = true;
         }
-        else {
-          textEl.innerText = '';
-        }
-        //textEl.innerHTML = 'ddddd';
-        /*
-        httpRequest.onreadystatechange = () => {
-
-          if(httpRequest.readyState === XMLHttpRequest.DONE){
-            if(httpRequest.status === 200){
-              if(!getIdCheck.test(idValue)){
-                console.log('dd');
-                text += '아이디는 첫글자 영문,그 외 영문자/숫자로 4~12자로 입력해주세요.';
-              }
-            }
-          }
-          httpRequest.open('POST', 'checkId.me');
-          httpRequest.responseType = 'text';
-          httpRequest.send();
-        }
-        */
+      } else {
+          document.getElementById('checkBtn').disabled = false;
       }
     }
 
