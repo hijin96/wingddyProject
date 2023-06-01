@@ -184,11 +184,29 @@
 	        	},
 	        	selectable : true,
 	        	googleCalendarApiKey : 'AIzaSyDFV8dRGYeO2k9b_bAtA6yueCxVEl3FuYU',
-	        	events : {
+	        	events : [{
 	        			googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
 	        			color : 'transparent',
 	        			textColor : 'gray'
 	        		},
+	        		$.ajax({
+	        			url : 'selectScheduleList',
+	        			data : {memberNo : ${loginUser.memberNo}},
+	        			type : 'post',
+	        			success : function(schedule){
+	        				console.log(schedule);
+	        				
+	        				
+	        				
+	        				
+	        				
+	        			},
+	        			error : function(){
+	        				
+	        			}
+	        		
+	        		})
+	        		],
         		eventClick : function(info){
         			info.jsEvent.stopPropagation();
         			info.jsEvent.preventDefault();
@@ -219,7 +237,7 @@
     	
     	$(function(){
     		
-    		//console.log(${loginUser.memberNo});
+    		console.log(typeof(${loginUser.memberNo}));
     		
    			var d = new Date();
    			var month = d.getMonth() + 1;
