@@ -2001,7 +2001,8 @@
 }
  .why-text.full-width h5 del{
      font-size: 13px;
-     color: #666;
+     /* color: #666; */
+     color: #c0c0c0;
 }
  .why-text.full-width h5{
      color: #000000;
@@ -2040,9 +2041,11 @@
  .table-main table thead{
      background: #007bff;
      color: #ffffff;
+    
 }
  .table-main .table thead th{
      font-size: 18px;
+     
 }
  .table-main table td.thumbnail-img{
      width: 120px;
@@ -2488,7 +2491,8 @@
 }
  .single-product-details h5 del {
      font-size: 13px;
-     color: #666;
+    /*  color: #666; */
+     color: #c0c0c0;
 }
  .available-stock span {
      font-size: 15px;

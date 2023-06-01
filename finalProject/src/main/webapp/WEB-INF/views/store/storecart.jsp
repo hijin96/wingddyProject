@@ -43,7 +43,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="table-main table-responsive">
-                                        <table class="table">
+                                        <table class="table"> 
                                             <thead>
                                                 <tr>
                                                     <th>체크박스</th>
