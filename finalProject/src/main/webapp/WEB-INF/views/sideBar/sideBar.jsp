@@ -313,7 +313,7 @@
             </li>    
                <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a></li>
                <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>			
-               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
+               <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
             <c:choose>
               <c:when test="${not empty loginUser}">
                 <li class="menu-header">Profile</li>
