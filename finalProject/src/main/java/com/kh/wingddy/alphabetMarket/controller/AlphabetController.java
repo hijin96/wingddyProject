@@ -15,7 +15,7 @@ public class AlphabetController {
 	@RequestMapping("alphabet.main")
 	public String include() {
 		
-		return "AlphabetMarket/main";
+		return "alphabetMarket/alphabetMarketMain";
 	}
 
 }
