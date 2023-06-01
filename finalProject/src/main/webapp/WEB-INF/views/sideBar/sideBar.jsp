@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>»çÀÌµå¹Ù¿é</title>
+  <title>ï¿½ï¿½ï¿½Ìµï¿½Ù¿ï¿½</title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/modules/bootstrap/css/bootstrap.min.css">
@@ -255,7 +255,7 @@
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="/wingddy"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Ft0B9e%2Fbtsh9BI8zya%2FUifPbFfhfWwk7NzrRCW6J0%2Fimg.png" alt="¸ÞÀÎÆäÀÌÁö·Î°í" width="250px" height="50px"/></a>
+            <a href="index.html">Stisla</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">St</a>
@@ -263,34 +263,34 @@
           <ul class="sidebar-menu">
             <li class="menu-header">Starter</li>
             <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Å¬·¡½º</span></a>
+              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Å¬ï¿½ï¿½ï¿½ï¿½</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="layout-default.html">Default Layout</a></li>
                 <li><a class="nav-link" href="layout-transparent.html">Transparent Sidebar</a></li>
                 <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
               </ul>
             </li>
-           <!--  <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>¸¶ÀÌÆäÀÌÁö</span></a></li> -->
+           <!--  <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</span></a></li> -->
             <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>½ºÅä¾î</span></a>
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>ï¿½ï¿½ï¿½ï¿½ï¿½</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="bootstrap-alert.html">Àå¹Ù±¸´Ï</a></li>
-                <li><a class="nav-link" href="bootstrap-badge.html">¹è¼ÛÁ¶È¸</a></li>
-                <li><a class="nav-link" href="bootstrap-breadcrumb.html">À§½Ã¸®½ºÆ®</a></li>
-                <li><a class="nav-link" href="bootstrap-buttons.html">±¸¸Å¸ñ·Ï</a></li>
+                <li><a class="nav-link" href="bootstrap-alert.html">ï¿½ï¿½Ù±ï¿½ï¿½ï¿½</a></li>
+                <li><a class="nav-link" href="bootstrap-badge.html">ï¿½ï¿½ï¿½ï¿½ï¿½È¸</a></li>
+                <li><a class="nav-link" href="bootstrap-breadcrumb.html">ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½Æ®</a></li>
+                <li><a class="nav-link" href="bootstrap-buttons.html">ï¿½ï¿½ï¿½Å¸ï¿½ï¿½</a></li>
               </ul>
             </li>
-            <li class="menu-header">¼ÒÁ¦¸ñ ³ÖÀ»Áö »¬Áö</li>
+            <li class="menu-header">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</li>
             <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>¸¶ÀÌÆäÀÌÁö</span></a>
+              <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</span></a>
               <ul class="dropdown-menu">
-                <li><a href="gmaps-advanced-route.html">Ä¶¸°´õ</a></li>
-                <li><a href="gmaps-draggable-marker.html">³»Á¤º¸¼öÁ¤</a></li>
+                <li><a href="gmaps-advanced-route.html">Ä¶ï¿½ï¿½ï¿½ï¿½</a></li>
+                <li><a href="gmaps-draggable-marker.html">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</a></li>
               </ul>
             </li>    
-               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>¾ËÆÄºª¸¶ÄÏ</span></a></li>
-               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>ÄíÆù½ºÅä¾î</span></a></li>			
-               <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>´Ü¾îÀå</span></a></li>
+               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½</span></a></li>
+               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</span></a></li>			
+               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>ï¿½Ü¾ï¿½ï¿½ï¿½</span></a></li>
                <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
           </div>        
             <li class="menu-header">Pages</li>
@@ -306,7 +306,7 @@
           </ul>
           <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
             <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
-              <i class="fas fa-rocket"></i> ¹öÆ°¹öÆ°¸ÞÀÎÀ¸·Î?
+              <i class="fas fa-rocket"></i> ï¿½ï¿½Æ°ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
             </a>
           </div>        
           </aside>

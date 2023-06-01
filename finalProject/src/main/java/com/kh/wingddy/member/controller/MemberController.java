@@ -25,11 +25,18 @@ public class MemberController {
 		
 		if(loginUser != null) {
 			session.setAttribute("loginUser", loginUser);
-			mv.setViewName("redirect:/");
+			mv.setViewName("common/menubar");
 		} else {
 			session.setAttribute("alertMsg", "로그인실패");
 			mv.setViewName("redirect:/");
 		}
 		return mv;
 	}
+	
+	@RequestMapping("loginForm.me")
+	public String loginForm() {
+		
+		return "common/loginForm";
+	}
+	
 }
