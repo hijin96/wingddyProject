@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>내 단어장</title>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/sideBar/sideBar.jsp"/>
+	
+	<jsp:include page="../sideBar/sideBar.jsp"/>
+	
+	
 </body>
 </html>
