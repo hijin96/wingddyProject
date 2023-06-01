@@ -152,7 +152,7 @@
                 </a>
                 <a href="#" class="dropdown-item">
                   <div class="dropdown-item-avatar">
-                    <img alt="image" src="resources/resources/assets/img/avatar/avatar-4.png" class="rounded-circle">
+                    <!-- <img alt="image" src="resources/resources/assets/img/avatar/avatar-4.png" class="rounded-circle"> -->
                   </div>
                   <div class="dropdown-item-desc">
                     <b>Ardian Rahardiansyah</b>
@@ -307,7 +307,7 @@
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>마이페이지</span></a>
               <ul class="dropdown-menu">
-                <li><a href="gmaps-advanced-route.html">캘린더</a></li>
+                <li><a href="calendar">캘린더</a></li>
                 <li><a href="gmaps-draggable-marker.html">내정보수정</a></li>
               </ul>
             </li>    
@@ -367,12 +367,13 @@
   <script src="resources/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 
   <!-- Page Specific JS File -->
-  <script src="resources/resources/assets/js/page/index.js"></script>
+  <!-- <script src="resources/resources/assets/js/page/index.js"></script> -->
   
   <!-- Template JS File -->
   <script src="resources/assets/js/scripts.js"></script>
   <script src="resources/assets/js/custom.js"></script>
 <!-- Code injected by live-server -->
+<!-- 
 <script>
 	// <![CDATA[  <-- For SVG support
 	if ('WebSocket' in window) {
@@ -410,5 +411,6 @@
 	}
 	// ]]>
 </script>
+ -->
 
 </html>

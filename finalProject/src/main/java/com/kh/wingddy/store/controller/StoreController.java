@@ -15,4 +15,13 @@ public class StoreController {
 	public String storeDetail() {
 		return "store/storedetail";
 	}
+	@RequestMapping("storecart")
+	public String storeCart() {
+		return "store/storecart";
+	}
+	@RequestMapping("storebuy")
+	public String storebuy() {
+		return "store/storebuy";
+	}
+	
 }
