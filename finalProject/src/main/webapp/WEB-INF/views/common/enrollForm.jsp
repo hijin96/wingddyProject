@@ -110,8 +110,8 @@
                           <h4>재직증명서 첨부하기</h4>
                         </div>
                         <div class="card-body">
-                            <div class="fallback" id="mydropzone">
-                              <input name="file" type="file" class="dropzone dz-clickable"/>
+                            <div class="fallback">
+                              <input name="upfile" type="file" class="dropzone dz-clickable"/>
                             </div>
                         </div>
                       </div>

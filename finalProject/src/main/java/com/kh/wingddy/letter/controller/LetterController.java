@@ -15,7 +15,9 @@ public class LetterController {
 	
 	
 	@RequestMapping("letterBox")
-	private String letterList() {
+	private String letterList(int classNo) {
+		
+		
 		
 		return "letter/letterList";
 	}

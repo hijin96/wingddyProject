@@ -44,7 +44,6 @@
                MEMBER_TYPE,
                EMAIL, 
                PHONE,
-               MEMBER_TYPE, 
                ENROLL_DATE 
                ) 
         VALUES(
@@ -55,7 +54,6 @@
                #{memberType},
                #{email},
                #{phone},
-               'S',
                SYSDATE
                )      
 	</insert>
