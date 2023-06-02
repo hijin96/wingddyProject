@@ -38,4 +38,9 @@ public class StoreController {
 		return "store/orderInfo";
 	}
 	
+	@RequestMapping("enrollForm")
+	public String storeInsert() {
+		return "store/storeInsertEnrollForm";
+	}
+	
 }
