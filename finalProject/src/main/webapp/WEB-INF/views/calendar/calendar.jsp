@@ -189,7 +189,7 @@
 	        			data : {memberNo : ${loginUser.memberNo}},
 	        			type : 'post',
 	        			success : function(list){
-	        				console.log(list);
+	        				//console.log(list);
 	        				
 	        				let value = [];
 	        				
@@ -208,8 +208,6 @@
 	        					})
 	        				}
 	        				console.log(value);
-	        				
-	        				
 		        			successCallback(value);
 	        			}
 	        		})

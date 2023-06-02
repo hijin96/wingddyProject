@@ -1,7 +1,5 @@
 package com.kh.wingddy.calendar.model.vo;
 
-import java.sql.Date;
-
 import lombok.Data;
 
 @Data
