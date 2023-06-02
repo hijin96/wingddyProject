@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import lombok.Data;
 @Data
-public class store {
+public class Store {
 	private int spNo;//상품번호
 	private int fileNo;//파일번호
 	private String spName;//상품명
