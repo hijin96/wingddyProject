@@ -31,9 +31,9 @@ public class calendarController {
 	public String insertSchedule(Calendar c, Model model) {
 		
 		if(calendarService.insertSchedule(c) > 0) {
-			return "calendar/calendar";
+			return "redirect:/calendar"; 
 		} else {
-			model.addAttribute("errorMsg", "스케줄 조회에 실패했습니다.");
+			model.addAttribute("errorMsg", "일정 추가에 실패했습니다.");
 			return "common/errorPage";
 		}
 	}

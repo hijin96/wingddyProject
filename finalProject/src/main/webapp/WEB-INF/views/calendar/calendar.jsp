@@ -94,7 +94,7 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						
-					<form action="insertSchedule" method="GET">
+					<form action="insertSchedule" method="POST">
 						<!-- Modal Header -->
 						<div class="modal-header">
 							<h4 class="modal-title">일정 추가하기</h4>
@@ -183,7 +183,12 @@
 	        	},
 	        	selectable : true,
 	        	googleCalendarApiKey : 'AIzaSyDFV8dRGYeO2k9b_bAtA6yueCxVEl3FuYU',
-	        	events : function(info, successCallback, failureCallback){
+	        	events : {
+					googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
+					color : 'transparent',
+					textColor : 'gray'
+				},
+	        	function(info, successCallback, failureCallback){
 	        		$.ajax({
 	        			url : 'selectScheduleList',
 	        			data : {memberNo : ${loginUser.memberNo}},
@@ -192,12 +197,6 @@
 	        				//console.log(list);
 	        				
 	        				let value = [];
-	        				
-	        				value.push({
-	        					googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
-	        					color : 'transparent',
-	        					textColor : 'gray'
-	        				});
 	        				
 	        				for(let i in list){
 	        					 value.push({
