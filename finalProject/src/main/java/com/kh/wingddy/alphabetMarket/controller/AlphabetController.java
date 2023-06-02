@@ -16,6 +16,8 @@ public class AlphabetController {
 	@RequestMapping("main.aph")
 	public String main(int classNo) {
 		
+		
+		
 		return "alphabetMarket/alphabetMarketMain";
 	}
 	
