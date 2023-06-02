@@ -1,6 +1,7 @@
 package com.kh.wingddy.calendar.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,7 @@ public class CalendarDao {
 		return (ArrayList)sqlSession.selectList("calendar-mapper.selectScheduleList", memberNo);
 	}
 	
-	public ArrayList<Calendar> selectDaySchedule(SqlSessionTemplate sqlSession, Calendar c){
-		return (ArrayList)sqlSession.selectList("calendar-mapper.selectDaySchedule", c);
+	public ArrayList<Calendar> selectDaySchedule(SqlSessionTemplate sqlSession, HashMap map){
+		return (ArrayList)sqlSession.selectList("calendar-mapper.selectDaySchedule", map);
 	}
 }

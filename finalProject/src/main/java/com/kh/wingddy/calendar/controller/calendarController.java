@@ -1,5 +1,7 @@
 package com.kh.wingddy.calendar.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,9 +40,14 @@ public class calendarController {
 		}
 	}
 	
-	@RequestMapping("daySchedule")
-	public String selectDaySchedule(Calendar c) {
-		calendarService.selectDaySchedule(c);
+	@ResponseBody
+	@RequestMapping(value="daySchedule", produces="application/json; charset=UTF-8")
+	public String selectDaySchedule(int memberNo, String date) {
+		HashMap map = new HashMap();
+		map.put("memberNo", memberNo);
+		map.put("date", date);
+		//System.out.println(map);
+		return new Gson().toJson(calendarService.selectDaySchedule(map));
 	}
 	
 	

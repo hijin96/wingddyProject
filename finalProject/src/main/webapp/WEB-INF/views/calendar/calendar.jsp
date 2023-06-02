@@ -148,14 +148,7 @@
 						<!-- Modal body -->
 						<div class="modal-body">
 							<ul id="todaySchedule">
-								<li>
-									<span>어쩌고</span>
-									
-									<button class="btn btn-warning btn-sm">수정</button>
-									<button class="btn btn-primary btn-sm" >삭제</button>
-									
-								</li>
-								<br>
+								
 								
 							</ul>
 						</div>
@@ -261,9 +254,25 @@
     	
     	
     	function showModal(date){
+    		console.log(date);
     		$.ajax({
     			url : 'daySchedule',
-    			data : {memberNo : memberNo, date : date}
+    			data : {memberNo : memberNo, date : date},
+    			type : 'POST',
+    			success : function(list){
+    				//console.log(list);
+    				
+    				$('#.modal-date').html(date);
+    				
+    				for(let i in list){
+    					$('#todaySchedule').html() = '<li><span>' + list[i].schedule + '</span>'
+    											   + '<button class="btn btn-warning btn-sm">수정</button>'
+    											   + '<button class="btn btn-primary btn-sm" >삭제</button></li><br>'; 
+    						
+    						
+    						
+    				}
+    			}
     		
     		})
     		

@@ -1,7 +1,7 @@
 package com.kh.wingddy.calendar.model.service;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.kh.wingddy.calendar.model.dao.CalendarDao;
 import com.kh.wingddy.calendar.model.vo.Calendar;
-import com.kh.wingddy.member.model.vo.Member;
 
 @Service
 public class CalendarServiceImpl implements CalendarService {
@@ -26,8 +25,8 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override
-	public ArrayList<Calendar> selectDaySchedule(Calendar c) {
-		return calendarDao.selectDaySchedule(sqlSession, c);
+	public ArrayList<Calendar> selectDaySchedule(HashMap map) {
+		return calendarDao.selectDaySchedule(sqlSession, map);
 	}
 
 	@Override
