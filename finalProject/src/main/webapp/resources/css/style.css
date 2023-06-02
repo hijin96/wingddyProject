@@ -2078,10 +2078,12 @@
      box-shadow: none !important;
 }
  .coupon-box .input-group .form-control::-moz-placeholder{
-     color: #000000;
+  /*    color: #000000; */
+     color: #007bff;
 }
  .coupon-box .input-group .input-group-append .btn-theme {
-     background: #000000;
+     /* background: #000000; */
+    background: #007bff;
      color: #ffffff;
      border: none;
      border-radius: 0px;
@@ -2092,7 +2094,8 @@
      background: #007bff;
 }
  .update-box input[type="submit"]{
-     background: #000000;
+     /* background: #000000; */
+     background: #007bff;
      border: medium none;
      border-radius: 0;
      -webkit-box-shadow: none;
@@ -2115,7 +2118,7 @@
      width: inherit;
 }
  .update-box input[type="submit"]:hover{
-     background: #007bff;
+     background: #80bcff;
 }
  .order-box h3{
      font-size: 16px;
