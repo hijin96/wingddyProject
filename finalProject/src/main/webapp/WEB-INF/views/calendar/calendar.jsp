@@ -170,6 +170,7 @@
 </div>	
 	<script>
 	   
+	
 	    
     	document.addEventListener('DOMContentLoaded', function() {
 	        var calendarEl = document.getElementById('calendar');
@@ -179,34 +180,40 @@
 	        		console.log(info.dateStr); // 2023-06-02
 	        		$('#theDaySchedule').modal();
 	        		$('#modal-date').text(info.dateStr);
-	        		
-	        		
 	        	},
 	        	selectable : true,
 	        	googleCalendarApiKey : 'AIzaSyDFV8dRGYeO2k9b_bAtA6yueCxVEl3FuYU',
-	        	events : [{
-	        			googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
-	        			color : 'transparent',
-	        			textColor : 'gray'
-	        		},
+	        	events : function(info, successCallback, failureCallback){
 	        		$.ajax({
 	        			url : 'selectScheduleList',
 	        			data : {memberNo : ${loginUser.memberNo}},
 	        			type : 'post',
-	        			success : function(schedule){
-	        				console.log(schedule);
+	        			success : function(list){
+	        				console.log(list);
+	        				
+	        				let value = [];
+	        				
+	        				value.push({
+	        					googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
+	        					color : 'transparent',
+	        					textColor : 'gray'
+	        				});
+	        				
+	        				for(let i in list){
+	        					 value.push({
+	        						 title : list[i].schedule,
+	        						 start : list[i].startDate,
+	        						 end : list[i].endDate,
+	        						 color : list[i].color 
+	        					})
+	        				}
+	        				console.log(value);
 	        				
 	        				
-	        				
-	        				
-	        				
-	        			},
-	        			error : function(){
-	        				
+		        			successCallback(value);
 	        			}
-	        		
 	        		})
-	        		],
+	        	},
         		eventClick : function(info){
         			info.jsEvent.stopPropagation();
         			info.jsEvent.preventDefault();
@@ -253,6 +260,9 @@
 			
 			$('#date_tomorrow').html('&lt;tomorrow&gt;' + tomorrow);
    			
+			
+			
+			
     	});
 	    	
     	// 일정 추가시 시작일과 종료일 비교
