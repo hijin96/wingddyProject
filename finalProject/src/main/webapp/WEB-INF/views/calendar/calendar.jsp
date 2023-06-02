@@ -146,11 +146,8 @@
 						</div>
 			
 						<!-- Modal body -->
-						<div class="modal-body">
-							<ul id="todaySchedule">
-								
-								
-							</ul>
+						<div id="theDaySchedule-content" class="modal-body">
+							내용자리
 						</div>
 					</div>
 				</div>
@@ -169,7 +166,6 @@
 	        var calendarEl = document.getElementById('calendar');
 	        var calendar = new FullCalendar.Calendar(calendarEl, {
 	        	dateClick : function(info){
-	        		//alert('Clicked on : ' + info.dateStr);
 	        		//console.log(info.dateStr); // 2023-06-02
 	        		showModal(info.dateStr);
 	        	},
@@ -187,7 +183,6 @@
 	        			data : {memberNo : memberNo},
 	        			type : 'post',
 	        			success : function(list){
-	        				//console.log(list);
 	        				
 	        				let value = [];
 	        				
@@ -252,29 +247,28 @@
     		
     	};
     	
-    	
+    	// 캘린더에서 날짜 클릭 시 해당 날짜의 일정 모달로 출력
     	function showModal(date){
     		console.log(date);
+    		
+    		let value = '';
     		$.ajax({
     			url : 'daySchedule',
     			data : {memberNo : memberNo, date : date},
     			type : 'POST',
     			success : function(list){
-    				//console.log(list);
     				
-    				$('#.modal-date').html(date);
-    				
+    				$('#modal-date').html(date);
     				for(let i in list){
-    					$('#todaySchedule').html() = '<li><span>' + list[i].schedule + '</span>'
-    											   + '<button class="btn btn-warning btn-sm">수정</button>'
-    											   + '<button class="btn btn-primary btn-sm" >삭제</button></li><br>'; 
-    						
-    						
+    					value += "<div>✔️" + list[i].schedule + "(" + list[i].startDate + " ~ " + list[i].endDate +  ")"
+							   + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class='btn btn-warning btn-sm'>수정</button>"
+							   + "<button class='btn btn-primary btn-sm'>삭제</button><br>"; 
     						
     				}
+    				$('#theDaySchedule-content').html(value);
     			}
     		
-    		})
+    		});
     		
     		$('#theDaySchedule').modal();
     		$('#modal-date').text(date);
