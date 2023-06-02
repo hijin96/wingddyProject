@@ -69,6 +69,8 @@
 				httpRequest.onreadystatechange = () =>{
 					if(httpRequest.readyState === XMLHttpRequest.DONE){
 						if(httpRequest.status === 200){
+							
+							target.parentElement.getElementsByTagName('tbody')[0].innerHTML ='';
 
 							let result = httpRequest.response;
 							
@@ -79,13 +81,13 @@
 								let td1 = document.createElement('td');
 								let td2 = document.createElement('td');
 								let td3 = document.createElement('td');
-								td1.textContent = i + 1;
+								td1.textContent = i;
 								td2.textContent = result[i].vocaEnglish;
 								td3.textContent = result[i].vocaKorean;
 								
-								tr.appendChild(td1)
-								  .appendChild(td2)
-								  .appendChild(td3);
+								tr.appendChild(td1);
+								tr.append(td2);
+								tr.append(td3);
 								
 								target.parentElement.getElementsByTagName('tbody')[0].appendChild(tr);
 							}
