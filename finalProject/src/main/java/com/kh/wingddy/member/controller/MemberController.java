@@ -3,6 +3,7 @@ package com.kh.wingddy.member.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,9 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	@RequestMapping("login.me")
 	public ModelAndView loginMember(Member m
 									,ModelAndView mv
@@ -24,7 +28,8 @@ public class MemberController {
 		
 		Member loginUser = memberService.loginMember(m);
 		
-		if(loginUser != null) {
+		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
+			//System.out.println(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd()));
 			session.setAttribute("loginUser", loginUser);
 			mv.setViewName("sideBar/sideBar");
 		} else {
@@ -54,8 +59,15 @@ public class MemberController {
 	@RequestMapping("enrollMember.me")
 	public String insertMember(Member m, Model model) {
 		
-		return memberService.insertMember(m) > 0 ? "sideBar/sideBar":"common/errorPage";
+		System.out.println("평문 : " + m.getMemberPwd());
 		
+		String encPwd = bcryptPasswordEncoder.encode(m.getMemberPwd());
+		
+		System.out.println(encPwd);
+		
+		m.setMemberPwd(encPwd);
+		
+		return memberService.insertMember(m) > 0 ? "sideBar/sideBar":"common/errorPage";
 	}
 	
 	@RequestMapping("errorPage.me")

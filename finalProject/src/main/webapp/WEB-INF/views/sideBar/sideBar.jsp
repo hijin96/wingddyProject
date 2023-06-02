@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="${contextPath}/resources/assets/modules/summernote/summernote-bs4.css">
   <link rel="stylesheet" href="${contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
   <link rel="stylesheet" href="${contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
+  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/prism/prism.css">
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="${contextPath}/resources/assets/css/style.css">
@@ -261,7 +262,7 @@
               <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <div class="dropdown-menu dropdown-menu-right">
               </a>
-              <a href="features-settings.html" class="dropdown-item has-icon">
+              <a href="#exampleModal" data-toggle="modal" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> EnrollForm
               </a>
               <div class="dropdown-divider"></div>
@@ -332,6 +333,7 @@
                   <ul class="dropdown-menu">
                     <li><a href="loginForm.me">Login</a></li> 
                     <li><a href="enrollForm.me">EnrollForm</a></li> 
+                    <li><a href="#exampleModal" data-toggle="modal">EnrollForm</a></li> 
                     <li><a href="#">Forgot ID</a></li> 
                     <li><a href="errorPage.me">Forgot Password</a></li> 
                   </ul>
@@ -343,11 +345,33 @@
             <a href="#" class="btn btn-primary btn-lg btn-block btn-icon-split">
               <i class="fas fa-rocket"></i> 버튼버튼메인으로?
             </a>
-          </div>        
+          </div>    
           </aside>
       </div>      
     </div>
   </div>
+
+  <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>What are the types of customers to sign up for?</p>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <a href="enrollForm.me" class="btn btn-primary">Teacher</a>
+          <a href="enrollForm.me" class="btn btn-primary">Student</a>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- General JS Scripts -->
   <script src="resources/assets/modules/jquery.min.js"></script>

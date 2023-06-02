@@ -16,16 +16,19 @@
 
     <!-- Site Icons -->
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="resources/images/apple-touch-icon.png">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/bootstrap.min.css">
     <!-- Site CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="resources/css/style.css">
     <!-- Responsive CSS -->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="resources/css/responsive.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="resources/css/custom.css">
+      <link rel="stylesheet" href="resources/assets/modules/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/fontawesome/css/all.min.css">
+
 
 <meta charset="UTF-8">
 <title>장바구니</title>
@@ -43,7 +46,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="table-main table-responsive">
-                                        <table class="table">
+                                        <table class="table"> 
                                             <thead>
                                                 <tr>
                                                     <th>체크박스</th>
@@ -97,7 +100,7 @@
                                 </div>
                                 <div class="col-lg-6 col-sm-6">
                                     <div class="update-box">
-                                        <input value="수정하기" type="submit" name="Update Cart">
+                                       <input value="수정하기" type="submit" name="Update Cart">
                                         <input value="삭제하기" type="submit" name="delete Cart"> 
                                         <input value="구매하기" type="submit" name="buyCart">
                                         

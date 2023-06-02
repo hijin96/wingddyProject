@@ -29,7 +29,6 @@
 		       LOGIN_TYPE
 		 FROM  MEMBER
 		WHERE  MEMBER_ID =  #{memberId}
-		  AND  MEMBER_PWD = #{memberPwd}
 		  AND  STATUS_YN = 'N'
 	</select>
 	

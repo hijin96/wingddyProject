@@ -24,7 +24,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="resources/css/custom.css">
 <meta charset="UTF-8">
-<title>구매목록</title>
+<title>주문상세조회</title>
 </head>
 <body>
     <div id="app">
@@ -37,7 +37,7 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-12">
-								<div class="card-body">
+								<div class="table-main table-responsive">
 									<table class="table">
 										<thead>
 											<tr>
@@ -58,7 +58,7 @@
 												</td>
 												<!-- <td class="quantity-box">In Stock</td> -->
 												<td class="price-pr">
-													<p>결제 금액</p>
+													<a class="btn hvr-hover">결제 금액</a>
 												</td>
 												<td class="shoppingdetail">
 													<a href="#"> <i class="btn btn-light">주문상세보기페이지로 이동</i></a>

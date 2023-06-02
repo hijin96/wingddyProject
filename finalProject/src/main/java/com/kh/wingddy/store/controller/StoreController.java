@@ -27,9 +27,24 @@ public class StoreController {
 	public String storewish() {
 		return "store/storewishlist";
 	}
+	//주문정보
 	@RequestMapping("shoppinglist")
-	public String storeshoplist() {
+	public String storeShoppingList() {
 		return "store/storeShoppingList";
+	}
+	//주문정보 상세보기
+	@RequestMapping("orderInfo")
+	public String orderInfo() {
+		return "store/orderInfo";
+	}
+	
+	@RequestMapping("enrollForm")
+	public String storeInsert() {
+		return "store/storeInsertEnrollForm";
+	}
+	@RequestMapping("insertstore.do")
+	public String insertStore() {
+		return "store/storemain";
 	}
 	
 }

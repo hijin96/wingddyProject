@@ -12,17 +12,17 @@
     <meta name="author" content="">
 
     <!-- Site Icons -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="resources/images/apple-touch-icon.png">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/bootstrap.min.css">
     <!-- Site CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="resources/css/style.css">
     <!-- Responsive CSS -->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="resources/css/responsive.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="resources/css/custom.css">
 <meta charset="UTF-8">
 <title>위시리스트</title>
 </head>
@@ -39,7 +39,7 @@
 							<div class="col-lg-12">
 								<div class="table-main table-responsive">
 									<table class="table">
-										<thead>
+										<thead class="alert alert-info">
 											<tr>
 												<th>상품이미지</th>
 												<th>상품명</th>
@@ -53,8 +53,8 @@
 											<tr>
 												<td class="thumbnail-img">
 													<a href="#">
-												<img class="img-fluid" src="images/img-pro-01.jpg" alt="" />
-											</a>
+												<img class="img-fluid" src="resources/images/img-pro-01.jpg" alt="" />
+												</a>
 												</td>
 												<td class="name-pr">
 													<a href="#">
