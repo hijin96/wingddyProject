@@ -42,5 +42,9 @@ public class StoreController {
 	public String storeInsert() {
 		return "store/storeInsertEnrollForm";
 	}
+	@RequestMapping("insertstore.do")
+	public String insertStore() {
+		return "store/storemain";
+	}
 	
 }

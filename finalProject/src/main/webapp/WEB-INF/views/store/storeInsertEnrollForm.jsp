@@ -59,24 +59,23 @@
 									<div class="form-group row mb-4">
 										<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">제목</label>
 										<div class="col-sm-12 col-md-7">
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" name="spName">
 										</div>
 									</div>
 									
 									<div class="form-group row mb-4">
 										<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">한줄설명</label>
 										<div class="col-sm-12 col-md-7">
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" name="spOneCome">
 										</div>
 									</div>
 									
 									
 									
 									<div class="form-group row mb-4">
-										<label
-											class="col-form-label text-md-right col-12 col-md-3 col-lg-3">수량</label>
+										<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">수량</label>
 										<div class="col-sm-12 col-md-7">
-											<input type="number" class="form-control selectric" value="0"/>
+											<input type="number" class="form-control selectric" value="0" name="amount"/>
 										</div>
 									</div>
 									
@@ -86,18 +85,10 @@
 											<textarea class="summernote"></textarea>
 										</div>
 									</div>
-										
-									<!-- <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" data-original-title="Picture">
-										<i class="note-icon-picture"></i>
-									</button> -->
 									<div class="modal-content">
 										<div class="modal-header">     
-											<h4 class="modal-title">썸네일 이미지 등록</h4>     
-											
-										</div>    
+											<h4 class="col-form-label text-md-right col-12 col-md-3 col-lg-3">썸네일 이미지 등록</h4>     
 										<div class="modal-body">
-										<div class="form-group note-form-group note-group-select-from-files">
-											<label class="note-form-label">Select from files</label>
 											 <input class="note-image-input note-form-control note-input" type="file" name="files" accept="image/*" multiple="multiple">
 										</div>
 									</div>	
