@@ -9,7 +9,7 @@ import com.kh.wingddy.member.model.vo.Member;
 public interface CalendarService {
 	public ArrayList<Calendar> selectScheduleList(int memberNo);
 	
-	public Calendar selectDaySchedule(Member m, Date day);
+	public ArrayList<Calendar> selectDaySchedule(Calendar c);
 	
 	public int insertSchedule(Calendar c);
 	

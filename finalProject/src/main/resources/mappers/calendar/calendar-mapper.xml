@@ -33,6 +33,10 @@
 		 	   MEMBER_NO = ${memberNo}
 	</select>
 
+	
+
+
+
 
 
 </mapper>

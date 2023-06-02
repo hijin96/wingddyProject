@@ -26,8 +26,8 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override
-	public Calendar selectDaySchedule(Member m, Date day) {
-		return null;
+	public ArrayList<Calendar> selectDaySchedule(Calendar c) {
+		return calendarDao.selectDaySchedule(sqlSession, c);
 	}
 
 	@Override

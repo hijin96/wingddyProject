@@ -18,5 +18,7 @@ public class CalendarDao {
 		return (ArrayList)sqlSession.selectList("calendar-mapper.selectScheduleList", memberNo);
 	}
 	
-	
+	public ArrayList<Calendar> selectDaySchedule(SqlSessionTemplate sqlSession, Calendar c){
+		return (ArrayList)sqlSession.selectList("calendar-mapper.selectDaySchedule", c);
+	}
 }

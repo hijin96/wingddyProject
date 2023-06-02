@@ -38,6 +38,10 @@ public class calendarController {
 		}
 	}
 	
+	@RequestMapping("daySchedule")
+	public String selectDaySchedule(Calendar c) {
+		calendarService.selectDaySchedule(c);
+	}
 	
 	
 	

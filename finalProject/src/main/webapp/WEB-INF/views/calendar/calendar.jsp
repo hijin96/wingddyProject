@@ -140,7 +140,7 @@
 				<div class="modal-dialog">
 			    	<div class="modal-content">
 			    	
-				       <!-- Modal Header -->
+				        <!-- Modal Header -->
 						<div class="modal-header">
 							<h4 id="modal-date" class="modal-title date">날짜자리</h4>
 						</div>
@@ -154,10 +154,8 @@
 									<button class="btn btn-warning btn-sm">수정</button>
 									<button class="btn btn-primary btn-sm" >삭제</button>
 									
-									
 								</li>
 								<br>
-								<li>2번</li>
 								
 							</ul>
 						</div>
@@ -170,6 +168,7 @@
 </div>	
 </div>	
 	<script>
+		let memberNo = ${loginUser.memberNo};
 	   
 	
 	    
@@ -178,9 +177,8 @@
 	        var calendar = new FullCalendar.Calendar(calendarEl, {
 	        	dateClick : function(info){
 	        		//alert('Clicked on : ' + info.dateStr);
-	        		console.log(info.dateStr); // 2023-06-02
-	        		$('#theDaySchedule').modal();
-	        		$('#modal-date').text(info.dateStr);
+	        		//console.log(info.dateStr); // 2023-06-02
+	        		showModal(info.dateStr);
 	        	},
 	        	selectable : true,
 	        	googleCalendarApiKey : 'AIzaSyDFV8dRGYeO2k9b_bAtA6yueCxVEl3FuYU',
@@ -193,7 +191,7 @@
 	        	events : function(info, successCallback, failureCallback){
 	        		$.ajax({
 	        			url : 'selectScheduleList',
-	        			data : {memberNo : ${loginUser.memberNo}},
+	        			data : {memberNo : memberNo},
 	        			type : 'post',
 	        			success : function(list){
 	        				//console.log(list);
@@ -260,6 +258,18 @@
     		}
     		
     	};
+    	
+    	
+    	function showModal(date){
+    		$.ajax({
+    			url : 'daySchedule',
+    			data : {memberNo : memberNo, date : date}
+    		
+    		})
+    		
+    		$('#theDaySchedule').modal();
+    		$('#modal-date').text(date);
+    	}
 	    	
     		
     </script>
