@@ -45,7 +45,7 @@
                 <form method="POST" action="enrollMember.me">
                   <div class="row">
                     <div class="form-group col-6">
-                      <label for="frist_name">Your ID</label>
+                      <label for="frist_name">Your ID</label><button type="button" id="checkBtn" class="btn btn-icon btn-success" onclick="checkId();" style="margin-left:195px; height:30px;" disabled=true;>check ID</button>
                       <input id="frist_name" type="text" class="form-control" name="memberId" autofocus required placeholder="Please Enter ID">
                     </div>
                     <div class="form-group col-6">
@@ -53,8 +53,8 @@
                       <input id="last_name" type="text" class="form-control" name="memberName" placeholder="Please Enter Name">
                     </div>
                     <!--중복체크-->
-                    <div class="form-group col-6">
-                      <label for="first_name" id="chkId">asd</label>
+                    <div class="form-group col-6" sytle="display:hidden;">
+                      <label for="first_name" id="chkId"></label>
                     </div>
                     <div class="form-group col-6">
                       <label for="last_name">sda</label>
@@ -125,42 +125,40 @@
     </section>
   </div>
   <script>
-    /*
+    
     window.onload = function(){
       
+      var idInput = document.getElementById('frist_name');
+
       idInput.addEventListener("keyup", ()=> keyupInput());
 
       
     }
-    */
+    
     function keyupInput(){
       const getIdCheck= RegExp(/^[a-zA-Z0-9]{5,13}$/);
       const getPwCheck= RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
       const getName= RegExp(/^[가-힣]+$/);
       const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
       const getPhone = RegExp(/^[0-9]{11}$/);
-      const idInput = document.getElementById('frist_name');
-      const idValue = idInput.value;
-      const idLength = idValue.length;
-      /*
+      var idInput = document.getElementById('frist_name');
+      var idValue = idInput.value;
+      var idLength = idValue.length;
+        //console.log(idValue);
       if(idLength >= 5){
-
+        //console.log(idValue);
         httpRequest = new XMLHttpRequest();
 
-        const textEl = document.getElementById('chkId');
-        const text = textEl.value;
+        var textEl = document.getElementById('chkId');
+        var text = textEl.value;
         textEl.value = '';
-        
-        httpRequest.onreadystatechange = () => {
-
-          if(httpRequest.readyState === XMLHttpRequest.DONE){
-            if(httpRequest.status === 200){
-              
-            }
-          }
+        if(!getIdCheck.test(idValue)){
+          textEl.innerText = '아이디는 첫글자 영문,그 외 영문자/숫자로 4~12자로 입력해주세요.';
+          document.getElementById('checkBtn').disabled = true;
         }
+      } else {
+          document.getElementById('checkBtn').disabled = false;
       }
-      */
     }
 
   </script>

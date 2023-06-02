@@ -2,6 +2,7 @@ package com.kh.wingddy.voca.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.wingddy.voca.model.vo.ClassVocaBook;
 import com.kh.wingddy.voca.model.vo.Voca;
 import com.kh.wingddy.voca.model.vo.VocaBook;
 
@@ -13,6 +14,8 @@ public interface VocaService {
 	ArrayList<VocaBook> selectVocaBookList(int memNo);
 	// 단어장 단어 리스트 조회(SELECT)
 	ArrayList<Voca> selectVocaList(int bookNo);
+	// 내 클래스별 단어장 리스트 조회(SELECT)
+	ArrayList<ClassVocaBook> selectClassVocaBookList(int memNo);
 	// 단어장 삭제(UPDATE)
 	
 	// 단어장 등록 페이지
@@ -24,7 +27,6 @@ public interface VocaService {
 	// - 단어 삭제(DELETE)
 	
 	/* 선생님 */
-	// 단어장의 소속 클래스 리스트 조회(SELECT)
 	
 	// 단어장 등록 페이지
 	// - 내 클래스 리스트 조회(SELECT)
@@ -36,7 +38,6 @@ public interface VocaService {
 	// - 단어장의 소속 클래스 리스트 조회(있음)
 	
 	/* 학생 */
-	// 내 클래스 리스트 조회(SELECT)
 	// 클래스 하위 단어장 리스트 조회(SELECT)
 	
 	// 단어장 등록 페이지

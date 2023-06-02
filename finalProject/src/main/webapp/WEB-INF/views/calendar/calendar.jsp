@@ -10,7 +10,6 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.css' rel='stylesheet' />
 	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js'></script>
 <style>
@@ -109,15 +108,15 @@
 								시작일 <input id="startDate" type="date" name="startDate" onchange="checkDate();" /><br>
 								종료일 <input id="endDate" type="date" name="endDate" onchange="checkDate();"/><br>
 								<p id="alert-endDate" style="display:none;">종료일은 시작일보다 빠를 수 없어요!</p>
-								배경색 <input type="color" name="color" />
-								<input type="hidden" name="memberNo" value="" />
+								배경색 <input type="color" name="color" value="#ffc34d" />
+								<input type="hidden" name="memberNo" value="${ loginUser.memberNo }" />
 						</div>
 						
 						<!-- Modal footer -->
 						<div class="modal-footer">
 						
 							<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-							<button type="button" class="btn btn-warning" >등록</button>
+							<button type="submit" class="btn btn-warning" >등록</button>
 						</div>
 					</form>
 					
@@ -185,21 +184,38 @@
 	        	},
 	        	selectable : true,
 	        	googleCalendarApiKey : 'AIzaSyDFV8dRGYeO2k9b_bAtA6yueCxVEl3FuYU',
-	        	events : {
+	        	events : [{
 	        			googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
 	        			color : 'transparent',
 	        			textColor : 'gray'
 	        		},
+	        		$.ajax({
+	        			url : 'selectScheduleList',
+	        			data : {memberNo : ${loginUser.memberNo}},
+	        			type : 'post',
+	        			success : function(schedule){
+	        				console.log(schedule);
+	        				
+	        				
+	        				
+	        				
+	        				
+	        			},
+	        			error : function(){
+	        				
+	        			}
+	        		
+	        		})
+	        		],
         		eventClick : function(info){
         			info.jsEvent.stopPropagation();
         			info.jsEvent.preventDefault();
         		}
 	        	/*
 	        	events: {
-	        		googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
 	        		{
-	        	      title: 'Event1',
-	        	      start: '2023-04-04'
+	        	    	title: 'Event1',
+	        	    	start: '2023-04-04'
 	        	    },
 	        	    {
 	        	    	title : 'event',
@@ -209,8 +225,8 @@
 	        	    	textColor: 'black'
 	        	    },
 	        	    {
-	        	      title: 'Event2',
-	        	      start: '2023-05-05'
+	        	    	title: 'Event2',
+	        	    	start: '2023-05-05'
 	        	    }
 	        	}
 	        	*/
@@ -220,6 +236,9 @@
     	});
     	
     	$(function(){
+    		
+    		console.log(typeof(${loginUser.memberNo}));
+    		
    			var d = new Date();
    			var month = d.getMonth() + 1;
    			var day = d.getDate();
