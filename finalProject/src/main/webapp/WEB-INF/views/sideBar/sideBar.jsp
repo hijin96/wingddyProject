@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="${contextPath}/resources/assets/modules/fontawesome/css/all.min.css">
 
   <!-- CSS Libraries -->
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/jqvmap/dist/jqvmap.min.css">
+  <link rel="stylesheet" href="Rassets/modules/jqvmap/dist/jqvmap.min.css">
   <link rel="stylesheet" href="${contextPath}/resources/assets/modules/summernote/summernote-bs4.css">
   <link rel="stylesheet" href="${contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
   <link rel="stylesheet" href="${contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
@@ -311,9 +311,44 @@
                 <li><a href="gmaps-draggable-marker.html">내정보수정</a></li>
               </ul>
             </li>    
-               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a></li>
-               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>			
-               <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
+
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="main.aph?classNo=2">CLASS-A</a></li>
+                <li><a class="nav-link" href="main.aph?classNo=3">CLASS-B</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="myAlphabet.aph?classNo=2">CLASS-A</a></li>
+                <li><a class="nav-link" href="myAlphabet.aph?classNo=3">CLASS-B</a></li>
+              </ul>
+            </li>
+
+
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="letterBox?classNo=2">CLASS-A</a></li>
+                <li><a class="nav-link" href="letterBox?classNo=3">CLASS-B</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="matching.mani?classNo=2">CLASS-A</a></li>
+                <li><a class="nav-link" href="matching.mani?classNo=3">CLASS-B</a></li>
+                <li><a class="nav-link" href="#">CLASS-C</a></li>
+              </ul>
+            </li>
+
+
+            <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>			
+            <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
             <c:choose>
               <c:when test="${not empty loginUser}">
                 <li class="menu-header">Profile</li>

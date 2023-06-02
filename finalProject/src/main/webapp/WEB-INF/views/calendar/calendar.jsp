@@ -56,6 +56,7 @@
 		color : red;
 		font-size : small;
 	}
+	
 </style>
 </head>
 <body>
@@ -94,7 +95,7 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						
-					<form action="insertSchedule" method="GET">
+					<form action="insertSchedule" method="POST">
 						<!-- Modal Header -->
 						<div class="modal-header">
 							<h4 class="modal-title">일정 추가하기</h4>
@@ -139,26 +140,14 @@
 				<div class="modal-dialog">
 			    	<div class="modal-content">
 			    	
-				       <!-- Modal Header -->
+				        <!-- Modal Header -->
 						<div class="modal-header">
 							<h4 id="modal-date" class="modal-title date">날짜자리</h4>
 						</div>
 			
 						<!-- Modal body -->
-						<div class="modal-body">
-							<ul id="todaySchedule">
-								<li>
-									<span>어쩌고</span>
-									
-									<button class="btn btn-warning btn-sm">수정</button>
-									<button class="btn btn-primary btn-sm" >삭제</button>
-									
-									
-								</li>
-								<br>
-								<li>2번</li>
-								
-							</ul>
+						<div id="theDaySchedule-content" class="modal-body">
+							내용자리
 						</div>
 					</div>
 				</div>
@@ -169,67 +158,54 @@
 </div>	
 </div>	
 	<script>
+		let memberNo = ${loginUser.memberNo};
 	   
+	
 	    
     	document.addEventListener('DOMContentLoaded', function() {
 	        var calendarEl = document.getElementById('calendar');
 	        var calendar = new FullCalendar.Calendar(calendarEl, {
 	        	dateClick : function(info){
-	        		//alert('Clicked on : ' + info.dateStr);
-	        		console.log(info.dateStr); // 2023-06-02
-	        		$('#theDaySchedule').modal();
-	        		$('#modal-date').text(info.dateStr);
-	        		
-	        		
+	        		//console.log(info.dateStr); // 2023-06-02
+	        		showModal(info.dateStr);
 	        	},
 	        	selectable : true,
 	        	googleCalendarApiKey : 'AIzaSyDFV8dRGYeO2k9b_bAtA6yueCxVEl3FuYU',
-	        	events : [{
-	        			googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
-	        			color : 'transparent',
-	        			textColor : 'gray'
-	        		},
+	        	eventSources : {
+					googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
+					color : 'transparent',
+					textColor : 'gray',
+					classNames : 1
+				},
+	        	events : function(info, successCallback, failureCallback){
 	        		$.ajax({
 	        			url : 'selectScheduleList',
-	        			data : {memberNo : ${loginUser.memberNo}},
+	        			data : {memberNo : memberNo},
 	        			type : 'post',
-	        			success : function(schedule){
-	        				console.log(schedule);
+	        			success : function(list){
 	        				
+	        				let value = [];
 	        				
-	        				
-	        				
-	        				
-	        			},
-	        			error : function(){
-	        				
+	        				for(let i in list){
+	        					 value.push({
+	        						 title : list[i].schedule,
+	        						 start : list[i].startDate,
+	        						 end : list[i].endDate,
+	        						 color : list[i].color,
+	        						 classNames : 2
+	        					})
+	        				}
+	        				console.log(value);
+		        			successCallback(value);
 	        			}
-	        		
 	        		})
-	        		],
+	        	},
         		eventClick : function(info){
         			info.jsEvent.stopPropagation();
         			info.jsEvent.preventDefault();
-        		}
-	        	/*
-	        	events: {
-	        		{
-	        	    	title: 'Event1',
-	        	    	start: '2023-04-04'
-	        	    },
-	        	    {
-	        	    	title : 'event',
-	        	    	start : '2023-04-04',
-	        	    	end : '2023-04-06',
-	        	    	color : 'yellow',
-	        	    	textColor: 'black'
-	        	    },
-	        	    {
-	        	    	title: 'Event2',
-	        	    	start: '2023-05-05'
-	        	    }
-	        	}
-	        	*/
+        		},
+        		eventOrder : ['-title', 'classNames']
+	        	
 	        });
 	        calendar.render();
       
@@ -253,6 +229,9 @@
 			
 			$('#date_tomorrow').html('&lt;tomorrow&gt;' + tomorrow);
    			
+			
+			
+			
     	});
 	    	
     	// 일정 추가시 시작일과 종료일 비교
@@ -267,6 +246,33 @@
     		}
     		
     	};
+    	
+    	// 캘린더에서 날짜 클릭 시 해당 날짜의 일정 모달로 출력
+    	function showModal(date){
+    		console.log(date);
+    		
+    		let value = '';
+    		$.ajax({
+    			url : 'daySchedule',
+    			data : {memberNo : memberNo, date : date},
+    			type : 'POST',
+    			success : function(list){
+    				
+    				$('#modal-date').html(date);
+    				for(let i in list){
+    					value += "<div>✔️" + list[i].schedule + "(" + list[i].startDate + " ~ " + list[i].endDate +  ")"
+							   + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class='btn btn-warning btn-sm'>수정</button>"
+							   + "<button class='btn btn-primary btn-sm'>삭제</button><br>"; 
+    						
+    				}
+    				$('#theDaySchedule-content').html(value);
+    			}
+    		
+    		});
+    		
+    		$('#theDaySchedule').modal();
+    		$('#modal-date').text(date);
+    	}
 	    	
     		
     </script>
