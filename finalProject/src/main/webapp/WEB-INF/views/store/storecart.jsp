@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="resources/css/responsive.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="resources/css/custom.css">
+      <link rel="stylesheet" href="resources/assets/modules/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/fontawesome/css/all.min.css">
+
 
 <meta charset="UTF-8">
 <title>장바구니</title>

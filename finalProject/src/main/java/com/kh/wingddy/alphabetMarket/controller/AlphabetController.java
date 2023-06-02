@@ -24,6 +24,14 @@ public class AlphabetController {
 		return "alphabetMarket/alphabetMarketEnroll";
 	}
 	
+	
+	@RequestMapping("post.aph")
+	public void insertMarket(String letter) {
+		System.out.println(letter);
+	}
+	
+	
+	
 	@RequestMapping("myAlphabet.aph")
 	public String myAlphabet() {
 		

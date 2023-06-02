@@ -38,4 +38,13 @@ public class StoreController {
 		return "store/orderInfo";
 	}
 	
+	@RequestMapping("enrollForm")
+	public String storeInsert() {
+		return "store/storeInsertEnrollForm";
+	}
+	@RequestMapping("insertstore.do")
+	public String insertStore() {
+		return "store/storemain";
+	}
+	
 }
