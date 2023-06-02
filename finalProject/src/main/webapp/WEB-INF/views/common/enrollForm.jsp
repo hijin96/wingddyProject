@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,7 @@
 
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="${contextPath}/resources/assets/modules/jquery-selectric/selectric.css">
-
+  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/dropzonejs/dropzone.css">
   <!-- Template CSS -->
   <link rel="stylesheet" href="${contextPath}/resources/assets/css/style.css">
   <link rel="stylesheet" href="${contextPath}/resources/assets/css/components.css">
@@ -42,7 +43,7 @@
               <div class="card-header"><h4>Enroll</h4></div>
 
               <div class="card-body">
-                <form method="POST" action="enrollMember.me">
+                <form method="POST" action="enrollMember.me" enctype="multipart/form-data">
                   <div class="row">
                     <div class="form-group col-6">
                       <label for="frist_name">Your ID</label><button type="button" id="checkBtn" class="btn btn-icon btn-success" onclick="checkId();" style="margin-left:195px; height:30px;" disabled=true;>check ID</button>
@@ -72,6 +73,7 @@
                       <option>naver.com</option>
                       <option>gmail.com</option>
                       <option>daum.net</option>
+                      <option>wingddy.com</option>
                     </select>
                   </div>
 
@@ -98,6 +100,21 @@
                     <div class="form-group col-6">
                       <label>Phone</label>
                       <input type="name" class="form-control" name="phone" placeholder="Please Enter Phone" required>
+                    </div>
+                  </div>
+
+                  <div class="row" id="teacher-file" style="display:none;">
+                    <div class="col-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h4>재직증명서 첨부하기</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="fallback" id="mydropzone">
+                              <input name="file" type="file" class="dropzone dz-clickable"/>
+                            </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -131,8 +148,19 @@
       var idInput = document.getElementById('frist_name');
 
       idInput.addEventListener("keyup", ()=> keyupInput());
+    
+      const url = new URL(window.location.href);
 
-      
+
+      console.log(url.search); // ?teacher
+
+      if(url.search === '?teacher'){
+        console.log('ok');
+        document.getElementById('teacher-file').style = 'display:show';
+      }
+      else {
+        console.log('no');
+      }
     }
     
     function keyupInput(){
@@ -175,9 +203,11 @@
   <!-- JS Libraies -->
   <script src="resources/assets/modules/jquery-pwstrength/jquery.pwstrength.min.js"></script>
   <script src="resources/assets/modules/jquery-selectric/jquery.selectric.min.js"></script>
+  <script src="resources/assets/modules/dropzonejs/min/dropzone.min.js"></script>
 
   <!-- Page Specific JS File -->
   <script src="resources/assets/js/page/auth-register.js"></script>
+  <script src="resources/assets/js/page/components-multiple-upload.js"></script>
   
   <!-- Template JS File -->
   <script src="resources/assets/js/scripts.js"></script>
