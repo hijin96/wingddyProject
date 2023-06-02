@@ -56,6 +56,7 @@
 		color : red;
 		font-size : small;
 	}
+	
 </style>
 </head>
 <body>
@@ -183,12 +184,13 @@
 	        	},
 	        	selectable : true,
 	        	googleCalendarApiKey : 'AIzaSyDFV8dRGYeO2k9b_bAtA6yueCxVEl3FuYU',
-	        	events : {
+	        	eventSources : {
 					googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
 					color : 'transparent',
-					textColor : 'gray'
+					textColor : 'gray',
+					classNames : 1
 				},
-	        	function(info, successCallback, failureCallback){
+	        	events : function(info, successCallback, failureCallback){
 	        		$.ajax({
 	        			url : 'selectScheduleList',
 	        			data : {memberNo : ${loginUser.memberNo}},
@@ -203,7 +205,8 @@
 	        						 title : list[i].schedule,
 	        						 start : list[i].startDate,
 	        						 end : list[i].endDate,
-	        						 color : list[i].color 
+	        						 color : list[i].color,
+	        						 classNames : 2
 	        					})
 	        				}
 	        				console.log(value);
@@ -214,26 +217,9 @@
         		eventClick : function(info){
         			info.jsEvent.stopPropagation();
         			info.jsEvent.preventDefault();
-        		}
-	        	/*
-	        	events: {
-	        		{
-	        	    	title: 'Event1',
-	        	    	start: '2023-04-04'
-	        	    },
-	        	    {
-	        	    	title : 'event',
-	        	    	start : '2023-04-04',
-	        	    	end : '2023-04-06',
-	        	    	color : 'yellow',
-	        	    	textColor: 'black'
-	        	    },
-	        	    {
-	        	    	title: 'Event2',
-	        	    	start: '2023-05-05'
-	        	    }
-	        	}
-	        	*/
+        		},
+        		eventOrder : ['-title', 'classNames']
+	        	
 	        });
 	        calendar.render();
       
