@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="col-lg-6 col-sm-6">
                                     <div class="update-box">
-                                        <input value="수정하기" type="submit" name="Update Cart">
+                                       <input value="수정하기" type="submit" name="Update Cart">
                                         <input value="삭제하기" type="submit" name="delete Cart"> 
                                         <input value="구매하기" type="submit" name="buyCart">
                                         

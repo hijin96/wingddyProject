@@ -24,7 +24,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="resources/css/custom.css">
 <meta charset="UTF-8">
-<title>구매목록</title>
+<title>주문상세조회</title>
 </head>
 <body>
     <div id="app">
@@ -37,30 +37,34 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-12">
-								<div class="card-body">
+								<div class="table-main table-responsive">
 									<table class="table">
 										<thead>
 											<tr>
-												<th>이미지</th>
-												<th>상품명</th>
-												<th>구매일자 </th>
-												<th>금액</th>
-												<th>수량</th>
-												<th>소계</th>													
+												<th>구매일자</th>
+												<th>주문번호</th>
+												<th>구매상품 </th>
+												<th>결제금액</th>
+												<th>주문상세보기</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
-												<td class="shoppingdetail" >이미지</td>
-												<td class="name-pr">아이스아메리카노 </td>
-												<td class="name-pr"> 20230601랜덤자리5개</td>
+												<td>2023-06-01 </td>
+												<td class="name-pr"> 20230601랜덤자리5개
+												</td>
 												<td class="produce-pr">
-													5,000
+													<p>자전거 외 3개</p>
 												</td>
 												<!-- <td class="quantity-box">In Stock</td> -->
-												<td class="price-pr"> 결제 금액 </td>
-												<td class="shoppingdetail">소계</td>
+												<td class="price-pr">
+													<a class="btn hvr-hover">결제 금액</a>
+												</td>
+												<td class="shoppingdetail">
+													<a href="#"> <i class="btn btn-light">주문상세보기페이지로 이동</i></a>
+												</td>
 											</tr>
+		
 										</tbody>
 									</table>
 								</div>
