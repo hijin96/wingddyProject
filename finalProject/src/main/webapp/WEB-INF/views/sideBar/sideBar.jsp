@@ -390,7 +390,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
+          <h5 class="modal-title">JOIN WINNGDDY!</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -398,9 +398,9 @@
         <div class="modal-body">
           <p>What are the types of customers to sign up for?</p>
         </div>
-        <div class="modal-footer bg-whitesmoke br">
-          <a href="enrollForm.me" class="btn btn-primary">Teacher</a>
-          <a href="enrollForm.me" class="btn btn-primary">Student</a>
+        <div class="modal-footer bg-whitesmoke br" style="margin:auto;">
+          <a href="enrollForm.me?teacher" class="btn btn-primary">Teacher</a>
+          <a href="enrollForm.me?student" class="btn btn-primary">Student</a>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
