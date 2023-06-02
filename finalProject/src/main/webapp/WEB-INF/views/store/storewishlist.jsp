@@ -39,7 +39,7 @@
 							<div class="col-lg-12">
 								<div class="table-main table-responsive">
 									<table class="table">
-										<thead>
+										<thead class="alert alert-info">
 											<tr>
 												<th>상품이미지</th>
 												<th>상품명</th>
