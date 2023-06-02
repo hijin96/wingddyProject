@@ -96,7 +96,6 @@
 		// 단어장 등록
 		
 		// 단어 추가
-		
 		$('#inject-voca-btn').click(() => {
 			let en = $('#voca-en-form').val();
 			let kr = $('#voca-kr-form').val();
@@ -108,6 +107,12 @@
 					  
 			$('#voca_table tbody').html(value);
 		});
+		
+		// 추가된 단어 삭제
+		$('#voca_table tbody').on('click','tr',() => {
+			
+		});
+		
 		// 단어 검색(ajax)
 	
 	
