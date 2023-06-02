@@ -13,7 +13,7 @@
 		<typeAlias type="com.kh.wingddy.voca.model.vo.Voca" alias="voca"/>
 		<typeAlias type="com.kh.wingddy.voca.model.vo.ClassVocaBook" alias="vocaBook"/>
 		<typeAlias type="com.kh.wingddy.calendar.model.vo.Calendar" alias="calendar" />
-		<typeAlias type="com.kh.wingddy.store.model.vo.Store" alias="store"/>
+		<typeAlias type="com.kh.wingddy.common.model.vo.Attachment" alias="attachment"/>
 	</typeAliases>
 	
 	<mappers>
@@ -23,7 +23,7 @@
 		<mapper resource="/mappers/manitto/manitto-mapper.xml" />
 		<mapper resource="/mappers/voca/voca-mapper.xml"/>
 		<mapper resource="/mappers/calendar/calendar-mapper.xml" />
-		<mapper resource="/mappers/store/store-mapper.xml" />
+		<mapper resource="/mappers/common/common-mapper.xml" />
 	</mappers>
 	
 </configuration>

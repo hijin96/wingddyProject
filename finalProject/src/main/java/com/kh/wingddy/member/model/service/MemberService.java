@@ -1,5 +1,6 @@
 package com.kh.wingddy.member.model.service;
 
+import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.member.model.vo.Member;
 
 public interface MemberService {
@@ -11,6 +12,9 @@ public interface MemberService {
 	// 회원 회원가입 메소드 (insert member, attachment) 
 	// 회원가입 종류(NAVER, KAKAO, GOOGLE, WINGDDY 중 WINGDDY 회원의 경우만 해당)
 	public int insertMember(Member m);
+	
+	public int insertTeacher(Member m, Attachment at);
+	
 	// 회원 아이디 찾기 (이메일 인증) select  
 	// 이메일 인증 성공시 DB에 저장되있는 회원의 ID값 출력
 	 
