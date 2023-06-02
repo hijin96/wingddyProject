@@ -14,6 +14,7 @@
 		<typeAlias type="com.kh.wingddy.voca.model.vo.ClassVocaBook" alias="vocaBook"/>
 		<typeAlias type="com.kh.wingddy.calendar.model.vo.Calendar" alias="calendar" />
 		<typeAlias type="com.kh.wingddy.store.model.vo.Store" alias="store"/>
+
 	</typeAliases>
 	
 	<mappers>
@@ -24,6 +25,7 @@
 		<mapper resource="/mappers/voca/voca-mapper.xml"/>
 		<mapper resource="/mappers/calendar/calendar-mapper.xml" />
 		<mapper resource="/mappers/store/store-mapper.xml" />
+
 	</mappers>
 	
 </configuration>
