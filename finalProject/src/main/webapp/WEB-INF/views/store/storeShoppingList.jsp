@@ -37,7 +37,7 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-12">
-								<div class="table-main table-responsive">
+								<div class="card-body">
 									<table class="table">
 										<thead>
 											<tr>
@@ -58,7 +58,7 @@
 												</td>
 												<!-- <td class="quantity-box">In Stock</td> -->
 												<td class="price-pr">
-													<a class="btn hvr-hover">결제 금액</a>
+													<p>결제 금액</p>
 												</td>
 												<td class="shoppingdetail">
 													<a href="#"> <i class="btn btn-light">주문상세보기페이지로 이동</i></a>
