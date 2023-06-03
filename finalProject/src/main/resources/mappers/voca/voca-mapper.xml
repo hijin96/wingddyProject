@@ -55,7 +55,10 @@
 		  JOIN
 		       VOCABOOK USING(BOOK_NO)
 		 WHERE
-		       CLASSROOM.MEMBER_NO = #{memNo}
+		       TEACHER_NO = #{memNo}
+         ORDER
+            BY
+               CLASS_NO 
 	</select>
 	
 </mapper>

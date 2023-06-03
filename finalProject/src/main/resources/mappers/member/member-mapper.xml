@@ -18,6 +18,7 @@
 		<result column="LOGIN_TYPE" property="loginType"/>
 	</resultMap>
 	
+	
 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
 		SELECT MEMBER_NO,
 		       MEMBER_ID, 
@@ -40,9 +41,9 @@
                MEMBER_ID,
                MEMBER_PWD, 
                MEMBER_NAME,
+               MEMBER_TYPE,
                EMAIL, 
                PHONE,
-               MEMBER_TYPE, 
                ENROLL_DATE 
                ) 
         VALUES(
@@ -50,10 +51,11 @@
                #{memberId},
                #{memberPwd},
                #{memberName},
+               #{memberType},
                #{email},
                #{phone},
-               'S',
                SYSDATE
                )      
 	</insert>
+	
 </mapper>

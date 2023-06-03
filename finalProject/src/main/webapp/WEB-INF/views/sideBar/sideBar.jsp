@@ -315,18 +315,16 @@
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="#">CLASS-A</a></li>
-                <li><a class="nav-link" href="#">CLASS-B</a></li>
-                <li><a class="nav-link" href="#">CLASS-C</a></li>
+                <li><a class="nav-link" href="main.aph?classNo=2">CLASS-A</a></li>
+                <li><a class="nav-link" href="main.aph?classNo=3">CLASS-B</a></li>
               </ul>
             </li>
 
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="#">CLASS-A</a></li>
-                <li><a class="nav-link" href="#">CLASS-B</a></li>
-                <li><a class="nav-link" href="#">CLASS-C</a></li>
+                <li><a class="nav-link" href="myAlphabet.aph?classNo=2">CLASS-A</a></li>
+                <li><a class="nav-link" href="myAlphabet.aph?classNo=3">CLASS-B</a></li>
               </ul>
             </li>
 
@@ -334,17 +332,16 @@
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="#">CLASS-A</a></li>
-                <li><a class="nav-link" href="#">CLASS-B</a></li>
-                <li><a class="nav-link" href="#">CLASS-C</a></li>
+                <li><a class="nav-link" href="letterBox?classNo=2">CLASS-A</a></li>
+                <li><a class="nav-link" href="letterBox?classNo=3">CLASS-B</a></li>
               </ul>
             </li>
 
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="#">CLASS-A</a></li>
-                <li><a class="nav-link" href="#">CLASS-B</a></li>
+                <li><a class="nav-link" href="matching.mani?classNo=2">CLASS-A</a></li>
+                <li><a class="nav-link" href="matching.mani?classNo=3">CLASS-B</a></li>
                 <li><a class="nav-link" href="#">CLASS-C</a></li>
               </ul>
             </li>
@@ -393,7 +390,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
+          <h5 class="modal-title">JOIN WINNGDDY!</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -401,9 +398,9 @@
         <div class="modal-body">
           <p>What are the types of customers to sign up for?</p>
         </div>
-        <div class="modal-footer bg-whitesmoke br">
-          <a href="enrollForm.me" class="btn btn-primary">Teacher</a>
-          <a href="enrollForm.me" class="btn btn-primary">Student</a>
+        <div class="modal-footer bg-whitesmoke br" style="margin:auto;">
+          <a href="enrollForm.me?teacher" class="btn btn-primary">Teacher</a>
+          <a href="enrollForm.me?student" class="btn btn-primary">Student</a>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>

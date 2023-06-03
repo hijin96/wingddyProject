@@ -4,6 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.member.model.dao.MemberDao;
 import com.kh.wingddy.member.model.vo.Member;
 
@@ -26,6 +27,15 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMember(Member m) {
 		
 		return memberDao.insertMember(sqlSession, m);
+	}
+
+	@Override
+	public int insertTeacher(Member m, Attachment at) {
+		
+		int result1 = memberDao.insertMember(sqlSession, m);
+		int result2 = memberDao.insertAttach(sqlSession, at);
+		
+		return result1 * result2;
 	}
 
 	

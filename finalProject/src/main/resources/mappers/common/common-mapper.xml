@@ -2,5 +2,29 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="">
+<mapper namespace="commonMapper">
+	
+	<insert id="insertAttach" parameterType="attachment">
+		INSERT
+		  INTO
+		       ATTACHMENT
+		       (
+		       FILE_NO,
+		       MEMBER_NO,
+		       ORIGIN_NAME,
+		       CHANGE_NAME,
+		       FILE_LEVEL,
+		       FILE_PATH
+		       )
+		VALUES
+		      (
+		      SEQ_FNO.NEXTVAL,
+		      SEQ_MNO.CURRVAL,
+		      #{originName},
+		      #{changeName},
+		      #{fileLevel},
+		      #{filePath}
+		      )
+	</insert>
+	
 </mapper>
