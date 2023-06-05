@@ -21,10 +21,10 @@ public class ClassroomController {
 	@RequestMapping("classMain.cl")
 	public ModelAndView ClassMainView(ModelAndView mv, HttpSession session, int cno) {
 		
-		ArrayList<ClassMember> cm = classroomService.selectPassStudent(cno);
+		//ArrayList<ClassMember> cm = classroomService.selectPassStudent(cno);
 		
-		session.setAttribute("class", new Classroom(cno, "임시세션", "임시세션","임시코드"));
-		
+		session.setAttribute("classroom", new Classroom(cno, "임시세션", "임시세션","임시코드"));
+		mv.setViewName("classroom/classTeacherMain");
 		return mv;
 	}
 }

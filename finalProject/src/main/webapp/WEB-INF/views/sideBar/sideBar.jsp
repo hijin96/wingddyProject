@@ -314,22 +314,22 @@
             </li>    
             </c:if>
 			
-			<c:if test="${ class ne null }">
-	            <li class="dropdown"><!-- 링크?cno=${class.cno} -->
-	              <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a>
+			<c:if test="${ not empty classroom }">
+	            <li><%--링크?cno=${class.cno}--%>
+	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a>
 	            </li>
 	
-	            <li class="dropdown">
-	              <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
+	            <li>
+	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
 	            </li>
 	
 	
-	            <li class="dropdown">
-	              <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
+	            <li>
+	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
 	            </li>
 	
-	            <li class="dropdown">
-	              <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
+	            <li>
+	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
 	            </li>
 	
 	
