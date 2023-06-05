@@ -20,7 +20,6 @@
 		
 		<typeAlias type="com.kh.wingddy.alphabetMarket.vo.Reply" alias="alphabetReply" />
 		<typeAlias type="com.kh.wingddy.alphabetMarket.vo.AlphabetMarket" alias="alphabetMarket" />		
-		<typeAlias type="com.kh.wingddy.classroom.model.vo.ClassMember" alias="classMember" />
 
 	</typeAliases>
 	
@@ -29,6 +28,7 @@
 		<mapper resource="/mappers/alphabet/alphabet-mapper.xml" />
 		<mapper resource="/mappers/letter/letter-mapper.xml" />
 		<mapper resource="/mappers/manitto/manitto-mapper.xml" />
+		
 		<mapper resource="/mappers/classroom/class-mapper.xml" />
 		<mapper resource="/mappers/voca/voca-mapper.xml"/>
 		<mapper resource="/mappers/calendar/calendar-mapper.xml" />

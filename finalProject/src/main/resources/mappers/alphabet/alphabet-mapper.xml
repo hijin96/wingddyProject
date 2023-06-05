@@ -5,7 +5,3 @@
 <mapper namespace="alphabetMapper">
 </mapper>
 
-
-<select id='selectMarketList' parameterType="alphabetMarket" resultType="alphabetMarket">
-	select 
-</select>
