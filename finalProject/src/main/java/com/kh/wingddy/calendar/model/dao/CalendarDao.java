@@ -22,4 +22,11 @@ public class CalendarDao {
 	public ArrayList<Calendar> selectDaySchedule(SqlSessionTemplate sqlSession, HashMap map){
 		return (ArrayList)sqlSession.selectList("calendar-mapper.selectDaySchedule", map);
 	}
+	
+	public int deleteSchedule(SqlSessionTemplate sqlSession, int scheduleNo) {
+		return sqlSession.delete("calendar-mapper.deleteSchedule", scheduleNo);
+	}
+	
+	
+	
 }
