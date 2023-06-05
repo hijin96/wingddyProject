@@ -116,7 +116,7 @@
 				}
 				
 				document.getElementById('insertBook-btn').addEventListener('click', () => {
-					location.href='insertBook.vc';
+					location.href='insertBookForm.vc';
 				});
 			}
 			
