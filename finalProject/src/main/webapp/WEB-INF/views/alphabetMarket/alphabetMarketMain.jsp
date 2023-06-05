@@ -155,6 +155,38 @@
 	
 	$(function(){
 		
+		createButton();
+
+
+		var resetArr = [];
+
+		$('.clickFilter').click(function(){
+
+			var alphaValue = this.value
+			
+
+			if(resetArr.indexOf(alphaValue) >= 0){
+
+				console.log('새로고침');
+				//새로고침
+				createButton();
+				//selectReplyList();
+			}
+			else{
+				resetArr.push(alphaValue);
+				//selectAlphabetListFilter(alphaValue);
+				console.log(resetArr);
+			}
+			
+
+
+		});
+
+
+	})
+
+	function createButton(){
+
 		var alphabetArr = ['A', 'B', 'C'];
 
 		let value = '';
@@ -164,16 +196,9 @@
 
 		$('#filterButton').html(value);
 
+		//console.log(alphabetArr);
 
-
-		$('.clickFilter').click(function(){
-
-			//selectAlphabetListFilter(this.value);
-
-		})
-
-
-	})
+	}
 
 
 	/*
