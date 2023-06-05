@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.wingddy.classroom.model.service.ClassroomService;
 import com.kh.wingddy.classroom.model.vo.ClassMember;
+import com.kh.wingddy.classroom.model.vo.Classroom;
 
 @Controller
 public class ClassroomController {
@@ -21,6 +22,8 @@ public class ClassroomController {
 	public ModelAndView ClassMainView(ModelAndView mv, HttpSession session, int cno) {
 		
 		ArrayList<ClassMember> cm = classroomService.selectPassStudent(cno);
+		
+		session.setAttribute("class", new Classroom(cno, "임시세션", "임시세션","임시코드"));
 		
 		return mv;
 	}
