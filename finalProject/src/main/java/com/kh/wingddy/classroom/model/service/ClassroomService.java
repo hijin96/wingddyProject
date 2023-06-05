@@ -1,9 +1,15 @@
 package com.kh.wingddy.classroom.model.service;
 
+import java.util.ArrayList;
+
+import com.kh.wingddy.classroom.model.vo.Classroom;
+import com.kh.wingddy.member.model.vo.Member;
+
 public interface ClassroomService {
 
 	/* 공통 */
 	// 내 클래스 리스트 조회 (SELECT)
+	ArrayList<Classroom> selectClassList(Member m);
 	
 	// 클래스 메인페이지
 	// 현재 클래스에 등록된 과제 조회 X (education)

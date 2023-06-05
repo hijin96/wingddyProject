@@ -1,5 +1,12 @@
 package com.kh.wingddy.classroom.model.vo;
 
-public class Classroom {
+import lombok.Data;
 
+@Data
+public class Classroom {
+	
+	private int classNo;
+	private String className;
+	private String teacherName;
+	private String enterCode;
 }
