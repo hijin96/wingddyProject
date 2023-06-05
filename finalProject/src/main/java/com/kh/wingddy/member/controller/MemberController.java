@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.wingddy.classroom.model.service.ClassroomService;
-import com.kh.wingddy.classroom.model.vo.Classroom;
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.member.model.service.MemberService;
