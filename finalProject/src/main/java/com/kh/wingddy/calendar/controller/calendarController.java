@@ -35,7 +35,7 @@ public class calendarController {
 		if(calendarService.insertSchedule(c) > 0) {
 			return "redirect:/calendar"; 
 		} else {
-			model.addAttribute("errorMsg", "ÀÏÁ¤ Ãß°¡¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+			model.addAttribute("errorMsg", "ì¼ì • ì¶”ê°€ ì‹¤íŒ¨.");
 			return "common/errorPage";
 		}
 	}
@@ -49,6 +49,18 @@ public class calendarController {
 		//System.out.println(map);
 		return new Gson().toJson(calendarService.selectDaySchedule(map));
 	}
+	
+	@RequestMapping("deleteSchedule")
+	public String deleteSchedule(int scheduleNo, Model model) {
+		if(calendarService.deleteSchedule(scheduleNo) > 0) {
+			System.out.println("ëë‹¤");
+			return "redirect:/calendar";
+		} else {
+			model.addAttribute("errorMsg", "ì¼ì • ì‚­ì œ ì‹¤íŒ¨. ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.");
+			return "common/errorPage";
+		}
+	}
+	
 	
 	
 	
