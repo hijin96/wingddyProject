@@ -139,11 +139,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping("updateForm.me")
-	public String updateMember(int memberno) {
+	public String updateMember() {
 		
-		
-		
-		return "updateForm";
+		return "member/updateForm";
 	}
+	
 	
 }
