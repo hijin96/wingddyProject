@@ -15,5 +15,6 @@ public class AlphabetMarket {
 	private Date createDate;
 	private String status;
 	private String sellingStatus;
+	private String title;
 
 }

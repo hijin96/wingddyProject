@@ -156,7 +156,32 @@
 
 
 
-	$
+	function selectReplyList(){
+
+		$.ajax({
+			url : 'main.aph',
+			data  : {
+				classNo : '${sessionScope.classNo}',
+			},
+			success : function(result){
+				
+				let value = '';
+				for(let i in list){
+					value += '<div class="col-12 col-md-4 col-lg-4">'
+						   + '<article class="article article-style-c">'
+						   + '<div class="article-header">'
+						   + '<div class="article-image">'
+						   + '<p style="text-align: center; font-size: 150px; margin-top: 100px;">'+ ${requestScope.AlphabetMarket.alphabet} + '</p>'
+						   + '</div></div><div class="article-details">'
+						   + '<div class="article-category"><a href="#">' + ${requestScope.AlphabetMarket.writer} + '</a> <div class="bullet"></div> <a href="#">' 
+						   + ${requestScope.AlphabetMarket.createDate} + '</a></div>'
+						   + '<div class="article-user"><div class="article-user-details"><div class="user-detail-name">'
+						   + '<a href="' + 링크 +  '">' + ${requestScope.AlphabetMarket.createDate} + '</a>'
+	                       + '</div></div></div></div></article></div>'
+				}
+			}
+		})
+	}
 
 
 
