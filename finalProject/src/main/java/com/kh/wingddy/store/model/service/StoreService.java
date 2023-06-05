@@ -2,6 +2,7 @@ package com.kh.wingddy.store.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.store.model.vo.Store;
 
 public interface StoreService {
@@ -10,7 +11,7 @@ public interface StoreService {
 	int selectListCount();
 	
 	//게시글 리스트 조회
-	ArrayList<Store> selectList();
+	ArrayList<Store> selectList(PageInfo pageInfo);
 	
 	//조회수 증가하면 글보기 성공
 	int inceraseCount(int spNo);
