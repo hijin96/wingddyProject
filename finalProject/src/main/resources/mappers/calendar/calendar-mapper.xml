@@ -38,8 +38,9 @@
 			   schedule_no scheduleNo
 		  	  ,member_no memberNo
 		  	  ,schedule schedule
-		  	  ,to_char(start_date, 'MM.DD') startDate
-		  	  ,to_char(end_date + interval '1' day, 'MM.DD') endDate
+		  	  ,to_char(start_date, 'YYYY-MM-DD') startDate
+		  	  ,to_char(end_date + interval '1' day, 'YYYY-MM-DD') endDate
+		  	  ,color
 		  FROM
 		  	   CALENDAR
 		 WHERE
@@ -53,10 +54,20 @@
 		  from
 		  	   calendar
   	     where
-  	     	   schedule_no = ${scheduleNo}
+  	     	   schedule_no = #{scheduleNo}
 	</delete>
 
-
+	<update id="updateSchedule" parameterType="calendar">
+		update
+			   calendar
+		   set
+		   	   schedule = #{schedule}
+		   	  ,start_date = #{startDate}
+		   	  ,end_date = #{endDate}
+		   	  ,color = #{color}
+		 where
+		 	   schedule_no = #{scheduleNo}  	  
+	</update>
 
 
 </mapper>

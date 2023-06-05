@@ -44,4 +44,13 @@ public class CalendarServiceImpl implements CalendarService {
 		return calendarDao.deleteSchedule(sqlSession, scheduleNo);
 	}
 
+	public int updateSchedule(Calendar c) {
+		return calendarDao.updateSchedule(sqlSession, c);
+	}
+	
+	
+	
+	
+	
+	
 }
