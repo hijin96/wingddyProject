@@ -45,11 +45,9 @@ public class MemberController {
 		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
 			//System.out.println(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd()));
-			ArrayList<Classroom> c = classroomService.selectClassList(loginUser);
-			System.out.println(c);
 			session.setAttribute("loginUser", loginUser);
-			session.setAttribute("classList", c);
-			mv.setViewName("sideBar/sideBar");
+			session.setAttribute("classList", classroomService.selectClassList(loginUser));
+			mv.setViewName("redirect:/");
 		} else {
 			session.setAttribute("alertMsg", "로그인실패");
 			mv.setViewName("common/errorPage");
