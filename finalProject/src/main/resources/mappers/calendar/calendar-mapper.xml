@@ -48,6 +48,13 @@
 		   	   #{date} BETWEEN START_DATE AND END_DATE
 	</select>
 
+	<delete id="deleteSchedule" parameterType="_int">
+		delete
+		  from
+		  	   calendar
+  	     where
+  	     	   schedule_no = ${scheduleNo}
+	</delete>
 
 
 

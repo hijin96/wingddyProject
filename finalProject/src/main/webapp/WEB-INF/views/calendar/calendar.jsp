@@ -195,7 +195,7 @@
 	        						 classNames : 2
 	        					})
 	        				}
-	        				console.log(value);
+	        				//console.log(value);
 		        			successCallback(value);
 	        			}
 	        		})
@@ -213,7 +213,7 @@
     	
     	$(function(){
     		
-    		console.log(typeof(${loginUser.memberNo}));
+    		//console.log(typeof(${loginUser.memberNo}));
     		
    			var d = new Date();
    			var month = d.getMonth() + 1;
@@ -249,7 +249,7 @@
     	
     	// 캘린더에서 날짜 클릭 시 해당 날짜의 일정 모달로 출력
     	function showModal(date){
-    		console.log(date);
+    		//console.log(date);
     		
     		let value = '';
     		$.ajax({
@@ -261,9 +261,10 @@
     				$('#modal-date').html(date);
     				for(let i in list){
     					value += "<div>✔️" + list[i].schedule + "(" + list[i].startDate + " ~ " + list[i].endDate +  ")"
-							   + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class='btn btn-warning btn-sm'>수정</button>"
-							   + "<button class='btn btn-primary btn-sm'>삭제</button><br>"; 
-    						
+							   + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div id='scheduleNo' style='display:none'>" + list[i].scheduleNo + " </div>"
+							   + "<button type='button' class='btn btn-warning btn-sm'>수정</button>"
+							   + "<button type='button' id='btn1' onclick='deleteSchedule();' class='btn btn-primary btn-sm'>삭제</button></div><br>"; 
+    					//console.log($('#btn1'));	
     				}
     				$('#theDaySchedule-content').html(value);
     			}
@@ -273,7 +274,20 @@
     		$('#theDaySchedule').modal();
     		$('#modal-date').text(date);
     	}
-	    	
+	    
+    	$('#btn1').click(function(){
+	    	console.log($('#btn1').prev());
+    		
+    	})
+    		
+    	function deleteSchedule(){
+    		console.log($('#scheduleNo').text());
+    		location.href="deleteSchedule?scheduleNo=" + $('#scheduleNo').text(); 
+    	}
+    	
+    	
+    	//$('#btn1').attr("onclick", location.href="deleteSchedule?scheduleNo=" + $(this).prev().val());\
+ 
     		
     </script>
 
