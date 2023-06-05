@@ -2,6 +2,7 @@ package com.kh.wingddy.store.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +16,9 @@ public class StoreDao {
 		return sqlSession.selectOne("storeMapper.selectListCount");
 	}
 	public ArrayList<Store> selectList(SqlSessionTemplate sqlSession, PageInfo pageInfo) {
-		return (ArrayList)sqlSession.selectList("storeMapper.selectList", pageInfo);
+		int offset = (pageInfo.getCurrentPage()-1)*pageInfo.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pageInfo.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("storeMapper.selectList", null, rowBounds);
 	}
 	public int insertStoreBoard(SqlSessionTemplate sqlSession, Store s) {
 		// TODO Auto-generated method stub
