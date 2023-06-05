@@ -6,6 +6,6 @@
 </mapper>
 
 
-<select parameterType="">
-
+<select id='selectMarketList' parameterType="alphabetMarket" resultType="alphabetMarket">
+	select 
 </select>
