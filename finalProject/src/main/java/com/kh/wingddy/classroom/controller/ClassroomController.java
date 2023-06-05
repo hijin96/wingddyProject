@@ -21,7 +21,7 @@ public class ClassroomController {
 	public ModelAndView ClassMainView(ModelAndView mv, HttpSession session, int cno) {
 		
 		ArrayList<ClassMember> cm = classroomService.selectPassStudent(cno);
-		
+		System.out.println(cm);
 		return mv;
 	}
 }

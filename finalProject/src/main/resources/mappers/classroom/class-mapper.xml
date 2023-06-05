@@ -10,6 +10,12 @@
 		<result column="TEACHER_NAME" property="teacherName" />
 		<result column="ENTER_CODE" property="enterCode" />
 	</resultMap>
+	
+	<resultMap type="classMember" id="classMemberResultSet">
+		<result column="CLASS_NO" property="classNo" />
+		<result column="STUDENT_NO" property="studentNo" />
+		<result column="ENTER_STATUS" property="enterStatus" />
+	</resultMap>
 
 	<select id="selectClassList" parameterType="member" resultMap="classResultSet">
 		<choose>
@@ -41,5 +47,24 @@
 			</otherwise>		       
 		</choose>
 			   
+	</select>
+	
+	<select id="selectPassStudent" parameterType="_int" resultMap="classMemberResultSet">
+		SELECT
+		       MEMBER_NO,
+		       MEMBER_ID,
+		       MEMBER_NAME,
+		       PHONE,
+		       CLASS_NO,
+		       ENTER_STATUS,
+		       STUDENT_NO
+		  FROM
+		       CLASS_MEMBER
+		  JOIN
+		       MEMBER ON(MEMBER_NO = STUDENT_NO)     
+		 WHERE
+		       CLASS_NO = #{cno}
+		   AND
+		       ENTER_STATUS = 'N'    
 	</select>
 </mapper>
