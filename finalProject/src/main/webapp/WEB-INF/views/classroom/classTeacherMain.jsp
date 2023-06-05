@@ -37,14 +37,47 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Card</h1>
+                <h1>${classList[0].className}</h1>
                 <div class="section-header-breadcrumb">
-                  <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                  <div class="breadcrumb-item"><a href="#">Bootstrap Components</a></div>
-                  <div class="breadcrumb-item">Card</div>
+                  <div class="card-body">
+                    <p>
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Class Code
+                      </button>
+                    </p>
+                    <div class="collapse" id="collapseExample">
+                      <p>
+                        Code : 243214
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
+              <div class="row">
+                <div class="col-12 col-md-12 col-lg-6">
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h4>클래스 입장 수락</h4>
+                    </div>
+                    <div class="card-body">
+                      
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6 col-md-12 col-lg-6">
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h4>클래스 내 랭킹</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>Card <code>.card-primary</code></p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
         </section>
     </div>
 
