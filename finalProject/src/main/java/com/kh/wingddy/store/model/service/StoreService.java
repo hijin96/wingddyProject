@@ -32,7 +32,7 @@ public interface StoreService {
 	//위시리스트 추가 및 삭제
 	//위시리스트 목록보기
 	//결제(insert)
-	//
+	
 	
 	
 	
