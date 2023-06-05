@@ -13,7 +13,7 @@
 
 	<select id="selectClassList" parameterType="member" resultMap="classResultSet">
 		<choose>
-			<when test='#{memberType eq "T"}'>
+			<when test='memberType == "T"' >
 				SELECT
 				       CLASS_NO
 				      ,CLASS_NAME
@@ -37,7 +37,7 @@
 				 WHERE
 				       STUDENT_NO = ${memberNo}
 				   AND
-				   	   ENTER_STATE = 'Y'
+				   	   ENTER_STATUS = 'Y'
 			</otherwise>		       
 		</choose>
 			   

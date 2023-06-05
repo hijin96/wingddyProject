@@ -47,7 +47,7 @@ public class MemberController {
 			//System.out.println(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd()));
 			session.setAttribute("loginUser", loginUser);
 			session.setAttribute("classList", classroomService.selectClassList(loginUser));
-			mv.setViewName("sideBar/sideBar");
+			mv.setViewName("redirect:/");
 		} else {
 			session.setAttribute("alertMsg", "로그인실패");
 			mv.setViewName("common/errorPage");
@@ -57,6 +57,7 @@ public class MemberController {
 	
 	@RequestMapping("loginForm.me")
 	public String loginForm() {
+		
 		
 		return "common/loginForm";
 	}

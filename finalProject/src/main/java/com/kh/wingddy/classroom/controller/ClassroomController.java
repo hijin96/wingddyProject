@@ -1,13 +1,17 @@
 package com.kh.wingddy.classroom.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.wingddy.classroom.model.service.ClassroomService;
-import com.kh.wingddy.member.model.vo.Member;
+import com.kh.wingddy.classroom.model.vo.ClassMember;
+import com.kh.wingddy.classroom.model.vo.Classroom;
 
 @Controller
 public class ClassroomController {
@@ -15,10 +19,12 @@ public class ClassroomController {
 	private ClassroomService classroomService;
 	
 	@RequestMapping("classMain.cl")
-	public String ClassMainView(HttpSession session) {
+	public ModelAndView ClassMainView(ModelAndView mv, HttpSession session, int cno) {
 		
-		Member m = (Member)session.getAttribute("loginUser");
-		classroomService.selectClassList(m);
-		return "classroom/classTeacherMain";
+		ArrayList<ClassMember> cm = classroomService.selectPassStudent(cno);
+		
+		session.setAttribute("class", new Classroom(cno, "임시세션", "임시세션","임시코드"));
+		
+		return mv;
 	}
 }

@@ -1,8 +1,9 @@
 package com.kh.wingddy.classroom.model.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
+@Data @AllArgsConstructor
 public class Classroom {
 	
 	private int classNo;
