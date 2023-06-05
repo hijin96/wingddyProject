@@ -94,14 +94,6 @@
               </div>
             </div>
            
-            <div class="col-12 col-sm-6 col-lg-3">
-              <div class="card">
-                <div class="card-body text-center">
-                  <div class="mb-2">Input Text</div>
-                  <button class="btn btn-primary" id="swal-7">Launch</button>
-                </div>
-              </div>
-            </div>
           
           </div>
         </div>
@@ -148,9 +140,13 @@
                     //console.log(result);
                     if(result === '1'){
                       swal('Correct password!', 'update profile?', 'success');
-                      if($('#swal-2').click() == true){
-                       location.href = 'updateForm.me';
+                      if($('#swal-2').on(click(), function(){
+                        location.href = 'updateForm.me';
+                      })){
                       }
+                    }
+                    else{
+                      swal('incorrect password!', 'enter agian', 'error');
                     }
                 },
                 error : function(){
