@@ -18,7 +18,8 @@
 	        </div>
 	
 	        <div class="section-body">
-	            <div style="text-align: center;">
+	            <div style="text-align: center;" id="filterButton">
+					<!--
 	                <input type="button" value="A" class="btn btn-warning btn-lg">
 	                <input type="button" value="B" class="btn btn-primary btn-lg">
 	                <input type="button" value="C" class="btn btn-primary btn-lg">
@@ -45,6 +46,7 @@
 	                <input type="button" value="X" class="btn btn-primary btn-lg">
 	                <input type="button" value="Y" class="btn btn-primary btn-lg">
 	                <input type="button" value="Z" class="btn btn-primary btn-lg">
+					-->
 	            </div>
 	             
 	            <br><br>
@@ -150,13 +152,67 @@
 
 
 <script>
-    $(function(){
+	
+	$(function(){
+		
+		var alphabetArr = ['A', 'B', 'C'];
+
+		let value = '';
+		for(let i in alphabetArr){
+			value += '<input type="button" value="'+ alphabetArr[i] +'" class="btn btn-primary btn-lg clickFilter">'
+		}
+
+		$('#filterButton').html(value);
+
+
+
+		$('.clickFilter').click(function(){
+
+			//selectAlphabetListFilter(this.value);
+
+		})
+
+
+	})
+
+
+	/*
+	$(function(){
 		selectReplyList();
     });
 
+	function selectAlphabetList(){
 
+		$.ajax({
+			url : 'main.aph',
+			data  : {
+				classNo : '${sessionScope.classNo}',
+			},
+			success : function(list){
+				
+				let value = '';
+				for(let i in list){
+					value += '<div class="col-12 col-md-4 col-lg-4">'
+						   + '<article class="article article-style-c">'
+						   + '<div class="article-header">'
+						   + '<div class="article-image">'
+						   + '<p style="text-align: center; font-size: 150px; margin-top: 100px;">'+ ${requestScope.AlphabetMarket.alphabet} + '</p>'
+						   + '</div></div><div class="article-details">'
+						   + '<div class="article-category"><a href="#">' + ${requestScope.AlphabetMarket.writer} + '</a> <div class="bullet"></div> <a href="#">' 
+						   + ${requestScope.AlphabetMarket.createDate} + '</a></div>'
+						   + '<div class="article-user"><div class="article-user-details"><div class="user-detail-name">'
+						   + '<a href="' + 링크 +  '">' + ${requestScope.AlphabetMarket.createDate} + '</a>'
+	                       + '</div></div></div></div></article></div>'
+				}
 
-	function selectReplyList(){
+				//$('#replyArea tbody').html(value);
+
+			}
+		})
+	};
+
+	/*
+	function selectAlphabetListFilter(){
 
 		$.ajax({
 			url : 'main.aph',
@@ -182,7 +238,7 @@
 			}
 		})
 	}
-
+	*/
 
 
 </script>

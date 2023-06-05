@@ -18,7 +18,7 @@ public class AlphabetController {
 	@RequestMapping("main.aph")
 	public String main(HttpSession session) {
 		
-		AlphabetService.ajaxSelectMarketList((int)session.getAttribute("classNo"));
+		//AlphabetService.ajaxSelectMarketList((int)session.getAttribute("classNo"));
 		
 		
 		return "alphabetMarket/alphabetMarketMain";

@@ -18,14 +18,7 @@ public class AlphabetServiceImpl implements AlphabetService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	
-	
-	
-	@Override
-	public ArrayList<AlphabetMarket> ajaxSelectMarketList(AlphabetMarket am) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public AlphabetMarket marketDetail(int marketBno) {
@@ -61,6 +54,18 @@ public class AlphabetServiceImpl implements AlphabetService {
 	public int ajaxInsertReply(int marketBno) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public ArrayList<AlphabetMarket> ajaxSelectMarketList(int classNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<AlphabetMarket> ajaxSelectMarketListFilter(AlphabetMarket am) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
