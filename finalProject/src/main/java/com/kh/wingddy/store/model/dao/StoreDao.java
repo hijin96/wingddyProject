@@ -18,6 +18,7 @@ public class StoreDao {
 	public ArrayList<Store> selectList(SqlSessionTemplate sqlSession, PageInfo pageInfo) {
 		int offset = (pageInfo.getCurrentPage()-1)*pageInfo.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset,pageInfo.getBoardLimit());
+		
 		return (ArrayList)sqlSession.selectList("storeMapper.selectList", null, rowBounds);
 	}
 	public int insertStoreBoard(SqlSessionTemplate sqlSession, Store s) {

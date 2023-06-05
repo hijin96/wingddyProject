@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,42 +13,43 @@
 		}
 		
 		.ck-editor__editable {
-			height: 80vh;
+			min-height: 300px;
 		}
-
+		
 		form {
 			text-align: center;
+		
 		}
-</style>
+
+	
+	</style>
 </head>
 <body>
 	<div id="app">
 		<jsp:include page="../sideBar/sideBar.jsp" />
-			<div class="main-content">
-				<div class="card">
-				<div class="card-body">
-				<form action="insertstore.do" method="POST" >
-					<div id="editor">
-					
-					</div>
-					<input type="button" class="btn btn-secondary mt-3 mx-2" value="작성취소" />
+		<div class="main-content">
+
+ 
+			<form action="insertstore.do" method="POST">
+				<div id="editor"> </div>
+					<input type="button" class="btn btn-secondary mt-3 mx-2" value="작성취소" /> 
 					<input type="submit" class="btn btn-primary mt-3 mx-2" value="작성완료" />
-				</form>
-				</div>
-				</div>
-			</div>
+			</form> 
+
+		</div>
 	</div>
 	
 
-	<script src="/resources/ckeditor/ckeditor.js"></script>
-   	
-    <script>
-      ClassicEditor.create(document.querySelector( '#editor' ),{
-    	  ckfinder:{
-    		  uploadUrl : '/resources/uploadFiles'
-    	  }
-      } );
-    </script>
+
+	<script src="${contextPath}/resources/ckeditor/ckeditor.js"></script>
+
+	<script>
+		ClassicEditor.create(document.querySelector('#editor'), {
+			ckfinder : {
+				uploadUrl : '/resources/uploadFiles'
+			}
+		});
+	</script>
 </body>
 
 </body>

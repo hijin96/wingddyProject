@@ -42,14 +42,14 @@ public class StoreController {
 	private StoreService storeService;
 	
 	//메인페이지
-	@GetMapping("storemain")
-	public ModelAndView storeMain(@RequestParam(value = "cPage") int currentPage, ModelAndView mv) {
-
+	@RequestMapping("storemain")
+	public String storeMain(@RequestParam(value = "cPage",defaultValue = "1") int currentPage, Model m) {
 		PageInfo pageInfo = Pageination.getPageInfo(storeService.selectListCount(), currentPage, 9, 5);
 		ArrayList<Store> goodsList = storeService.selectList(pageInfo);
-		mv.addObject("goodsList", goodsList);
-		mv.setViewName("store/storemain");
-		return mv;
+		m.addAttribute("pageInfo",pageInfo);
+		m.addAttribute("goodsList",storeService.selectList(pageInfo));
+		//System.out.println(goodsList);
+		return "store/storemain";
 	}
 	
 	//게시판 글 상세보기
@@ -104,6 +104,8 @@ public class StoreController {
 		
 		ArrayList<Attachment>list = new ArrayList();
 		for(int i = 0; i<=list.size(); i++ ) {
+			
+				
 			if(!upfile.getOriginalFilename().contentEquals("")) {
 				String originName = upfile.getOriginalFilename();
 				String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
