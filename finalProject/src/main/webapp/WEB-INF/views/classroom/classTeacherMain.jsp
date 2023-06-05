@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,49 +62,25 @@
                       <h4>클래스 입장 수락</h4>
                     </div>
                     <div class="card-body">
-                      <table class="table table-striped table-md">
+                      <table class="table table-striped table-md passStudent">
                         <tr>
-                          <th>#</th>
-                          <th>Name</th>
-                          <th>Created At</th>
-                          <th>Status</th>
-                          <th>Action</th>
+                          <th>학생이름</th>
+                          <th>학생아이디</th>
+                          <th>전화번호</th>
+                          <th>입장여부</th>
+                          <th>수락/거절</th>
                         </tr>
-                        <tr>
-                          <td>1</td>
-                          <td>Irwansyah Saputra</td>
-                          <td>2017-01-09</td>
-                          <td><div class="badge badge-success">Active</div></td>
-                          <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>Hasan Basri</td>
-                          <td>2017-01-09</td>
-                          <td><div class="badge badge-success">Active</div></td>
-                          <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>Kusnadi</td>
-                          <td>2017-01-11</td>
-                          <td><div class="badge badge-danger">Not Active</div></td>
-                          <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td>Rizal Fakhri</td>
-                          <td>2017-01-11</td>
-                          <td><div class="badge badge-success">Active</div></td>
-                          <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                        </tr>
-                        <tr>
-                          <td>5</td>
-                          <td>Isnap Kiswandi</td>
-                          <td>2017-01-17</td>
-                          <td><div class="badge badge-success">Active</div></td>
-                          <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                        </tr>
+                        <c:forEach var="cm" items="${passMember}">
+                          <tr>
+                            <td>${cm.memberName}</td>
+                            <input type="hidden" name="studentNo" value="${cm.studentNo}" class="ddd"/>
+                            <input type="hidden" naem="classNo" value="${cm.classNo}"/>
+                            <td>${cm.memberId}</td>
+                            <td>${cm.phone}</td>
+                            <td><div class="badge badge-success">입장!</div></td>
+                            <td><button type="button" class="btn btn-secondary pass" onclick="pass();">Detail</button></td>
+                          </tr>
+                        </c:forEach>
                       </table>
                     </div>
                   </div>
@@ -123,7 +100,38 @@
               </div>
         </section>
     </div>
+    <script>
+      $(function(){
+        $('.pass').on('click', function(){
+          $.ajax({
+            url : 'passStudent.cl',
+            type : 'post',
+            data : {
+              studentNo : $('.passStudent').find('input[name=studentNo]').val(),
+              classNo : $('.passStudent').find('input[name=classNo]').val()
+          },
+            success : function(result){
+             if(result === "pass"){
+              window.onload;
+             }
+            },
+            error : function(){
 
+            }
+          });
+        })
+      })
+
+      /*
+      $(function(){
+        console.log($('.passStudent').find('input[name=studentNo]').val());
+      })
+      */
+
+      function pass(){
+        console.log($(this).parent().siblings('input[name=studentNo]').val());
+      }
+    </script>
 
     <!-- General JS Scripts -->
   <script src="resources/assets/modules/jquery.min.js"></script>

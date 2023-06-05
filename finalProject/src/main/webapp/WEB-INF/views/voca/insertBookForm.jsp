@@ -25,7 +25,7 @@
 						<h2>단어장 등록</h2>
 					</div>
 					<div class="card-body">
-						<form action="">
+						<form action="" onSubmit="return false">
 							<div class="form-group">
 								<label>단어장 이름</label>
 								<input type="text" class="form-control" required>
@@ -92,7 +92,6 @@
 		</div>
 	</div>
 	<script>
-	
 		// 단어장 등록
 		let vocaArr = [];
 		$('#insert-book-btn').click(() => {
@@ -100,11 +99,11 @@
 			$('#voca_table tbody>tr').each((i , e) => {
 				let tdArr = $(e).children('td');
 				if($(e).html() != ''){
-					vocaArr.push({en:tdArr[0],kr:tdArr[1]});
+					vocaArr.push({en:tdArr[0].innerText,kr:tdArr[1].innerText});
 				}
 			});
 			if(vocaArr != ''){
-				insertBook();
+				insertbook();
 			}
 			else{
 				alert('단어를 입력해주세요');
@@ -112,9 +111,24 @@
 			console.log(vocaArr);
 		});
 
-		insertbook = () => {
+		function insertbook(){
+				console.log(vocaArr);
+				$.ajax({
+					url:'insertBook.vc',
+					type : 'POST',
+					data : {
+						memNo : ${loginUser.memberNo}
+						},
+					success : result => {
+						
+					},
+					error : () => {
+						
+					}
+				})
+			}
 
-		}
+		
 		
 		// 단어 추가
 		
