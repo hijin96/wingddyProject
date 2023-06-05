@@ -14,9 +14,7 @@ public class AlphabetController {
 	
 	// 알파벳 마켓 리스트
 	@RequestMapping("main.aph")
-	public String main(int classNo) {
-		
-		
+	public String main() {
 		
 		return "alphabetMarket/alphabetMarketMain";
 	}
@@ -30,7 +28,7 @@ public class AlphabetController {
 	
 	@RequestMapping("post.aph")
 	public void insertMarket(String letter) {
-		System.out.println(letter);
+
 	}
 	
 	
