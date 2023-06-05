@@ -294,12 +294,12 @@
     		
     	};
     	
-   		let arr = [];
+   		let arr = []; // 전역변수 생성
    		
     	// 캘린더에서 날짜 클릭 시 해당 날짜의 일정 모달로 출력
     	function showModal(date){
     		
-    		arr = [];
+    		arr = []; // 초기화
     		let value = '';
     		$.ajax({
     			url : 'daySchedule',
@@ -307,25 +307,21 @@
     			type : 'POST',
     			success : function(list){
     				
-    				
-    				arr.push(list);
-    				
-    				
     				$('#modal-date').html(date);
+    				
     				for(let i in list){
-    					
+						arr.push(list[i]);    					
     					
     					value += "<div>✔️" + list[i].schedule + "(" + list[i].startDate + " ~ " + list[i].endDate +  ")"
 							   + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div id='scheduleNo' style='display:none'>" + list[i].scheduleNo + " </div>"
 							   + "<button type='button' onclick='showUpdateModal(" + i + ");' class='btn btn-warning btn-sm'>수정</button>"
 							   + "<button type='button' id='btn1' onclick='deleteSchedule();' class='btn btn-primary btn-sm'>삭제</button></div><br>"; 
     				
-    				//console.log(list[i]);
     				}
     				$('#theDaySchedule-content').html(value);
     			}
-    			console.log(arr);
     		});
+    			console.log(arr);
     		
     		$('#theDaySchedule').modal();
     		$('#modal-date').text(date);
@@ -339,11 +335,8 @@
     	}
  		function showUpdateModal(i){
 			
- 			//console.log("arr : " + arr[1]);
- 			//console.log(i);
- 			//console.log(arr[0][i]);
- 			let s = arr[0][i];
- 			console.log(s);
+ 			let s = arr[i];
+ 			//console.log(s);
  			
  			let value = '';
  			

@@ -35,15 +35,11 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override
-	public int updateSchedule(int scheduleNo) {
-		return 0;
-	}
-
-	@Override
 	public int deleteSchedule(int scheduleNo) {
 		return calendarDao.deleteSchedule(sqlSession, scheduleNo);
 	}
-
+	
+	@Override
 	public int updateSchedule(Calendar c) {
 		return calendarDao.updateSchedule(sqlSession, c);
 	}
