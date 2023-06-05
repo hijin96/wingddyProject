@@ -20,4 +20,8 @@ public class ClassroomDao {
 		return (ArrayList)sqlSession.selectList("classMapper.selectPassStudent", cno);
 	}
 	
+	public int passStudent(SqlSessionTemplate sqlSession, ClassMember cm) {
+		return sqlSession.update("classMapper.passStudent", cm);
+	}
+	
 }

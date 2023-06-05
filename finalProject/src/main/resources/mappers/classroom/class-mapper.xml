@@ -15,6 +15,10 @@
 		<result column="CLASS_NO" property="classNo" />
 		<result column="STUDENT_NO" property="studentNo" />
 		<result column="ENTER_STATUS" property="enterStatus" />
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="PHONE" property="phone"/>
 	</resultMap>
 
 	<select id="selectClassList" parameterType="member" resultMap="classResultSet">
@@ -67,4 +71,15 @@
 		   AND
 		       ENTER_STATUS = 'N'    
 	</select>
+	
+	<update id="passStudent" parameterType="classMember">
+		UPDATE
+			   CLASS_MEMBER
+		   SET
+		       ENTER_STATUS = 'Y'
+		 WHERE
+		       STUDENT_NO = #{studentNo}
+		   AND
+		       CLASS_NO = #{classNo}         
+	</update>
 </mapper>
