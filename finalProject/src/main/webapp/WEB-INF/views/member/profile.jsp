@@ -71,32 +71,7 @@
         </div>
       </div>
 
-      
-
-        <div class="section-body">
-          <div class="row">
-            
-            <div class="col-12 col-sm-6 col-lg-3">
-              <div class="card">
-                <div class="card-body text-center">
-                  <div class="mb-2">Success Message</div>
-                  <button class="btn btn-primary" id="swal-2">Launch</button>
-                </div>
-              </div>
-            </div>
-            
-            <div class="col-12 col-sm-6 col-lg-3">
-              <div class="card">
-                <div class="card-body text-center">
-                  <div class="mb-2">Error Message</div>
-                  <button class="btn btn-primary" id="swal-5">Launch</button>
-                </div>
-              </div>
-            </div>
-           
-          
-          </div>
-        </div>
+        
       </section>
 
     </div>
@@ -140,10 +115,11 @@
                     //console.log(result);
                     if(result === '1'){
                       swal('Correct password!', 'update profile?', 'success');
-                      if($('#swal-2').on(click(), function(){
-                        location.href = 'updateForm.me';
-                      })){
-                      }
+                      $('.swal-button--confirm').on('click', function(){
+                          //console.log('dd');
+                          location.href = 'updateForm.me';
+                      })
+                      
                     }
                     else{
                       swal('incorrect password!', 'enter agian', 'error');
