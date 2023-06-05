@@ -17,6 +17,9 @@
 		
 		<typeAlias type="com.kh.wingddy.common.model.vo.Attachment" alias="attachment"/>
 		<typeAlias type="com.kh.wingddy.store.model.vo.Store" alias="store"/>
+		
+		<typeAlias type="com.kh.wingddy.alphabetMarket.vo.Reply" alias="alphabetReply" />
+		<typeAlias type="com.kh.wingddy.alphabetMarket.vo.AlphabetMarket" alias="AlphabetMarket" />		
 
 	</typeAliases>
 	

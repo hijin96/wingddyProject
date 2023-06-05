@@ -154,39 +154,38 @@
 <script>
 	
 	$(function(){
-		
+
+		selectAlphabetList();
 		createButton();
 
-
-		var resetArr = [];
+		var alphaValue = '';
 
 		$('.clickFilter').click(function(){
 
-			var alphaValue = this.value
+			console.log(alphaValue);
+
 			
+			if(alphaValue != this.value){
+				alphaValue = this.value;
 
-			if(resetArr.indexOf(alphaValue) >= 0){
-
-				console.log('새로고침');
-				//새로고침
-				createButton();
-				//selectReplyList();
+				console.log('필터');
+				//selectAlphabetListFilter(alphaValue);
 			}
 			else{
-				resetArr.push(alphaValue);
-				//selectAlphabetListFilter(alphaValue);
-				console.log(resetArr);
+				alphaValue = '';
+				console.log('새로고침');
+				createButton();
+				
 			}
-			
 
 
 		});
 
-
 	})
 
+	
 	function createButton(){
-
+		
 		var alphabetArr = ['A', 'B', 'C'];
 
 		let value = '';
@@ -196,22 +195,16 @@
 
 		$('#filterButton').html(value);
 
-		//console.log(alphabetArr);
-
 	}
 
 
-	/*
-	$(function(){
-		selectReplyList();
-    });
-
+	
 	function selectAlphabetList(){
 
 		$.ajax({
 			url : 'main.aph',
 			data  : {
-				classNo : '${sessionScope.classNo}',
+				classNo : '${sessionScope.classroom.classNo}',
 			},
 			success : function(list){
 				
@@ -232,7 +225,11 @@
 
 				//$('#replyArea tbody').html(value);
 
+			},
+			error : function(){
+				console.log('error!!!!!!')
 			}
+
 		})
 	};
 

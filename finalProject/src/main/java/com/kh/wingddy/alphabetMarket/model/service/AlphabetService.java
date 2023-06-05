@@ -7,7 +7,7 @@ import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 public interface AlphabetService {
 	
 	// 알파벳 마켓 메인화면 리스트
-	ArrayList<AlphabetMarket> ajaxSelectMarketList(int classNo); // classNo, alphabet
+	ArrayList<AlphabetMarket> ajaxSelectMarketList(AlphabetMarket am); // classNo, alphabet
 
 	// 알파벳 마켓 메인화면 리스트
 	ArrayList<AlphabetMarket> ajaxSelectMarketListFilter(AlphabetMarket am); // classNo, alphabet

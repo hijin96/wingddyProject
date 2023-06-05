@@ -1,4 +1,5 @@
-package com.kh.wingddy.alphabet.model.vo;
+package com.kh.wingddy.alphabetMarket.model.vo;
+
 
 public class MyCount {
 	

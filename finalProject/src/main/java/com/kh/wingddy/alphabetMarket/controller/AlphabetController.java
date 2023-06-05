@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.wingddy.alphabetMarket.model.service.AlphabetService;
+import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 
 @Controller
 public class AlphabetController {
@@ -16,10 +17,11 @@ public class AlphabetController {
 	
 	// 알파벳 마켓 리스트
 	@RequestMapping("main.aph")
-	public String main(HttpSession session) {
+	public String main(HttpSession session, AlphabetMarket am) {
 		
-		//AlphabetService.ajaxSelectMarketList((int)session.getAttribute("classNo"));
-		
+		//if(am.getAlphabet() != null) {
+			//AlphabetService.ajaxSelectMarketList(am);
+		//}
 		
 		return "alphabetMarket/alphabetMarketMain";
 	}
