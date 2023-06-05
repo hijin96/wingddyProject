@@ -12,7 +12,8 @@ public interface CalendarService {
 	
 	public int insertSchedule(Calendar c);
 	
-	public int updateSchedule(int scheduleNo);
+	public int updateSchedule(Calendar c);
 	
 	public int deleteSchedule(int scheduleNo);
+	
 }

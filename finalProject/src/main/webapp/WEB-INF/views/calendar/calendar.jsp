@@ -85,7 +85,8 @@
 			</div>
 		
 		</div>
-	
+		
+		<!-- 일정 추가 모달  -->
     	<div id="content-area">
 			<!-- Button to Open the Modal -->
 			<button id="btn-modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">일정 추가</button>
@@ -154,9 +155,55 @@
 			</div>
 		</div>
 		
+		
+		<!-- 일정 수정 모달  -->
+    	<div id="content-area">
+		
+			<!-- The Modal -->
+			<div class="modal fade" id="updateModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						
+					<form action="updateSchedule" method="POST">
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<h4 class="modal-title">일정 수정하기</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						
+						
+						<!-- Modal body -->
+						<div id="updateSchedule-info" class="modal-body">
+								
+						</div>
+						
+						<!-- Modal footer -->
+						<div class="modal-footer">
+						
+							<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+							<button type="submit" class="btn btn-warning" >수정</button>
+						</div>
+					</form>
+					
+					</div>
+				</div>
+			</div>
+			
+		</div> <!-- 일정수정 모달 끝 -->
+		
+		
+		
+		
+		
+		
+		
+		
 	</div>
 </div>	
 </div>	
+
+
+
 	<script>
 		let memberNo = ${loginUser.memberNo};
 	   
@@ -247,10 +294,12 @@
     		
     	};
     	
+   		let arr = []; // 전역변수 생성
+   		
     	// 캘린더에서 날짜 클릭 시 해당 날짜의 일정 모달로 출력
     	function showModal(date){
-    		//console.log(date);
     		
+    		arr = []; // 초기화
     		let value = '';
     		$.ajax({
     			url : 'daySchedule',
@@ -259,35 +308,56 @@
     			success : function(list){
     				
     				$('#modal-date').html(date);
+    				
     				for(let i in list){
+						arr.push(list[i]);    					
+    					
     					value += "<div>✔️" + list[i].schedule + "(" + list[i].startDate + " ~ " + list[i].endDate +  ")"
 							   + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div id='scheduleNo' style='display:none'>" + list[i].scheduleNo + " </div>"
-							   + "<button type='button' class='btn btn-warning btn-sm'>수정</button>"
+							   + "<button type='button' onclick='showUpdateModal(" + i + ");' class='btn btn-warning btn-sm'>수정</button>"
 							   + "<button type='button' id='btn1' onclick='deleteSchedule();' class='btn btn-primary btn-sm'>삭제</button></div><br>"; 
-    					//console.log($('#btn1'));	
+    				
     				}
     				$('#theDaySchedule-content').html(value);
     			}
-    		
     		});
+    			console.log(arr);
     		
     		$('#theDaySchedule').modal();
     		$('#modal-date').text(date);
     	}
-	    
-    	$('#btn1').click(function(){
-	    	console.log($('#btn1').prev());
-    		
-    	})
-    		
+	  
+    	
+    	// 일정 삭제 버튼 클릭 시
     	function deleteSchedule(){
-    		console.log($('#scheduleNo').text());
-    		location.href="deleteSchedule?scheduleNo=" + $('#scheduleNo').text(); 
+    		let scheduleNo = $('#scheduleNo').text();
+    		location.href="deleteSchedule?scheduleNo=" + scheduleNo; 
     	}
+ 		function showUpdateModal(i){
+			
+ 			let s = arr[i];
+ 			//console.log(s);
+ 			
+ 			let value = '';
+ 			
+ 			value += "일정명 <input type='text' name='schedule' value='" + s.schedule + "'/><br>"
+				   + "시작일 <input id='re_startDate' type='date' name='startDate' onchange='checkDate();' value='" + s.startDate + "'/><br>"
+				   + "종료일 <input id='re_endDate' type='date' name='endDate' onchange='checkDate();' value='" + s.endDate + "'/><br>"
+				   + "<p id='re_alert-endDate' style='display:none'>종료일은 시작일보다 빠를 수 없어요!</p>"
+				   + "배경색 <input type='color' name='color' value='" + s.color + "'/>"
+				   + "<input type='hidden' name='scheduleNo' value='" + s.scheduleNo + "'/>";			
+ 		
+				   $('#updateSchedule-info').html(value);	   
+				   
+			$('#updateModal').modal();	   
+ 		}
     	
     	
-    	//$('#btn1').attr("onclick", location.href="deleteSchedule?scheduleNo=" + $(this).prev().val());\
- 
+    	
+    	
+    	
+    	
+    	
     		
     </script>
 

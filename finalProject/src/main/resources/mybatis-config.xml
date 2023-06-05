@@ -19,7 +19,8 @@
 		<typeAlias type="com.kh.wingddy.store.model.vo.Store" alias="store"/>
 		
 		<typeAlias type="com.kh.wingddy.alphabetMarket.vo.Reply" alias="alphabetReply" />
-		<typeAlias type="com.kh.wingddy.alphabetMarket.vo.AlphabetMarket" alias="AlphabetMarket" />		
+		<typeAlias type="com.kh.wingddy.alphabetMarket.vo.AlphabetMarket" alias="alphabetMarket" />		
+		<typeAlias type="com.kh.wingddy.classroom.model.vo.ClassMember" alias="classMember" />
 
 	</typeAliases>
 	
@@ -34,7 +35,6 @@
 		
 		<mapper resource="/mappers/common/common-mapper.xml" />
 		<mapper resource="/mappers/store/store-mapper.xml" />
-
 	</mappers>
 	
 </configuration>
