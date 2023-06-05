@@ -16,6 +16,25 @@
 	<jsp:include page="../sideBar/sideBar.jsp"/>
 
 	<div class="main-content">
+		<div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+			<div class="modal-dialog" role="document">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title">Modal title</h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				<div class="modal-body">
+				  <p>Modal body text goes here.</p>
+				</div>
+				<div class="modal-footer bg-whitesmoke br">
+				  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				  <button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			  </div>
+			</div>
+		  </div>
 		
 		<div class="row">
         	<div class="col-12 col-md-6 col-lg-6">
@@ -25,27 +44,26 @@
 						<h2>단어장 등록</h2>
 					</div>
 					<div class="card-body">
-						<form>
+						<form action="">
 							<div class="form-group">
 								<label>단어장 이름</label>
-								<input type="text" class="form-control">
+								<input type="text" class="form-control" required>
 							</div>
 							<div class="form-group">
 								<label>단어</label>
-								<input type="text" class="form-control">
+				                <table class="table" id="voca_table">
+									<thead>
+										<tr>
+											<th>단어</th>
+											<th>뜻</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
 							</div>
-			                <table class="table" id="voca_table">
-								<thead>
-									<tr>
-										<th>단어</th>
-										<th>뜻</th>
-									</tr>
-								</thead>
-								<tbody>
-								</tbody>
-							</table>
 							<div class="card-footer text-right">
-			                      <button class="btn btn-primary">등록</button>
+			                      <button class="btn btn-primary" id="insert-book-btn">등록</button>
 			                </div>
 		                </form>
 					</div>
@@ -93,7 +111,25 @@
 		</div>
 	</div>
 	<script>
+	
 		// 단어장 등록
+		$('#insert-book-btn').click(() => {
+			let vocaArr = [];
+			
+			$('#voca_table tbody>tr').each((i , e) => {
+				let tdArr = $(e).children('td');
+				if($(e).html() != ''){
+					vocaArr.push({en:tdArr[0],kr:tdArr[1]});
+				}
+			});
+			if(vocaArr != []){
+
+			}
+			else{
+
+			}
+			console.log(vocaArr);
+		});
 		
 		// 단어 추가
 		
@@ -107,11 +143,13 @@
 					  +  '</tr>';
 					  
 			$('#voca_table tbody').html(value);
+			$('#voca-en-form').val('');
+			$('#voca-kr-form').val('');
 		});
 		
 		// 추가된 단어 삭제
-		$('#voca_table tbody').on('click','tr',() => {
-			//this.innerHtml('');
+		$('#voca_table tbody').on('click','tr', e => {
+			e.target.parentElement.innerHTML = '';
 		});
 		
 		// 단어 검색(ajax)
