@@ -144,5 +144,28 @@
 </div>
 
 
+
+
+
+
+
+<script>
+    $(function(){
+		selectReplyList();
+    });
+
+
+
+	$
+
+
+
+</script>
+
+
+
+
+
+
 </body>
 </html>
