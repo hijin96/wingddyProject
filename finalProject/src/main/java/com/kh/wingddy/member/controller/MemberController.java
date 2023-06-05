@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -101,8 +103,8 @@ public class MemberController {
 			at.setFileLevel(1);
 			at.setFilePath("resources/uploadFiles/" + changeName);
 			
-			System.out.println("나는 선생" + m);
-			System.out.println("나는 첨부" + at);
+			//System.out.println("나는 선생" + m);
+			//System.out.println("나는 첨부" + at);
 			return memberService.insertTeacher(m, at) > 0 ? "sideBar/sideBar":"common/errorPage";
 		} else {
 			
@@ -119,5 +121,38 @@ public class MemberController {
 	public String error() {
 		return "common/errorPage";
 	}
+	
+	@RequestMapping("profile.me")
+	public String profile() {
+		return "member/profile";
+	}
+	
+	@ResponseBody
+	@PostMapping("confirmPass.me")
+	public String confirmPass(String memberPwd, HttpSession session) {
+	
+		
+		System.out.println(memberPwd);
+		String userId = ((Member)session.getAttribute("loginUser")).getMemberId();
+		String loginPwd = ((Member)session.getAttribute("loginUser")).getMemberPwd();
+		Member m = new Member();
+		m.setMemberId(userId);
+		m.setMemberPwd(memberPwd);
+		String result = null;
+		if(m != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginPwd)) {
+			
+			 Member correct = memberService.loginMember(m);
+			 
+			 result = "1";
+		}
+		return result;
+	}
+	
+	@RequestMapping("updateForm.me")
+	public String updateMember() {
+		
+		return "member/updateForm";
+	}
+	
 	
 }
