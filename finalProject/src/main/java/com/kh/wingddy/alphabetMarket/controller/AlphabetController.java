@@ -1,5 +1,7 @@
 package com.kh.wingddy.alphabetMarket.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +16,9 @@ public class AlphabetController {
 	
 	// 알파벳 마켓 리스트
 	@RequestMapping("main.aph")
-	public String main() {
+	public String main(HttpSession session) {
+		AlphabetService(session.getAttribute("classNo"));
+		
 		
 		return "alphabetMarket/alphabetMarketMain";
 	}
