@@ -117,7 +117,12 @@
                       swal('Correct password!', 'update profile?', 'success');
                       $('.swal-button--confirm').on('click', function(){
                           //console.log('dd');
-                          location.href = 'updateForm.me';
+                          if('${loginUser.memberType}' === 'T'){
+                            location.href = 'updateForm.me?teacher';
+                          }
+                          else {
+                            location.href = 'updateForm.me?student';
+                          }
                       })
                       
                     }

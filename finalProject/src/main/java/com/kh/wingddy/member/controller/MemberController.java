@@ -1,5 +1,7 @@
 package com.kh.wingddy.member.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.wingddy.classroom.model.service.ClassroomService;
+import com.kh.wingddy.classroom.model.vo.Classroom;
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.member.model.service.MemberService;
@@ -22,6 +26,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private ClassroomService classroomService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -39,6 +46,7 @@ public class MemberController {
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
 			//System.out.println(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd()));
 			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("classList", classroomService.selectClassList(loginUser));
 			mv.setViewName("sideBar/sideBar");
 		} else {
 			session.setAttribute("alertMsg", "로그인실패");

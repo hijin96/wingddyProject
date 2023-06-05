@@ -49,4 +49,9 @@ public class VocaController {
 		return "voca/insertBookForm";
 	}
 	
+	@RequestMapping("insertBook.vc")
+	public String insertBook() {
+		return "";
+	}
+	
 }

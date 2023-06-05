@@ -2,5 +2,44 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="">
+<mapper namespace="classMapper">
+	
+	<resultMap type="class" id="classResultSet">
+		<result column="CLASS_NO" property="classNo" />
+		<result column="CLASS_NAME" property="className" />
+		<result column="TEACHER_NAME" property="teacherName" />
+		<result column="ENTER_CODE" property="enterCode" />
+	</resultMap>
+
+	<select id="selectClassList" parameterType="member" resultMap="classResultSet">
+		<choose>
+			<when test='#{memberType eq "T"}'>
+				SELECT
+				       CLASS_NO
+				      ,CLASS_NAME
+				      ,ENTER_CODE
+				  FROM
+				       CLASSROOM
+				 WHERE
+				       TEACHER_NO = ${memberNo}
+			</when>
+			<otherwise>
+				SELECT
+				       CLASS_NO
+				      ,CLASS_NAME
+				      ,MEMBER_NAME TEACHER_NAME
+				  FROM
+				       CLASS_MEMBER
+				  JOIN
+				       CLASSROOM USING(CLASS_NO)
+				  JOIN
+				       MEMBER ON( MEMBER_NO = TEACHER_NO)
+				 WHERE
+				       STUDENT_NO = ${memberNo}
+				   AND
+				   	   ENTER_STATE = 'Y'
+			</otherwise>		       
+		</choose>
+			   
+	</select>
 </mapper>
