@@ -3,6 +3,7 @@ package com.kh.wingddy.calendar.model.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +28,9 @@ public class CalendarDao {
 		return sqlSession.delete("calendar-mapper.deleteSchedule", scheduleNo);
 	}
 	
+	public int updateSchedule(SqlSessionTemplate sqlsession, Calendar c) {
+		return sqlsession.update("calendar-mapper.updateSchedule", c);
+	}
 	
 	
 }

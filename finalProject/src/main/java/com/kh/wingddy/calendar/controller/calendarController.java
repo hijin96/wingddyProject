@@ -53,7 +53,6 @@ public class calendarController {
 	@RequestMapping("deleteSchedule")
 	public String deleteSchedule(int scheduleNo, Model model) {
 		if(calendarService.deleteSchedule(scheduleNo) > 0) {
-			System.out.println("됐다");
 			return "redirect:/calendar";
 		} else {
 			model.addAttribute("errorMsg", "일정 삭제 실패. 다시 시도해주세요.");
@@ -61,7 +60,15 @@ public class calendarController {
 		}
 	}
 	
-	
+	@RequestMapping("updateSchedule")
+	public String updateSchedule(Calendar c, Model model) {
+		if(calendarService.updateSchedule(c) > 0) {
+			return "redirect:/calendar";
+		} else {
+			model.addAttribute("errorMsg", "일정 수정 실패");
+			return "common/errorPage";
+		}
+	}
 	
 	
 }

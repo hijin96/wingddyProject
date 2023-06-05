@@ -312,6 +312,7 @@
                 <li><a href="profile.me">내정보수정</a></li>
               </ul>
             </li>    
+            <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
             </c:if>
 			
 			<c:if test="${ not empty classroom }">
@@ -335,7 +336,6 @@
 	
 	            <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>	
             </c:if>
-            <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
             <c:choose>
               <c:when test="${not empty loginUser}">
                 <li class="menu-header">Profile</li>
