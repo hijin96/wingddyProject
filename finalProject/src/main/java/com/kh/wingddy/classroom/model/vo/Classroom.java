@@ -1,8 +1,11 @@
 package com.kh.wingddy.classroom.model.vo;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter @Getter @NoArgsConstructor @AllArgsConstructor
 public class Classroom {
 	
 	private int classNo;

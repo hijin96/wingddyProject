@@ -55,7 +55,6 @@
                                                     <th>가격</th>
                                                     <th>수량</th>
                                                     <th>소계</th>
-                                                    <!-- <th>Remove</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>

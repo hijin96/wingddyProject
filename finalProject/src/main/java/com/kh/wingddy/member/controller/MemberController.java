@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.wingddy.classroom.model.service.ClassroomService;
-import com.kh.wingddy.classroom.model.vo.Classroom;
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.member.model.service.MemberService;
@@ -45,11 +44,8 @@ public class MemberController {
 		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
 			//System.out.println(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd()));
-			ArrayList<Classroom> c = classroomService.selectClassList(loginUser);
-			System.out.println(loginUser);
-			System.out.println(c);
 			session.setAttribute("loginUser", loginUser);
-			session.setAttribute("classList", c);
+			session.setAttribute("classList", classroomService.selectClassList(loginUser));
 			mv.setViewName("redirect:/");
 		} else {
 			session.setAttribute("alertMsg", "로그인실패");
