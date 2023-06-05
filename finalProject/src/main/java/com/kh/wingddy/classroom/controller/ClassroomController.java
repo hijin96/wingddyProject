@@ -15,10 +15,10 @@ public class ClassroomController {
 	private ClassroomService classroomService;
 	
 	@RequestMapping("classMain.cl")
-	public String ClassMainView(HttpSession session) {
+	public String ClassMainView(HttpSession session, int cno) {
 		
-		Member m = (Member)session.getAttribute("loginUser");
-		classroomService.selectClassList(m);
+		
+		
 		return "classroom/classTeacherMain";
 	}
 }
