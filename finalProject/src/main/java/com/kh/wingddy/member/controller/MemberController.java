@@ -1,15 +1,20 @@
 package com.kh.wingddy.member.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.wingddy.classroom.model.service.ClassroomService;
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.member.model.service.MemberService;
@@ -20,6 +25,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private ClassroomService classroomService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -37,7 +45,8 @@ public class MemberController {
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
 			//System.out.println(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd()));
 			session.setAttribute("loginUser", loginUser);
-			mv.setViewName("sideBar/sideBar");
+			session.setAttribute("classList", classroomService.selectClassList(loginUser));
+			mv.setViewName("redirect:/");
 		} else {
 			session.setAttribute("alertMsg", "로그인실패");
 			mv.setViewName("common/errorPage");
@@ -47,6 +56,7 @@ public class MemberController {
 	
 	@RequestMapping("loginForm.me")
 	public String loginForm() {
+		
 		
 		return "common/loginForm";
 	}
@@ -91,8 +101,8 @@ public class MemberController {
 			at.setFileLevel(1);
 			at.setFilePath("resources/uploadFiles/" + changeName);
 			
-			System.out.println("나는 선생" + m);
-			System.out.println("나는 첨부" + at);
+			//System.out.println("나는 선생" + m);
+			//System.out.println("나는 첨부" + at);
 			return memberService.insertTeacher(m, at) > 0 ? "sideBar/sideBar":"common/errorPage";
 		} else {
 			
@@ -109,5 +119,38 @@ public class MemberController {
 	public String error() {
 		return "common/errorPage";
 	}
+	
+	@RequestMapping("profile.me")
+	public String profile() {
+		return "member/profile";
+	}
+	
+	@ResponseBody
+	@PostMapping("confirmPass.me")
+	public String confirmPass(String memberPwd, HttpSession session) {
+	
+		
+		System.out.println(memberPwd);
+		String userId = ((Member)session.getAttribute("loginUser")).getMemberId();
+		String loginPwd = ((Member)session.getAttribute("loginUser")).getMemberPwd();
+		Member m = new Member();
+		m.setMemberId(userId);
+		m.setMemberPwd(memberPwd);
+		String result = null;
+		if(m != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginPwd)) {
+			
+			 Member correct = memberService.loginMember(m);
+			 
+			 result = "1";
+		}
+		return result;
+	}
+	
+	@RequestMapping("updateForm.me")
+	public String updateMember() {
+		
+		return "member/updateForm";
+	}
+	
 	
 }

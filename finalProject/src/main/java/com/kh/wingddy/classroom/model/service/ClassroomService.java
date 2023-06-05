@@ -1,14 +1,21 @@
 package com.kh.wingddy.classroom.model.service;
 
+import java.util.ArrayList;
+
+import com.kh.wingddy.classroom.model.vo.ClassMember;
+import com.kh.wingddy.classroom.model.vo.Classroom;
+import com.kh.wingddy.member.model.vo.Member;
+
 public interface ClassroomService {
 
 	/* 공통 */
 	// 내 클래스 리스트 조회 (SELECT)
+	ArrayList<Classroom> selectClassList(Member m);
 	
 	// 클래스 메인페이지
 	// 현재 클래스에 등록된 과제 조회 X (education)
 	// 클래스 내 학생 쿠폰 랭킹 조회 X 
-	
+	ArrayList<ClassMember> selectPassStudent(int cno);
 	/* 선생님 */
 	// 클래스룸 생성(INSERT)
 	// - 랜덤키 생성 (controller)

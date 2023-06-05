@@ -16,7 +16,7 @@
 	<jsp:include page="../sideBar/sideBar.jsp"/>
 
 	<div class="main-content">
-		
+
 		<div class="row">
         	<div class="col-12 col-md-6 col-lg-6">
               	<div style="height:50px;"></div>
@@ -25,27 +25,26 @@
 						<h2>단어장 등록</h2>
 					</div>
 					<div class="card-body">
-						<form>
+						<form action="">
 							<div class="form-group">
 								<label>단어장 이름</label>
-								<input type="text" class="form-control">
+								<input type="text" class="form-control" required>
 							</div>
 							<div class="form-group">
 								<label>단어</label>
-								<input type="text" class="form-control">
+				                <table class="table" id="voca_table">
+									<thead>
+										<tr>
+											<th>단어</th>
+											<th>뜻</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
 							</div>
-			                <table class="table" id="voca_table">
-								<thead>
-									<tr>
-										<th>단어</th>
-										<th>뜻</th>
-									</tr>
-								</thead>
-								<tbody>
-								</tbody>
-							</table>
 							<div class="card-footer text-right">
-			                      <button class="btn btn-primary">등록</button>
+			                      <button class="btn btn-primary" id="insert-book-btn">등록</button>
 			                </div>
 		                </form>
 					</div>
@@ -93,7 +92,29 @@
 		</div>
 	</div>
 	<script>
+	
 		// 단어장 등록
+		let vocaArr = [];
+		$('#insert-book-btn').click(() => {
+			
+			$('#voca_table tbody>tr').each((i , e) => {
+				let tdArr = $(e).children('td');
+				if($(e).html() != ''){
+					vocaArr.push({en:tdArr[0],kr:tdArr[1]});
+				}
+			});
+			if(vocaArr != ''){
+				insertBook();
+			}
+			else{
+				alert('단어를 입력해주세요');
+			}
+			console.log(vocaArr);
+		});
+
+		insertbook = () => {
+
+		}
 		
 		// 단어 추가
 		
@@ -107,16 +128,21 @@
 					  +  '</tr>';
 					  
 			$('#voca_table tbody').html(value);
+			$('#voca-en-form').val('');
+			$('#voca-kr-form').val('');
 		});
 		
 		// 추가된 단어 삭제
-		$('#voca_table tbody').on('click','tr',() => {
-			//this.innerHtml('');
+		$('#voca_table tbody').on('click','tr', e => {
+			e.target.parentElement.innerHTML = '';
 		});
 		
 		// 단어 검색(ajax)
 	
 	
+	</script>
+	
+	<script>
 	</script>
 </body>
 </html>

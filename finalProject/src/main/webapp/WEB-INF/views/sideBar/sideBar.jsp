@@ -288,9 +288,9 @@
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>클래스</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="layout-default.html">Default Layout</a></li>
-                <li><a class="nav-link" href="layout-transparent.html">Transparent Sidebar</a></li>
-                <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
+                <c:forEach var="cList" items="${classList}">
+                	<li><a class="nav-link" href="classMain.cl?cno=${cList.classNo}">${cList.className}</a></li>
+                </c:forEach>
               </ul>
             </li>
            <!--  <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>마이페이지</span></a></li> -->
@@ -304,50 +304,37 @@
               </ul>
             </li>
             <li class="menu-header">소제목 넣을지 뺄지</li>
+            <c:if test="${not empty loginUser}">
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>마이페이지</span></a>
               <ul class="dropdown-menu">
                 <li><a href="calendar">캘린더</a></li>
-                <li><a href="gmaps-draggable-marker.html">내정보수정</a></li>
+                <li><a href="profile.me">내정보수정</a></li>
               </ul>
             </li>    
-
-            <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a>
-              <ul class="dropdown-menu">
-                <li><a class="nav-link" href="main.aph?classNo=2">CLASS-A</a></li>
-                <li><a class="nav-link" href="main.aph?classNo=3">CLASS-B</a></li>
-              </ul>
-            </li>
-
-            <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
-              <ul class="dropdown-menu">
-                <li><a class="nav-link" href="myAlphabet.aph?classNo=2">CLASS-A</a></li>
-                <li><a class="nav-link" href="myAlphabet.aph?classNo=3">CLASS-B</a></li>
-              </ul>
-            </li>
-
-
-            <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
-              <ul class="dropdown-menu">
-                <li><a class="nav-link" href="letterBox?classNo=2">CLASS-A</a></li>
-                <li><a class="nav-link" href="letterBox?classNo=3">CLASS-B</a></li>
-              </ul>
-            </li>
-
-            <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
-              <ul class="dropdown-menu">
-                <li><a class="nav-link" href="matching.mani?classNo=2">CLASS-A</a></li>
-                <li><a class="nav-link" href="matching.mani?classNo=3">CLASS-B</a></li>
-                <li><a class="nav-link" href="#">CLASS-C</a></li>
-              </ul>
-            </li>
-
-
-            <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>			
+            </c:if>
+			
+			<c:if test="${ not empty classroom }">
+	            <li><%--링크?cno=${class.cno}--%>
+	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a>
+	            </li>
+	
+	            <li>
+	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
+	            </li>
+	
+	
+	            <li>
+	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
+	            </li>
+	
+	            <li>
+	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
+	            </li>
+	
+	
+	            <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>	
+            </c:if>
             <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
             <c:choose>
               <c:when test="${not empty loginUser}">
