@@ -17,7 +17,7 @@
 	</resultMap>
 
 
-	<select id="selectList" parameterType="Alphabet" resultMap="alphabetResultSet">
+	<select id="selectList" parameterType="alphabetMarket" resultMap="alphabetResultSet">
 		
 	</select>
 </mapper>
