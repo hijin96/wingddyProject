@@ -3,5 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="alphabetMapper">
+
+	<resultMap id="alphabetResultSet" type="Alphabetmarket">
+		<result column="CLASS_NO"	 	property="classNo" />
+		<result column="board_title"	property="marketBno" />
+		<result column="board_writer" 	property="writer" />
+		<result column="count" 			property="alphabet" />
+		<result column="create_date" 	property="content" />
+		<result column="origin_name" 	property="createDate" />
+		<result column="change_name" 	property="status" />
+		<result column="board_content" 	property="sellingStatus" />
+		<result column="board_content" 	property="title" />
+	</resultMap>
+
+
+	<select id="selectList" parameterType="Alphabet" resultMap="alphabetResultSet">
+		
+	</select>
 </mapper>
 

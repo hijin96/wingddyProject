@@ -21,15 +21,8 @@ public class AlphabetServiceImpl implements AlphabetService {
 	@Override
 	public ArrayList<AlphabetMarket> ajaxSelectMarketList(AlphabetMarket am) {
 		
-		//return alphabetDao.ajaxSelectMarketList(sqlSession, am);
-		return null;
+		return alphabetDao.ajaxSelectMarketList(sqlSession, am);
 	
-	}
-
-	@Override
-	public ArrayList<AlphabetMarket> ajaxSelectMarketListFilter(AlphabetMarket am) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
