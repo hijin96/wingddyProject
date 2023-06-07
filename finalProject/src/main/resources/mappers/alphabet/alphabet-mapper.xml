@@ -5,21 +5,56 @@
 <mapper namespace="alphabetMapper">
 
 	<resultMap id="alphabetResultSet" type="Alphabetmarket">
-		<result column="CLASS_NO"	 	property="classNo" />
-		<result column="board_title"	property="marketBno" />
-		<result column="board_writer" 	property="writer" />
-		<result column="count" 			property="alphabet" />
-		<result column="create_date" 	property="content" />
-		<result column="origin_name" 	property="createDate" />
-		<result column="change_name" 	property="status" />
-		<result column="board_content" 	property="sellingStatus" />
-		<result column="board_content" 	property="title" />
+		<result column="CLASS_NO"	 		property="classNo" />
+		<result column="MARKET_BNO"			property="marketBno" />
+		<result column="MEMBER_ID" 			property="writer" />
+		<result column="ALPHABET" 			property="alphabet" />
+		<result column="CONTENT" 			property="content" />
+		<result column="CREATE_DATE" 		property="createDate" />
+		<result column="STATUS" 			property="status" />
+		<result column="SELLING_STATUS" 	property="sellingStatus" />
+		<result column="TITLE" 				property="title" />
 	</resultMap>
 
 
-	<select id="selectList" parameterType="alphabetMarket" resultMap="alphabetResultSet">
-		
+	
+	<select id="selectListOnlyAlphabet" parameterType="alphabetMarket" resultMap="alphabetResultSet">
+		SELECT MARKET_BNO, MEMBER_ID, ALPHABET, CREATE_DATE, SELLING_STATUS, TITLE
+		  FROM ALPHABET_MARKET
+		  JOIN MEMBER ON(WRITER = MEMBER_NO)
+		 WHERE REF_CLASS = #{classNo}
+		   AND ALPHABET = #{alphabet}
+		 ORDER BY CREATE_DATE DESC
 	</select>
+	
+		<select id="selectListOnlySellingStatus" parameterType="alphabetMarket" resultMap="alphabetResultSet">
+		SELECT MARKET_BNO, MEMBER_ID, ALPHABET, CREATE_DATE, SELLING_STATUS, TITLE
+		  FROM ALPHABET_MARKET
+		  JOIN MEMBER ON(WRITER = MEMBER_NO)
+		 WHERE REF_CLASS = #{classNo}
+		   AND SELLING_STATUS = #{sellingStatus}
+		 ORDER BY CREATE_DATE DESC
+	</select>
+	
+	
+	<select id="selectListNoneFilter" parameterType="alphabetMarket" resultMap="alphabetResultSet">
+		SELECT MARKET_BNO, MEMBER_ID, ALPHABET, CREATE_DATE, SELLING_STATUS, TITLE
+		  FROM ALPHABET_MARKET
+		  JOIN MEMBER ON(WRITER = MEMBER_NO)
+		 WHERE REF_CLASS = #{classNo}
+		 ORDER BY CREATE_DATE DESC
+	</select>
+	
+	<select id="selectListAllFilters" parameterType="alphabetMarket" resultMap="alphabetResultSet">
+		SELECT MARKET_BNO, MEMBER_ID, ALPHABET, CREATE_DATE, SELLING_STATUS, TITLE
+		  FROM ALPHABET_MARKET
+		  JOIN MEMBER ON(WRITER = MEMBER_NO)
+		 WHERE REF_CLASS = #{classNo}
+		   AND ALPHABET = #{alphabet}
+		   AND SELLING_STATUS = #{sellingStatus}
+		 ORDER BY CREATE_DATE DESC
+	</select>
+
 	
 	
 	<select id="selectDetail" resultMap="alphabetResultSet">

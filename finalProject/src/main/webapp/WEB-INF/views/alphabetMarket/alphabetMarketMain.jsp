@@ -14,6 +14,10 @@
 		cursor: pointer;
 	}
 
+	.colorCH{
+		background-color: #e9e9e9 !important;
+	}
+
 	.title{
 		color: #6777ef !important;
 		font-weight:bolder !important;
@@ -55,28 +59,7 @@
 	
 	            <div>
 	                <div class="row" id="contentRow">
-	                    <div class="col-12 col-md-4 col-lg-4 boardDetail">
-	                        <article class="article article-style-c">
-	                          <div class="article-header">
-	                            <div class="article-image">
-	                                <p style="text-align: center; font-size: 150px; margin-top: 100px;">A</p>
-	                            </div>
-	                          </div>
-	                          <div class="article-details">
-	                            <div class="article-category writeInfo">닉네임 <div class="bullet writeInfo"></div> 2023-05-04</div>
-	                          
-	                            <div class="article-user">
-	                              <div class="article-user-details">
-	                                <div class="user-detail-name title" >
-	                                  제목
-									  <input type="hidden" value="55" name="bno" >
-	                                </div>
-	                              </div>
-	                            </div>
-	                          </div>
-	                        </article>
-	                    </div>
-
+						
 	                </div>
 	            </div>
 	
@@ -105,7 +88,9 @@
 		if('${cookie.blinding.value}' == 'Y'){
 			$("#sellingCheck").prop("checked", true);
 		}
+		
 		selectFilterList();
+
 		createButton();
 		
 		
@@ -143,11 +128,16 @@
 
 
 	function createButton(){
-		var alphabetArr = ['A', 'B', 'C', 'D', 'E', 'F'];
+		var alphabetArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
+		
 		let value = '';
 		for(let i in alphabetArr){
 			value += '<input type="button" value="'+ alphabetArr[i] +'" class="btn btn-primary btn-lg clickFilter">'
+			
+			if(alphabetArr[i] === 'M'){
+				value +='<br>'
+			}
 		}
 
 		$('#filterButton').html(value);
@@ -155,6 +145,7 @@
 
 	function selectFilterList(){
 
+		console.log('리스트가져오기!!!');
 		
 		var ajaxAlphabet;
 		var ajaxSelling;
@@ -166,36 +157,50 @@
 		if ($('#sellingCheck').is(':checked')) {
 			ajaxSelling = 'Y';
 		}
+		
 
 
 		$.ajax({
-			url : 'main.aph',
+			url : 'list.aph',
 			data  : {
 				classNo : '${sessionScope.classroom.classNo}',
 				alphabet : ajaxAlphabet,
 				sellingStatus : ajaxSelling
 			},
-			success : function(list){
-
-
+			success : function(list){	
 				
+				console.log(list);
+
 				let value = '';
 				
 				for(let i in list){
-					value += '<div class="col-12 col-md-4 col-lg-4 boardDetail">'
-						   + '<article class="article article-style-c">'
-						   + '<div class="article-header">'
-						   + '<div class="article-image">'
-						   + '<p style="text-align: center; font-size: 150px; margin-top: 100px;">' + i.alphabet + '</p>'
-						   + '</div></div><div class="article-details">'
-						   + '<div class="article-category writeInfo">' + i.writer
-					       + '<div class="bullet writeInfo"></div>'+ i.createDate +'</div>'
-						   + '<div class="article-user"><div class="article-user-details"><div class="user-detail-name title">' + i.title
-						   + '<input type="hidden" value="55" name="bno"></div></div></div></div></article></div>'
+
+					if(list[i].sellingStatus == 'Y'){
+						value  += '<div class="col-12 col-md-4 col-lg-4 boardDetail">'
+								+ '<article class="article article-style-c">'
+								+ '<div class="article-header">'
+								+ '<p style="text-align: center; font-size: 150px; margin-top: 100px;">' + list[i].alphabet + '</p>'
+								+ '</div><hr><div class="article-details">'
+								+ '<div class="article-category writeInfo">' + list[i].writer
+								+ '<div class="bullet writeInfo"></div>'+ list[i].createDate +'</div>'
+								+ '<div class="article-user"><div class="article-user-details"><div class="user-detail-name title">' + list[i].title
+								+ '<input type="hidden" value="' + list[i].marketBno + '" name="bno"></div></div></div></div></article></div>'
+					}
+					else{
+						value  += '<div class="col-12 col-md-4 col-lg-4 boardDetail">'
+								+ '<article class="article article-style-c colorCH">'
+								+ '<div class="article-header">'
+								+ '<p style="text-align: center; font-size: 150px; margin-top: 100px;">' + list[i].alphabet + '</p>'
+								+ '</div><hr><div class="article-details colorCH">'
+								+ '<div class="article-category writeInfo">' + list[i].writer
+								+ '<div class="bullet writeInfo"></div>'+ list[i].createDate +'</div>'
+								+ '<div class="article-user"><div class="article-user-details"><div class="user-detail-name title">' + list[i].title
+								+ '<input type="hidden" value="' + list[i].marketBno + '" name="bno"></div></div></div></div></article></div>'
+					}
+					
 				
 				}		
 				
-
 				$('#contentRow').html(value);
 						
 			},
