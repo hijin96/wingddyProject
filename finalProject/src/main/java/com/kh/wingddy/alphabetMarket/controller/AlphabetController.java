@@ -13,6 +13,8 @@ import com.google.gson.Gson;
 import com.kh.wingddy.alphabetMarket.model.service.AlphabetService;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
+import com.kh.wingddy.common.model.vo.PageInfo;
+import com.kh.wingddy.common.template.Pageination;
 
 @Controller
 public class AlphabetController {
@@ -55,25 +57,43 @@ public class AlphabetController {
 		return "alphabetMarket/alphabetMarketDetail";
 	}
 	
+	
+	
+	
 	//마켓 댓글리스트
 	@ResponseBody
 	@RequestMapping(value="replyList.aph", produces="application/json; charset=UTF-8")
-	public String ajaxReplyList(int bno) {
+	public String ajaxReplyList(int rPage, int bno) {
 		
 		
 		return new Gson().toJson(AlphabetService.ajaxReplyList(bno));
 
 	}
 	
-	
-	
-	
-	// 마켓 댓글
-	
-	@RequestMapping("rlist.aph")
-	public MarketReply mkReplyList() {
+	/*
+	@ResponseBody
+	@RequestMapping(value="replyList.aph", produces="application/json; charset=UTF-8")
+	public String ajaxReplyList(@RequestParam(value="rPage", defaultValue="1") int bno) {
 		
-		return null;
+		PageInfo pi = new Pageination();
+		
+		return new Gson().toJson(AlphabetService.ajaxReplyList(bno));
+
+	}
+	*/
+	
+	
+	
+	
+	
+	// 마켓 댓글 페이징버튼
+	@ResponseBody
+	@RequestMapping(value="replyPaging.aph", produces="application/json; charset=UTF-8")
+	public MarketReply ajaxReplyPaging(int rPage, int bno) {
+		
+		PageInfo pi = Pageination.getPageInfo(AlphabetService.replyCount(bno), rPage, 10, 5);
+
+		return new Gson().toJson(AlphabetService.ajaxReplyPaging());
 	}
 	
 	

@@ -39,6 +39,10 @@ public class AlphabetServiceImpl implements AlphabetService {
 	}
 	
 	
+	@Override
+	public int replyCount(int bno) {
+		return alphabetDao.replyCount(sqlSession, bno);
+	}
 	
 	
 	@Override
@@ -70,6 +74,9 @@ public class AlphabetServiceImpl implements AlphabetService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+	
 
 
 

@@ -14,8 +14,10 @@ public interface AlphabetService {
 	// 알파벳 마켓 디테일
 	AlphabetMarket marketDetail(int bno);
 	
-	
-	// 마켓 댓글 갯수조회
+	// 댓글 총 개수
+	public int replyCount(int bno); 
+
+	// 마켓 댓글 리스트조회
 	ArrayList<MarketReply> ajaxReplyList(int bno);
 	
 	

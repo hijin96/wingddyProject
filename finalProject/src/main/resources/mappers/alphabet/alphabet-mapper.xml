@@ -77,12 +77,16 @@
 	
 	
 	<select id="selectReplyList" resultMap="replyResultSet">
-		SELECT REPLY_NO, MEMBER_ID, REPLY_ALPHABET, REPLY_CONTENT, REPLY_DATE, REF_MARKET, REPLY_SELECTED
+		SELECT COUNT(*)
 		  FROM ALPHABET_REPLY
 		  JOIN MEMBER ON(REPLY_WRITER = MEMBER_NO)
 		 WHERE REPLY_STATUS = 'Y' 
-		   AND REF_MARKET = #{bno}
-		 ORDER BY REPLY_DATE DESC
+		  AND REF_MARKET = #{bno}
+	</select>
+	
+	
+	<select id="replyCount" resultType="_int">
+		
 	</select>
 	
 	

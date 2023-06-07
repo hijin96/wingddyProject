@@ -82,19 +82,29 @@
 								  </div>
 								  <div class="card-footer text-center">
 									<nav class="d-inline-block">
-									  <ul class="pagination mb-0">
-										<li class="page-item disabled">
-										  <a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
-										</li>
-										<li class="page-item active"><a class="page-link" href="#">1 <span class="sr-only">(current)</span></a></li>
-										<li class="page-item">
-										  <a class="page-link" href="#">2</a>
-										</li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item">
-										  <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
-										</li>
-									  </ul>
+										<ul class="pagination mb-0">
+
+											<li class="page-item disabled">
+												<a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
+											</li>
+
+											<li class="page-item active">
+												<button type="button" class="page-link paging">1 <span class="sr-only">(current)</span></button>
+											</li>
+
+											<li class="page-item">
+												<button type="button" class="page-link paging">2</button>
+											</li>
+
+											<li class="page-item">
+												<a class="page-link" href="#">3</a>
+											</li>
+
+											<li class="page-item">
+												<a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+											</li>
+											
+										</ul>
 									</nav>
 								  </div>
 								</div>
@@ -165,7 +175,16 @@
 
 	<script>
 		$(function(){
+
+			var currentPage = 1;
 			selectReplyList();
+
+			$(document).on('click', '.paging', function(){
+				currentPage = this.value;
+				selectReplyList(currentPage);
+				selectPageButton(currentPage);
+			})
+
 		})
 
 		$("#modal-aphReply").fireModal({
@@ -203,11 +222,12 @@
 		});
 
 
-		function selectReplyList(){
+		function selectReplyList(currentPage){
 
 			$.ajax({
 				url : "replyList.aph",
 				data : {
+					rpage : currentPage,
 					bno : '${requestScope.market.marketBno}',
 				},
 				success : function(list){
@@ -246,6 +266,22 @@
 				}
 			})
 		}
+
+
+		function selectPageButton(currentPage){
+
+			$ajax({
+				url : 'replyPaging.aph',
+				data : {
+					rpage : currentPage,
+					bno : '${requestScope.market.marketBno}',
+				},
+				success : function(result){
+
+				}
+			})
+		}
+		
 	</script>
 
 

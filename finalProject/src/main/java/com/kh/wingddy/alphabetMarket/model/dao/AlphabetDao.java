@@ -46,4 +46,29 @@ public class AlphabetDao {
 		return (ArrayList)sqlSession.selectList("alphabetMapper.selectReplyList", bno);
 	}
 	
+	
+
+	public int replyCount(SqlSessionTemplate sqlSession, int bno) {
+		
+		return sqlSession.selectOne("alphabetMapper.replyCount", bno);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
