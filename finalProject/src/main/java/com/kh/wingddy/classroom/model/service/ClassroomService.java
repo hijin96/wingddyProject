@@ -21,6 +21,7 @@ public interface ClassroomService {
 	// - 랜덤키 생성 (controller)
 	int createClassroom(Classroom cr);
 	// 학생 입장 수락 (UPDATE)
+	
 	int passStudent(ClassMember cm);
 	// 학생 입장 거절 (DELETE)
 	
