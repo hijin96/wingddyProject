@@ -32,7 +32,6 @@ public class AlphabetController {
 	
 	@ResponseBody
 	@RequestMapping(value="list.aph", produces="application/json; charset=UTF-8")
-	//@RequestMapping("main.aph")
 	public String main(AlphabetMarket am, HttpServletResponse response) {
 
 		Cookie blinding = new Cookie("blinding", am.getSellingStatus());
