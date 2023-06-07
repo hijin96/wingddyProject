@@ -54,7 +54,7 @@
 	            <br><br>
 	
 	            <div>
-	                <div class="row">
+	                <div class="row" id="contentRow">
 	                    <div class="col-12 col-md-4 col-lg-4 boardDetail">
 	                        <article class="article article-style-c">
 	                          <div class="article-header">
@@ -77,67 +77,7 @@
 	                        </article>
 	                    </div>
 
-	                    <div class="col-12 col-md-4 col-lg-4">
-	                        <article class="article article-style-c">
-	                          <div class="article-header">
-	                            <div class="article-image">
-	                                <p style="text-align: center; font-size: 150px; margin-top: 100px;">A</p>
-	                            </div>
-	                          </div>
-	                          <div class="article-details">
-	                            <div class="article-category"><a href="#">닉네임</a> <div class="bullet"></div> 2023-05-04</div>
-	                          
-	                            <div class="article-user">
-	                              <div class="article-user-details">
-	                                <div class="user-detail-name">
-	                                  <a href="#">제목</a>
-	                                </div>
-	                              </div>
-	                            </div>
-	                          </div>
-	                        </article>
-	                    </div>
-	                    <div class="col-12 col-md-4 col-lg-4">
-	                        <article class="article article-style-c">
-	                          <div class="article-header">
-	                            <div class="article-image">
-	                                <p style="text-align: center; font-size: 150px; margin-top: 100px;">A</p>
-	                            </div>
-	                          </div>
-	                          <div class="article-details">
-	                            <div class="article-category"><a href="#">닉네임</a> <div class="bullet"></div> <a href="#">2023-05-04</a></div>
-	                          
-	                            <div class="article-user">
-	                              <div class="article-user-details">
-	                                <div class="user-detail-name">
-	                                  <a href="#">제목</a>
-	                                </div>
-	                              </div>
-	                            </div>
-	                          </div>
-	                        </article>
-	                    </div>
-	                    <div class="col-12 col-md-4 col-lg-4">
-	                        <article class="article article-style-c">
-	                          <div class="article-header">
-	                            <div class="article-image">
-	                                <p style="text-align: center; font-size: 150px; margin-top: 100px;">A</p>
-	                            </div>
-	                          </div>
-	                          <div class="article-details">
-	                            <div class="article-category"><a href="#">닉네임</a> <div class="bullet"></div> <a href="#">2023-05-04</a></div>
-	                          
-	                            <div class="article-user">
-	                              <div class="article-user-details">
-	                                <div class="user-detail-name">
-	                                  <a href="#">제목</a>
-	                                </div>
-	                              </div>
-	                            </div>
-	                          </div>
-	                        </article>
-	                    </div>
-	                  </div>
+	                </div>
 	            </div>
 	
 		        
@@ -161,6 +101,7 @@
 	
 	
 	$(function(){
+
 		if('${cookie.blinding.value}' == 'Y'){
 			$("#sellingCheck").prop("checked", true);
 		}
@@ -230,7 +171,7 @@
 		$.ajax({
 			url : 'main.aph',
 			data  : {
-				//classNo : '${sessionScope.classroom.classNo}',
+				classNo : '${sessionScope.classroom.classNo}',
 				alphabet : ajaxAlphabet,
 				sellingStatus : ajaxSelling
 			},
@@ -239,24 +180,24 @@
 
 				
 				let value = '';
-				/*
+				
 				for(let i in list){
-					value += '<div class="col-12 col-md-4 col-lg-4">'
+					value += '<div class="col-12 col-md-4 col-lg-4 boardDetail">'
 						   + '<article class="article article-style-c">'
 						   + '<div class="article-header">'
 						   + '<div class="article-image">'
-						   + '<p style="text-align: center; font-size: 150px; margin-top: 100px;">'+ ${requestScope.AlphabetMarket.alphabet} + '</p>'
+						   + '<p style="text-align: center; font-size: 150px; margin-top: 100px;">' + i.alphabet + '</p>'
 						   + '</div></div><div class="article-details">'
-						   + '<div class="article-category"><a href="#">' + ${requestScope.AlphabetMarket.writer} + '</a> <div class="bullet"></div> <a href="#">' 
-						   + ${requestScope.AlphabetMarket.createDate} + '</a></div>'
-						   + '<div class="article-user"><div class="article-user-details"><div class="user-detail-name">'
-						   + '<a href="' + 링크 +  '">' + ${requestScope.AlphabetMarket.createDate} + '</a>'
-	                       + '</div></div></div></div></article></div>'
-				}
-				*/
+						   + '<div class="article-category writeInfo">' + i.writer
+					       + '<div class="bullet writeInfo"></div>'+ i.createDate +'</div>'
+						   + '<div class="article-user"><div class="article-user-details"><div class="user-detail-name title">' + i.title
+						   + '<input type="hidden" value="55" name="bno"></div></div></div></div></article></div>'
+				
+				}		
+				
 
-				//$('#replyArea tbody').html(value);
-
+				$('#contentRow').html(value);
+						
 			},
 			error : function(){
 				console.log('error!!!!!!')
