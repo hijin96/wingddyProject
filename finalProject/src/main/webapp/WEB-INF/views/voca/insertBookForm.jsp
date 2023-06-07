@@ -99,7 +99,7 @@
 			$('#voca_table tbody>tr').each((i , e) => {
 				let tdArr = $(e).children('td');
 				if($(e).html() != ''){
-					vocaArr.push({'bookNo':0,'vocaEnglish':tdArr[0].innerText,'vocaKorean':tdArr[1].innerText});
+					vocaArr.push({bookNo:0,vocaEnglish:tdArr[0].innerText,vocaKorean:tdArr[1].innerText});
 				}
 			});
 			if(vocaArr != ''){
@@ -117,8 +117,9 @@
 				$.ajax({
 					url:'insertBooki.vc',
 					type : 'POST',
+					contentType : 'application/json',
 					data : {
-						vcList : vocaArr
+						vcList : JSON.stringify(vocaArr)
 						},
 					success : () => {
 					},
