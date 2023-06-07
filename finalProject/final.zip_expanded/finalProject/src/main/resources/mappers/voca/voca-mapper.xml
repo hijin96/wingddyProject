@@ -61,4 +61,30 @@
                CLASS_NO 
 	</select>
 	
+	<insert id="insertVocaBook" parameterType="vocaBook">
+		INSERT
+		  INTO
+		  	   VOCABOOK
+		VALUES
+			   (
+			   SEQ_BOOK_NO.NEXTVAL
+			  ,#{memberNo}
+			  ,#{bookName}
+			   )
+	</insert>
+	
+	<insert id="insertVoca" parameterType="java.util.ArrayList">
+		<foreach collection="array" separator=",">
+			INSERT
+			  INTO
+			       VOCA
+			VALUES
+				  (
+				   SEQ_BOOK_NO.CURRVAL
+				  ,#{vocaEnglish}
+				  ,#{vocaKorean}
+				  )
+		</foreach>
+	</insert>
+	
 </mapper>

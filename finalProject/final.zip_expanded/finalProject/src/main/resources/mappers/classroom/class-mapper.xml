@@ -28,6 +28,9 @@
 				       CLASSROOM
 				 WHERE
 				       TEACHER_NO = ${memberNo}
+				 ORDER
+				    BY 
+				       CLASS_NO
 			</when>
 			<otherwise>
 				SELECT
@@ -44,6 +47,9 @@
 				       STUDENT_NO = ${memberNo}
 				   AND
 				   	   ENTER_STATUS = 'Y'
+  				 ORDER
+				    BY 
+				       CLASS_NO
 			</otherwise>		       
 		</choose>
 			   

@@ -28,7 +28,7 @@
 						<form action="">
 							<div class="form-group">
 								<label>단어장 이름</label>
-								<input type="text" class="form-control" required>
+								<input type="text" id="book-name" class="form-control" required>
 							</div>
 							<div class="form-group">
 								<label>단어</label>
@@ -109,10 +109,25 @@
 			else{
 				alert('단어를 입력해주세요');
 			}
-			console.log(vocaArr);
 		});
 
-		insertbook = () => {
+		function insertbook(){
+				$.ajax({
+					url:'insertBooki.vc',
+					type : 'POST',
+					contentType : 'application/json',
+					data : {
+						bookName : $('#book-name').val(),
+						memberNo : ${loginUser.memberNo},
+						vcList : JSON.stringify(vocaArr)
+						},
+					success : () => {
+					},
+					error : () => {
+						
+					}
+				})
+			}
 
 		}
 		
