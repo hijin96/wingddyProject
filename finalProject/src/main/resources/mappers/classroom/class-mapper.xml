@@ -11,6 +11,7 @@
 		<result column="ENTER_CODE" property="enterCode" />
 	</resultMap>
 	
+	
 	<resultMap type="classMember" id="classMemberResultSet">
 		<result column="CLASS_NO" property="classNo" />
 		<result column="STUDENT_NO" property="studentNo" />
@@ -20,6 +21,7 @@
 		<result column="MEMBER_NAME" property="memberName"/>
 		<result column="PHONE" property="phone"/>
 	</resultMap>
+	 
 
 	<select id="selectClassList" parameterType="member" resultMap="classResultSet">
 		<choose>
