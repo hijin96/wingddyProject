@@ -24,4 +24,8 @@ public class ClassroomDao {
 		return sqlSession.update("classMapper.passStudent", cm);
 	}
 	
+	public int createClassroom(SqlSessionTemplate sqlSession, Classroom cr) {
+		return sqlSession.insert("classMapper.createClassroom", cr);
+	}
+	
 }
