@@ -9,6 +9,20 @@
 	#selling{
 		text-align: right !important;
 	}
+
+	.boardDetail:hover{
+		cursor: pointer;
+	}
+
+	.title{
+		color: #6777ef !important;
+		font-weight:bolder !important;
+	}
+
+	.writeInfo{
+		font-size: smaller !important;
+		font-weight :bold !important;
+	}
 </style>
 
 
@@ -41,7 +55,7 @@
 	
 	            <div>
 	                <div class="row">
-	                    <div class="col-12 col-md-4 col-lg-4">
+	                    <div class="col-12 col-md-4 col-lg-4 boardDetail">
 	                        <article class="article article-style-c">
 	                          <div class="article-header">
 	                            <div class="article-image">
@@ -49,18 +63,20 @@
 	                            </div>
 	                          </div>
 	                          <div class="article-details">
-	                            <div class="article-category"><a href="#">닉네임</a> <div class="bullet"></div> <a href="#">2023-05-04</a></div>
+	                            <div class="article-category writeInfo">닉네임 <div class="bullet writeInfo"></div> 2023-05-04</div>
 	                          
 	                            <div class="article-user">
 	                              <div class="article-user-details">
-	                                <div class="user-detail-name">
-	                                  <a href="#">제목</a>
+	                                <div class="user-detail-name title" >
+	                                  제목
+									  <input type="hidden" value="55" name="bno" >
 	                                </div>
 	                              </div>
 	                            </div>
 	                          </div>
 	                        </article>
 	                    </div>
+
 	                    <div class="col-12 col-md-4 col-lg-4">
 	                        <article class="article article-style-c">
 	                          <div class="article-header">
@@ -69,7 +85,7 @@
 	                            </div>
 	                          </div>
 	                          <div class="article-details">
-	                            <div class="article-category"><a href="#">닉네임</a> <div class="bullet"></div> <a href="#">2023-05-04</a></div>
+	                            <div class="article-category"><a href="#">닉네임</a> <div class="bullet"></div> 2023-05-04</div>
 	                          
 	                            <div class="article-user">
 	                              <div class="article-user-details">
@@ -175,7 +191,15 @@
 		});
 
 
+
+		$('.boardDetail').click(function(){
+
+			window.location.href="detail.aph?bno="+ $(this).find('input[type="hidden"]').val();
+
+		})
 	})
+
+
 
 	function createButton(){
 		var alphabetArr = ['A', 'B', 'C', 'D', 'E', 'F'];

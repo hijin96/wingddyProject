@@ -26,9 +26,8 @@ public class AlphabetServiceImpl implements AlphabetService {
 	}
 
 	@Override
-	public AlphabetMarket marketDetail(int marketBno) {
-		// TODO Auto-generated method stub
-		return null;
+	public AlphabetMarket marketDetail(int bno) {
+		return alphabetDao.marketDetail(sqlSession, bno);
 	}
 
 	@Override

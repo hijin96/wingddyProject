@@ -15,4 +15,9 @@ public class AlphabetDao {
 		return (ArrayList)sqlSession.selectList("alphabetMapper.selectList", am);
 	}
 
+	
+	public AlphabetMarket marketDetail(SqlSessionTemplate sqlSession, int bno) {
+		
+		return sqlSession.selectOne("alphabetMapper.selectDetail", bno);
+	}
 }
