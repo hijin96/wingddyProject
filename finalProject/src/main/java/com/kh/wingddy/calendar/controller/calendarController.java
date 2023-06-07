@@ -40,6 +40,10 @@ public class calendarController {
 		}
 	}
 	
+	
+	/**
+	 * 캘린더에서 특정 날짜 클릭 시 해당 날짜의 일정 목록을 조회
+	 */
 	@ResponseBody
 	@RequestMapping(value="daySchedule", produces="application/json; charset=UTF-8")
 	public String selectDaySchedule(int memberNo, String date) {
