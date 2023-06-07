@@ -250,52 +250,54 @@
 					classNames : 1 // 우선순위 지정
 				},
 	        	events : function(info, successCallback, failureCallback){
-	        		$.ajax({
-	        			url : 'selectScheduleList',
-	        			data : {memberNo : memberNo},
-	        			type : 'post',
-	        			success : function(list){
-	        				
-	        				//console.log(list);
-	        				
-	        				let value = [];
-	        				
-	        				let scheduleList1 = '';
-	        				let scheduleList2 = '';
-	        				let mark = '';
-	        				
-	        				for(let i in list){
-	        					//console.log(list[i].schedule + "/" + list[i].endDate);
-	        					 value.push({
-	        						 title : list[i].schedule,
-	        						 start : list[i].startDate,
-	        						 end : list[i].endDate,
-	        						 color : list[i].color,
-	        						 classNames : 2
-	        					})
-	        					
-	        					let startDate = new Date(list[i].startDate);
-	        					let endDate = new Date(list[i].endDate);
-	        					
-	        					//console.log(list[i].schedule + " 의 endDate : " + endDate);
-	        					
-	        					if(d >= startDate && d <= endDate){
-	        						scheduleList1 +=  "<li><div id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</div></li>"; 
-	        						
-	        					} 
-	        					$('#todayList ul').html(scheduleList1);
-	        					
-	        					if(t >= startDate && t <= endDate){
-	        						scheduleList2 += "<li><div id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</div></li>"; 
-					
-	        					}
-	        					$('#tomorrowList ul').html(scheduleList2);
-	        					
-	        					
-	        				}
-		        			successCallback(value);
-	        			}
-	        		})
+	        		if(${loginUser.memberType eq "S"}){ // 학생일 때
+		        		$.ajax({
+		        			url : 'selectScheduleList',
+		        			data : {memberNo : memberNo},
+		        			type : 'post',
+		        			success : function(list){
+		        				
+		        				//console.log(list);
+		        				
+		        				let value = [];
+		        				
+		        				let scheduleList1 = '';
+		        				let scheduleList2 = '';
+		        				let mark = '';
+		        				
+		        				for(let i in list){
+		        					//console.log(list[i].schedule + "/" + list[i].endDate);
+		        					 value.push({
+		        						 title : list[i].schedule,
+		        						 start : list[i].startDate,
+		        						 end : list[i].endDate,
+		        						 color : list[i].color,
+		        						 classNames : 2
+		        					})
+		        					
+		        					let startDate = new Date(list[i].startDate);
+		        					let endDate = new Date(list[i].endDate);
+		        					
+		        					//console.log(list[i].schedule + " 의 endDate : " + endDate);
+		        					
+		        					if(d >= startDate && d <= endDate){
+		        						scheduleList1 +=  "<li><div id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</div></li>"; 
+		        						
+		        					} 
+		        					$('#todayList ul').html(scheduleList1);
+		        					
+		        					if(t >= startDate && t <= endDate){
+		        						scheduleList2 += "<li><div id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</div></li>"; 
+						
+		        					}
+		        					$('#tomorrowList ul').html(scheduleList2);
+		        					
+		        					
+		        				}
+			        			successCallback(value);
+		        			}
+		        		})
+	        		}
 	        	},
         		eventClick : function(info){
         			info.jsEvent.stopPropagation();

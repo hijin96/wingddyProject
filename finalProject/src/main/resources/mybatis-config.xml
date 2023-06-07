@@ -21,7 +21,8 @@
 		<typeAlias type="com.kh.wingddy.store.model.vo.Store" alias="store"/>
 		
 		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.MarketReply" alias="alphabetReply" />
-		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket" alias="alphabetMarket" />		
+		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket" alias="alphabetMarket" />
+		
 
 	</typeAliases>
 	

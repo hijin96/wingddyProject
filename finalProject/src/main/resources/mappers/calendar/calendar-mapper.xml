@@ -4,6 +4,8 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="calendar-mapper">
 
+	
+
 	<insert id="insertSchedule" parameterType="calendar">
 		INSERT
 		  INTO
@@ -39,11 +41,9 @@
 		  	  ,to_char(end_date + interval '1' day, 'YYYY-MM-DD') endDate
 		  	  ,color color 
 		  FROM
-		   	   CALENDAR
+		   	   CALENDAR 
 		 WHERE
 		 	   MEMBER_NO = #{memberNo}
-		   AND
-		   	   MEMBER_TYPE = 'S'	   
 	</select>
 
 	<select id="selectDaySchedule" parameterType="hashMap" resultType="calendar" >
