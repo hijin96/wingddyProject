@@ -16,6 +16,12 @@ public interface VocaMapper {
 	public ArrayList<Voca> selectVocaList(int bookNo);
 
 	public ArrayList<ClassVocaBook> selectClassVocaBookList(int memNo);
+
+	public int deleteVocabook(int bookNo);
+
+	public int insertVocaBook(VocaBook vb);
+
+	public int insertVoca(ArrayList<Voca> vlist);
 	
 	
 }
