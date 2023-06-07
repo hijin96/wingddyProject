@@ -20,5 +20,14 @@
 	<select id="selectList" parameterType="alphabetMarket" resultMap="alphabetResultSet">
 		
 	</select>
+	
+	
+	<select id="selectDetail" resultMap="alphabetResultSet">
+	
+	</select>
+	
+	
+	
+	
 </mapper>
 

@@ -36,6 +36,7 @@ public class ClassroomController {
 	@RequestMapping("passStudent.cl")
 	public String passStudent(ClassMember cm) {
 		
+		System.out.println(cm);
 		int result = classroomService.passStudent(cm);
 		
 		

@@ -74,11 +74,11 @@
                           <tr>
                             <td>${cm.memberName}</td>
                             <input type="hidden" name="studentNo" value="${cm.studentNo}" class="ddd"/>
-                            <input type="hidden" naem="classNo" value="${cm.classNo}"/>
+                            <input type="hidden" name="classNo" value="${cm.classNo}"/>
                             <td>${cm.memberId}</td>
                             <td>${cm.phone}</td>
                             <td><div class="badge badge-success">입장!</div></td>
-                            <td><button type="button" class="btn btn-secondary pass" onclick="pass();">Detail</button></td>
+                            <td><button type="button" class="btn btn-secondary pass">Detail</button></td>
                           </tr>
                         </c:forEach>
                       </table>
@@ -101,18 +101,19 @@
         </section>
     </div>
     <script>
+      
       $(function(){
         $('.pass').on('click', function(){
           $.ajax({
             url : 'passStudent.cl',
             type : 'post',
             data : {
-              studentNo : $('.passStudent').find('input[name=studentNo]').val(),
-              classNo : $('.passStudent').find('input[name=classNo]').val()
+              studentNo : $(event.target).parents().siblings('input[name=studentNo]').val(),
+              classNo : $(event.target).parents().siblings('input[name=classNo]').val()
           },
             success : function(result){
              if(result === "pass"){
-              window.onload;
+              location.href = location.href
              }
             },
             error : function(){
@@ -121,16 +122,19 @@
           });
         })
       })
-
+      
       /*
       $(function(){
         console.log($('.passStudent').find('input[name=studentNo]').val());
       })
       */
-
+      /*
       function pass(){
-        console.log($(this).parent().siblings('input[name=studentNo]').val());
+
+
+        console.log($(event.target).parents().siblings('input[name=studentNo]').val());
       }
+      */
     </script>
 
     <!-- General JS Scripts -->

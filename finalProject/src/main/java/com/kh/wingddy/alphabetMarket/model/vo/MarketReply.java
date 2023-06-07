@@ -2,7 +2,7 @@ package com.kh.wingddy.alphabetMarket.model.vo;
 
 import java.sql.Date;
 
-public class Reply {
+public class MarketReply {
 
 	private int replyNo;
 	private String replyWriter;
