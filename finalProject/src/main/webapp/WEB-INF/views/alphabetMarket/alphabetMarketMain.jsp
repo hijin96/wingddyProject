@@ -44,9 +44,7 @@
 	
 	        <div class="section-body">
 	            <div style="text-align: center;" id="filterButton">
-					<!--
-	                <input type="button" value="M" class="btn btn-primary btn-lg"><br><br>
-					-->
+					
 	            </div>
 				<div class="form-check" id="selling">
 					<input class="form-check-input" type="checkbox" id="sellingCheck">
@@ -100,12 +98,12 @@
 			if(alphaValue != this.value){
 				alphaValue = this.value;
 				selectFilterList();
-				console.log(alphaValue);
+				//console.log(alphaValue);
 			}
 			else{
 				alphaValue = '';
 				createButton();
-				console.log('버튼생성');
+				//console.log('버튼생성');
 				selectFilterList();
 			}
 		});
@@ -117,12 +115,14 @@
 		});
 
 
+		$(document).on('click', '.boardDetail', function(){
 
-		$('.boardDetail').click(function(){
+			console.log('클릭123');
 
-			window.location.href="detail.aph?bno="+ $(this).find('input[type="hidden"]').val();
+			window.location.href="detail.aph?bno="+ $(this).find('input[type="hidden"]').val();	
 
-		})
+		});
+
 	})
 
 
@@ -134,7 +134,7 @@
 		let value = '';
 		for(let i in alphabetArr){
 			value += '<input type="button" value="'+ alphabetArr[i] +'" class="btn btn-primary btn-lg clickFilter">'
-			
+
 			if(alphabetArr[i] === 'M'){
 				value +='<br>'
 			}
@@ -145,7 +145,7 @@
 
 	function selectFilterList(){
 
-		console.log('리스트가져오기!!!');
+		//console.log('리스트가져오기!!!');
 		
 		var ajaxAlphabet;
 		var ajaxSelling;
@@ -169,8 +169,6 @@
 			},
 			success : function(list){	
 				
-				console.log(list);
-
 				let value = '';
 				
 				for(let i in list){

@@ -3,6 +3,7 @@ package com.kh.wingddy.alphabetMarket.model.service;
 import java.util.ArrayList;
 
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
+import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 
 public interface AlphabetService {
 	
@@ -10,9 +11,12 @@ public interface AlphabetService {
 	ArrayList<AlphabetMarket> ajaxSelectMarketList(AlphabetMarket am);
 
 	
-	
 	// 알파벳 마켓 디테일
-	AlphabetMarket marketDetail(int marketBno);
+	AlphabetMarket marketDetail(int bno);
+	
+	
+	// 마켓 댓글 갯수조회
+	ArrayList<MarketReply> ajaxReplyList(int bno);
 	
 	
 	// 알파벳 마켓 글 작성

@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
+import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 
 @Repository
 public class AlphabetDao {
@@ -37,4 +38,12 @@ public class AlphabetDao {
 		
 		return sqlSession.selectOne("alphabetMapper.selectDetail", bno);
 	}
+	
+	
+	
+	public ArrayList<MarketReply> ajaxReplyList(SqlSessionTemplate sqlSession, int bno) {
+		
+		return (ArrayList)sqlSession.selectList("alphabetMapper.selectReplyList", bno);
+	}
+	
 }

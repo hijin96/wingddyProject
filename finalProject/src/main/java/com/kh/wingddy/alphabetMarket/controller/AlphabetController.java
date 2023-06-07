@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,8 +21,8 @@ public class AlphabetController {
 	private AlphabetService AlphabetService;
 	
 	
-	@RequestMapping(value="main.aph")
-	//@RequestMapping("main.aph")
+	// 리스트 화면
+	@RequestMapping("main.aph")
 	public String main(HttpServletResponse response) {
 
 		
@@ -29,7 +30,7 @@ public class AlphabetController {
 
 	}
 	
-	
+	// 게시글 리스트 불러오기
 	@ResponseBody
 	@RequestMapping(value="list.aph", produces="application/json; charset=UTF-8")
 	public String main(AlphabetMarket am, HttpServletResponse response) {
@@ -45,19 +46,27 @@ public class AlphabetController {
 	}
 	
 	
-	
-	
-	
-	
-	
 	//마켓 디테일 뷰
 	@RequestMapping("detail.aph")
-	public String marketDetail() {
-				
-		//AlphabetService.marketDetail(bno);
+	public String marketDetail(int bno, Model model) {
 		
+		model.addAttribute("market", AlphabetService.marketDetail(bno));
+	
 		return "alphabetMarket/alphabetMarketDetail";
 	}
+	
+	//마켓 댓글리스트
+	@ResponseBody
+	@RequestMapping(value="replyList.aph", produces="application/json; charset=UTF-8")
+	public String ajaxReplyList(int bno) {
+		
+		
+		return new Gson().toJson(AlphabetService.ajaxReplyList(bno));
+
+	}
+	
+	
+	
 	
 	// 마켓 댓글
 	

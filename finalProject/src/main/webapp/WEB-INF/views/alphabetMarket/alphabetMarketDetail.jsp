@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>-->
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>마켓 디테일</title>
+
 </head>
 <body>
 
@@ -21,19 +23,19 @@
 		        <div class="section-body">
 					<div class="card">
 						<div class="card-header text-center">
-							<h3>제목 어쩌구</h3>
+							<h3>${requestScope.market.title}</h3>
 						</div>
 						<div class="card-body">
 							<div align="right">
-								<h6>홍길동</h6>
-								<p>2023-02-02</p>
+								<h6>${requestScope.market.writer}</h6>
+								<p>${requestScope.market.createDate}</p>
 							</div>
 							<div class="article-image">
-								<p style="text-align: center; font-size: 150px; margin-top: 70px;">A</p>
+								<p style="text-align: center; font-size: 150px; margin-top: 70px;">${requestScope.market.alphabet}</p>
 							</div>
 							<br><br><br>
 							<div align="center">
-								<pre style="font-size: larger;">dfij;dsoifjuweoifjsdlfjewoifhyo;isdfh;dkjsfgweofh</pre>
+								<pre style="font-size: larger;" id="bContent">${requestScope.market.content}</pre>
 							</div>
 						</div>
 						<div class="card-header">
@@ -43,9 +45,10 @@
 							<div class="card">	
 								  <div class="card-body p-0">
 									<div class="table-responsive">
-									  <table class="table table-striped table-md">
+									  <table class="table table-striped table-md" id="commentsArea">
 										<tr>
 											<td colspan="6"><h3>comments(3)</h3></td>
+											
 											<td><button class="btn btn-warning" id="modal-aphReply">댓글작성</button></td>
 										</tr>
 										<tr>
@@ -161,6 +164,10 @@
 
 
 	<script>
+		$(function(){
+			selectReplyList();
+		})
+
 		$("#modal-aphReply").fireModal({
 			title: 'Login',
 			body: $("#modal-login-part"),
@@ -194,6 +201,51 @@
 			}
 			]
 		});
+
+
+		function selectReplyList(){
+
+			$.ajax({
+				url : "replyList.aph",
+				data : {
+					bno : '${requestScope.market.marketBno}',
+				},
+				success : function(list){
+			
+					let value = '<tr><td colspan="6"><h3>comments('+ list.length +')</h3></td><td><button class="btn btn-warning" id="modal-aphReply">댓글작성</button></td></tr>'
+
+					if('${sessionScope.loginUser.memberId}' == '${requestScope.market.writer}'){
+						value = '<tr><td colspan="6"><h3>comments('+ list.length +')</h3></td><td></td></tr>'
+					}
+					
+					for(let i in list){
+						value += '<tr><td><input type="hidden" value="'+ list[i].replyNo +'"></td>'
+
+							if(list[i].replySelected == 'Y'){
+								value += '<td><div class="badge badge-success">selected</div></td>'
+							}
+							else{
+								value += '<td><div class="badge badge-success"></div></td>'
+							}
+						value += '<td><h3>'+ list[i].alphabet +'</h3></td>'
+						       + '<td>'+ list[i].replyWriter + '</td>'
+							   + '<td>' + list[i].replyContent+'</td>'
+							   + '<td>'+ list[i].replyDate + '</td>'
+							
+							if('${sessionScope.loginUser.memberId}' == '${requestScope.market.writer}'){
+								console.log('똑같음!');
+								value += '<td><button type="button" class="btn btn-primary btn-sm">바꾸기</button></td></tr>'
+							}
+							else{
+								console.log('다름!');
+								value += '<td></td></tr>'
+							}
+					}
+
+					$('#commentsArea').html(value);
+				}
+			})
+		}
 	</script>
 
 
