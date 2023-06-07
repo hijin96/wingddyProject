@@ -2,9 +2,11 @@ package com.kh.wingddy.alphabetMarket.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.wingddy.alphabetMarket.controller.AlphabetController;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 
@@ -43,7 +45,15 @@ public class AlphabetDao {
 	
 	public ArrayList<MarketReply> ajaxReplyList(SqlSessionTemplate sqlSession, int bno) {
 		
-		return (ArrayList)sqlSession.selectList("alphabetMapper.selectReplyList", bno);
+		
+		int offset = (AlphabetController.pi.getCurrentPage() - 1) * AlphabetController.pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, AlphabetController.pi.getBoardLimit());
+		
+		
+		return (ArrayList)sqlSession.selectList("alphabetMapper.selectReplyList", bno, rowBounds);
+		
+		
+		
 	}
 	
 	

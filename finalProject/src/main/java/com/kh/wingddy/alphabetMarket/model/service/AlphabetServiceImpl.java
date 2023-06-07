@@ -23,7 +23,6 @@ public class AlphabetServiceImpl implements AlphabetService {
 	public ArrayList<AlphabetMarket> ajaxSelectMarketList(AlphabetMarket am) {
 		
 		return alphabetDao.ajaxSelectMarketList(sqlSession, am);
-	
 	}
 
 	

@@ -1,5 +1,7 @@
 package com.kh.wingddy.alphabetMarket.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.kh.wingddy.alphabetMarket.model.service.AlphabetService;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
-import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.Pageination;
 
@@ -23,7 +24,7 @@ public class AlphabetController {
 	private AlphabetService AlphabetService;
 	
 	
-	// 리스트 화면
+	// 게시글 리스트 화면
 	@RequestMapping("main.aph")
 	public String main(HttpServletResponse response) {
 
@@ -48,6 +49,7 @@ public class AlphabetController {
 	}
 	
 	
+	
 	//마켓 디테일 뷰
 	@RequestMapping("detail.aph")
 	public String marketDetail(int bno, Model model) {
@@ -58,42 +60,34 @@ public class AlphabetController {
 	}
 	
 	
-	
+	public static PageInfo pi;
 	
 	//마켓 댓글리스트
 	@ResponseBody
 	@RequestMapping(value="replyList.aph", produces="application/json; charset=UTF-8")
-	public String ajaxReplyList(int rPage, int bno) {
+	public String ajaxReplyList(int bno) {
 		
 		
-		return new Gson().toJson(AlphabetService.ajaxReplyList(bno));
-
-	}
-	
-	/*
-	@ResponseBody
-	@RequestMapping(value="replyList.aph", produces="application/json; charset=UTF-8")
-	public String ajaxReplyList(@RequestParam(value="rPage", defaultValue="1") int bno) {
-		
-		PageInfo pi = new Pageination();
+		System.out.println("***********" + "댓글 리스트 버튼!  " + pi);
 		
 		return new Gson().toJson(AlphabetService.ajaxReplyList(bno));
 
 	}
-	*/
-	
-	
-	
-	
+
 	
 	// 마켓 댓글 페이징버튼
 	@ResponseBody
 	@RequestMapping(value="replyPaging.aph", produces="application/json; charset=UTF-8")
-	public MarketReply ajaxReplyPaging(int rPage, int bno) {
+	public String ajaxReplyPaging(int rPage, int bno) {
 		
-		PageInfo pi = Pageination.getPageInfo(AlphabetService.replyCount(bno), rPage, 10, 5);
+		  
+		
+		pi = Pageination.getPageInfo(AlphabetService.replyCount(bno), rPage, 10, 5);
+		
+		System.out.println("***********" + "페이징 버튼!  " + pi);
+		
 
-		return new Gson().toJson(AlphabetService.ajaxReplyPaging());
+		return new Gson().toJson(pi);
 	}
 	
 	

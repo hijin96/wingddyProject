@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,7 +85,7 @@
 										<ul class="pagination mb-0">
 
 											<li class="page-item disabled">
-												<a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
+												<button class="page-link" tabindex="-1"><i class="fas fa-chevron-left"></i></button>
 											</li>
 
 											<li class="page-item active">
@@ -97,11 +97,7 @@
 											</li>
 
 											<li class="page-item">
-												<a class="page-link" href="#">3</a>
-											</li>
-
-											<li class="page-item">
-												<a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+												<button class="page-link" ><i class="fas fa-chevron-right"></i></button>
 											</li>
 											
 										</ul>
@@ -177,7 +173,9 @@
 		$(function(){
 
 			var currentPage = 1;
-			selectReplyList();
+
+			selectPageButton(currentPage);
+			selectReplyList(currentPage);
 
 			$(document).on('click', '.paging', function(){
 				currentPage = this.value;
@@ -227,7 +225,7 @@
 			$.ajax({
 				url : "replyList.aph",
 				data : {
-					rpage : currentPage,
+					//rPage : currentPage,
 					bno : '${requestScope.market.marketBno}',
 				},
 				success : function(list){
@@ -267,13 +265,13 @@
 			})
 		}
 
-
+		
 		function selectPageButton(currentPage){
 
-			$ajax({
+			$.ajax({
 				url : 'replyPaging.aph',
 				data : {
-					rpage : currentPage,
+					rPage : currentPage,
 					bno : '${requestScope.market.marketBno}',
 				},
 				success : function(result){
@@ -281,6 +279,7 @@
 				}
 			})
 		}
+		
 		
 	</script>
 
