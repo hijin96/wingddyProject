@@ -111,8 +111,8 @@
 
   <!-- General JS Scripts -->
   <script src="resources/assets/modules/jquery.min.js"></script>
-  <script src="resources/assets/modules/popper.js"></script>
-  <script src="resources/assets/modules/tooltip.js"></script>
+  <!--<script src="resources/assets/modules/popper.js"></script>
+  <script src="resources/assets/modules/tooltip.js"></script>-->
   <script src="resources/assets/modules/bootstrap/js/bootstrap.min.js"></script>
   <script src="resources/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
   <script src="resources/assets/modules/moment.min.js"></script>
