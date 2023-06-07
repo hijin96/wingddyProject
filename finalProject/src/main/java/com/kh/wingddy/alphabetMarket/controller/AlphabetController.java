@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.wingddy.alphabetMarket.model.service.AlphabetService;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
+import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 
 @Controller
 public class AlphabetController {
@@ -17,6 +18,8 @@ public class AlphabetController {
 	private AlphabetService AlphabetService;
 	
 	
+	//@ResponseBody
+	//@RequestMapping(value="main.aph", produces="application/json; charset=UTF-8")
 	@RequestMapping("main.aph")
 	public String main(AlphabetMarket am, HttpServletResponse response) {
 
@@ -30,43 +33,29 @@ public class AlphabetController {
 		//System.out.println(am);
 		
 		
-		AlphabetService.ajaxSelectMarketList(am);
-		
+		//return new Gson().toJson(AlphabetService.ajaxSelectMarketList(am));
 		
 		return "alphabetMarket/alphabetMarketMain";
+
 	}
 	
 	
-	
-	
-	
-	/*
-	// 알파벳 마켓 리스트
-	@RequestMapping("main.aph")
-	public String main(int classNo) {
+	//마켓 디테일 뷰
+	@RequestMapping("detail.aph")
+	public String marketDetail() {
+				
+		//AlphabetService.marketDetail(bno);
 		
-		
-		AlphabetService.ajaxSelectMarketList(am);
-		
-		
-		return "alphabetMarket/alphabetMarketMain";
+		return "alphabetMarket/alphabetMarketDetail";
 	}
 	
+	// 마켓 댓글
 	
-	// 알파벳 마켓 리스트
-		@RequestMapping("main.aph")
-		public String main(int classNo, String alphabet) {
-			
-			
-			
-			return "alphabetMarket/alphabetMarketMain";
-		}
-	*/
-	
-	
-	
-	
-	
+	@RequestMapping("rlist.aph")
+	public MarketReply mkReplyList() {
+		
+		return null;
+	}
 	
 	
 	@RequestMapping("enroll.aph")
@@ -95,11 +84,5 @@ public class AlphabetController {
 		return "alphabetMarket/makeWords";
 	}
 	
-
-	@RequestMapping("detail.aph")
-	public String mkDetailView() {
-		
-		return "alphabetMarket/alphabetMarketDetail";
-	}
 
 }
