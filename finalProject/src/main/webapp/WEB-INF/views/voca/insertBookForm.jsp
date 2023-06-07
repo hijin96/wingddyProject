@@ -111,16 +111,21 @@
 		});
 
 		function insertbook(){
+				console.log(JSON.stringify($('#book-name').val()));
+				let vocaObj = {bookName:$('#book-name').val(),value:vocaArr};
+				console.log(JSON.stringify(vocaObj));
 				$.ajax({
 					url:'insertBooki.vc',
 					type : 'POST',
 					contentType : 'application/json',
 					data : {
-						bookName : $('#book-name').val(),
-						memberNo : ${loginUser.memberNo},
-						vcList : JSON.stringify(vocaArr)
+						vcList : JSON.stringify(vocaObj)
 						},
-					success : () => {
+					success : result => {
+						console.log(result);
+						if(result>0){
+							location.href = "main.vc";
+						}
 					},
 					error : () => {
 						

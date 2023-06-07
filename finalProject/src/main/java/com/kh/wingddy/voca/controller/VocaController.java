@@ -60,12 +60,14 @@ public class VocaController {
 	
 	@ResponseBody
 	@PostMapping(value="insertBooki.vc", produces="application/json; charset=UTF-8")
-	public String insertBook(@RequestBody String vcList, VocaBook vb) throws UnsupportedEncodingException {
+	public String insertBook(@RequestBody String vcList, HttpSession session) throws UnsupportedEncodingException {
 		
 		String str = URLDecoder.decode(vcList, "UTF-8");
-		str = str.substring(str.indexOf("["));
+		str = str.substring(str.indexOf("{"));
 		
-		JsonArray jArr = new JsonParser().parse(str).getAsJsonArray();
+		JsonObject jObj = new JsonParser().parse(str).getAsJsonObject();
+		
+		JsonArray jArr = jObj.get("value").getAsJsonArray();
 		
 		ArrayList<Voca> vlist = new ArrayList();
 		for(int i = 0; i<jArr.size(); i++) {
@@ -75,7 +77,9 @@ public class VocaController {
 			vc.setVocaKorean(obj.get("vocaKorean").getAsString());
 			vlist.add(vc);
 		}
-		
+		VocaBook vb = new VocaBook();
+		vb.setBookName(jObj.get("bookName").getAsString());
+		vb.setMemberNo(((Member)session.getAttribute("loginUser")).getMemberNo());
 		return Integer.toString(vocaService.insertVocaBook(vb, vlist));
 	}
 	

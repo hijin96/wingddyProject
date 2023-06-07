@@ -74,15 +74,13 @@
 	</insert>
 	
 	<insert id="insertVoca" parameterType="java.util.ArrayList">
-		<foreach collection="array" separator=",">
-			INSERT
-			  INTO
-			       VOCA
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			  INTO VOCA
 			VALUES
 				  (
 				   SEQ_BOOK_NO.CURRVAL
-				  ,#{vocaEnglish}
-				  ,#{vocaKorean}
+				  ,#{item.vocaEnglish}
+				  ,#{item.vocaKorean}
 				  )
 		</foreach>
 	</insert>
