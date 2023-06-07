@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
 import com.kh.wingddy.classroom.model.service.ClassroomService;
 import com.kh.wingddy.classroom.model.vo.ClassMember;
+import com.kh.wingddy.classroom.model.vo.Classroom;
 
 @Controller
 public class ClassroomController {
@@ -25,7 +25,7 @@ public class ClassroomController {
 		ArrayList<ClassMember> cM = classroomService.selectPassStudent(cno);
 		System.out.println(cM);
 		
-		//session.setAttribute("classroom", new Classroom(cno, "임시세션", "임시세션","임시코드"));
+		session.setAttribute("classroom", new Classroom(cno, "임시세션", "임시세션","임시코드"));
 		mv.addObject("passMember", cM);
 		mv.setViewName("classroom/classTeacherMain");
 		System.out.println(mv);
