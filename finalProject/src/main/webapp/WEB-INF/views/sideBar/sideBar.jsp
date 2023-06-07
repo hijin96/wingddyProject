@@ -292,7 +292,7 @@
                 	<li><a class="nav-link" href="classMain.cl?cno=${cList.classNo}">${cList.className}</a></li>
                 </c:forEach>
                 <c:if test="${loginUser.memberType eq 'T'}">
-                  <li><a href="#exampleModal" data-toggle="modal">add Class +</a></li>
+                  <li><a href="addClassForm.cl">add Class +</a></li>
                 </c:if>
               </ul>
             </li>

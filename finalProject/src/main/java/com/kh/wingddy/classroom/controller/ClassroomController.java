@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.wingddy.classroom.model.service.ClassroomService;
 import com.kh.wingddy.classroom.model.vo.ClassMember;
 import com.kh.wingddy.classroom.model.vo.Classroom;
+import com.kh.wingddy.common.template.GenerateSecret;
 
 @Controller
 public class ClassroomController {
@@ -41,5 +42,25 @@ public class ClassroomController {
 		
 		
 		return result > 0 ? "pass" : "nope";
+	}
+	
+	@RequestMapping("addClassForm.cl")
+	public String addClassForm() {
+		return "classroom/addClassForm";
+	}
+	
+	@RequestMapping("addClass.cl")
+	public String addClass(Classroom cr) {
+		
+		
+		if(cr.getTeacherName() != null) {
+			
+			GenerateSecret gs = new GenerateSecret();
+			String secret = gs.generateSecret();
+			
+			cr.setEnterCode(secret);
+		}
+		
+		return classroomService.createClassroom(cr) > 0 ? "redirect:/" : "common/errorPage";
 	}
 }
