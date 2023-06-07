@@ -67,4 +67,36 @@
 		   AND
 		       ENTER_STATUS = 'N'    
 	</select>
+
+	
+	<update id="passStudent" parameterType="classMember">
+		UPDATE
+			   CLASS_MEMBER
+		   SET
+		       ENTER_STATUS = 'Y'
+		 WHERE
+		       STUDENT_NO = #{studentNo}
+		   AND
+		       CLASS_NO = #{classNo}         
+	</update>
+	
+	<insert id="createClassroom" parameterType="class">
+		INSERT
+		  INTO
+		       CLASSROOM
+		       (
+		       CLASS_NO,
+		       TEACHER_NO,
+		       CLASS_NAME,
+		       ENTER_CODE
+		       )
+		VALUES      
+		       (
+		       SEQ_CLASS_NO.NEXTVAL,
+		       #{teacherName},
+		       #{className},
+		       #{enterCode}
+		       )
+	</insert>
+
 </mapper>
