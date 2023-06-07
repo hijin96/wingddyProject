@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.kh.wingddy.alphabetMarket.model.service.AlphabetService;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
@@ -18,9 +20,18 @@ public class AlphabetController {
 	private AlphabetService AlphabetService;
 	
 	
-	//@ResponseBody
-	//@RequestMapping(value="main.aph", produces="application/json; charset=UTF-8")
-	@RequestMapping("main.aph")
+	@RequestMapping(value="main.aph")
+	//@RequestMapping("main.aph")
+	public String main(HttpServletResponse response) {
+
+		
+		return "alphabetMarket/alphabetMarketMain";
+
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="list.aph", produces="application/json; charset=UTF-8")
 	public String main(AlphabetMarket am, HttpServletResponse response) {
 
 		Cookie blinding = new Cookie("blinding", am.getSellingStatus());
@@ -29,15 +40,14 @@ public class AlphabetController {
 		
 		response.addCookie(blinding);
 		
+		return new Gson().toJson(AlphabetService.ajaxSelectMarketList(am));
 		
-		//System.out.println(am);
-		
-		
-		//return new Gson().toJson(AlphabetService.ajaxSelectMarketList(am));
-		
-		return "alphabetMarket/alphabetMarketMain";
-
 	}
+	
+	
+	
+	
+	
 	
 	
 	//마켓 디테일 뷰

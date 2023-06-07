@@ -320,7 +320,7 @@
 			
 			<c:if test="${ not empty classroom }">
 	            <li><%--링크?cno=${class.cno}--%>
-	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a>
+	              <a href="main.aph" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a>
 	            </li>
 	
 	            <li>
@@ -420,8 +420,8 @@
 
   <!-- General JS Scripts -->
   <script src="resources/assets/modules/jquery.min.js"></script>
-  <script src="resources/assets/modules/popper.js"></script>
-  <script src="resources/assets/modules/tooltip.js"></script>
+  <!--<script src="resources/assets/modules/popper.js"></script>
+  <script src="resources/assets/modules/tooltip.js"></script>-->
   <script src="resources/assets/modules/bootstrap/js/bootstrap.min.js"></script>
   <script src="resources/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
   <script src="resources/assets/modules/moment.min.js"></script>
@@ -431,7 +431,7 @@
   <script src="resources/assets/modules/jquery.sparkline.min.js"></script>
   <script src="resources/assets/modules/chart.min.js"></script>
   <script src="resources/assets/modules/owlcarousel2/dist/owl.carousel.min.js"></script>
-  <script src="resources/assets/modules/summernote/summernote-bs4.js"></script>
+  <!--<script src="resources/assets/modules/summernote/summernote-bs4.js"></script>-->
   <script src="resources/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 
   <!-- Page Specific JS File -->

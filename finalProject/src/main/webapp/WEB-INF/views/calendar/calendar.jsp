@@ -39,6 +39,10 @@
 		font-size : 18px;
 		font-weight : bolder;
 	}
+	#todayTomorrowSchedule #scheduleName{
+		display : inline-block;
+	}
+	
 	#todaySchedule{
 		float : left;
 	}
@@ -56,6 +60,14 @@
 		color : red;
 		font-size : small;
 	}
+	.card1{
+		width : 400px !important;
+		display : inline-block !important;
+	}
+	.myHeader h5{
+		margin : auto !important;
+		text-align : center !important;
+	}
 	
 </style>
 </head>
@@ -66,25 +78,25 @@
 	
 	<div class="main-content">
     	
+    	<!-- 오늘, 내일 일정 보여주는 칸 -->
     	<div id="todayTomorrowSchedule">
-			<div id="todaySchedule" class="schedule-tt">
-				<div id="date_today" class="date">hi</div>
-				<hr>
-				<ul>
-					<li>1번</li>
-					<li>2번</li>
-				</ul>
-			</div>
-			<div id="tomorrowSchedule" class="schedule-tt">
-				<div id="date_tomorrow" class="date">hi</div>
-				<hr>
-				<ul>
-					<li>1번</li>
-					<li>2번</li>
-				</ul>
-			</div>
-		
-		</div>
+	    	<div class="card card1">
+	       		<div id="date_today" class="card-header myHeader"><h5></h5> </div>
+	            <div id="todayList" class="card-body">
+                    <ul></ul>
+	            </div>
+	        </div>
+	        <div id="card1" class="card card1">
+	       		<div id="date_tomorrow" class="card-header myHeader"><h5>Card Title</h5></div>
+	            <div id="tomorrowList" class="card-body">
+	                <ul></ul>
+	            </div>
+	        </div>
+       	</div>
+    	
+    	
+    	
+    	
 		
 		<!-- 일정 추가 모달  -->
     	<div id="content-area">
@@ -206,9 +218,10 @@
 
 	<script>
 		let memberNo = ${loginUser.memberNo};
+		
+		var d = new Date();
+		var t = new Date(new Date().setDate(d.getDate() + 1));
 	   
-	
-	    
     	document.addEventListener('DOMContentLoaded', function() {
 	        var calendarEl = document.getElementById('calendar');
 	        var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -222,7 +235,7 @@
 					googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
 					color : 'transparent',
 					textColor : 'gray',
-					classNames : 1
+					classNames : 1 // 우선순위 지정
 				},
 	        	events : function(info, successCallback, failureCallback){
 	        		$.ajax({
@@ -231,9 +244,16 @@
 	        			type : 'post',
 	        			success : function(list){
 	        				
+	        				console.log(list);
+	        				
 	        				let value = [];
 	        				
+	        				let scheduleList1 = '';
+	        				let scheduleList2 = '';
+	        				let mark = '';
+	        				
 	        				for(let i in list){
+	        					//console.log(list[i].schedule + "/" + list[i].endDate);
 	        					 value.push({
 	        						 title : list[i].schedule,
 	        						 start : list[i].startDate,
@@ -241,8 +261,42 @@
 	        						 color : list[i].color,
 	        						 classNames : 2
 	        					})
+	        					
+	        					let startDate = new Date(list[i].startDate);
+	        					let endDate = new Date(list[i].endDate);
+	        					
+	        					//console.log(list[i].schedule + " 의 endDate : " + endDate);
+	        					
+	        					if(d >= startDate && d <= endDate){
+	        						scheduleList1 +=  "<li><div id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</div></li>"; 
+	        						
+	        						/*
+	        						d.setDate(d.getDate() + 1);
+	        						//console.log("d :" + d.toDateString());
+	        						
+	        						d = d.toDateString();
+	        						endDate = endDate.toDateString();
+
+	        						if(d === endDate){
+	        							console.log('같다');
+	        							scheduleList1 += "<mark>오늘마감</mark>";
+	        						}
+	        					*/
+	        											
+	        					} 
+	        					
+	        					
+	        					
+	        					$('#todayList ul').html(scheduleList1);
+	        					if(t >= startDate && t <= endDate){
+	        						scheduleList2 += "<li>" + list[i].schedule 
+					
+	        					
+	        					}
+	        					
+	        					
+	        					
 	        				}
-	        				//console.log(value);
 		        			successCallback(value);
 	        			}
 	        		})
@@ -260,21 +314,18 @@
     	
     	$(function(){
     		
-    		//console.log(typeof(${loginUser.memberNo}));
-    		
-   			var d = new Date();
    			var month = d.getMonth() + 1;
    			var day = d.getDate();
    			var today = month + '월 ' + day + '일';
-   			$('#date_today').html('&lt;today&gt;' + today);
+   			$('#date_today h5').html('&lt;today&gt;' + today);
 			
    			
-   			var t = new Date(d.setDate(d.getDate() + 1));
+   			
 			var tmonth = t.getMonth() + 1;
 			var tday = t.getDate();
 			var tomorrow = tmonth + '월 ' + tday + '일';
 			
-			$('#date_tomorrow').html('&lt;tomorrow&gt;' + tomorrow);
+			$('#date_tomorrow h5').html('&lt;tomorrow&gt;' + tomorrow);
    			
 			
 			

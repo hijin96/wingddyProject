@@ -11,8 +11,25 @@ import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 public class AlphabetDao {
 	
 	public ArrayList<AlphabetMarket> ajaxSelectMarketList(SqlSessionTemplate sqlSession, AlphabetMarket am){
+
 		
-		return (ArrayList)sqlSession.selectList("alphabetMapper.selectList", am);
+		
+		if(am.getAlphabet() == null && am.getSellingStatus() != null) {
+			return (ArrayList)sqlSession.selectList("alphabetMapper.selectListOnlySellingStatus", am);
+		
+			
+		}else if(am.getAlphabet() != null && am.getSellingStatus() == null) {
+			return (ArrayList)sqlSession.selectList("alphabetMapper.selectListOnlyAlphabet", am);
+			
+		}else if(am.getAlphabet() == null && am.getSellingStatus() == null) {
+			return (ArrayList)sqlSession.selectList("alphabetMapper.selectListNoneFilter", am);
+			
+		}else {
+			return (ArrayList)sqlSession.selectList("alphabetMapper.selectListAllFilters", am);
+			
+		}
+		
+		
 	}
 
 	
