@@ -33,8 +33,8 @@
                     </div>
                 </div>
                 <div class="card-footer pt-">
-                    <button type="submit" class="btn btn-primary">Login</button>
-                    <a href="#" class="ml-2">Create new Account?</a>
+                    <button type="submit" class="btn btn-primary">ADD CLASS!!!</button>
+                    <a href="#" class="ml-2">Create new Class?</a>
                 </div>
             </form>
         </div>
