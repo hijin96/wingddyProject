@@ -53,9 +53,9 @@ public class VocaController {
 		return "voca/insertBookForm";
 	}
 	
-	@PostMapping(value="insertBook.vc", produces="application/json; charset=UTF-8")
-	public void insertBook(int memberNo) {
-		System.out.println(memberNo);
+	@PostMapping(value="insertBooki.vc", produces="html/text; charset=UTF-8")
+	public void insertBook(@RequestBody Voca vcList) {
+		System.out.println(vcList);
 	}
 	
 }

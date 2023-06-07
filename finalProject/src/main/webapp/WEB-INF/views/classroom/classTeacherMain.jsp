@@ -92,7 +92,22 @@
                       <h4>클래스 내 랭킹</h4>
                     </div>
                     <div class="card-body">
-                      <p>Card <code>.card-primary</code></p>
+                      <table class="table table-striped table-md passStudent">
+                        <tr>
+                          <th>학생이름</th>
+                          <th>학생아이디</th>
+                          <th>전화번호</th>
+                          <th>랭킹순위</th>
+                          <th>정답률</th>
+                        </tr>
+                        <tr>
+                          <td>학생6</td>
+                          <td>user06</td>
+                          <td>010-2323-3233</td>
+                          <td>1</td>
+                          <td>80%</td>
+                        </tr>
+                      </table>
                     </div>
                   </div>
                 </div>
