@@ -17,12 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kh.wingddy.member.model.vo.Member;
 import com.kh.wingddy.voca.model.service.VocaService;
 import com.kh.wingddy.voca.model.vo.ClassVocaBook;
+import com.kh.wingddy.voca.model.vo.Voca;
 import com.kh.wingddy.voca.model.vo.VocaBook;
 
 @Controller
@@ -58,14 +58,25 @@ public class VocaController {
 		return "voca/insertBookForm";
 	}
 	
+	@ResponseBody
 	@PostMapping(value="insertBooki.vc", produces="application/json; charset=UTF-8")
-	public void insertBook(@RequestBody String vcList) throws UnsupportedEncodingException {
+	public String insertBook(@RequestBody String vcList, VocaBook vb) throws UnsupportedEncodingException {
+		
 		String str = URLDecoder.decode(vcList, "UTF-8");
 		str = str.substring(str.indexOf("["));
-		System.out.println(str);
-		JsonArray jArr = new JsonParser().parse(str).getAsJsonArray();
-		System.out.println(jArr);
 		
+		JsonArray jArr = new JsonParser().parse(str).getAsJsonArray();
+		
+		ArrayList<Voca> vlist = new ArrayList();
+		for(int i = 0; i<jArr.size(); i++) {
+			JsonObject obj = jArr.get(i).getAsJsonObject();
+			Voca vc = new Voca();
+			vc.setVocaEnglish(obj.get("vocaEnglish").getAsString());
+			vc.setVocaKorean(obj.get("vocaKorean").getAsString());
+			vlist.add(vc);
+		}
+		
+		return Integer.toString(vocaService.insertVocaBook(vb, vlist));
 	}
 	
 }

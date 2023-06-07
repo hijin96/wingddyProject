@@ -269,12 +269,15 @@
               <a href="loginForm.me" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Login
               </a>
-            </div>
-          </li>
+            	</div>
+          	   </li>
             </c:otherwise>
           </c:choose>
         </ul>
       </nav>
+     	<div class="col-12 col-md-6 col-lg-6">
+      	<div style="height:50px;"></div>
+      	</div>
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
