@@ -294,10 +294,6 @@
                 <c:forEach var="cList" items="${classList}">
                 	<li><a class="nav-link" href="classMain.cl?cno=${cList.classNo}">${cList.className}</a></li>
                 </c:forEach>
-
-                <c:if test="${loginUser.memberType eq 'T'}">
-                  <li><a href="addClassForm.cl">add Class +</a></li>
-                </c:if>
               </ul>
             </li>
            <!--  <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>마이페이지</span></a></li> -->
