@@ -32,6 +32,7 @@ public class calendarController {
 	@RequestMapping("insertSchedule")
 	public String insertSchedule(Calendar c, Model model) {
 		
+		System.out.println(c);
 		if(calendarService.insertSchedule(c) > 0) {
 			return "redirect:/calendar"; 
 		} else {

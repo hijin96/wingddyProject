@@ -13,8 +13,18 @@ import com.kh.wingddy.calendar.model.vo.Calendar;
 public class CalendarDao {
 
 	public int insertSchedule(SqlSessionTemplate sqlSession, Calendar c) {
-		return sqlSession.insert("calendar-mapper.insertSchedule", c);
+		
+		int result1 = sqlSession.insert("calendar-mapper.insertSchedule", c);
+		int classNo = c.getClassNo();
+		int result2 = sqlSession.insert("calendar-mapper.insertClassSchedule", classNo);
+		if(result1 * result2 > 0) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
+
+	
 	
 	public ArrayList<Calendar> selectScheduleList(SqlSessionTemplate sqlSession, int memberNo){
 		return (ArrayList)sqlSession.selectList("calendar-mapper.selectScheduleList", memberNo);
@@ -31,6 +41,7 @@ public class CalendarDao {
 	public int updateSchedule(SqlSessionTemplate sqlsession, Calendar c) {
 		return sqlsession.update("calendar-mapper.updateSchedule", c);
 	}
+	
 	
 	
 }

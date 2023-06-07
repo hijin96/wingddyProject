@@ -18,6 +18,17 @@
 			  ,#{color}
 			   )  	   
 	</insert>
+	
+	<insert id="insertClassSchedule" parameterType="_int">
+		INSERT
+		  INTO
+		  	   CALENDAR_CLASS
+		VALUES
+			   (
+			   SEQ_SCHEDULE_NO.CURRVAL
+			  ,#{classNo} 
+			   )  	   
+	</insert>
 
 	<select id="selectScheduleList" parameterType="_int" resultType="calendar">
 		SELECT
@@ -31,6 +42,8 @@
 		   	   CALENDAR
 		 WHERE
 		 	   MEMBER_NO = #{memberNo}
+		   AND
+		   	   MEMBER_TYPE = 'S'	   
 	</select>
 
 	<select id="selectDaySchedule" parameterType="hashMap" resultType="calendar" >

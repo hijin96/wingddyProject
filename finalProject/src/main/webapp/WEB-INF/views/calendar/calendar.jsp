@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,6 +64,7 @@
 	.card1{
 		width : 400px !important;
 		display : inline-block !important;
+		vertical-align : top !important;
 	}
 	.myHeader h5{
 		margin : auto !important;
@@ -81,13 +83,13 @@
     	<!-- 오늘, 내일 일정 보여주는 칸 -->
     	<div id="todayTomorrowSchedule">
 	    	<div class="card card1">
-	       		<div id="date_today" class="card-header myHeader"><h5></h5> </div>
+	       		<div id="date_today" class="card-header myHeader"><h5>today date</h5> </div>
 	            <div id="todayList" class="card-body">
                     <ul></ul>
 	            </div>
 	        </div>
 	        <div id="card1" class="card card1">
-	       		<div id="date_tomorrow" class="card-header myHeader"><h5>Card Title</h5></div>
+	       		<div id="date_tomorrow" class="card-header myHeader"><h5>tomorrow date</h5></div>
 	            <div id="tomorrowList" class="card-body">
 	                <ul></ul>
 	            </div>
@@ -115,15 +117,24 @@
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 						
-						
 						<!-- Modal body -->
 						<div class="modal-body">
-								일정명 <input type="text" name="schedule" /><br>
-								시작일 <input id="startDate" type="date" name="startDate" onchange="checkDate();" /><br>
-								종료일 <input id="endDate" type="date" name="endDate" onchange="checkDate();"/><br>
-								<p id="alert-endDate" style="display:none;">종료일은 시작일보다 빠를 수 없어요!</p>
-								배경색 <input type="color" name="color" value="#ffc34d" />
-								<input type="hidden" name="memberNo" value="${ loginUser.memberNo }" />
+							<div id="choiceClass">
+								<c:if test="${loginUser.memberType eq 'T'}">
+									<input type="color" name="color" value="#ffc34d" style="display : none"/>
+									<c:forEach var="c" items="${classList}">
+										<input type="radio" name="classNo" value="${c.classNo}"/><label>${c.className}</label>
+									</c:forEach>
+								</c:if>
+							</div><br>
+							일정명 <input type="text" name="schedule" required/><br>
+							시작일 <input id="startDate" type="date" name="startDate" onchange="checkDate();" /><br>
+							종료일 <input id="endDate" type="date" name="endDate" onchange="checkDate();"/><br>
+							<p id="alert-endDate" style="display:none;">종료일은 시작일보다 빠를 수 없어요!</p>
+							<c:if test="${loginUser.memberType eq 'S'}">
+							배경색 <input type="color" name="color" value="#ffc34d" />
+							</c:if>
+							<input type="hidden" name="memberNo" value="${ loginUser.memberNo }" />
 						</div>
 						
 						<!-- Modal footer -->
@@ -222,6 +233,7 @@
 		var d = new Date();
 		var t = new Date(new Date().setDate(d.getDate() + 1));
 	   
+		// full calendar api
     	document.addEventListener('DOMContentLoaded', function() {
 	        var calendarEl = document.getElementById('calendar');
 	        var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -244,7 +256,7 @@
 	        			type : 'post',
 	        			success : function(list){
 	        				
-	        				console.log(list);
+	        				//console.log(list);
 	        				
 	        				let value = [];
 	        				
@@ -270,30 +282,14 @@
 	        					if(d >= startDate && d <= endDate){
 	        						scheduleList1 +=  "<li><div id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</div></li>"; 
 	        						
-	        						/*
-	        						d.setDate(d.getDate() + 1);
-	        						//console.log("d :" + d.toDateString());
-	        						
-	        						d = d.toDateString();
-	        						endDate = endDate.toDateString();
-
-	        						if(d === endDate){
-	        							console.log('같다');
-	        							scheduleList1 += "<mark>오늘마감</mark>";
-	        						}
-	        					*/
-	        											
 	        					} 
-	        					
-	        					
-	        					
 	        					$('#todayList ul').html(scheduleList1);
+	        					
 	        					if(t >= startDate && t <= endDate){
-	        						scheduleList2 += "<li>" + list[i].schedule 
+	        						scheduleList2 += "<li><div id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</div></li>"; 
 					
-	        					
 	        					}
-	        					
+	        					$('#tomorrowList ul').html(scheduleList2);
 	        					
 	        					
 	        				}
@@ -328,6 +324,8 @@
 			$('#date_tomorrow h5').html('&lt;tomorrow&gt;' + tomorrow);
    			
 			
+			
+	    
 			
 			
     	});
