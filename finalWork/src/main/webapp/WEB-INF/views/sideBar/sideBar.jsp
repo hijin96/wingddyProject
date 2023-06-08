@@ -34,6 +34,14 @@
   gtag('config', 'UA-94034622-3');
 </script>
 <!-- /END GA -->
+
+<style>
+  .className{
+    text-align: center !important;
+    color: #6777ef !important;
+    font-size: large !important;
+  }
+</style>
 </head>
 
 <body>
@@ -310,7 +318,7 @@
                 <li><a class="nav-link" href="storebuy">구매목록</a></li>
               </ul>
             </li>
-            <li class="menu-header">소제목 넣을지 뺄지</li>
+            <li class="menu-header className">${requestScope.classroom.className}</li>
             <c:if test="${not empty loginUser}">
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>마이페이지</span></a>
@@ -323,7 +331,8 @@
             </c:if>
 			
 			<c:if test="${ not empty classroom }">
-	            <li><%--링크?cno=${class.cno}--%>
+        <!-- ${reqeustScope.classroom.classNo} -->
+	            <li>
 	              <a href="main.aph" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a>
 	            </li>
 	

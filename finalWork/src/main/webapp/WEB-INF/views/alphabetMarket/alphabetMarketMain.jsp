@@ -166,7 +166,7 @@
 		$.ajax({
 			url : 'list.aph',
 			data  : {
-				classNo : '${sessionScope.classroom.classNo}',
+				classNo : '${requestScope.classroom.classNo}',
 				alphabet : ajaxAlphabet,
 				sellingStatus : ajaxSelling
 			},

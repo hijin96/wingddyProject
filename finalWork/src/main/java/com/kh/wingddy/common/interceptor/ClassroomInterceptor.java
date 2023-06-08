@@ -17,6 +17,7 @@ public class ClassroomInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object Handler){
 		request.setAttribute("classroom", classroomService.selectClassroom(Integer.parseInt(request.getParameter("cno"))));
+		
 		return true;
 	}
 }
