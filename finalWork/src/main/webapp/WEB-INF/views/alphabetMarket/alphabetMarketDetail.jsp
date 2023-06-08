@@ -21,19 +21,19 @@
 		        <div class="section-body">
 					<div class="card">
 						<div class="card-header text-center">
-							<h3>제목 어쩌구</h3>
+							<h3>${requestScope.market.title}</h3>
 						</div>
 						<div class="card-body">
 							<div align="right">
-								<h6>홍길동</h6>
-								<p>2023-02-02</p>
+								<h6>${requestScope.market.writer}</h6>
+								<p>${requestScope.market.createDate}</p>
 							</div>
 							<div class="article-image">
 								<p style="text-align: center; font-size: 150px; margin-top: 70px;">A</p>
 							</div>
 							<br><br><br>
 							<div align="center">
-								<pre style="font-size: larger;">dfij;dsoifjuweoifjsdlfjewoifhyo;isdfh;dkjsfgweofh</pre>
+								<pre style="font-size: larger;">${requestScope.market.content}</pre>
 							</div>
 						</div>
 						<div class="card-header">

@@ -92,15 +92,20 @@ public class AlphabetController {
 	
 	
 	@RequestMapping("enroll.aph")
-	public String enroll() {
+	public String enrollAndCategory() {
+		
+		
 		
 		return "alphabetMarket/alphabetMarketEnroll";
 	}
 	
 	
 	@RequestMapping("post.aph")
-	public void insertMarket(String letter) {
-
+	public void insertMarket(AlphabetMarket am) {
+		
+		AlphabetService.insertMarket(am);
+		
+		//해당 글 디테일뷰로 이동하기
 	}
 	
 	

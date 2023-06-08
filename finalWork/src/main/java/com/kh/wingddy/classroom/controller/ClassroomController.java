@@ -1,8 +1,5 @@
 package com.kh.wingddy.classroom.controller;
 
-import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +12,7 @@ import com.kh.wingddy.classroom.model.service.ClassroomService;
 import com.kh.wingddy.classroom.model.vo.ClassMember;
 import com.kh.wingddy.classroom.model.vo.Classroom;
 import com.kh.wingddy.common.template.GenerateSecret;
+import com.kh.wingddy.member.model.vo.Member;
 
 @Controller
 public class ClassroomController {
@@ -22,14 +20,23 @@ public class ClassroomController {
 	private ClassroomService classroomService;
 	
 	@RequestMapping("classMain.cl")
-	public ModelAndView ClassMainView(ModelAndView mv, HttpSession session, int cno, HttpServletRequest request) {
+	public ModelAndView ClassMainView(ModelAndView mv, HttpSession session, int cno) {
 		
 		//ArrayList<ClassMember> cm = classroomService.selectPassStudent(cno);
 		//System.out.println(cm);
-		//session.setAttribute("classroom", new Classroom(cno, "임시세션", "임시세션","임시코드"));
-		mv.addObject("passMember", classroomService.selectPassStudent(cno));
-		mv.addObject("myCount", classroomService.selectClassRanking(cno));
-		mv.setViewName("classroom/classTeacherMain");
+		String memberType = ((Member)session.getAttribute("loginUser")).getMemberType();
+		//System.out.println(memberType);
+		if(memberType.equals("T")) {
+			//session.setAttribute("classroom", new Classroom(cno, "임시세션", "임시세션","임시코드"));
+			mv.addObject("passMember", classroomService.selectPassStudent(cno));
+			mv.addObject("myCount", classroomService.selectClassRanking(cno));
+			mv.setViewName("classroom/classTeacherMain");
+			
+		} else {
+			
+			mv.addObject("myCount", classroomService.selectClassRanking(cno));
+			mv.setViewName("classroom/classStudentMain");
+		}
 		return mv;
 	}
 

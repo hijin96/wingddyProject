@@ -44,15 +44,15 @@ public class AlphabetServiceImpl implements AlphabetService {
 		return alphabetDao.replyCount(sqlSession, bno);
 	}
 	
-	
+
 	@Override
-	public int marketInsert(AlphabetMarket am) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertMarket(AlphabetMarket am) {
+		
+		return alphabetDao.insertMarket(sqlSession, am);
 	}
 
 	@Override
-	public int marketInsert(int marketBno) {
+	public int deleteMarket(int marketBno) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
