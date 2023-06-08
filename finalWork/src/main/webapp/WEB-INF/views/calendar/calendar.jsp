@@ -242,8 +242,15 @@
 					classNames : 1
 				},
 	        	events : function(info, successCallback, failureCallback){
-	        		if(${loginUser.memberType eq "S"}){ // 학생일 때
-		        		$.ajax({
+        				let value = [];
+		        		
+        				
+        				$.ajax({
+        					url : 'selectClassScheduleList',
+        					data : {memberNo : memberNo}
+        				})
+        				
+        				$.ajax({
 		        			url : 'selectScheduleList',
 		        			data : {memberNo : memberNo},
 		        			type : 'post',
@@ -251,7 +258,6 @@
 		        				
 		        				//console.log(list);
 		        				
-		        				let value = [];
 		        				
 		        				let scheduleList1 = '';
 		        				let scheduleList2 = '';
@@ -289,7 +295,7 @@
 			        			successCallback(value);
 		        			}
 		        		})
-	        		}
+	        		
 	        	},
         		eventClick : function(info){
         			info.jsEvent.stopPropagation();
