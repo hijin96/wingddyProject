@@ -41,6 +41,13 @@
     color: #6777ef !important;
     font-size: large !important;
   }
+
+  .changeButton{
+    border : 0px;
+    background-color: #ffffff;
+    padding-left: 0px;
+    color: gray;
+  }
 </style>
 </head>
 
@@ -337,11 +344,17 @@
 			<c:if test="${ not empty classroom }">
         <!-- ${reqeustScope.classroom.classNo} -->
 	            <li>
-	              <a href="main.aph" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a>
+                <form action="main.aph" mehtod="POST">
+                  <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
+                  <a class="nav-link"><i class="fas fa-pencil-ruler"></i> <button class="changeButton">알파벳마켓</button></a>
+                </form>
 	            </li>
 	
 	            <li>
-	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
+                <form action="#" mehtod="POST">
+                  <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
+                  <a class="nav-link"><i class="fas fa-pencil-ruler"></i> <button class="changeButton">내 알파벳</button></a>
+                </form>
 	            </li>
 	
 	
@@ -349,9 +362,13 @@
 	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
 	            </li>
 	
-	            <li>
-	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
+              <li>
+                <form action="#" mehtod="POST">
+                  <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
+                  <a class="nav-link"><i class="fas fa-pencil-ruler"></i> <button class="changeButton">마니또 관리</button></a>
+                </form>
 	            </li>
+
 	
 	
 	            <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>	
