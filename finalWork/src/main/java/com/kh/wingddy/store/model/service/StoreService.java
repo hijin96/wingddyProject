@@ -1,9 +1,6 @@
 package com.kh.wingddy.store.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
@@ -20,7 +17,7 @@ public interface StoreService {
 	//조회수 증가하면 글보기 성공
 	int inceraseCount(int spNo);
 	//게시글 작성하기
-	int insertStoreBoard(List<Map<Store, Attachment>> paramList);
+	int insertStoreBoard(ArrayList<Attachment>list);
 	//게시글 수정하기
 	int updateStoreBoard(int spNo);
 	//게시글 삭제하기

@@ -2,6 +2,7 @@ package com.kh.wingddy.store.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectOutputStream.PutField;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +33,7 @@ import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.Pageination;
 import com.kh.wingddy.common.template.RenameFile;
+import com.kh.wingddy.member.model.vo.Member;
 import com.kh.wingddy.store.model.service.StoreService;
 import com.kh.wingddy.store.model.vo.Store;
 import com.sun.media.jfxmedia.events.NewFrameEvent;
@@ -76,6 +78,8 @@ public class StoreController {
 	// 장바구니
 	@RequestMapping("storecart")
 	public String storeCart() {
+		
+		
 		return "store/storecart";
 	}
 
@@ -94,6 +98,9 @@ public class StoreController {
 	// 주문정보
 	@RequestMapping("shoppinglist")
 	public String storeShoppingList() {
+		
+		
+		
 		return "store/storeShoppingList";
 	}
 
@@ -111,32 +118,45 @@ public class StoreController {
 
 	// 게시판 글쓰기
 	@RequestMapping("storeWriter")
-	public String sample() {
+	public String storeWriter() {
 		return "store/storeWriter2";
 	}
 
 	// 게시판글쓰기 -2(ck에디터사용)
 	
 	@RequestMapping("insertstore.do")
-	public String insertStoreBoard(List<Map<Store, Attachment>> paramList,  MultipartFile upfile,
+	public String insertStoreBoard(Store s,ArrayList<Attachment>list,  MultipartFile upfile,
 			HttpSession session, Model model) {
 		
+		Member m = ((Member)session.getAttribute("loginUser"));
+		/////////////////////////////////////////////////////
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put(at.getChangeName(),rename);
+	
+		System.out.println("map"+map);
+		
+		ArrayList<Store> stlist = new ArrayList<Store>();
+		System.out.println("LIST"+stlist);
+		
+		System.out.println("at"+list);
+		
 		System.out.println("게시글 원래 이미지" + upfile.getOriginalFilename());
-
+		if(storeService.insertStoreBoard(list)>0) {
 		String changeName = rename.fileName(upfile, session);
 		// Attachment at = new Attachment();
 		at.setOriginName(upfile.getOriginalFilename());
 		System.out.println("UPFILE:" + upfile.getOriginalFilename());
+		System.out.println("체인지:"+ at.getChangeName());
 		at.setChangeName(changeName);
 		at.setFileLevel(2);
 		at.setFilePath("resources/uploadFiles/" + changeName);
 
 		System.out.println("게시글 작성 성공");
-		return "store/storemain";
-//		else {
-//			model.addAttribute("errorMsg","게시글작성실패");
-//			return "common/errorPage";
-//		}
+		return "redirect:storemain";
+	}else {
+			model.addAttribute("errorMsg","게시글작성실패");
+			return "common/errorPage";
+		}
 	}
 
 	///////// 삭제 작업을해 어찌이런일이삭제사게작

@@ -42,9 +42,10 @@ public class StoreServiceImpl implements StoreService {
 	}
 	//게시글 등록
 	@Override
-	public int insertStoreBoard(List<Map<Store, Attachment>> paramList) {
+	public int insertStoreBoard(ArrayList<Attachment>list) {
 		// TODO Auto-generated method stub
-		return storeDao.insertStoreBoard(sqlSession, paramList);
+		System.out.println("서비스는 작동하나요?"+ storeDao.insertStoreBoard(sqlSession,list));
+		return storeDao.insertStoreBoard(sqlSession,list);
 	}
 
 

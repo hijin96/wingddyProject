@@ -25,9 +25,9 @@ public class StoreDao {
 		
 		return (ArrayList)sqlSession.selectList("storeMapper.selectList", null, rowBounds);
 	}
-	public int insertStoreBoard(SqlSessionTemplate sqlSession,List<Map<Store, Attachment>> paramList) {
+	public int insertStoreBoard(SqlSessionTemplate sqlSession,ArrayList<Attachment>list) {
 		// TODO Auto-generated method stub
-		System.out.println("DAO paramList"+paramList);
-		return sqlSession.insert("storeMapper.insertStoreBoard",paramList);
+		System.out.println("dao작동하나요" + sqlSession.insert("storeMapper.insertStoreBoard",list));	
+		return sqlSession.insert("storeMapper.insertStoreBoard",list);
 	}
 }
