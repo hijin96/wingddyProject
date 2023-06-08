@@ -45,32 +45,33 @@
 				<div class="product-categorie-box">
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane fade show active" id="grid-view">
-							<div class="row">
+							<div class="row" id="storespNo">
 								<c:forEach items="${goodsList}" var="s">
-									<div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-										<div class="products-single fix">
-											<div class="box-img-hover">
-												<img src="${contextPath}/resources/images/img-pro-01.jpg" class="img-fluid" alt="Image">
-												<div class="mask-icon">
-													<ul>
-														<li><a href="#" data-toggle="tooltip" data-placement="right" title="View">
-															<i class="fas fa-eye"></i></a></li>
-														<li><a href="#" data-toggle="tooltip"
-															data-placement="right" title="Compare"><i
-																class="fas fa-sync-alt"></i></a></li>
-														<li><a href="#" data-toggle="tooltip"
-															data-placement="right" title="Add to Wishlist"><i
-																class="far fa-heart"></i></a></li>
-													</ul>
-													<a class="cart" href="#">장바구니추가</a>
+										<div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+											<div class="products-single fix">
+												<div class="box-img-hover">
+													<img src="${contextPath}/resources/images/img-pro-01.jpg" class="img-fluid" alt="Image">
+													<div class="mask-icon">
+														<ul>
+															<li><a href="#" data-toggle="tooltip" data-placement="right" title="View" name="viewCount">
+																<i class="fas fa-eye"></i></a></li>
+															<li><a href="#" data-toggle="tooltip"
+																data-placement="right" title="Compare"><i
+																	class="fas fa-sync-alt"></i></a></li>
+															<li><a href="#" data-toggle="tooltip"
+																data-placement="right" title="Add to Wishlist"><i
+																	class="far fa-heart"></i></a></li>
+														</ul>
+														<a class="cart" href="#">장바구니추가</a>
+													</div>
+												</div>
+												<div class="why-text">
+													<h4>${s.spName }</h4>
+													<h5>${s.spPrice }</h5>
 												</div>
 											</div>
-											<div class="why-text">
-												<h4>${s.spName }</h4>
-												<h5>${s.spPrice }</h5>
-											</div>
 										</div>
-									</div>
+								
 								</c:forEach>
 
 							</div>
@@ -80,8 +81,8 @@
 				 </div> 
 				 <script>
 				 	$(function() {
-						$('#grid-view').click(function(){
-							location.href='storedetail?spNo'+$(this).children(.spNo).text();
+						$('#storespNo').click(function(){
+							location.href='storedetail?'+$(this);
 						})
 					})
 				 </script>

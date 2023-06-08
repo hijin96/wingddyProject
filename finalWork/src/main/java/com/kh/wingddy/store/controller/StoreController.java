@@ -46,7 +46,7 @@ public class StoreController {
 
 	@Autowired
 	private StoreService storeService;
-
+	
 	private RenameFile rename = new RenameFile();
 
 	 private Attachment at = new Attachment();
@@ -125,23 +125,51 @@ public class StoreController {
 	// 게시판글쓰기 -2(ck에디터사용)
 	
 	@RequestMapping("insertstore.do")
-	public String insertStoreBoard(Store s,ArrayList<Attachment>list,  MultipartFile upfile,
+	public String insertStoreBoard(Store s,  MultipartFile upfile,
 			HttpSession session, Model model) {
 		
 		Member m = ((Member)session.getAttribute("loginUser"));
 		/////////////////////////////////////////////////////
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put(at.getChangeName(),rename);
+		
+		System.out.println("STORE+AT: "+map);
+		at.setMemberNo(m.getMemberNo());
+		at.setOriginName(upfile.getOriginalFilename());
+		at.setChangeName(rename.fileName(upfile, session));
+		System.out.println(at);
+		ArrayList<Attachment> listat = new ArrayList();
+		listat.add(at);
+		map.put("Store", s);
+		map.put("Attachment", listat);
+		
+		System.out.println("함 보자 : "+listat);
+		
+		
+//		map.put("upfileOriginal",upfile.getOriginalFilename());
+//		map.put("FILENO", at.getFileNo());
+//		map.put("loginUser.memberNo",m.getMemberNo());
+//		map.put("changeName",rename.toString());
+//		map.put("spName", s.getSpName());
+//		map.put("spContent", s.getSpContent());
+//		map.put("spPrice", s.getSpPrice());
+//		map.put("amount",s.getAmount());
+//		map.put("spOnecom",s.getSpOnecom());
+//		System.out.println("map: "+map);
+		
+		
+		//List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
+		//listMap.add(map);
+		
+		//System.out.println("listMap: "+listMap);
 	
-		System.out.println("map"+map);
 		
-		ArrayList<Store> stlist = new ArrayList<Store>();
-		System.out.println("LIST"+stlist);
+	
+		//System.out.println("LIST"+hashlist);
 		
-		System.out.println("at"+list);
 		
-		System.out.println("게시글 원래 이미지" + upfile.getOriginalFilename());
-		if(storeService.insertStoreBoard(list)>0) {
+		
+		System.out.println("게시글 원래 이미지:" + upfile.getOriginalFilename());
+		if(storeService.insertStoreBoard(map)>0) {
 		String changeName = rename.fileName(upfile, session);
 		// Attachment at = new Attachment();
 		at.setOriginName(upfile.getOriginalFilename());
