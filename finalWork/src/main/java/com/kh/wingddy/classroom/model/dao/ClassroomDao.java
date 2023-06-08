@@ -29,5 +29,7 @@ public class ClassroomDao {
 		return sqlSession.insert("classMapper.createClassroom", cr);
 	}
 	
-
+	public Classroom selectClassroom(SqlSessionTemplate sqlSession, int cno) {
+		return sqlSession.selectOne("classMapper.selectClassroom", cno);
+	}
 }

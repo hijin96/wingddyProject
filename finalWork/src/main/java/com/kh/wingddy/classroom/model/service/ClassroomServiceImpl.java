@@ -43,5 +43,12 @@ public class ClassroomServiceImpl implements ClassroomService {
 		return classroomDao.createClassroom(sqlSession, cr);
 	}
 
+	@Override
+	public Classroom selectClassroom(int cno) {
+		return classroomDao.selectClassroom(sqlSession, cno);
+	}
+	
+	
+
 
 }

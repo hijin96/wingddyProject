@@ -23,11 +23,12 @@ public class ClassroomController {
 	@RequestMapping(value="classMain.cl")
 	public ModelAndView ClassMainView(ModelAndView mv, HttpSession session, int cno) {
 		
-		ArrayList<ClassMember> cm = classroomService.selectPassStudent(cno);
-		System.out.println(cm);
+		//ArrayList<ClassMember> cm = classroomService.selectPassStudent(cno);
+		//System.out.println(cm);
 		
-		session.setAttribute("classroom", new Classroom(cno, "임시세션", "임시세션","임시코드"));
-		mv.addObject("passMember", cm);
+		//session.setAttribute("classroom", new Classroom(cno, "임시세션", "임시세션","임시코드"));
+		mv.addObject("passMember", classroomService.selectPassStudent(cno));
+		mv.addObject("classroom", classroomService.selectClassroom(cno));
 		mv.setViewName("classroom/classTeacherMain");
 		return mv;
 	}

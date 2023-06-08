@@ -30,7 +30,8 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>${classList[0].className}</h1>
+                <h1>${classroom.className}</h1>
+                <h4>(${classroom.teacherName})선생님</h4>
                 <div class="section-header-breadcrumb">
                   <div class="card-body">
                     <p>
@@ -40,7 +41,7 @@
                     </p>
                     <div class="collapse" id="collapseExample">
                       <p>
-                        Code : 243214
+                        ${classroom.enterCode}
                       </p>
                     </div>
                   </div>
@@ -82,7 +83,22 @@
                       <h4>클래스 내 랭킹</h4>
                     </div>
                     <div class="card-body">
-                      <p>Card <code>.card-primary</code></p>
+                      <table class="table table-striped table-md passStudent">
+                        <tr>
+                          <th>학생이름</th>
+                          <th>학생아이디</th>
+                          <th>전화번호</th>
+                          <th>순위</th>
+                          <th>쿠폰수</th>
+                        </tr>
+                          <tr>
+                            <td>홍길동</td>
+                            <td>hong123</td>
+                            <td>010-1232-1234</td>
+                            <td>1위</td>
+                            <td>5개</td>
+                          </tr>
+                      </table>
                     </div>
                   </div>
                 </div>
