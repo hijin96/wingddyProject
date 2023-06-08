@@ -149,8 +149,6 @@
 	}
 
 	function selectFilterList(){
-
-		console.log('리스트가져오기!!!');
 		
 		var ajaxAlphabet;
 		var ajaxSelling;

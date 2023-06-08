@@ -92,7 +92,7 @@ public class AlphabetController {
 	
 	
 	@RequestMapping("enroll.aph")
-	public String enrollAndCategory(int mno) {
+	public String enrollAndCategory() {
 		
 		
 		
@@ -101,7 +101,11 @@ public class AlphabetController {
 	
 	
 	@RequestMapping("post.aph")
-	public void insertMarket(String letter) {
+	public void insertMarket(AlphabetMarket am) {
+		
+		AlphabetService.insertMarket(am);
+		
+		//해당 글 디테일뷰로 이동하기
 
 	}
 	
