@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.wingddy.alphabetMarket.controller.AlphabetController;
+import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.common.model.vo.PageInfo;
@@ -73,7 +74,10 @@ public class AlphabetDao {
 	
 	
 	
-	
+	public ArrayList<AlphabetMarket> selectCategory(SqlSessionTemplate sqlSession, Alphabet ap){
+		
+		return (ArrayList)sqlSession.selectList("alphabetMapper.selectMyAlphabet", ap);
+	}
 	
 	
 	
