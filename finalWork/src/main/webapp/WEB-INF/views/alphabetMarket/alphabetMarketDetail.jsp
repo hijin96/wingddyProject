@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>마켓 디테일</title>
-
 </head>
 <body>
 
@@ -23,19 +21,19 @@
 		        <div class="section-body">
 					<div class="card">
 						<div class="card-header text-center">
-							<h3>${requestScope.market.title}</h3>
+							<h3>제목 어쩌구</h3>
 						</div>
 						<div class="card-body">
 							<div align="right">
-								<h6>${requestScope.market.writer}</h6>
-								<p>${requestScope.market.createDate}</p>
+								<h6>홍길동</h6>
+								<p>2023-02-02</p>
 							</div>
 							<div class="article-image">
-								<p style="text-align: center; font-size: 150px; margin-top: 70px;">${requestScope.market.alphabet}</p>
+								<p style="text-align: center; font-size: 150px; margin-top: 70px;">A</p>
 							</div>
 							<br><br><br>
 							<div align="center">
-								<pre style="font-size: larger;" id="bContent">${requestScope.market.content}</pre>
+								<pre style="font-size: larger;">dfij;dsoifjuweoifjsdlfjewoifhyo;isdfh;dkjsfgweofh</pre>
 							</div>
 						</div>
 						<div class="card-header">
@@ -45,10 +43,9 @@
 							<div class="card">	
 								  <div class="card-body p-0">
 									<div class="table-responsive">
-									  <table class="table table-striped table-md" id="commentsArea">
+									  <table class="table table-striped table-md">
 										<tr>
 											<td colspan="6"><h3>comments(3)</h3></td>
-											
 											<td><button class="btn btn-warning" id="modal-aphReply">댓글작성</button></td>
 										</tr>
 										<tr>
@@ -82,25 +79,19 @@
 								  </div>
 								  <div class="card-footer text-center">
 									<nav class="d-inline-block">
-										<ul class="pagination mb-0">
-
-											<li class="page-item disabled">
-												<button class="page-link" tabindex="-1"><i class="fas fa-chevron-left"></i></button>
-											</li>
-
-											<li class="page-item active">
-												<button type="button" class="page-link paging">1 <span class="sr-only">(current)</span></button>
-											</li>
-
-											<li class="page-item">
-												<button type="button" class="page-link paging">2</button>
-											</li>
-
-											<li class="page-item">
-												<button class="page-link" ><i class="fas fa-chevron-right"></i></button>
-											</li>
-											
-										</ul>
+									  <ul class="pagination mb-0">
+										<li class="page-item disabled">
+										  <a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
+										</li>
+										<li class="page-item active"><a class="page-link" href="#">1 <span class="sr-only">(current)</span></a></li>
+										<li class="page-item">
+										  <a class="page-link" href="#">2</a>
+										</li>
+										<li class="page-item"><a class="page-link" href="#">3</a></li>
+										<li class="page-item">
+										  <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+										</li>
+									  </ul>
 									</nav>
 								  </div>
 								</div>
@@ -170,21 +161,6 @@
 
 
 	<script>
-		$(function(){
-
-			var currentPage = 1;
-
-			selectPageButton(currentPage);
-			selectReplyList(currentPage);
-
-			$(document).on('click', '.paging', function(){
-				currentPage = this.value;
-				selectReplyList(currentPage);
-				selectPageButton(currentPage);
-			})
-
-		})
-
 		$("#modal-aphReply").fireModal({
 			title: 'Login',
 			body: $("#modal-login-part"),
@@ -218,69 +194,6 @@
 			}
 			]
 		});
-
-
-		function selectReplyList(currentPage){
-
-			$.ajax({
-				url : "replyList.aph",
-				data : {
-					rPage : currentPage,
-					bno : '${requestScope.market.marketBno}',
-				},
-				success : function(list){
-			
-					let value = '<tr><td colspan="6"><h3>comments('+ list.length +')</h3></td><td><button class="btn btn-warning" id="modal-aphReply">댓글작성</button></td></tr>'
-
-					if('${sessionScope.loginUser.memberId}' == '${requestScope.market.writer}'){
-						value = '<tr><td colspan="6"><h3>comments('+ list.length +')</h3></td><td></td></tr>'
-					}
-					
-					for(let i in list){
-						value += '<tr><td><input type="hidden" value="'+ list[i].replyNo +'"></td>'
-
-							if(list[i].replySelected == 'Y'){
-								value += '<td><div class="badge badge-success">selected</div></td>'
-							}
-							else{
-								value += '<td><div class="badge badge-success"></div></td>'
-							}
-						value += '<td><h3>'+ list[i].alphabet +'</h3></td>'
-						       + '<td>'+ list[i].replyWriter + '</td>'
-							   + '<td>' + list[i].replyContent+'</td>'
-							   + '<td>'+ list[i].replyDate + '</td>'
-							
-							if('${sessionScope.loginUser.memberId}' == '${requestScope.market.writer}'){
-								console.log('똑같음!');
-								value += '<td><button type="button" class="btn btn-primary btn-sm">바꾸기</button></td></tr>'
-							}
-							else{
-								console.log('다름!');
-								value += '<td></td></tr>'
-							}
-					}
-
-					$('#commentsArea').html(value);
-				}
-			})
-		}
-
-		
-		function selectPageButton(currentPage){
-
-			$.ajax({
-				url : 'replyPaging.aph',
-				data : {
-					rPage : currentPage,
-					bno : '${requestScope.market.marketBno}',
-				},
-				success : function(result){
-
-				}
-			})
-		}
-		
-		
 	</script>
 
 
