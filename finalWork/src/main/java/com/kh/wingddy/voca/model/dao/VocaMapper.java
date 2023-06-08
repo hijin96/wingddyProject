@@ -1,6 +1,7 @@
 package com.kh.wingddy.voca.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -22,6 +23,10 @@ public interface VocaMapper {
 	public int insertVocaBook(VocaBook vb);
 
 	public int insertVoca(ArrayList<Voca> vlist);
+
+	public int deleteVocaList(int integer);
+
+	public int insertVoca(HashMap<String, Object> vb);
 	
 	
 }

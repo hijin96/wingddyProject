@@ -1,6 +1,7 @@
 package com.kh.wingddy.voca.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,8 +50,10 @@ public class VocaServiceImpl implements VocaService {
 	}
 
 	@Override
-	public int updateVocaBook(VocaBook vb, ArrayList<Voca> vlist) {
-		return 0;
+	@Transactional
+	public int updateVocaBook(HashMap<String, Object> vb) {
+		return vocaMapper.deleteVocaList((Integer)(vb.get("bookNo"))) 
+			 * vocaMapper.insertVoca(vb);
 	}
 
 	@Override
@@ -67,5 +70,6 @@ public class VocaServiceImpl implements VocaService {
 	public int updateClassBook(ArrayList<ClassVocaBook> cvList) {
 		return 0;
 	}
+
 
 }
