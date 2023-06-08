@@ -22,6 +22,10 @@ public interface AlphabetService {
 	ArrayList<MarketReply> ajaxReplyList(PageInfo pi, int bno);
 	
 	
+	// 알파벳 마켓 작성시 자기 알파벳 셀렉트
+	ArrayList<AlphabetMarket> selectCategory();
+	
+	
 	// 알파벳 마켓 글 작성
 	int insertMarket(AlphabetMarket am);
 	

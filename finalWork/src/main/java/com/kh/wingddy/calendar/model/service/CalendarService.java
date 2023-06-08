@@ -16,4 +16,6 @@ public interface CalendarService {
 	
 	public int deleteSchedule(int scheduleNo);
 	
+	public ArrayList<Calendar> selectClassScheduleList(HashMap map);
+	
 }

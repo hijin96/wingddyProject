@@ -46,6 +46,12 @@ public class AlphabetServiceImpl implements AlphabetService {
 	
 
 	@Override
+	public ArrayList<AlphabetMarket> selectCategory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public int insertMarket(AlphabetMarket am) {
 		
 		return alphabetDao.insertMarket(sqlSession, am);
@@ -74,6 +80,8 @@ public class AlphabetServiceImpl implements AlphabetService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 
 	
