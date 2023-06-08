@@ -20,7 +20,7 @@ public class ClassroomController {
 	@Autowired
 	private ClassroomService classroomService;
 	
-	@RequestMapping(value="classMain.cl")
+	@RequestMapping("classMain.cl")
 	public ModelAndView ClassMainView(ModelAndView mv, HttpSession session, int cno) {
 		
 		//ArrayList<ClassMember> cm = classroomService.selectPassStudent(cno);
@@ -28,7 +28,6 @@ public class ClassroomController {
 		
 		//session.setAttribute("classroom", new Classroom(cno, "임시세션", "임시세션","임시코드"));
 		mv.addObject("passMember", classroomService.selectPassStudent(cno));
-		mv.addObject("classroom", classroomService.selectClassroom(cno));
 		mv.setViewName("classroom/classTeacherMain");
 		return mv;
 	}

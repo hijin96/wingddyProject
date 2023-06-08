@@ -319,6 +319,7 @@
                 <li><a href="profile.me">내정보수정</a></li>
               </ul>
             </li>    
+            <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
             </c:if>
 			
 			<c:if test="${ not empty classroom }">
@@ -342,29 +343,27 @@
 	
 	            <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>	
             </c:if>
-            <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
             <c:choose>
               <c:when test="${not empty loginUser}">
-                <li class="menu-header">Profile</li>
+                <li class="menu-header">프로필</li>
                 <li class="dropdown">
-                  <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>${loginUser.memberName}</span></a>
+                  <a href="" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>${loginUser.memberName}</span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="logout.me">Logout</a></li> 
+                    <li><a href="logout.me">로그아웃</a></li> 
                     <li><a href="#">Information</a></li> 
                     <li><a href="#">Reset Password</a></li> 
                   </ul>
                 </li>
               </c:when>
               <c:otherwise>
-                <li class="menu-header">Profile</li>
+                <li class="menu-header">프로필</li>
                 <li class="dropdown">
                   <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Insert Login</span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="loginForm.me">Login</a></li> 
-                    <li><a href="enrollForm.me">EnrollForm</a></li> 
-                    <li><a href="#exampleModal" data-toggle="modal">EnrollForm</a></li> 
-                    <li><a href="#">Forgot ID</a></li> 
-                    <li><a href="errorPage.me">Forgot Password</a></li> 
+                    <li><a href="loginForm.me">로그인</a></li> 
+                    <li><a href="#exampleModal" data-toggle="modal">회원가입</a></li> 
+                    <li><a href="#">아이디 찾기</a></li> 
+                    <li><a href="errorPage.me">비밀번호 찾기</a></li> 
                   </ul>
                 </li>
               </c:otherwise>
