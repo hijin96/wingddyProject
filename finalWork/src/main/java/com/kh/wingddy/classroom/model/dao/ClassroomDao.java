@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
 import com.kh.wingddy.classroom.model.vo.ClassMember;
 import com.kh.wingddy.classroom.model.vo.Classroom;
 import com.kh.wingddy.member.model.vo.Member;
@@ -31,5 +32,9 @@ public class ClassroomDao {
 	
 	public Classroom selectClassroom(SqlSessionTemplate sqlSession, int cno) {
 		return sqlSession.selectOne("classMapper.selectClassroom", cno);
+	}
+	
+	public ArrayList<MyCount> selectClassRanking(SqlSessionTemplate sqlSession, int cno) {
+		return (ArrayList)sqlSession.selectList("classMapper.selectClassRanking", cno);
 	}
 }

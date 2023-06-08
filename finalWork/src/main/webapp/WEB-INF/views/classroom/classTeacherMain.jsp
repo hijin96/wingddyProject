@@ -89,15 +89,17 @@
                           <th>학생아이디</th>
                           <th>전화번호</th>
                           <th>순위</th>
-                          <th>쿠폰수</th>
+                          <th>누적쿠폰수</th>
                         </tr>
-                          <tr>
-                            <td>홍길동</td>
-                            <td>hong123</td>
-                            <td>010-1232-1234</td>
-                            <td>1위</td>
-                            <td>5개</td>
-                          </tr>
+                        <c:forEach var="mc" items="${myCount}" varStatus="i">
+                            <tr>
+                              <td>${mc.memberName}</td>
+                              <td>${mc.memberId}</td>
+                              <td>${mc.phone}</td>
+                              <td>${i.count}</td>
+                              <td>${mc.totalCouponCount}</td>
+                            </tr>
+                        </c:forEach>
                       </table>
                     </div>
                   </div>

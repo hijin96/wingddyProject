@@ -29,6 +29,7 @@ public class ClassroomController {
 		//session.setAttribute("classroom", new Classroom(cno, "임시세션", "임시세션","임시코드"));
 		mv.addObject("passMember", classroomService.selectPassStudent(cno));
 		mv.addObject("classroom", classroomService.selectClassroom(cno));
+		mv.addObject("myCount", classroomService.selectClassRanking(cno));
 		mv.setViewName("classroom/classTeacherMain");
 		return mv;
 	}

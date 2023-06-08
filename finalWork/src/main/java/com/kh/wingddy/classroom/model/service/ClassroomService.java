@@ -2,6 +2,7 @@ package com.kh.wingddy.classroom.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
 import com.kh.wingddy.classroom.model.vo.ClassMember;
 import com.kh.wingddy.classroom.model.vo.Classroom;
 import com.kh.wingddy.member.model.vo.Member;
@@ -27,6 +28,7 @@ public interface ClassroomService {
 	// 클래스 입장 요청 학생 리스트 조회 (SELECT)
 	// 클래스 입장 코드 조회 (SELECT)
 	Classroom selectClassroom(int cno);
+	ArrayList<MyCount> selectClassRanking(int cno);
 	// 학생관리 페이지
 	// 클래스 내 학생 리스트 조회 (SELECT)
 	// - 과제 참여율 조회 (SELECT)
