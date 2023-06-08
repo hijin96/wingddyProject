@@ -52,6 +52,11 @@ public class ClassroomController {
 		return result > 0 ? "pass" : "nope";
 	}
 	
+	@RequestMapping("enrollClassForm.cl")
+	public String enrollClassForm() {
+		return "classroom/enrollClassForm";
+	}
+	
 	@RequestMapping("addClassForm.cl")
 	public String addClassForm() {
 		return "classroom/addClassForm";
