@@ -21,6 +21,17 @@
 		<result column="PHONE" property="phone"/>
 	</resultMap>
 
+	<resultMap type="myCount" id="myCountResultSet">
+		<result column="CLASS_NO" property="classNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="PHONE" property="phone"/>
+		<result column="COUPON_COUNT" property="couponCount"/>
+		<result column="GACHA_COUNT" property="gachaCount"/>
+		<result column="TOTAL_COUPON_COUNT" property="totalCouponCount"/>
+	</resultMap>
+	
 	<select id="selectClassList" parameterType="member" resultMap="classResultSet">
 		<choose>
 			<when test='memberType == "T"' >
@@ -121,5 +132,28 @@
 		  	   MEMBER ON (MEMBER_NO = TEACHER_NO)
 		 WHERE
 		       CLASS_NO = #{cno}           
+	</select>
+	
+	<select id="selectClassRanking" parameterType="_int" resultMap="myCountResultSet">
+		select
+		       class_no,
+		       member_no,
+		       total_coupon_count,
+		       member_name,
+		       member_id,
+		       phone
+		 from
+		       class_mycount
+		  join
+		       classroom using(class_no)
+		  join 
+		       member using(member_no)       
+		where
+		        class_no = #{cno}
+		  and
+		       member_type = 'S'
+		order
+		    by
+		         total_coupon_count desc
 	</select>
 </mapper>

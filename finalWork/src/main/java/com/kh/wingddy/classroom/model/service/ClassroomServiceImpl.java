@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
 import com.kh.wingddy.classroom.model.dao.ClassroomDao;
 import com.kh.wingddy.classroom.model.vo.ClassMember;
 import com.kh.wingddy.classroom.model.vo.Classroom;
@@ -46,6 +47,11 @@ public class ClassroomServiceImpl implements ClassroomService {
 	@Override
 	public Classroom selectClassroom(int cno) {
 		return classroomDao.selectClassroom(sqlSession, cno);
+	}
+
+	@Override
+	public ArrayList<MyCount> selectClassRanking(int cno) {
+		return classroomDao.selectClassRanking(sqlSession, cno);
 	}
 	
 	
