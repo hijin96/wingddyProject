@@ -26,7 +26,7 @@ public interface ClassroomService {
 	// 선생님 클래스 메인페이지 
 	// 클래스 입장 요청 학생 리스트 조회 (SELECT)
 	// 클래스 입장 코드 조회 (SELECT)
-	
+	Classroom selectClassroom(int cno);
 	// 학생관리 페이지
 	// 클래스 내 학생 리스트 조회 (SELECT)
 	// - 과제 참여율 조회 (SELECT)
