@@ -81,6 +81,51 @@
 		 where
 		 	   schedule_no = #{scheduleNo}  	  
 	</update>
+	
+	<select id="selectClassScheduleList" parameterType="hashmap" resultType="calendar">
+		<choose>
+			<when test="#{memberType.equals('S')}">
+				SELECT 
+				       SCHEDULE_NO scheduleNo
+				      ,MEMBER_NO memberNo
+				      ,SCHEDULE schedule
+				      ,TO_CHAR(START_DATE, 'YYYY-MM-DD') startDate 
+				      ,TO_CHAR(END_DATE + interval '1' day, 'YYYY-MM-DD') endDate
+				      ,COLOR color
+				      ,CLASS_NO classNo
+				  FROM 
+				       CALENDAR A
+				  JOIN 
+				       CALENDAR_CLASS B USING(SCHEDULE_NO)
+				 WHERE
+				       B.CLASS_NO IN (SELECT CLASS_NO
+				                        FROM CLASS_MEMBER
+				                        JOIN CLASSROOM USING(CLASS_NO)
+				                       WHERE STUDENT_NO = #{memberNo})
+        	</when>
+        	<otherwise>
+        		SELECT
+        			   SCHEDULE_NO
+        			  ,MEMBER_NO
+        			  ,SCHEDULE
+        			  ,TO_CHAR(START_DATE, 'YYYY-MM-DD') startDate 
+				      ,TO_CHAR(END_DATE + interval '1' day, 'YYYY-MM-DD') endDate
+				      ,COLOR color
+				      ,CLASS_NO classNo
+				  FROM
+				 	   CALENDAR A
+				  JOIN
+				  	   CALENDAR_CLASS B USING(SCHEDULE_NO)
+				 WHERE
+				 	   B.CLASS_NO IN (SELECT 
+				 	   						 CLASS_NO
+				 	   					FROM
+				 	   						 CLASSROOM
+				 	   				   WHERE
+				 	   				   		 TEACHER_NO = ); 	   
+        	</otherwise>
+    	</choose>
+	</select>
 
 
 </mapper>

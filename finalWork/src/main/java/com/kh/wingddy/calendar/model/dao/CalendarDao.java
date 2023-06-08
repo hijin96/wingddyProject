@@ -42,6 +42,10 @@ public class CalendarDao {
 		return sqlsession.update("calendar-mapper.updateSchedule", c);
 	}
 	
+	public ArrayList<Calendar> selectClassScheduleList(SqlSessionTemplate sqlSession, HashMap map){
+		return (ArrayList)sqlSession.selectList("calendar-mapper.selectClassScheduleList", map);
+	}
+	
 	
 	
 }

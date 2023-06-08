@@ -224,6 +224,11 @@
 
 	<script>
 		let memberNo = ${loginUser.memberNo};
+		let memberType = '${loginUser.memberType}';
+		
+		
+		var d = new Date();
+		var t = new Date(new Date().setDate(d.getDate() + 1));
 	   
 		// full calendar api
     	document.addEventListener('DOMContentLoaded', function() {
@@ -235,68 +240,119 @@
 	        	},
 	        	selectable : true,
 	        	googleCalendarApiKey : 'AIzaSyDFV8dRGYeO2k9b_bAtA6yueCxVEl3FuYU',
-	        	eventSources : {
-					googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
-					color : 'transparent',
-					textColor : 'gray',
-					classNames : 1
-				},
-	        	events : function(info, successCallback, failureCallback){
-        				let value = [];
+	        	
+	        	eventSources : [
+	        		{
+						googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
+						color : 'transparent',
+						textColor : 'gray',
+						classNames : 1
+					},
+					{
+						events : function(info, successCallback, failureCallback){
+							console.log('이벤트1');
+							let value = [];
+							
+							$.ajax({
+		    					url : 'selectClassScheduleList', // 클래스 일정
+		    					data : {memberNo : memberNo, memberType : memberType},
+		    					type : 'post',
+		    					success : function(clist){
+		    						let clist1 = '';
+		    						let clist2 = '';
+		    						
+		    						console.log(clist);
+		    						
+		    						for(let i in clist){
+			        					//console.log(list[i].schedule + "/" + list[i].endDate);
+			        					 value.push({
+			        						 title : clist[i].schedule,
+			        						 start : clist[i].startDate,
+			        						 end : clist[i].endDate,
+			        						 
+			        					})
+			        					
+			        					/*
+			        					let startDate = new Date(clist[i].startDate);
+			        					let endDate = new Date(clist[i].endDate);
+			        					
+			        					//console.log(list[i].schedule + " 의 endDate : " + endDate);
+			        					if(d >= startDate && d <= endDate){
+			        						scheduleList1 +=  "<li><div id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</div></li>"; 
+			        						
+			        					} 
+			        					$('#todayList ul').html(scheduleList1);
+			        					
+			        					if(t >= startDate && t <= endDate){
+			        						scheduleList2 += "<li><div id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</div></li>"; 
+							
+			        					}
+			        					$('#tomorrowList ul').html(scheduleList2);
+			        					*/
+			        					
+			        				}
+				        			successCallback(value);
+		    					}
+		    				})
+						},
+						classNames : 2
+					},
+					{
+						events : function(info, successCallback, failureCallback){
+							console.log('이벤트2');
+	        				let value = [];
+	        				
+	        				$.ajax({
+			        			url : 'selectScheduleList', // 개인 일정
+			        			data : {memberNo : memberNo},
+			        			type : 'post',
+			        			success : function(list){
+			        				
+			        				console.log(list);
+			        				
+			        				
+			        				let scheduleList1 = '';
+			        				let scheduleList2 = '';
+			        				let mark = '';
+			        				
+			        				for(let i in list){
+			        					//console.log(list[i].schedule + "/" + list[i].endDate);
+			        					 value.push({
+			        						 title : list[i].schedule,
+			        						 start : list[i].startDate,
+			        						 end : list[i].endDate,
+			        						 color : list[i].color,
+			        						 
+			        					})
+			        					
+			        					let startDate = new Date(list[i].startDate);
+			        					let endDate = new Date(list[i].endDate);
+			        					
+			        					//console.log(list[i].schedule + " 의 endDate : " + endDate);
+			        					
+			        					if(d >= startDate && d <= endDate){
+			        						scheduleList1 +=  "<li><div id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</div></li>"; 
+			        						
+			        					} 
+			        					$('#todayList ul').html(scheduleList1);
+			        					
+			        					if(t >= startDate && t <= endDate){
+			        						scheduleList2 += "<li><div id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</div></li>"; 
+							
+			        					}
+			        					$('#tomorrowList ul').html(scheduleList2);
+			        					
+			        					
+			        				}
+				        			successCallback(value);
+			        			}
+			        		})
 		        		
-        				
-        				$.ajax({
-        					url : 'selectClassScheduleList',
-        					data : {memberNo : memberNo}
-        				})
-        				
-        				$.ajax({
-		        			url : 'selectScheduleList',
-		        			data : {memberNo : memberNo},
-		        			type : 'post',
-		        			success : function(list){
-		        				
-		        				//console.log(list);
-		        				
-		        				
-		        				let scheduleList1 = '';
-		        				let scheduleList2 = '';
-		        				let mark = '';
-		        				
-		        				for(let i in list){
-		        					//console.log(list[i].schedule + "/" + list[i].endDate);
-		        					 value.push({
-		        						 title : list[i].schedule,
-		        						 start : list[i].startDate,
-		        						 end : list[i].endDate,
-		        						 color : list[i].color,
-		        						 classNames : 2
-		        					})
-		        					
-		        					let startDate = new Date(list[i].startDate);
-		        					let endDate = new Date(list[i].endDate);
-		        					
-		        					//console.log(list[i].schedule + " 의 endDate : " + endDate);
-		        					
-		        					if(d >= startDate && d <= endDate){
-		        						scheduleList1 +=  "<li><div id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</div></li>"; 
-		        						
-		        					} 
-		        					$('#todayList ul').html(scheduleList1);
-		        					
-		        					if(t >= startDate && t <= endDate){
-		        						scheduleList2 += "<li><div id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</div></li>"; 
-						
-		        					}
-		        					$('#tomorrowList ul').html(scheduleList2);
-		        					
-		        					
-		        				}
-			        			successCallback(value);
-		        			}
-		        		})
-	        		
-	        	},
+		        		},
+		        		classNames : 3
+					}
+					
+				],
         		eventClick : function(info){
         			info.jsEvent.stopPropagation();
         			info.jsEvent.preventDefault();

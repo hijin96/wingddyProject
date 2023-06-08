@@ -71,5 +71,14 @@ public class calendarController {
 		}
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="selectClassScheduleList", produces="application/json; charset=UTF-8")
+	public String selectClassScheduleList(int memberNo, String memberType) {
+		HashMap map = new HashMap();
+		map.put("memberNo", memberNo);
+		map.put("memberType", memberType);
+		return new Gson().toJson(calendarService.selectClassScheduleList(map));
+	}
+	
 	
 }
