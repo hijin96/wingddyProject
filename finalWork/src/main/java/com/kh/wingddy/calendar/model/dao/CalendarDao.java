@@ -43,6 +43,8 @@ public class CalendarDao {
 	}
 	
 	public ArrayList<Calendar> selectClassScheduleList(SqlSessionTemplate sqlSession, HashMap map){
+		//System.out.println(map);
+		//System.out.println((ArrayList)sqlSession.selectList("calendar-mapper.selectClassScheduleList", map));
 		return (ArrayList)sqlSession.selectList("calendar-mapper.selectClassScheduleList", map);
 	}
 	

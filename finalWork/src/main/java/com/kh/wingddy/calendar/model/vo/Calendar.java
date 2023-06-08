@@ -11,6 +11,7 @@ public class Calendar {
 	private String endDate;
 	private String color;
 	private int classNo;
+	private String className;
 	
 	
 	

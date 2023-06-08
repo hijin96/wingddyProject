@@ -77,6 +77,7 @@ public class calendarController {
 		HashMap map = new HashMap();
 		map.put("memberNo", memberNo);
 		map.put("memberType", memberType);
+		System.out.println(calendarService.selectClassScheduleList(map));
 		return new Gson().toJson(calendarService.selectClassScheduleList(map));
 	}
 	

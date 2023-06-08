@@ -84,7 +84,7 @@
 	
 	<select id="selectClassScheduleList" parameterType="hashmap" resultType="calendar">
 		<choose>
-			<when test="#{memberType.equals('S')}">
+			<when test='memberType == "S"'>
 				SELECT 
 				       SCHEDULE_NO scheduleNo
 				      ,MEMBER_NO memberNo
@@ -92,38 +92,44 @@
 				      ,TO_CHAR(START_DATE, 'YYYY-MM-DD') startDate 
 				      ,TO_CHAR(END_DATE + interval '1' day, 'YYYY-MM-DD') endDate
 				      ,COLOR color
-				      ,CLASS_NO classNo
+				      ,B.CLASS_NO classNo
+				      ,CLASS_NAME className
 				  FROM 
 				       CALENDAR A
 				  JOIN 
 				       CALENDAR_CLASS B USING(SCHEDULE_NO)
+				  JOIN
+				  	   CLASSROOM C ON(B.CLASS_NO = C.CLASS_NO)     
 				 WHERE
 				       B.CLASS_NO IN (SELECT CLASS_NO
 				                        FROM CLASS_MEMBER
 				                        JOIN CLASSROOM USING(CLASS_NO)
 				                       WHERE STUDENT_NO = #{memberNo})
         	</when>
-        	<otherwise>
+        	<when test='memberType == "T"'>
         		SELECT
-        			   SCHEDULE_NO
-        			  ,MEMBER_NO
-        			  ,SCHEDULE
+        			   SCHEDULE_NO scheduleNo
+        			  ,MEMBER_NO memberNo
+        			  ,SCHEDULE schedule
         			  ,TO_CHAR(START_DATE, 'YYYY-MM-DD') startDate 
 				      ,TO_CHAR(END_DATE + interval '1' day, 'YYYY-MM-DD') endDate
-				      ,COLOR color
-				      ,CLASS_NO classNo
+				      ,B.CLASS_NO classNo
+				      ,CLASS_NAME className
 				  FROM
 				 	   CALENDAR A
 				  JOIN
 				  	   CALENDAR_CLASS B USING(SCHEDULE_NO)
+				  JOIN
+				  	   CLASSROOM C ON(B.CLASS_NO = C.CLASS_NO)	   
 				 WHERE
 				 	   B.CLASS_NO IN (SELECT 
 				 	   						 CLASS_NO
 				 	   					FROM
 				 	   						 CLASSROOM
 				 	   				   WHERE
-				 	   				   		 TEACHER_NO = ); 	   
-        	</otherwise>
+				 	   				   		 TEACHER_NO = #{memberNo}) 	   
+        	</when>
+        	
     	</choose>
 	</select>
 
