@@ -92,7 +92,9 @@ public class AlphabetController {
 	
 	
 	@RequestMapping("enroll.aph")
-	public String enroll() {
+	public String enrollAndCategory(int mno) {
+		
+		
 		
 		return "alphabetMarket/alphabetMarketEnroll";
 	}

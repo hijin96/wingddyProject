@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,8 +53,12 @@
 					<input class="form-check-input" type="checkbox" id="sellingCheck">
 					<label class="form-check-label" for="defaultCheck1">
 					  거래완료 안보기 
-					</label>
+					</label><br>
+					<!--<c:if test="${ not empty loginUser }">-->
+					<a href="enroll.aph?cno=" class="btn btn-primary" id="modal-aphReply">게시글작성</a>
+					<!--</c:if>-->
 				</div>
+				
 	             
 	            <br><br>
 	
