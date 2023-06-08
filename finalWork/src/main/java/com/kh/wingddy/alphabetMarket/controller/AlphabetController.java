@@ -106,7 +106,6 @@ public class AlphabetController {
 		AlphabetService.insertMarket(am);
 		
 		//해당 글 디테일뷰로 이동하기
-
 	}
 	
 	
