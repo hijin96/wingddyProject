@@ -2,6 +2,7 @@ package com.kh.wingddy.classroom.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,10 @@ public class ClassroomController {
 	private ClassroomService classroomService;
 	
 	@RequestMapping("classMain.cl")
-	public ModelAndView ClassMainView(ModelAndView mv, HttpSession session, int cno) {
+	public ModelAndView ClassMainView(ModelAndView mv, HttpSession session, int cno, HttpServletRequest request) {
 		
 		//ArrayList<ClassMember> cm = classroomService.selectPassStudent(cno);
 		//System.out.println(cm);
-		
 		//session.setAttribute("classroom", new Classroom(cno, "임시세션", "임시세션","임시코드"));
 		mv.addObject("passMember", classroomService.selectPassStudent(cno));
 		mv.addObject("myCount", classroomService.selectClassRanking(cno));
