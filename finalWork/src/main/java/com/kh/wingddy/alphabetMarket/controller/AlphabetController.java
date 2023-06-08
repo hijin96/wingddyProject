@@ -68,7 +68,8 @@ public class AlphabetController {
 	@RequestMapping(value="replyList.aph", produces="application/json; charset=UTF-8")
 	public String ajaxReplyList(int rPage, int bno) {
 		
-		
+		System.out.println("-------------------------------");
+
 		PageInfo pi = Pageination.getPageInfo(AlphabetService.replyCount(bno), rPage, 10, 5);
 		
 		return new Gson().toJson(AlphabetService.ajaxReplyList(pi, bno));
@@ -85,7 +86,7 @@ public class AlphabetController {
 		
 		PageInfo pi = Pageination.getPageInfo(AlphabetService.replyCount(bno), rPage, 10, 5);
 		
-		System.out.println("***********" + "페이징 버튼!  " + pi);
+		//System.out.println("***********" + "페이징 버튼!  " + pi);
 		
 
 		return new Gson().toJson(pi);

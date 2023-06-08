@@ -127,6 +127,9 @@
 
 		$(document).on('click', '.boardDetail', function(){
 
+
+			//goPost($(this).find('input[type="hidden"]').val());
+
 			window.location.href="detail.aph?bno="+ $(this).find('input[type="hidden"]').val();
 
 		});
@@ -134,6 +137,28 @@
 	
 	})
 
+	/*
+	function goPost(data){
+
+		var url='detail.aph'
+
+		var form = document.createElement('form');
+
+		form.setAttribute('method', 'post');
+		form.setAttribute('action', url);
+		document.charset = 'utf-8';
+
+		
+
+
+		var info;
+
+		info
+
+
+		
+	}
+	*/
 
 
 	function createButton(){
@@ -196,7 +221,7 @@
 					
 
 					if(list[i].sellingStatus == 'Y'){
-						value  += '<div class="col-12 col-md-4 col-lg-4 boardDetail">'
+						value  += '<div class="col-12 col-md-4 col-lg-4 boardDetail"><form>'
 								+ '<article class="article article-style-c">'
 								+ '<div class="article-header">'
 								+ '<p style="text-align: center; font-size: 150px; margin-top: 100px;">' + list[i].alphabet + '</p>'
