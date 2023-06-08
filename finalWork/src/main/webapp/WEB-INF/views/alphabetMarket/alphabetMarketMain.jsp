@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -126,12 +125,13 @@
 		});
 
 
-
-		$('.boardDetail').click(function(){
+		$(document).on('click', '.boardDetail', function(){
 
 			window.location.href="detail.aph?bno="+ $(this).find('input[type="hidden"]').val();
 
-		})
+		});
+
+	
 	})
 
 
@@ -165,7 +165,6 @@
 			ajaxSelling = 'Y';
 		}
 		
-		console.log('클래스 넘버 : '+'${requestScope.classroom.classNo}');
 
 
 		$.ajax({
@@ -179,7 +178,8 @@
 			},
 			success : function(list){	
 				
-				console.log(list);
+				//console.log(list);
+
 
 				let value = '';
 

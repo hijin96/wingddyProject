@@ -109,7 +109,7 @@
 		VALUES(SEQ_MARKET_BNO.NEXTVAL, #{writer}, #{alphabet}, #{content}, DEFAULT, DEFAULT, DEFAULT, #{classNo}, #{title});
 	</insert>
 	
-	<select id="selectMyAlphabet" parameterType="alphabet">
+	<select id="selectMyAlphabet" parameterType="alphabet" resultMap="alphabetResultSet">
 	SELECT ALPHABET, COUNT(*) as COUNT
 	  FROM ALPHABET A
 	 WHERE MEMBER_NO = #{mno}

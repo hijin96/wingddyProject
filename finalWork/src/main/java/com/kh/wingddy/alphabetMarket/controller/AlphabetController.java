@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.wingddy.alphabetMarket.model.service.AlphabetService;
@@ -93,13 +94,12 @@ public class AlphabetController {
 	
 	
 	@RequestMapping("enroll.aph")
-	public String enrollAndCategory(Alphabet ap) {
+	public ModelAndView  enrollAndCategory(Alphabet ap, ModelAndView mv) {
 		
-		System.out.println(ap);
+		mv.addObject("category", AlphabetService.selectCategory(ap));
+		mv.setViewName("alphabetMarket/alphabetMarketEnroll");
 		
-		AlphabetService.selectCategory(ap);
-		
-		return "alphabetMarket/alphabetMarketEnroll";
+		return mv;
 	}
 	
 	
@@ -107,7 +107,6 @@ public class AlphabetController {
 	public void insertMarket(AlphabetMarket am) {
 		
 		AlphabetService.insertMarket(am);
-		
 		
 		// return 해당 글 디테일뷰로 이동하기
 	}
