@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.wingddy.voca.model.dao.VocaMapper">
+
+	<resultMap type="vocaBook" id="vocaBookResultSet">
+		<result column="BOOK_NO" property="bookNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="CLASS_NO" property="classNo"/>
+		<result column="BOOK_NAME" property="bookName"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="CLASS_NAME" property="className"/>
+	</resultMap>
+	
+	<resultMap type="voca" id="vocaResultSet">
+		<result column="BOOK_NO" property="bookNo"/>
+		<result column="VOCA_EN" property="vocaEnglish"/>
+		<result column="VOCA_KR" property="vocaKorean"/>
+	</resultMap>
+	
+	<select id="selectVocaBookList" parameterType="_int" resultMap="vocaBookResultSet">
+		SELECT
+		       BOOK_NO
+		      ,BOOK_NAME
+		  FROM
+		       VOCABOOK 
+		 WHERE
+		       MEMBER_NO = #{memNo}
+	</select>
+	
+	<select id="selectVocaList" resultMap="vocaResultSet">
+		SELECT
+		       BOOK_NO
+		      ,VOCA_EN
+		      ,VOCA_KR
+		  FROM
+		       VOCA
+		 WHERE
+		       BOOK_NO = #{bookNo}
+	</select>
+	
+	
+	<!-- 선생님일 경우 (나중에 학생일 경우도 추가) -->
+	<select id="selectClassVocaBookList" resultMap="vocaBookResultSet">
+		SELECT
+		       CLASS_NO
+		      ,CLASS_NAME
+		      ,BOOK_NO
+		      ,BOOK_NAME
+		  FROM
+		       CLASSROOM
+		  JOIN
+		       CLASS_VOCABOOK USING (CLASS_NO)
+		  JOIN
+		       VOCABOOK USING(BOOK_NO)
+		 WHERE
+		       TEACHER_NO = #{memNo}
+         ORDER
+            BY
+               CLASS_NO 
+	</select>
+	
+	<insert id="insertVocaBook" parameterType="vocaBook">
+		INSERT
+		  INTO
+		  	   VOCABOOK
+		VALUES
+			   (
+			   SEQ_BOOK_NO.NEXTVAL
+			  ,#{memberNo}
+			  ,#{bookName}
+			   )
+	</insert>
+	
+	<insert id="insertVoca" parameterType="java.util.ArrayList">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			  INTO VOCA
+			VALUES
+				  (
+				   SEQ_BOOK_NO.CURRVAL
+				  ,#{item.vocaEnglish}
+				  ,#{item.vocaKorean}
+				  )
+		</foreach>
+	</insert>
+	
+</mapper>
