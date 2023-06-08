@@ -4,7 +4,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	  
 	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
+
 		
 		<!-- 
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
@@ -17,6 +20,9 @@
 	 	<property name="url" value="jdbc:oracle:thin:@192.168.31.34:1521:xe"/>
 		<property name="username" value="WINGDDY"/>
 		<property name="password" value="WINGDDY"/>
+
+		
+
 		
 		
 	</bean>

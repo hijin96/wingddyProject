@@ -23,7 +23,6 @@
 	<jsp:include page="../sideBar/sideBar.jsp"/>
 	
 	<div class="main-content">
-		<div style="height:50px;"></div>
 		<!-- 내 단어장 -->
 		<div class="card">
 			<div class="card-header">

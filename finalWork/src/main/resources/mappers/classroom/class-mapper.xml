@@ -109,4 +109,17 @@
 		       )
 	</insert>
 
+	<select id="selectClassroom" parameterType="_int" resultMap="classResultSet">
+		SELECT
+		       CLASS_NO,
+		       CLASS_NAME,
+		       MEMBER_NAME TEACHER_NAME,
+		       ENTER_CODE
+		  FROM
+		       CLASSROOM
+		  JOIN
+		  	   MEMBER ON (MEMBER_NO = TEACHER_NO)
+		 WHERE
+		       CLASS_NO = #{cno}           
+	</select>
 </mapper>
