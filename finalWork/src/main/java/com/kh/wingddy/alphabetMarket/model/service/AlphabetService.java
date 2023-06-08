@@ -2,6 +2,7 @@ package com.kh.wingddy.alphabetMarket.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.common.model.vo.PageInfo;
@@ -23,7 +24,7 @@ public interface AlphabetService {
 	
 	
 	// 알파벳 마켓 작성시 자기 알파벳 셀렉트
-	ArrayList<AlphabetMarket> selectCategory();
+	ArrayList<AlphabetMarket> selectCategory(Alphabet ap);
 	
 	
 	// 알파벳 마켓 글 작성

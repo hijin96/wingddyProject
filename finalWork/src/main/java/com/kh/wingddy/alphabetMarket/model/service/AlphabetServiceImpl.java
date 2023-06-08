@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.wingddy.alphabetMarket.model.dao.AlphabetDao;
+import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.common.model.vo.PageInfo;
@@ -46,9 +47,9 @@ public class AlphabetServiceImpl implements AlphabetService {
 	
 
 	@Override
-	public ArrayList<AlphabetMarket> selectCategory() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<AlphabetMarket> selectCategory(Alphabet ap) {
+		
+		return alphabetDao.selectCategory(sqlSession, ap);
 	}
 
 	@Override

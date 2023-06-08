@@ -91,12 +91,13 @@ public class AlphabetController {
 	}
 	
 	
+	
 	@RequestMapping("enroll.aph")
 	public String enrollAndCategory(Alphabet ap) {
 		
 		System.out.println(ap);
 		
-		//AlphabetService.selectCategory();
+		AlphabetService.selectCategory(ap);
 		
 		return "alphabetMarket/alphabetMarketEnroll";
 	}
@@ -107,7 +108,8 @@ public class AlphabetController {
 		
 		AlphabetService.insertMarket(am);
 		
-		//해당 글 디테일뷰로 이동하기
+		
+		// return 해당 글 디테일뷰로 이동하기
 	}
 	
 	
