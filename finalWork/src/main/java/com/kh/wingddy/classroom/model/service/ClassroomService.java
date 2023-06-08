@@ -37,6 +37,9 @@ public interface ClassroomService {
 	
 	/* 학생 */
 	// 클래스룸 입장 신청
+	Classroom joinClass(String enterCode);
+	
+	int insertPass(ClassMember cm);
 	// 입장코드로 클래스 정보 조회 (SELECT)
 	
 	// 학생 클래스 메인페이지

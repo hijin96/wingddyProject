@@ -37,4 +37,12 @@ public class ClassroomDao {
 	public ArrayList<MyCount> selectClassRanking(SqlSessionTemplate sqlSession, int cno) {
 		return (ArrayList)sqlSession.selectList("classMapper.selectClassRanking", cno);
 	}
+	
+	public Classroom joinClass(SqlSessionTemplate sqlSession, String enterCode) {
+		return sqlSession.selectOne("classMapper.joinClass", enterCode);
+	}
+	
+	public int insertPass(SqlSessionTemplate sqlSession, ClassMember cm) {
+		return sqlSession.insert("classMapper.insertPass", cm);
+	}
 }

@@ -156,4 +156,33 @@
 		    by
 		         total_coupon_count desc
 	</select>
+	
+	<select id="joinClass" parameterType="string" resultMap="classResultSet">
+		SELECT
+		       CLASS_NO,
+		       CLASS_NAME,
+		       MEMBER_NAME TEACHER_NAME,
+		       ENTER_CODE
+		  FROM
+		       CLASSROOM
+		  JOIN
+		       MEMBER ON(MEMBER_NO = TEACHER_NO)     
+		 WHERE
+		       ENTER_CODE = #{enterCode}            
+	</select>
+	
+	<insert id="insertPass" parameterType="classMember">
+		INSERT
+		  INTO
+		       CLASS_MEMBER
+		       (
+		       CLASS_NO,
+		       STUDENT_NO
+		       )
+		VALUES      
+		       (
+		       #{classNo},
+		       #{studentNo}
+		       )
+	</insert>
 </mapper>

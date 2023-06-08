@@ -306,8 +306,11 @@
                   <c:when test="${loginUser.memberType eq 'T'}">
                     <li><a href="addClassForm.cl">Add Class +</a></li>
                   </c:when>
-                  <c:otherwise>
+                  <c:when test="${loginUser.memberType eq 'S'}">
                     <li><a href="enrollClassForm.cl">Enroll Class +</a></li>
+                  </c:when>
+                  <c:otherwise>
+                    <li><a href="#exampleModal" data-toggle="modal">Enroll Class +</a></li>
                   </c:otherwise>
                 </c:choose>
               </ul>
@@ -413,6 +416,12 @@
     </div>
   </div>
 
+  <c:if test="${ not empty alertMsg }">
+		<script>
+			alert('${alertMsg}');
+		</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
 
   <!-- General JS Scripts -->
   <script src="resources/assets/modules/jquery.min.js"></script>

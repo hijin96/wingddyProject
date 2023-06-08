@@ -53,6 +53,16 @@ public class ClassroomServiceImpl implements ClassroomService {
 	public ArrayList<MyCount> selectClassRanking(int cno) {
 		return classroomDao.selectClassRanking(sqlSession, cno);
 	}
+
+	@Override
+	public Classroom joinClass(String enterCode) {
+		return classroomDao.joinClass(sqlSession, enterCode);
+	}
+
+	@Override
+	public int insertPass(ClassMember cm) {
+		return classroomDao.insertPass(sqlSession, cm);
+	}
 	
 	
 

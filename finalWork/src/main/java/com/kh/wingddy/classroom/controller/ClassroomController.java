@@ -57,6 +57,29 @@ public class ClassroomController {
 		return "classroom/enrollClassForm";
 	}
 	
+	@RequestMapping("enrollClass.cl")
+	public ModelAndView enrollClassForm(ModelAndView mv, String enterCode, HttpSession session) {
+		
+		Classroom cr = classroomService.joinClass(enterCode);
+		
+		if(cr != null) {
+			//session.setAttribute("alertMsg", "입장신청되었습니닷!");
+			mv.addObject("classroom", cr);
+			mv.setViewName("classroom/enrollClassForm");
+		} else {
+			session.setAttribute("alertMsg", "존재하지 않는 클래스입니닷!");
+			mv.setViewName("classroom/enrollClassForm");
+		}
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("insertPass.cl")
+	public int insertPass(ClassMember cm) {
+		
+		return classroomService.insertPass(cm);
+	}
+	
 	@RequestMapping("addClassForm.cl")
 	public String addClassForm() {
 		return "classroom/addClassForm";
