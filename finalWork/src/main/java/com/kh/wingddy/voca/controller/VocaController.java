@@ -35,9 +35,9 @@ public class VocaController {
 		
 		Member m = ((Member)session.getAttribute("loginUser"));
 		
-		ArrayList<VocaBook> bookList = vocaService.selectVocaBookList(/*m.getMemberNo()*/2);
+		ArrayList<VocaBook> bookList = vocaService.selectVocaBookList(m.getMemberNo());
 		
-		ArrayList<ClassVocaBook> classBookList = vocaService.selectClassVocaBookList(/*m.getMemberNo()*/2);
+		ArrayList<ClassVocaBook> classBookList = vocaService.selectClassVocaBookList(m.getMemberNo());
 		
 		mv.addObject("bookList", bookList)
 		  .addObject("classBookList", classBookList)
