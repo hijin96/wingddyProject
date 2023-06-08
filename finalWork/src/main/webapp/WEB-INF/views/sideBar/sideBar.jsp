@@ -328,7 +328,7 @@
 			
 			<c:if test="${ not empty classroom }">
 	            <li><%--링크?cno=${class.cno}--%>
-	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a>
+	              <a href="main.aph" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a>
 	            </li>
 	
 	            <li>

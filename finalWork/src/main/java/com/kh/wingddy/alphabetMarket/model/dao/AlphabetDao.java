@@ -65,6 +65,10 @@ public class AlphabetDao {
 	}
 	
 	
+	public int insertMarket(SqlSessionTemplate sqlSession, AlphabetMarket am) {
+		
+		return sqlSession.insert("alphabetMapper.insertMarket", am);
+	};
 	
 	
 	

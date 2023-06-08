@@ -25,7 +25,7 @@
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/classMain.cl/"/>
+			<mapping path="/classMain.cl*"/>
 			<beans:bean class="com.kh.wingddy.common.interceptor.ClassroomInterceptor" id="ClassroomInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>

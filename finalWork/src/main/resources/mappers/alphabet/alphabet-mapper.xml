@@ -95,5 +95,31 @@
 		 WHERE REPLY_STATUS = 'Y' 
 		  AND REF_MARKET = #{bno}
 	</select>
+	
+	
+	<insert id="insertMarket" parameterType="alphabetMarket" >
+		INSERT INTO ALPHABET_MARKET
+		VALUES(SEQ_MARKET_BNO.NEXTVAL, #{writer}, #{alphabet}, #{content}, DEFAULT, DEFAULT, DEFAULT, #{classNo}, #{title});
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>
