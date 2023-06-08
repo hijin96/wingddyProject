@@ -23,4 +23,9 @@ public class MemberDao {
 		
 		return sqlSession.insert("commonMapper.insertAttach", at);
 	}
+	
+	public Attachment selectProfile(SqlSessionTemplate sqlSession, int memberNo) {
+		
+		return sqlSession.selectOne("commonMapper.selectProfile", memberNo);
+	}
 }
