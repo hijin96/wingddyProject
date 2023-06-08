@@ -23,15 +23,12 @@
 	
 	<context:component-scan base-package="com.kh.wingddy" />
 	
-	<!--
-	나중에 클래스 생성후에 수정하기 
 	<interceptors>
 		<interceptor>
-			<mapping path="/myPage.me/"/>
-			<mapping path="/enrollForm.me/"/>
-			<beans:bean class="com.kh.spring.common.interceptor.LoginInterceptor" id="loginInterceptor"></beans:bean>
+			<mapping path="/classMain.cl*"/>
+			<mapping path="*.aph*"/>
+			<beans:bean class="com.kh.wingddy.common.interceptor.ClassroomInterceptor" id="ClassroomInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>
-	 -->
 	 
 </beans:beans>

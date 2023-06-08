@@ -34,6 +34,14 @@
   gtag('config', 'UA-94034622-3');
 </script>
 <!-- /END GA -->
+
+<style>
+  .className{
+    text-align: center !important;
+    color: #6777ef !important;
+    font-size: large !important;
+  }
+</style>
 </head>
 
 <body>
@@ -294,10 +302,14 @@
                 <c:forEach var="cList" items="${classList}">
                 	<li><a class="nav-link" href="classMain.cl?cno=${cList.classNo}">${cList.className}</a></li>
                 </c:forEach>
-
-                <c:if test="${loginUser.memberType eq 'T'}">
-                  <li><a href="addClassForm.cl">add Class +</a></li>
-                </c:if>
+                <c:choose>
+                  <c:when test="${loginUser.memberType eq 'T'}">
+                    <li><a href="addClassForm.cl">Add Class +</a></li>
+                  </c:when>
+                  <c:otherwise>
+                    <li><a href="enrollClassForm.cl">Enroll Class +</a></li>
+                  </c:otherwise>
+                </c:choose>
               </ul>
             </li>
            <!--  <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>마이페이지</span></a></li> -->
@@ -310,7 +322,7 @@
                 <li><a class="nav-link" href="storebuy">구매목록</a></li>
               </ul>
             </li>
-            <li class="menu-header">소제목 넣을지 뺄지</li>
+            <li class="menu-header className">${requestScope.classroom.className}</li>
             <c:if test="${not empty loginUser}">
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>마이페이지</span></a>
@@ -319,11 +331,13 @@
                 <li><a href="profile.me">내정보수정</a></li>
               </ul>
             </li>    
+            <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
             </c:if>
 			
 			<c:if test="${ not empty classroom }">
-	            <li><%--링크?cno=${class.cno}--%>
-	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a>
+        <!-- ${reqeustScope.classroom.classNo} -->
+	            <li>
+	              <a href="main.aph" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a>
 	            </li>
 	
 	            <li>
@@ -342,29 +356,27 @@
 	
 	            <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>	
             </c:if>
-            <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
             <c:choose>
               <c:when test="${not empty loginUser}">
-                <li class="menu-header">Profile</li>
+                <li class="menu-header">프로필</li>
                 <li class="dropdown">
-                  <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>${loginUser.memberName}</span></a>
+                  <a href="" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>${loginUser.memberName}</span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="logout.me">Logout</a></li> 
+                    <li><a href="logout.me">로그아웃</a></li> 
                     <li><a href="#">Information</a></li> 
                     <li><a href="#">Reset Password</a></li> 
                   </ul>
                 </li>
               </c:when>
               <c:otherwise>
-                <li class="menu-header">Profile</li>
+                <li class="menu-header">프로필</li>
                 <li class="dropdown">
                   <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Insert Login</span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="loginForm.me">Login</a></li> 
-                    <li><a href="enrollForm.me">EnrollForm</a></li> 
-                    <li><a href="#exampleModal" data-toggle="modal">EnrollForm</a></li> 
-                    <li><a href="#">Forgot ID</a></li> 
-                    <li><a href="errorPage.me">Forgot Password</a></li> 
+                    <li><a href="loginForm.me">로그인</a></li> 
+                    <li><a href="#exampleModal" data-toggle="modal">회원가입</a></li> 
+                    <li><a href="#">아이디 찾기</a></li> 
+                    <li><a href="errorPage.me">비밀번호 찾기</a></li> 
                   </ul>
                 </li>
               </c:otherwise>

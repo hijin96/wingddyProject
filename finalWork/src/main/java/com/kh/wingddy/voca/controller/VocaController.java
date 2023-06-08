@@ -58,7 +58,7 @@ public class VocaController {
 	}
 	
 	@ResponseBody
-	@PostMapping(value="insertBooki.vc", produces="application/json; charset=UTF-8")
+	@PostMapping(value="insertBook.vc", produces="application/json; charset=UTF-8")
 	public String insertBook(@RequestBody String vcList, HttpSession session) throws UnsupportedEncodingException {
 		
 		String str = URLDecoder.decode(vcList, "UTF-8");

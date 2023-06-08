@@ -23,11 +23,11 @@ public interface AlphabetService {
 	
 	
 	// 알파벳 마켓 글 작성
-	int marketInsert(AlphabetMarket am);
+	int insertMarket(AlphabetMarket am);
 	
 	
 	// 마켓 글 삭제
-	int marketInsert(int marketBno);
+	int deleteMarket(int marketBno);
 
 	
 	// 마켓 거래시 해당 알파벳 소유 여부 확인

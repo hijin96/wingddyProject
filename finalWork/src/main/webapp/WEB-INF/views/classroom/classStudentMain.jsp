@@ -36,43 +36,76 @@
                   <div class="card-body">
                     <p>
                       <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        Class Code
+                        My Manitto
                       </button>
                     </p>
                     <div class="collapse" id="collapseExample">
                       <p>
-                        ${classroom.enterCode}
+                        없으면 없다고, 있으면 이름이랑 아이디
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 col-md-12 col-lg-6">
+                <div class="col-12 col-md-12 col-lg-12">
                   <div class="card card-primary">
                     <div class="card-header">
-                      <h4>클래스 입장 수락</h4>
+                      <h4>내 클래스 숙제</h4>
                     </div>
                     <div class="card-body">
                       <table class="table table-striped table-md passStudent">
                         <tr>
-                          <th>학생이름</th>
-                          <th>학생아이디</th>
-                          <th>전화번호</th>
-                          <th>입장여부</th>
-                          <th>수락/거절</th>
+                          <th>숙제명</th>
+                          <th>숙제마감일</th>
+                          <th>학습하기!</th>
                         </tr>
-                        <c:forEach var="cm" items="${passMember}">
                           <tr>
-                            <td>${cm.memberName}</td>
-                            <input type="hidden" name="studentNo" value="${cm.studentNo}" class="ddd"/>
-                            <input type="hidden" name="classNo" value="${cm.classNo}"/>
-                            <td>${cm.memberId}</td>
-                            <td>${cm.phone}</td>
-                            <td><div class="badge badge-success">입장!</div></td>
-                            <td><button type="button" class="btn btn-secondary pass">Detail</button></td>
+                            <td>단어풀기~!</td>
+                            <td>2023-06-28</td>
+                            <td><button type="button" class="btn btn-secondary pass">학습!</button></td>
                           </tr>
-                        </c:forEach>
+                          <tr>
+                            <td>OX풀이 ~!</td>
+                            <td>2023-06-28</td>
+                            <td><button type="button" class="btn btn-secondary pass">학습!</button></td>
+                          </tr>
+                          <tr>
+                            <td>배치풀이~!</td>
+                            <td>2023-06-28</td>
+                            <td><button type="button" class="btn btn-secondary pass">학습!</button></td>
+                          </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-12 col-lg-12">
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h4>내 클래스 쿠폰스토어</h4>
+                    </div>
+                    <div class="card-body">
+                      <table class="table table-striped table-md passStudent">
+                        <tr>
+                          <th>상품명</th>
+                          <th>쿠폰설명</th>
+                          <th>수량</th>
+                        </tr>
+                        <tr>
+                          <td>지각면제권!</td>
+                          <td>지각을 면제해줌</td>
+                          <td>10개!</td>
+                        </tr>
+                        <tr>
+                          <td>숙제면제권!</td>
+                          <td>숙제를 면제해줌</td>
+                          <td>10개!</td>
+                        </tr>
+                        <tr>
+                          <td>과자꾸러미!</td>
+                          <td>많은 과자!</td>
+                          <td>10개!</td>
+                        </tr>
                       </table>
                     </div>
                   </div>
@@ -104,39 +137,28 @@
                     </div>
                   </div>
                 </div>
+                <div class="col-6 col-md-12 col-lg-6">
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h4>내 보유 알파벳</h4>
+                    </div>
+                    <div class="card-body">
+                      <table class="table table-striped table-md passStudent">
+                        <tr>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
               </div>
         </section>
     </div>
     <script>
-      $(function(){
-        $('.pass').on('click', function(){
-          $.ajax({
-            url : 'passStudent.cl',
-            type : 'post',
-            data : {
-              studentNo : $(event.target).parents().siblings('input[name=studentNo]').val(),
-              classNo : $(event.target).parents().siblings('input[name=classNo]').val()
-          },
-            success : function(result){
-             if(result === "pass"){
-              location.href = location.href
-             }
-            },
-            error : function(){
-            }
-          });
-        })
-      })
-      /*
-      $(function(){
-        console.log($('.passStudent').find('input[name=studentNo]').val());
-      })
-      */
-      /*
-      function pass(){
-        console.log($(event.target).parents().siblings('input[name=studentNo]').val());
-      }
-      */
+     
+     
     </script>
     <!-- General JS Scripts -->
   <script src="resources/assets/modules/jquery.min.js"></script>
