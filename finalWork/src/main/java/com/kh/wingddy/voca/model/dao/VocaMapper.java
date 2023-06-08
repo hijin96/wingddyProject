@@ -24,7 +24,7 @@ public interface VocaMapper {
 
 	public int insertVoca(ArrayList<Voca> vlist);
 
-	public int deleteVocaList(int integer);
+	public int deleteVocaList(int bookNo);
 
 	public int insertVoca(HashMap<String, Object> vb);
 	
