@@ -34,6 +34,21 @@
   gtag('config', 'UA-94034622-3');
 </script>
 <!-- /END GA -->
+
+<style>
+  .className{
+    text-align: center !important;
+    color: #6777ef !important;
+    font-size: large !important;
+  }
+
+  .changeButton{
+    border : 0px;
+    background-color: #ffffff;
+    padding-left: 0px;
+    color: gray;
+  }
+</style>
 </head>
 
 <body>
@@ -238,10 +253,16 @@
           <c:choose>
             <c:when test="${not empty loginUser}">
               <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                  <img alt="image" src="resources/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+                <c:choose>
+                  <c:when test="${not empty profile}">
+                    <img alt="image" src="${contextPath}/${profile.filePath}" class="rounded-circle mr-1">
+                  </c:when>
+                  <c:otherwise>
+                    <img alt="image" src="resources/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+                  </c:otherwise>
+                </c:choose>
                   <div class="d-sm-none d-lg-inline-block">${loginUser.memberName}</div></a>
                   <div class="dropdown-menu dropdown-menu-right">
-                  <div class="dropdown-title">Logged in 5 min ago</div>
                   <a href="features-profile.html" class="dropdown-item has-icon">
                   <i class="far fa-user"></i> Profile
                   </a>
@@ -294,10 +315,17 @@
                 <c:forEach var="cList" items="${classList}">
                 	<li><a class="nav-link" href="classMain.cl?cno=${cList.classNo}">${cList.className}</a></li>
                 </c:forEach>
-
-                <c:if test="${loginUser.memberType eq 'T'}">
-                  <li><a href="addClassForm.cl">add Class +</a></li>
-                </c:if>
+                <c:choose>
+                  <c:when test="${loginUser.memberType eq 'T'}">
+                    <li><a href="addClassForm.cl">Add Class +</a></li>
+                  </c:when>
+                  <c:when test="${loginUser.memberType eq 'S'}">
+                    <li><a href="enrollClassForm.cl">Enroll Class +</a></li>
+                  </c:when>
+                  <c:otherwise>
+                    <li><a href="#exampleModal" data-toggle="modal">Enroll Class +</a></li>
+                  </c:otherwise>
+                </c:choose>
               </ul>
             </li>
            <!--  <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>마이페이지</span></a></li> -->
@@ -310,7 +338,7 @@
                 <li><a class="nav-link" href="storebuy">구매목록</a></li>
               </ul>
             </li>
-            <li class="menu-header">소제목 넣을지 뺄지</li>
+            <li class="menu-header className">${requestScope.classroom.className}</li>
             <c:if test="${not empty loginUser}">
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>마이페이지</span></a>
@@ -323,12 +351,19 @@
             </c:if>
 			
 			<c:if test="${ not empty classroom }">
-	            <li><%--링크?cno=${class.cno}--%>
-	              <a href="main.aph" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>알파벳마켓</span></a>
+        <!-- ${reqeustScope.classroom.classNo} -->
+	            <li>
+                <form action="main.aph" mehtod="POST">
+                  <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
+                  <a class="nav-link"><i class="fas fa-pencil-ruler"></i> <button class="changeButton">알파벳마켓</button></a>
+                </form>
 	            </li>
 	
 	            <li>
-	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
+                <form action="#" mehtod="POST">
+                  <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
+                  <a class="nav-link"><i class="fas fa-pencil-ruler"></i> <button class="changeButton">내 알파벳</button></a>
+                </form>
 	            </li>
 	
 	
@@ -336,9 +371,13 @@
 	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
 	            </li>
 	
-	            <li>
-	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
+              <li>
+                <form action="#" mehtod="POST">
+                  <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
+                  <a class="nav-link"><i class="fas fa-pencil-ruler"></i> <button class="changeButton">마니또 관리</button></a>
+                </form>
 	            </li>
+
 	
 	
 	            <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>	
@@ -400,6 +439,12 @@
     </div>
   </div>
 
+  <c:if test="${ not empty alertMsg }">
+		<script>
+			alert('${alertMsg}');
+		</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
 
   <!-- General JS Scripts -->
   <script src="resources/assets/modules/jquery.min.js"></script>

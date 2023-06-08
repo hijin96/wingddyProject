@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration 
-	PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
-	"https://mybatis.org/dtd/mybatis-3-config.dtd" >
+   PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+   "https://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
+
 	
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
@@ -23,21 +24,22 @@
 		
 		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket" alias="alphabetmarket" />
 		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.MarketReply" alias="alphabetReply" />
+		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.Alphabet" alias="alphabet" />
 
 
-	</typeAliases>
-	
-	<mappers>
-		<mapper resource="/mappers/member/member-mapper.xml" />
-		<mapper resource="/mappers/alphabet/alphabet-mapper.xml" />
-		<mapper resource="/mappers/letter/letter-mapper.xml" />
-		<mapper resource="/mappers/manitto/manitto-mapper.xml" />
-		<mapper resource="/mappers/classroom/class-mapper.xml" />
-		<mapper resource="/mappers/voca/voca-mapper.xml"/>
-		<mapper resource="/mappers/calendar/calendar-mapper.xml" />
-		
-		<mapper resource="/mappers/common/common-mapper.xml" />
-		<mapper resource="/mappers/store/store-mapper.xml" />
-	</mappers>
-	
+   </typeAliases>
+   
+   <mappers>
+      <mapper resource="/mappers/member/member-mapper.xml" />
+      <mapper resource="/mappers/alphabet/alphabet-mapper.xml" />
+      <mapper resource="/mappers/letter/letter-mapper.xml" />
+      <mapper resource="/mappers/manitto/manitto-mapper.xml" />
+      <mapper resource="/mappers/classroom/class-mapper.xml" />
+      <mapper resource="/mappers/voca/voca-mapper.xml"/>
+      <mapper resource="/mappers/calendar/calendar-mapper.xml" />
+      
+      <mapper resource="/mappers/common/common-mapper.xml" />
+      <mapper resource="/mappers/store/store-mapper.xml" />
+   </mappers>
+   
 </configuration>

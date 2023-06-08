@@ -1,6 +1,6 @@
 package com.kh.wingddy.member.controller;
 
-import java.util.ArrayList;
+import java.io.File;
 
 import javax.servlet.http.HttpSession;
 
@@ -46,6 +46,7 @@ public class MemberController {
 			//System.out.println(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd()));
 			session.setAttribute("loginUser", loginUser);
 			session.setAttribute("classList", classroomService.selectClassList(loginUser));
+			session.setAttribute("profile", memberService.selectProfile(loginUser.getMemberNo()));
 			mv.setViewName("redirect:/");
 		} else {
 			session.setAttribute("alertMsg", "로그인실패");
@@ -78,7 +79,7 @@ public class MemberController {
 							   HttpSession session,
 							   Model model) {
 		
-		System.out.println("평문 : " + m.getMemberPwd());
+		//System.out.println("평문 : " + m.getMemberPwd());
 		
 		if(!upfile.getOriginalFilename().equals("")) {
 			
@@ -110,7 +111,7 @@ public class MemberController {
 			m.setMemberPwd(encPwd);
 			m.setMemberType("S");
 			
-			System.out.println("나는 학생" + m);
+			//System.out.println("나는 학생" + m);
 			return memberService.insertMember(m) > 0 ? "sideBar/sideBar":"common/errorPage";
 		}
 	}
@@ -130,7 +131,7 @@ public class MemberController {
 	public String confirmPass(String memberPwd, HttpSession session) {
 	
 		
-		System.out.println(memberPwd);
+		//System.out.println(memberPwd);
 		String userId = ((Member)session.getAttribute("loginUser")).getMemberId();
 		String loginPwd = ((Member)session.getAttribute("loginUser")).getMemberPwd();
 		Member m = new Member();
@@ -147,10 +148,36 @@ public class MemberController {
 	}
 	
 	@RequestMapping("updateForm.me")
-	public String updateMember() {
+	public String updateFormMember() {
 		
 		return "member/updateForm";
 	}
 	
+	
+	@RequestMapping("updateMember.me")
+	public String updateMember(Member m, MultipartFile reUpfile, HttpSession session) {
+		
+		Attachment at = new Attachment();
+		if(!reUpfile.getOriginalFilename().equals("")) {
+			at = memberService.selectProfile(m.getMemberNo());
+			if(at.getOriginName() != null) {
+				new File(session.getServletContext().getRealPath(at.getChangeName())).delete();
+			}
+			
+			String changeName = renameFile.fileName(reUpfile, session);
+			at.setOriginName(reUpfile.getOriginalFilename());
+			at.setChangeName(changeName);
+			at.setFileLevel(0);
+			
+		}
+		if(memberService.updateMember(m, at) > 0) {
+			session.setAttribute("alertMsg", "수정완료");
+			return "member/profile" + m.getMemberNo();
+		} else {
+			session.setAttribute("alertMsg", "수정실패");
+			return "member/updateForm";
+		}
+		
+	}
 	
 }

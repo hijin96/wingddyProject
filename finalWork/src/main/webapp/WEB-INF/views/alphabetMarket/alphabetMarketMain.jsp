@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +54,11 @@
 					  거래완료 안보기 
 					</label><br>
 					<!--<c:if test="${ not empty loginUser }">-->
-					<a href="enroll.aph?cno=" class="btn btn-primary" id="modal-aphReply">게시글작성</a>
+					<form action="enroll.aph" method="POST">
+						<input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
+						<input type="hidden" name="mno" value="${sessionScope.loginUser.memberNo}">
+						<button type="submit" class="btn btn-primary">게시글작성</button>
+					</form>	
 					<!--</c:if>-->
 				</div>
 				
@@ -122,14 +125,40 @@
 		});
 
 
+		$(document).on('click', '.boardDetail', function(){
 
-		$('.boardDetail').click(function(){
+
+			//goPost($(this).find('input[type="hidden"]').val());
 
 			window.location.href="detail.aph?bno="+ $(this).find('input[type="hidden"]').val();
 
-		})
+		});
+
+	
 	})
 
+	/*
+	function goPost(data){
+
+		var url='detail.aph'
+
+		var form = document.createElement('form');
+
+		form.setAttribute('method', 'post');
+		form.setAttribute('action', url);
+		document.charset = 'utf-8';
+
+		
+
+
+		var info;
+
+		info
+
+
+		
+	}
+	*/
 
 
 	function createButton(){
@@ -164,22 +193,35 @@
 
 
 		$.ajax({
-			url : 'list.aph',
+
+
+			url : 'alphabetList',
 			data  : {
-				classNo : '${sessionScope.classroom.classNo}',
+				classNo : '${requestScope.classroom.classNo}',
 				alphabet : ajaxAlphabet,
 				sellingStatus : ajaxSelling
 			},
 			success : function(list){	
 				
-				console.log(list);
+				//console.log(list);
+
 
 				let value = '';
+
+				if(list.length == 0){
+
+				}
+
+				
 				
 				for(let i in list){
 
+					
+
+					
+
 					if(list[i].sellingStatus == 'Y'){
-						value  += '<div class="col-12 col-md-4 col-lg-4 boardDetail">'
+						value  += '<div class="col-12 col-md-4 col-lg-4 boardDetail"><form>'
 								+ '<article class="article article-style-c">'
 								+ '<div class="article-header">'
 								+ '<p style="text-align: center; font-size: 150px; margin-top: 100px;">' + list[i].alphabet + '</p>'

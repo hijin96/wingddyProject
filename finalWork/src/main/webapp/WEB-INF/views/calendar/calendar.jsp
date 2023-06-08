@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,6 +57,16 @@
 		color : red;
 		font-size : small;
 	}
+	.card1{
+		width : 400px !important;
+		display : inline-block !important;
+		vertical-align : top !important;
+	}
+	.myHeader h5{
+		margin-left : 30px !important;
+		text-align : center !important;
+		text-weigth : 500 !important;
+	}
 	
 </style>
 </head>
@@ -67,24 +78,38 @@
 	<div class="main-content">
     	
     	<div id="todayTomorrowSchedule">
-			<div id="todaySchedule" class="schedule-tt">
-				<div id="date_today" class="date">hi</div>
-				<hr>
-				<ul>
-					<li>1번</li>
-					<li>2번</li>
-				</ul>
-			</div>
-			<div id="tomorrowSchedule" class="schedule-tt">
-				<div id="date_tomorrow" class="date">hi</div>
-				<hr>
-				<ul>
-					<li>1번</li>
-					<li>2번</li>
-				</ul>
-			</div>
-		
-		</div>
+	    	<div class="card card1">
+	    	
+	       		<div id="date_today" class="card-header myHeader">
+	       			<h5>today date</h5> 
+	       		</div>
+	            <div id="c_todayList" >
+	            	<ul></ul>
+            	</div>
+	            <div id="todayList">
+                    <ul></ul>
+	            </div>
+	            
+	        </div>
+	        
+	        <div id="card1" class="card card1">
+	        
+	       		<div id="date_tomorrow" class="card-header myHeader">
+	       			<h5>tomorrow date</h5>
+	       		</div>
+	       		<div id="c_tomorrowList">
+	            	<ul></ul>
+            	</div>
+	            <div id="tomorrowList" >
+	                <ul></ul>
+	            </div>
+	            
+	        </div>
+       	</div>
+    	
+    	
+    	
+    	
 		
 		<!-- 일정 추가 모달  -->
     	<div id="content-area">
@@ -103,15 +128,24 @@
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 						
-						
 						<!-- Modal body -->
 						<div class="modal-body">
-								일정명 <input type="text" name="schedule" /><br>
-								시작일 <input id="startDate" type="date" name="startDate" onchange="checkDate();" /><br>
-								종료일 <input id="endDate" type="date" name="endDate" onchange="checkDate();"/><br>
-								<p id="alert-endDate" style="display:none;">종료일은 시작일보다 빠를 수 없어요!</p>
-								배경색 <input type="color" name="color" value="#ffc34d" />
-								<input type="hidden" name="memberNo" value="${ loginUser.memberNo }" />
+							<div id="choiceClass">
+								<c:if test="${loginUser.memberType eq 'T'}">
+									<input type="color" name="color" value="#ffc34d" style="display : none"/>
+									<c:forEach var="c" items="${classList}">
+										<input type="radio" name="classNo" value="${c.classNo}"/><label>${c.className}</label>
+									</c:forEach>
+								</c:if>
+							</div><br>
+							일정명 <input type="text" name="schedule" required/><br>
+							시작일 <input id="startDate" type="date" name="startDate" onchange="checkDate();" /><br>
+							종료일 <input id="endDate" type="date" name="endDate" onchange="checkDate();"/><br>
+							<p id="alert-endDate" style="display:none;">종료일은 시작일보다 빠를 수 없어요!</p>
+							<c:if test="${loginUser.memberType eq 'S'}">
+							배경색 <input type="color" name="color" value="#ffc34d" />
+							</c:if>
+							<input type="hidden" name="memberNo" value="${ loginUser.memberNo }" />
 						</div>
 						
 						<!-- Modal footer -->
@@ -206,9 +240,11 @@
 
 	<script>
 		let memberNo = ${loginUser.memberNo};
+		
+		var d = new Date();
+		var t = new Date(new Date().setDate(d.getDate() + 1));
 	   
-	
-	    
+		// full calendar api
     	document.addEventListener('DOMContentLoaded', function() {
 	        var calendarEl = document.getElementById('calendar');
 	        var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -218,35 +254,122 @@
 	        	},
 	        	selectable : true,
 	        	googleCalendarApiKey : 'AIzaSyDFV8dRGYeO2k9b_bAtA6yueCxVEl3FuYU',
-	        	eventSources : {
-					googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
-					color : 'transparent',
-					textColor : 'gray',
-					classNames : 1
-				},
-	        	events : function(info, successCallback, failureCallback){
-	        		$.ajax({
-	        			url : 'selectScheduleList',
-	        			data : {memberNo : memberNo},
-	        			type : 'post',
-	        			success : function(list){
-	        				
+	        	
+	        	eventSources : [
+	        		{
+						googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
+						color : 'transparent',
+						textColor : 'gray',
+						classNames : 1
+					},
+					{
+						events : function(info, successCallback, failureCallback){
+							let value = [];
+							
+							$.ajax({
+		    					url : 'selectClassScheduleList', // 클래스 일정
+		    					data : {memberNo : memberNo, memberType : '${loginUser.memberType}'},
+		    					type : 'post',
+		    					success : function(clist){
+		    						let cScheduleList1 = '';
+		    						let cScheduleList2 = '';
+		    						
+		    						console.log("clist : " + clist);
+		    						
+		    						for(let i in clist){
+			        					//console.log(list[i].schedule + "/" + list[i].endDate);
+			        					 value.push({
+			        						 title : "<" + clist[i].className + ">" + clist[i].schedule,
+			        						 start : clist[i].startDate,
+			        						 end : clist[i].endDate,
+			        						 borderColor : '#000000',
+			        						 color : '#ffffff',
+			        						 textColor : '#ff0000',
+			        						 classNames : 2
+			        					})
+			        					
+			        					
+			        					let startDate = new Date(clist[i].startDate);
+			        					let endDate = new Date(clist[i].endDate);
+			        					
+			        					//console.log(clist[i].schedule + " 의 endDate : " + endDate);
+			        					if(d >= startDate && d <= endDate){
+			        						cScheduleList1 +=  "<li><div id='scheduleName' >&lt;" + clist[i].className + "&gt; " + clist[i].schedule + "</div></li>"; 
+			        						
+			        					} 
+			        					
+			        					$('#c_todayList ul').html(cScheduleList1);
+			        					
+			        					if(t >= startDate && t <= endDate){
+			        						cScheduleList2 += "<li><div id='scheduleName'>&lt;" + clist[i].className + "&gt;" + clist[i].schedule + "</div></li>"; 
+							
+			        					}
+			        					$('#c_tomorrowList ul').html(cScheduleList2);
+			        					
+			        					
+			        				}
+		    						successCallback(value);
+		    					}
+		    				})
+						}
+					},
+					
+					{
+						
+						events : function(info, successCallback, failureCallback){
 	        				let value = [];
+	        				if(${loginUser.memberType eq "S"}){
+		        				$.ajax({
+				        			url : 'selectScheduleList', // 개인 일정
+				        			data : {memberNo : memberNo},
+				        			type : 'post',
+				        			success : function(list){
+				        				
+				        				console.log("list : " + list);
+				        				
+				        				
+				        				let scheduleList1 = '';
+				        				let scheduleList2 = '';
+				        				let mark = '';
+				        				
+				        					for(let i in list){
+				        					//console.log(list[i].schedule + "/" + list[i].endDate);
+				        					 value.push({
+				        						 title : list[i].schedule,
+				        						 start : list[i].startDate,
+				        						 end : list[i].endDate,
+				        						 color : list[i].color,
+				        						 classNames : 3
+				        					})
+				        					
+				        					let startDate = new Date(list[i].startDate);
+				        					let endDate = new Date(list[i].endDate);
+				        					
+				        					//console.log(list[i].schedule + " 의 endDate : " + endDate);
+				        					
+				        					if(d >= startDate && d <= endDate){
+				        						scheduleList1 +=  "<li><span id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</span></li>"; 
+				        						
+				        					} 
+				        					$('#todayList ul').html(scheduleList1);
+				        					
+				        					if(t >= startDate && t <= endDate){
+				        						scheduleList2 += "<li><span id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</span></li>"; 
+								
+				        					}
+				        					$('#tomorrowList ul').html(scheduleList2);
+				        					
+				        					
+				        				}
+				        					successCallback(value);
+		        					}
+				        		})
 	        				
-	        				for(let i in list){
-	        					 value.push({
-	        						 title : list[i].schedule,
-	        						 start : list[i].startDate,
-	        						 end : list[i].endDate,
-	        						 color : list[i].color,
-	        						 classNames : 2
-	        					})
-	        				}
-	        				//console.log(value);
-		        			successCallback(value);
-	        			}
-	        		})
-	        	},
+							}
+		        		}
+					}
+					
+				],
         		eventClick : function(info){
         			info.jsEvent.stopPropagation();
         			info.jsEvent.preventDefault();
@@ -278,6 +401,8 @@
    			
 			
 			
+	    
+			
 			
     	});
 	    	
@@ -301,6 +426,9 @@
     		
     		arr = []; // 초기화
     		let value = '';
+    		
+    		
+    		
     		$.ajax({
     			url : 'daySchedule',
     			data : {memberNo : memberNo, date : date},
@@ -310,7 +438,7 @@
     				$('#modal-date').html(date);
     				
     				for(let i in list){
-						arr.push(list[i]);    					
+						arr.push(list[i]);
     					
     					value += "<div>✔️" + list[i].schedule + "(" + list[i].startDate + " ~ " + list[i].endDate +  ")"
 							   + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div id='scheduleNo' style='display:none'>" + list[i].scheduleNo + " </div>"
