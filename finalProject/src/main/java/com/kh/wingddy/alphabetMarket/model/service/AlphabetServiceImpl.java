@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.wingddy.alphabetMarket.model.dao.AlphabetDao;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
+import com.kh.wingddy.common.model.vo.PageInfo;
 
 @Service
 public class AlphabetServiceImpl implements AlphabetService {
@@ -33,8 +34,8 @@ public class AlphabetServiceImpl implements AlphabetService {
 
 	
 	@Override
-	public ArrayList<MarketReply> ajaxReplyList(int bno) {
-		return alphabetDao.ajaxReplyList(sqlSession, bno);
+	public ArrayList<MarketReply> ajaxReplyList(PageInfo pi, int bno) {
+		return alphabetDao.ajaxReplyList(sqlSession, pi, bno);
 	}
 	
 	

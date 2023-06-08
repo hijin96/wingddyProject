@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.wingddy.alphabetMarket.controller.AlphabetController;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
+import com.kh.wingddy.common.model.vo.PageInfo;
 
 @Repository
 public class AlphabetDao {
@@ -43,11 +44,11 @@ public class AlphabetDao {
 	
 	
 	
-	public ArrayList<MarketReply> ajaxReplyList(SqlSessionTemplate sqlSession, int bno) {
+	public ArrayList<MarketReply> ajaxReplyList(SqlSessionTemplate sqlSession, PageInfo pi, int bno) {
 		
 		
-		int offset = (AlphabetController.pi.getCurrentPage() - 1) * AlphabetController.pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, AlphabetController.pi.getBoardLimit());
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
 		
 		return (ArrayList)sqlSession.selectList("alphabetMapper.selectReplyList", bno, rowBounds);

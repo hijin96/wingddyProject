@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
+import com.kh.wingddy.common.model.vo.PageInfo;
 
 public interface AlphabetService {
 	
@@ -18,7 +19,7 @@ public interface AlphabetService {
 	public int replyCount(int bno); 
 
 	// 마켓 댓글 리스트조회
-	ArrayList<MarketReply> ajaxReplyList(int bno);
+	ArrayList<MarketReply> ajaxReplyList(PageInfo pi, int bno);
 	
 	
 	// 알파벳 마켓 글 작성

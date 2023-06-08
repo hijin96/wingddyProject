@@ -60,17 +60,17 @@ public class AlphabetController {
 	}
 	
 	
-	public static PageInfo pi;
 	
+
 	//마켓 댓글리스트
 	@ResponseBody
 	@RequestMapping(value="replyList.aph", produces="application/json; charset=UTF-8")
-	public String ajaxReplyList(int bno) {
+	public String ajaxReplyList(int rPage, int bno) {
 		
 		
-		System.out.println("***********" + "댓글 리스트 버튼!  " + pi);
+		PageInfo pi = Pageination.getPageInfo(AlphabetService.replyCount(bno), rPage, 10, 5);
 		
-		return new Gson().toJson(AlphabetService.ajaxReplyList(bno));
+		return new Gson().toJson(AlphabetService.ajaxReplyList(pi, bno));
 
 	}
 
@@ -82,7 +82,7 @@ public class AlphabetController {
 		
 		  
 		
-		pi = Pageination.getPageInfo(AlphabetService.replyCount(bno), rPage, 10, 5);
+		PageInfo pi = Pageination.getPageInfo(AlphabetService.replyCount(bno), rPage, 10, 5);
 		
 		System.out.println("***********" + "페이징 버튼!  " + pi);
 		

@@ -225,7 +225,7 @@
 			$.ajax({
 				url : "replyList.aph",
 				data : {
-					//rPage : currentPage,
+					rPage : currentPage,
 					bno : '${requestScope.market.marketBno}',
 				},
 				success : function(list){
