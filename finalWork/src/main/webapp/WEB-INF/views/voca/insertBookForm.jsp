@@ -115,7 +115,7 @@
 				let vocaObj = {bookName:$('#book-name').val(),value:vocaArr};
 				console.log(JSON.stringify(vocaObj));
 				$.ajax({
-					url:'insertBooki.vc',
+					url:'insertBook.vc',
 					type : 'POST',
 					contentType : 'application/json',
 					data : {
