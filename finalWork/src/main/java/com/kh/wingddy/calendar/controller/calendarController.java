@@ -32,7 +32,6 @@ public class calendarController {
 	@RequestMapping("insertSchedule")
 	public String insertSchedule(Calendar c, Model model) {
 		
-		System.out.println(c);
 		if(calendarService.insertSchedule(c) > 0) {
 			return "redirect:/calendar"; 
 		} else {
@@ -43,11 +42,11 @@ public class calendarController {
 	
 	@ResponseBody
 	@RequestMapping(value="daySchedule", produces="application/json; charset=UTF-8")
-	public String selectDaySchedule(int memberNo, String date) {
+	public String selectDaySchedule(Calendar c, String date) {
 		HashMap map = new HashMap();
-		map.put("memberNo", memberNo);
+		map.put("c", c);
 		map.put("date", date);
-		//System.out.println(map);
+		
 		return new Gson().toJson(calendarService.selectDaySchedule(map));
 	}
 	
@@ -73,12 +72,8 @@ public class calendarController {
 	
 	@ResponseBody
 	@RequestMapping(value="selectClassScheduleList", produces="application/json; charset=UTF-8")
-	public String selectClassScheduleList(int memberNo, String memberType) {
-		HashMap map = new HashMap();
-		map.put("memberNo", memberNo);
-		map.put("memberType", memberType);
-		System.out.println(calendarService.selectClassScheduleList(map));
-		return new Gson().toJson(calendarService.selectClassScheduleList(map));
+	public String selectClassScheduleList(Calendar c) {
+		return new Gson().toJson(calendarService.selectClassScheduleList(c));
 	}
 	
 	
