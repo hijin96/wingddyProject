@@ -88,4 +88,101 @@
 		   AND
 		       ENTER_STATUS = 'N'    
 	</select>
+
+	
+	<update id="passStudent" parameterType="classMember">
+		UPDATE
+			   CLASS_MEMBER
+		   SET
+		       ENTER_STATUS = 'Y'
+		 WHERE
+		       STUDENT_NO = #{studentNo}
+		   AND
+		       CLASS_NO = #{classNo}         
+	</update>
+	
+	<insert id="createClassroom" parameterType="class">
+		INSERT
+		  INTO
+		       CLASSROOM
+		       (
+		       CLASS_NO,
+		       TEACHER_NO,
+		       CLASS_NAME,
+		       ENTER_CODE
+		       )
+		VALUES      
+		       (
+		       SEQ_CLASS_NO.NEXTVAL,
+		       #{teacherName},
+		       #{className},
+		       #{enterCode}
+		       )
+	</insert>
+
+	<select id="selectClassroom" parameterType="_int" resultMap="classResultSet">
+		SELECT
+		       CLASS_NO,
+		       CLASS_NAME,
+		       MEMBER_NAME TEACHER_NAME,
+		       ENTER_CODE
+		  FROM
+		       CLASSROOM
+		  JOIN
+		  	   MEMBER ON (MEMBER_NO = TEACHER_NO)
+		 WHERE
+		       CLASS_NO = #{cno}           
+	</select>
+	
+	<select id="selectClassRanking" parameterType="_int" resultMap="myCountResultSet">
+		select
+		       class_no,
+		       member_no,
+		       total_coupon_count,
+		       member_name,
+		       member_id,
+		       phone
+		 from
+		       class_mycount
+		  join
+		       classroom using(class_no)
+		  join 
+		       member using(member_no)       
+		where
+		        class_no = #{cno}
+		  and
+		       member_type = 'S'
+		order
+		    by
+		         total_coupon_count desc
+	</select>
+	
+	<select id="joinClass" parameterType="string" resultMap="classResultSet">
+		SELECT
+		       CLASS_NO,
+		       CLASS_NAME,
+		       MEMBER_NAME TEACHER_NAME,
+		       ENTER_CODE
+		  FROM
+		       CLASSROOM
+		  JOIN
+		       MEMBER ON(MEMBER_NO = TEACHER_NO)     
+		 WHERE
+		       ENTER_CODE = #{enterCode}            
+	</select>
+	
+	<insert id="insertPass" parameterType="classMember">
+		INSERT
+		  INTO
+		       CLASS_MEMBER
+		       (
+		       CLASS_NO,
+		       STUDENT_NO
+		       )
+		VALUES      
+		       (
+		       #{classNo},
+		       #{studentNo}
+		       )
+	</insert>
 </mapper>

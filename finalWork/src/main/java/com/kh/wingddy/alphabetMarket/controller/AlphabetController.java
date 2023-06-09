@@ -1,7 +1,5 @@
 package com.kh.wingddy.alphabetMarket.controller;
 
-import java.util.HashMap;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.wingddy.alphabetMarket.model.service.AlphabetService;
+import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.Pageination;
@@ -35,8 +35,9 @@ public class AlphabetController {
 	
 	// 게시글 리스트 불러오기
 	@ResponseBody
-	@RequestMapping(value="list.aph", produces="application/json; charset=UTF-8")
+	@RequestMapping(value="alphabetList", produces="application/json; charset=UTF-8")
 	public String main(AlphabetMarket am, HttpServletResponse response) {
+		
 
 		Cookie blinding = new Cookie("blinding", am.getSellingStatus());
 		
@@ -59,13 +60,6 @@ public class AlphabetController {
 		return "alphabetMarket/alphabetMarketDetail";
 	}
 	
-	@RequestMapping("test")
-	public String test() {
-		
-	
-		return "alphabetMarket/example";
-	}
-	
 	
 	
 
@@ -74,7 +68,8 @@ public class AlphabetController {
 	@RequestMapping(value="replyList.aph", produces="application/json; charset=UTF-8")
 	public String ajaxReplyList(int rPage, int bno) {
 		
-		
+		System.out.println("-------------------------------");
+
 		PageInfo pi = Pageination.getPageInfo(AlphabetService.replyCount(bno), rPage, 10, 5);
 		
 		return new Gson().toJson(AlphabetService.ajaxReplyList(pi, bno));
@@ -91,19 +86,21 @@ public class AlphabetController {
 		
 		PageInfo pi = Pageination.getPageInfo(AlphabetService.replyCount(bno), rPage, 10, 5);
 		
-		System.out.println("***********" + "페이징 버튼!  " + pi);
+		//System.out.println("***********" + "페이징 버튼!  " + pi);
 		
 
 		return new Gson().toJson(pi);
 	}
 	
 	
+	
 	@RequestMapping("enroll.aph")
-	public String enrollAndCategory() {
+	public ModelAndView  enrollAndCategory(Alphabet ap, ModelAndView mv) {
 		
+		mv.addObject("category", AlphabetService.selectCategory(ap));
+		mv.setViewName("alphabetMarket/alphabetMarketEnroll");
 		
-		
-		return "alphabetMarket/alphabetMarketEnroll";
+		return mv;
 	}
 	
 	
@@ -112,7 +109,7 @@ public class AlphabetController {
 		
 		AlphabetService.insertMarket(am);
 		
-		//해당 글 디테일뷰로 이동하기
+		// return 해당 글 디테일뷰로 이동하기
 	}
 	
 	
