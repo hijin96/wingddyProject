@@ -259,6 +259,94 @@
 		
 	</script>
 
+<script>
+	$(function(){
+
+	   var currentPage = 1;
+
+	   selectPageButton(currentPage);
+
+	   $(document).on('click', '.paging', function(){
+		  currentPage = this.value;
+		  selectPageButton(currentPage);
+	   })
+
+	})
+
+	
+	function selectReplyList(currentPage){
+
+	   $.ajax({
+		  url : "replyList.aph",
+		  data : {
+			 rPage : currentPage,
+			 bno : '${requestScope.market.marketBno}',
+		  },
+		  success : function(list){
+	   
+			 let value = '<tr><td colspan="6"><h3>comments('+ list.length +')</h3></td><td><button class="btn btn-warning" id="modal-aphReply">댓글작성</button></td></tr>'
+
+			 if('${sessionScope.loginUser.memberId}' != '${requestScope.market.writer}'){
+				value = '<tr><td colspan="6"><h3>comments('+ list.length +')</h3></td><td></td></tr>'
+			 }
+			 
+			 for(let i in list){
+				value += '<tr><td><input type="hidden" value="'+ list[i].replyNo +'"></td>'
+
+				   if(list[i].replySelected == 'Y'){
+					  value += '<td><div class="badge badge-success">selected</div></td>'
+				   }
+				   else{
+					  value += '<td><div class="badge badge-success"></div></td>'
+				   }
+				value += '<td><h3>'+ list[i].alphabet +'</h3></td>'
+					   + '<td>'+ list[i].replyWriter + '</td>'
+					   + '<td>' + list[i].replyContent+'</td>'
+					   + '<td>'+ list[i].replyDate + '</td>'
+				   
+				   if('${sessionScope.loginUser.memberId}' == '${requestScope.market.writer}'){
+					  //console.log('똑같음!');
+					  value += '<td><button type="button" class="btn btn-primary btn-sm">바꾸기</button></td></tr>'
+				   }
+				   else{
+					  //console.log('다름!');
+					  value += '<td></td></tr>'
+				   }
+			 }
+
+			 $('#commentsArea').html(value);
+		  }
+	   })
+	}
+
+	
+	function selectPageButton(currentPage){
+
+	   $.ajax({
+		  url : 'replyPaging.aph',
+		  data : {
+			 rPage : currentPage,
+			 bno : '${requestScope.market.marketBno}',
+		  },
+		  success : function(list){
+
+			let value = '';
+
+			/*
+			for(let i in list){
+				value = 
+			}
+			*/
+			
+			selectReplyList(currentPage);
+
+		  }
+	   })
+	}
+	
+	
+ </script>
+
 
 
 	<!-- Page Specific JS File 

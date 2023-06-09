@@ -12,7 +12,6 @@ public class Calendar {
 	private String color;
 	private int classNo;
 	private String className;
-	private String memberType;
 	
 	
 	
@@ -32,5 +31,5 @@ public class Calendar {
 		super();
 	}
 	
-
+	
 }

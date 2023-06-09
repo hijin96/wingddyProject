@@ -27,7 +27,7 @@
 <!-- Custom CSS -->
 <link rel="stylesheet" href="${contextPath}/resources/css/custom.css">
 <meta charset="UTF-8">
-<title>스토어 메인페이지1233</title>
+<title>스토어 메인페이지</title>
 </head>
 <body>
 	<div id="app">
@@ -78,44 +78,6 @@
 
 					</div>
 				 </div> 
-				 <script>
-				 	$(function() {
-						$('#grid-view').click(function(){
-							location.href='storedetail?spNo'+$(this).children(.spNo).text();
-						})
-					})
-				 </script>
-				 
-		 	          <div id="pagingArea">
-		                <ul class="pagination">
-		                
-			                <c:choose>
-			                	<c:when test="${pageInfo.currentPage eq 1}">
-			                		<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-			                	</c:when>
-			                	<c:otherwise>
-			                		<li class="page-item"><a class="page-link" href="list.bo?cPage=${pageInfo.currentPage-1 }">Previous</a></li>
-			                	</c:otherwise>                	
-			      			</c:choose>
-								                	
-		                	<c:forEach begin="${pageInfo.startPage }" end="${pageInfo.endPage}" var="p">
-		                			<li class="page-item"><a class="page-link" href="list.bo?cPage=${p }">${p }</a></li>
-		                	</c:forEach>
-		                	<c:choose>
-		                		<c:when test="${pageInfo.currentPage eq pageInfo.maxPage}">
-		                			<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-		                		</c:when>
-							<c:otherwise>
-									<li class="page-item"><a class="page-link" href="list.bo?cPage=${pageInfo.currentPage+1 }">Next</a></li>
-							</c:otherwise>                	
-		                	</c:choose>
-		      			
-		                </ul>
-		            </div>
-						 
-				 
-				 
-				 
 			</div>
 		</div>
 

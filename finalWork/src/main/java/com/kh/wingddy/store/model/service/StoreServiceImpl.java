@@ -2,8 +2,6 @@ package com.kh.wingddy.store.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,12 +40,9 @@ public class StoreServiceImpl implements StoreService {
 	}
 	//게시글 등록
 	@Override
-	public int insertStoreBoard(ArrayList<Attachment>list) {
+	public int insertStoreBoard(HashMap<String,Object> map) {
 		// TODO Auto-generated method stub
-		System.out.println("서비스는 작동하나요?"+ storeDao.insertStoreBoard(sqlSession,list));
-		return storeDao.insertStoreBoard(sqlSession,list);
-	}
-
+		System.out.println("서비스는 작동하나요?"+ storeDao.insertStoreBoard(sqlSession,map));
 
 	@Override
 	public int updateStoreBoard(int spNo) {
@@ -66,8 +61,5 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
 
 }

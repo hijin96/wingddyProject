@@ -1,6 +1,10 @@
 package com.kh.wingddy.member.controller;
 
+import java.io.File;
+
 import java.util.ArrayList;
+
+
 
 import javax.servlet.http.HttpSession;
 
@@ -44,8 +48,10 @@ public class MemberController {
 		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
 			//System.out.println(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd()));
+			System.out.println(memberService.selectProfile(loginUser.getMemberNo()));
 			session.setAttribute("loginUser", loginUser);
 			session.setAttribute("classList", classroomService.selectClassList(loginUser));
+			session.setAttribute("profile", memberService.selectProfile(loginUser.getMemberNo()));
 			mv.setViewName("redirect:/");
 		} else {
 			session.setAttribute("alertMsg", "로그인실패");
@@ -78,7 +84,7 @@ public class MemberController {
 							   HttpSession session,
 							   Model model) {
 		
-		System.out.println("평문 : " + m.getMemberPwd());
+		//System.out.println("평문 : " + m.getMemberPwd());
 		
 		if(!upfile.getOriginalFilename().equals("")) {
 			
@@ -110,7 +116,7 @@ public class MemberController {
 			m.setMemberPwd(encPwd);
 			m.setMemberType("S");
 			
-			System.out.println("나는 학생" + m);
+			//System.out.println("나는 학생" + m);
 			return memberService.insertMember(m) > 0 ? "sideBar/sideBar":"common/errorPage";
 		}
 	}
@@ -130,7 +136,7 @@ public class MemberController {
 	public String confirmPass(String memberPwd, HttpSession session) {
 	
 		
-		System.out.println(memberPwd);
+		//System.out.println(memberPwd);
 		String userId = ((Member)session.getAttribute("loginUser")).getMemberId();
 		String loginPwd = ((Member)session.getAttribute("loginUser")).getMemberPwd();
 		Member m = new Member();
@@ -147,7 +153,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("updateForm.me")
-	public String updateMember() {
+	public String updateFormMember() {
 		
 		return "member/updateForm";
 	}
@@ -166,15 +172,14 @@ public class MemberController {
 			String changeName = renameFile.fileName(reUpfile, session);
 			at.setOriginName(reUpfile.getOriginalFilename());
 			at.setChangeName(changeName);
+			at.setFilePath("resources/uploadFiles/" + changeName);
 			at.setFileLevel(0);
 			
 		}
-		
-		System.out.println(at);
-		System.out.println(m);
 		if(memberService.updateMember(m, at) > 0) {
 			session.setAttribute("alertMsg", "수정완료");
-			return "member/profile" + m.getMemberNo();
+			
+			return "member/profile";
 		} else {
 			session.setAttribute("alertMsg", "수정실패");
 			return "member/updateForm";

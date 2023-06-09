@@ -4,10 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.kh.wingddy.classroom.model.service.ClassroomService;
+import com.kh.wingddy.classroom.model.vo.Classroom;
 
 public class ClassroomInterceptor extends HandlerInterceptorAdapter{
 	
@@ -15,7 +15,10 @@ public class ClassroomInterceptor extends HandlerInterceptorAdapter{
 	private ClassroomService classroomService;
 	
 	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object Handler, ModelAndView mv){
-		mv.addObject("classroom", classroomService.selectClassroom(Integer.parseInt(request.getParameter("cno"))));
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object Handler){
+
+		request.setAttribute("classroom", classroomService.selectClassroom(Integer.parseInt(request.getParameter("cno"))));
+		
+		return true;
 	}
 }
