@@ -62,11 +62,7 @@
 		display : inline-block !important;
 		vertical-align : top !important;
 	}
-	.myHeader h5{
-		margin-left : 30px !important;
-		text-align : center !important;
-		text-weigth : 500 !important;
-	}
+
 	
 </style>
 </head>
@@ -240,6 +236,7 @@
 
 	<script>
 		let memberNo = ${loginUser.memberNo};
+		let memberType = '${loginUser.memberType}';
 		
 		var d = new Date();
 		var t = new Date(new Date().setDate(d.getDate() + 1));
@@ -274,8 +271,7 @@
 		    						let cScheduleList1 = '';
 		    						let cScheduleList2 = '';
 		    						
-		    						console.log("clist : " + clist);
-		    						
+		    						//console.log(clist);
 		    						for(let i in clist){
 			        					//console.log(list[i].schedule + "/" + list[i].endDate);
 			        					 value.push({
@@ -293,6 +289,9 @@
 			        					let endDate = new Date(clist[i].endDate);
 			        					
 			        					//console.log(clist[i].schedule + " 의 endDate : " + endDate);
+			        					
+			        					
+			        					
 			        					if(d >= startDate && d <= endDate){
 			        						cScheduleList1 +=  "<li><div id='scheduleName' >&lt;" + clist[i].className + "&gt; " + clist[i].schedule + "</div></li>"; 
 			        						
@@ -313,64 +312,57 @@
 		    				})
 						}
 					},
-					
 					{
-						
 						events : function(info, successCallback, failureCallback){
-	        				let value = [];
-	        				if(${loginUser.memberType eq "S"}){
-		        				$.ajax({
-				        			url : 'selectScheduleList', // 개인 일정
-				        			data : {memberNo : memberNo},
-				        			type : 'post',
-				        			success : function(list){
-				        				
-				        				console.log("list : " + list);
-				        				
-				        				
-				        				let scheduleList1 = '';
-				        				let scheduleList2 = '';
-				        				let mark = '';
-				        				
-				        					for(let i in list){
-				        					//console.log(list[i].schedule + "/" + list[i].endDate);
-				        					 value.push({
-				        						 title : list[i].schedule,
-				        						 start : list[i].startDate,
-				        						 end : list[i].endDate,
-				        						 color : list[i].color,
-				        						 classNames : 3
-				        					})
-				        					
-				        					let startDate = new Date(list[i].startDate);
-				        					let endDate = new Date(list[i].endDate);
-				        					
-				        					//console.log(list[i].schedule + " 의 endDate : " + endDate);
-				        					
-				        					if(d >= startDate && d <= endDate){
-				        						scheduleList1 +=  "<li><span id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</span></li>"; 
-				        						
-				        					} 
-				        					$('#todayList ul').html(scheduleList1);
-				        					
-				        					if(t >= startDate && t <= endDate){
-				        						scheduleList2 += "<li><span id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</span></li>"; 
-								
-				        					}
-				        					$('#tomorrowList ul').html(scheduleList2);
-				        					
-				        					
-				        				}
-			        					successCallback(value);
-		        					}
-								})
+						let value = [];
 	        				
-							}
+	        				$.ajax({
+			        			url : 'selectScheduleList', // 개인 일정
+			        			data : {memberNo : memberNo},
+			        			type : 'post',
+			        			success : function(list){
+			        				
+									//console.log("list : " + list);
+									
+									
+									let scheduleList1 = '';
+									let scheduleList2 = '';
+									let mark = '';
+									if(memberType == "S"){
+										for(let i in list){
+											//console.log(list[i].schedule + "/" + list[i].endDate);
+											value.push({
+												title : list[i].schedule,
+												start : list[i].startDate,
+												end : list[i].endDate,
+												color : list[i].color,
+												classNames : 3
+											})
+										
+											let startDate = new Date(list[i].startDate);
+											let endDate = new Date(list[i].endDate);
+											
+											//console.log(list[i].schedule + " 의 endDate : " + endDate);
+											if(d >= startDate && d <= endDate){
+												scheduleList1 +=  "<li><span id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</span></li>"; 
+												
+											} 
+											$('#todayList ul').html(scheduleList1);
+											
+											if(t >= startDate && t <= endDate){
+												scheduleList2 += "<li><span id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</span></li>"; 
+								
+											}
+											$('#tomorrowList ul').html(scheduleList2);
+										}
+									}
+									successCallback(value);
+	        					}
+							})
 		        		}
 					}
-					
 				],
-        		eventClick : function(info){
+				eventClick : function(info){
         			info.jsEvent.stopPropagation();
         			info.jsEvent.preventDefault();
         		},
@@ -449,7 +441,7 @@
     				$('#theDaySchedule-content').html(value);
     			}
     		});
-    			console.log(arr);
+    			//console.log(arr);
     		
     		$('#theDaySchedule').modal();
     		$('#modal-date').text(date);
