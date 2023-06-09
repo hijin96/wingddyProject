@@ -44,7 +44,7 @@
 			ORDER BY SP_DAY ASC
 		<!--CK확인후 수정요망  -->
 	</select>
-	<insert id="insertStoreBoard" parameterType="hashmap" useGeneratedKeys = "true"  >
+	<insert id="insertStoreBoard" parameterType="hashmap"  >
 	INSERT 
 				ALL
 		INTO	
