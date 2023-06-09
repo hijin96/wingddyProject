@@ -264,20 +264,21 @@
 					},
 					{
 						events : function(info, successCallback, failureCallback){
-							let value = [];
+							console.log('클래스 일정');
 							
 							$.ajax({
 		    					url : 'selectClassScheduleList', // 클래스 일정
 		    					data : {memberNo : memberNo, memberType : '${loginUser.memberType}'},
 		    					type : 'post',
 		    					success : function(clist){
+		    						
+		    						let value = [];
 		    						let cScheduleList1 = '';
 		    						let cScheduleList2 = '';
 		    						
-		    						console.log("clist : " + clist);
+		    						//console.log(clist);
 		    						
 		    						for(let i in clist){
-			        					//console.log(list[i].schedule + "/" + list[i].endDate);
 			        					 value.push({
 			        						 title : "<" + clist[i].className + ">" + clist[i].schedule,
 			        						 start : clist[i].startDate,
@@ -308,24 +309,26 @@
 			        					
 			        					
 			        				}
+		    						console.log(value);
 		    						successCallback(value);
 		    					}
 		    				})
 						}
 					},
-					
 					{
-						
 						events : function(info, successCallback, failureCallback){
+							console.log('개인일정');
+							
 	        				let value = [];
 	        				if(${loginUser.memberType eq "S"}){
 		        				$.ajax({
 				        			url : 'selectScheduleList', // 개인 일정
-				        			data : {memberNo : memberNo},
+				        			data : {memberNo : memberNo, memberType : '${loginUser.memberType}'},
 				        			type : 'post',
 				        			success : function(list){
 				        				
-				        				console.log("list : " + list);
+				        				console.log('개인일정 조회해옴');
+				        				console.log(list);
 				        				
 				        				
 				        				let scheduleList1 = '';
@@ -363,8 +366,9 @@
 				        				}
 				        					successCallback(value);
 		        					}
-				        		})
 	        				
+							} else {
+								successCallback('');
 							}
 		        		}
 					}
