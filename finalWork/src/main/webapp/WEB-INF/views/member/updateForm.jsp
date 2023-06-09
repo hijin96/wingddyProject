@@ -43,60 +43,39 @@
               <div class="card-header"><h4>Enroll</h4></div>
 
               <div class="card-body">
-                <form method="POST" action="enrollMember.me" enctype="multipart/form-data">
+                <form method="POST" action="updateMember.me" enctype="multipart/form-data" id="mydropzone">
                   <div class="row">
                     <div class="form-group col-6">
-                      <label for="frist_name">Your ID</label><button type="button" id="checkBtn" class="btn btn-icon btn-success" onclick="checkId();" style="margin-left:195px; height:30px;" disabled=true;>check ID</button>
+                      <label for="frist_name">Your ID</label>
+                      <input type="hidden" name="memberNo" value="${loginUser.memberNo}">
                       <input id="frist_name" type="text" class="form-control" name="memberId" value="${loginUser.memberId}" readonly>
                     </div>
                     <div class="form-group col-6">
                       <label for="last_name">Your Name</label>
                       <input id="last_name" type="text" class="form-control" name="memberName" value="${loginUser.memberName}">
                     </div>
-                    <!--중복체크-->
-                    <div class="form-group col-6" sytle="display:hidden;">
-                      <label for="first_name" id="chkId"></label>
-                    </div>
-                    <div class="form-group col-6">
-                      <label for="last_name">sda</label>
-                    </div>
                   </div>
 
                   <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email" type="email" class="form-control" name="email" value="${loginUser.email}" readonly>
-                    <div class="invalid-feedback">
-                      인증되었습니다.
-                    </div>
-                    <select class="form-control selectric">
-                      <option>Enter It YourSelf</option>
-                      <option>naver.com</option>
-                      <option>gmail.com</option>
-                      <option>daum.net</option>
-                      <option>wingddy.com</option>
-                    </select>
                   </div>
-
-                  <div class="row">
-                    <div class="form-group col-6">
-                      <label for="password" class="d-block">Password</label>
-                      <input id="password" type="password" class="form-control pwstrength" name="memberPwd" required placeholder="Please Enter Password">
-                      <div id="pwindicator" class="pwindicator">
-                        <div class="bar"></div>
-                        <div class="label"></div>
-                      </div>
-                    </div>
-                    
-                  </div>
-
                  
                   <div class="row">
                     
                   </div>
+
                   <div class="row">
                     <div class="form-group col-6">
                       <label>Phone</label>
                       <input type="name" class="form-control" name="phone" value="${loginUser.phone}" required>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-group col-6">
+                      <label>Phone</label>
+                      <img src="" alt="">
                     </div>
                   </div>
 
@@ -108,14 +87,16 @@
                         </div>
                         <div class="card-body">
                             <div class="fallback">
-                              <input name="upfile" type="file" class="dropzone dz-clickable"/>
+                              <input name="reUpfile" type="file" class="dropzone dz-clickable"/>
                             </div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div class="row" id="teacher-profile">
+
+
+                  <div class="row" id="profile">
                     <div class="col-5">
                       <div class="card">
                         <div class="card-header">
@@ -123,19 +104,10 @@
                         </div>
                         <div class="card-body">
                             <div class="fallback">
-                              <input name="upfile" type="file" class="dropzone dz-clickable"/>
+                              <input name="reUpfile" type="file" class="dropzone dz-clickable"/>
                             </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-
-                  
-
-                  <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" name="agree" class="custom-control-input" id="agree">
-                      <label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
                     </div>
                   </div>
 

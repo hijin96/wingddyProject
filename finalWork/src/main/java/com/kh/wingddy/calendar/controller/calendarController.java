@@ -25,17 +25,14 @@ public class calendarController {
 	
 	@ResponseBody
 	@RequestMapping(value="selectScheduleList", produces="application/json; charset=UTF-8")
-	public String ajaxScheduleList(int memberNo, String memberType) {
-		if(memberType.equals("S")) {
-			return new Gson().toJson(calendarService.selectScheduleList(memberNo));
-		} else {
-			return "";
-		}
+	public String ajaxScheduleList(int memberNo) {
+		return new Gson().toJson(calendarService.selectScheduleList(memberNo));
 	}
 	
 	@RequestMapping("insertSchedule")
 	public String insertSchedule(Calendar c, Model model) {
 		
+		System.out.println(c);
 		if(calendarService.insertSchedule(c) > 0) {
 			return "redirect:/calendar"; 
 		} else {
@@ -72,6 +69,16 @@ public class calendarController {
 			model.addAttribute("errorMsg", "일정 수정 실패");
 			return "common/errorPage";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectClassScheduleList", produces="application/json; charset=UTF-8")
+	public String selectClassScheduleList(int memberNo, String memberType) {
+		HashMap map = new HashMap();
+		map.put("memberNo", memberNo);
+		map.put("memberType", memberType);
+		System.out.println(calendarService.selectClassScheduleList(map));
+		return new Gson().toJson(calendarService.selectClassScheduleList(map));
 	}
 	
 	
