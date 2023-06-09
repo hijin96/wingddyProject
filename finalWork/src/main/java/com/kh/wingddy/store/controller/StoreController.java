@@ -151,12 +151,15 @@ public class StoreController {
 		System.out.println("map"+map);
 		
 		ArrayList<Store> stlist = new ArrayList<Store>();
+		
+		
+		
 		System.out.println("LIST"+stlist);
 		
 		System.out.println("at"+list);
 		
 		System.out.println("게시글 원래 이미지" + upfile.getOriginalFilename());
-		if(storeService.insertStoreBoard(list)>0) {
+		if(storeService.insertStoreBoard(map)>0) {
 		String changeName = rename.fileName(upfile, session);
 		// Attachment at = new Attachment();
 		at.setOriginName(upfile.getOriginalFilename());
@@ -172,6 +175,8 @@ public class StoreController {
 			model.addAttribute("errorMsg","게시글작성실패");
 			return "common/errorPage";
 		}
+	}
+		return null;
 	}
 
 //	@RequestMapping("storeWriter")
