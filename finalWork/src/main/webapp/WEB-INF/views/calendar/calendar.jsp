@@ -62,7 +62,9 @@
 		display : inline-block !important;
 		vertical-align : top !important;
 	}
-
+	.moreSmall{
+		height : 23px !important;
+	}
 	
 </style>
 </head>
@@ -142,6 +144,7 @@
 							배경색 <input type="color" name="color" value="#ffc34d" />
 							</c:if>
 							<input type="hidden" name="memberNo" value="${ loginUser.memberNo }" />
+							<input type="hidden" name="memberType" value="${loginUser.memberType }" />
 						</div>
 						
 						<!-- Modal footer -->
@@ -257,7 +260,7 @@
 						googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
 						color : 'transparent',
 						textColor : 'gray',
-						classNames : 1
+						classNames : 'A'
 					},
 					{
 						events : function(info, successCallback, failureCallback){
@@ -281,7 +284,7 @@
 			        						 borderColor : '#000000',
 			        						 color : '#ffffff',
 			        						 textColor : '#ff0000',
-			        						 classNames : 2
+			        						 classNames : 'B'
 			        					})
 			        					
 			        					
@@ -336,7 +339,7 @@
 												start : list[i].startDate,
 												end : list[i].endDate,
 												color : list[i].color,
-												classNames : 3
+												classNames : 'C'
 											})
 										
 											let startDate = new Date(list[i].startDate);
@@ -366,7 +369,7 @@
         			info.jsEvent.stopPropagation();
         			info.jsEvent.preventDefault();
         		},
-        		eventOrder : ['-title', 'classNames']
+        		eventOrder : ['-title, -start, classNames'] // 정렬 기준
 	        	
 	        });
 	        calendar.render();
@@ -423,19 +426,29 @@
     		
     		$.ajax({
     			url : 'daySchedule',
-    			data : {memberNo : memberNo, date : date},
+    			data : {memberNo : memberNo, date : date, memberType : memberType},
     			type : 'POST',
     			success : function(list){
     				
     				$('#modal-date').html(date);
     				
     				for(let i in list){
+    					console.log(list);
 						arr.push(list[i]);
     					
-    					value += "<div>✔️" + list[i].schedule + "(" + list[i].startDate + " ~ " + list[i].endDate +  ")"
-							   + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div id='scheduleNo' style='display:none'>" + list[i].scheduleNo + " </div>"
-							   + "<button type='button' onclick='showUpdateModal(" + i + ");' class='btn btn-warning btn-sm'>수정</button>"
-							   + "<button type='button' id='btn1' onclick='deleteSchedule();' class='btn btn-primary btn-sm'>삭제</button></div><br>"; 
+    					value += "<div>✔️";
+    					
+    					if(list[i].memberNo != memberNo){
+    						value += "&lt;" + list[i].className + "&gt;&nbsp;";
+    					}
+    						   
+    					value += list[i].schedule + "(" + list[i].startDate + " ~ " + list[i].endDate +  ")"
+							   + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div id='scheduleNo' style='display:none'>" + list[i].scheduleNo + " </div>";
+							   
+						if(list[i].memberNo == memberNo ){
+						    value += "<button type='button' onclick='showUpdateModal(" + i + ");' class='btn btn-warning btn-sm moreSmall'>수정</button>"
+								   + "<button type='button' id='btn1' onclick='deleteSchedule();' class='btn btn-primary btn-sm moreSmall'>삭제</button></div><br>";
+						}
     				
     				}
     				$('#theDaySchedule-content').html(value);

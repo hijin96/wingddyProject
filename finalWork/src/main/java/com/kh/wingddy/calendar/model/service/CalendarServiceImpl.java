@@ -45,8 +45,8 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override
-	public ArrayList<Calendar> selectClassScheduleList(HashMap map) {
-		return calendarDao.selectClassScheduleList(sqlSession, map);
+	public ArrayList<Calendar> selectClassScheduleList(Calendar c) {
+		return calendarDao.selectClassScheduleList(sqlSession, c);
 	}
 	
 	
