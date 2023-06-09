@@ -1,7 +1,6 @@
 package com.kh.wingddy.voca.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.kh.wingddy.voca.model.vo.ClassVocaBook;
 import com.kh.wingddy.voca.model.vo.Voca;
@@ -34,7 +33,7 @@ public interface VocaService {
 	// 단어장 수정 페이지
 	// 단어장 수정(UPDATE)
 	// - 단어 삭제(DELETE)
-	int updateVocaBook(HashMap<String, Object> vb);
+	int updateVocaBook(VocaBook vb, ArrayList<Voca> vlist);
 	
 	/* 선생님 */
 	

@@ -9,14 +9,11 @@ public interface MemberService {
 	// 로그인시 받은 member 객체 (ID, PWD) 비밀번호는 DB에 저장된 암호화된 비밀번호의 salt값을 비교
 	public Member loginMember(Member m);
 	
-	public Attachment selectProfile(int memberNo);
 	// 회원 회원가입 메소드 (insert member, attachment) 
 	// 회원가입 종류(NAVER, KAKAO, GOOGLE, WINGDDY 중 WINGDDY 회원의 경우만 해당)
 	public int insertMember(Member m);
 	
 	public int insertTeacher(Member m, Attachment at);
-	
-	public int updateMember(Member m, Attachment at);
 	
 	// 회원 아이디 찾기 (이메일 인증) select  
 	// 이메일 인증 성공시 DB에 저장되있는 회원의 ID값 출력

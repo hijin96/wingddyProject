@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>example</title>
 </head>
 <body>
 
-
+	
 <div id="app">
 	
 	<jsp:include page="../sideBar/sideBar.jsp" />
@@ -24,7 +24,8 @@
 		      	</div>
 		    </section>
 	    </div>
-</div>
+</div>	
+
 
 </body>
 </html>
