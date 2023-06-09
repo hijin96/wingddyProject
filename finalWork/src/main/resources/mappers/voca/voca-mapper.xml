@@ -93,17 +93,7 @@
 		 	   BOOK_NO = #{bookNo}
 	</delete>
 	
-	<insert id="insertVoca" parameterType="map">
-		<foreach collection="vlist" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
-			  INTO VOCA
-			VALUES
-				  (
-				   #{bookNo}
-				  ,#{item.vocaEnglish}
-				  ,#{item.vocaKorean}
-				  )
-		</foreach>
-	</insert>
+
 	
 	
 	
