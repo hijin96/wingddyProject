@@ -81,7 +81,9 @@ public class AlphabetDao {
 	}
 	
 	
-	
+	public int ajaxInsertReply(SqlSessionTemplate sqlSession, MarketReply mr) {
+		return sqlSession.insert("alphabetMapper.insertReply", mr);
+	}
 	
 	
 	

@@ -43,7 +43,7 @@ public interface AlphabetService {
 	int ajaxSelectReply(int marketBno);
 	
 	// 마켓 댓글 작성
-	int ajaxInsertReply(int marketBno);
+	int ajaxInsertReply(MarketReply mr);
 	
 	
 	// 

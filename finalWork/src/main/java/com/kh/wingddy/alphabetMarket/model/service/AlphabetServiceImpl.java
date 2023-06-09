@@ -56,7 +56,23 @@ public class AlphabetServiceImpl implements AlphabetService {
 	public int insertMarket(AlphabetMarket am) {
 		
 		return alphabetDao.insertMarket(sqlSession, am);
+		
 	}
+	
+
+	@Override
+	public int ajaxInsertReply(MarketReply mr) {
+		return alphabetDao.ajaxInsertReply(sqlSession, mr);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public int deleteMarket(int marketBno) {
@@ -76,11 +92,6 @@ public class AlphabetServiceImpl implements AlphabetService {
 		return 0;
 	}
 
-	@Override
-	public int ajaxInsertReply(int marketBno) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 
 
