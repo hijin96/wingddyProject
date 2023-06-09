@@ -43,25 +43,26 @@
 						<div class="card">	
 								<div class="card-body p-0">
 								<div class="table-responsive">
-									<table class="table table-striped table-md">
-									
+									<table class="table table-striped table-md" id="commentsArea">
 									</table>
 								</div>
 								</div>
 								<div class="card-footer text-center">
 								<nav class="d-inline-block">
-									<ul class="pagination mb-0">
-									<li class="page-item disabled">
-										<a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
-									</li>
-									<li class="page-item active"><a class="page-link" href="#">1 <span class="sr-only">(current)</span></a></li>
-									<li class="page-item">
-										<a class="page-link" href="#">2</a>
-									</li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item">
-										<a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
-									</li>
+									<ul class="pagination mb-0" id="commentList">
+<!--
+										<li class="page-item disabled">
+											<a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
+										</li>
+										<li class="page-item active"><a class="page-link" href="#">1 <span class="sr-only">(current)</span></a></li>
+										<li class="page-item">
+											<a class="page-link" href="#">2</a>
+										</li>
+										<li class="page-item"><a class="page-link" href="#">3</a></li>
+										<li class="page-item">
+											<a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+										</li>
+-->
 									</ul>
 								</nav>
 								</div>
@@ -96,7 +97,7 @@
 	</form>
 
 
-<!--
+
 	<form class="modal-part" id="modal-login-part">
 		<p>This login form is taken from elements with <code>#modal-login-part</code> id.</p>
 		<div class="form-group">
@@ -128,7 +129,7 @@
 			</div>
 		</div>
 	</form>
--->
+
 
 
 	<script>
@@ -168,103 +169,16 @@
 
 	</script>
 
-	<script>
-		$(function(){
-
-			var currentPage = 1;
-
-			selectPageButton(currentPage);
-			//selectReplyList(currentPage);
-
-			$(document).on('click', '.paging', function(){
-				currentPage = this.value;
-				selectReplyList(currentPage);
-				//selectPageButton(currentPage);
-			})
-
-		})
-
-	
-				
-		function selectPageButton(currentPage){
-
-			$.ajax({
-				url : 'replyPaging.aph',
-				data : {
-					rPage : currentPage,
-					bno : '${requestScope.market.marketBno}',
-				},
-				success : function(result){
-
-				}
-			})
-		}
-
-
-
-
-
-
-
-		function selectReplyList(currentPage){
-
-
-			
-
-			$.ajax({
-				url : "replyList.aph",
-				data : {
-					//rPage : currentPage,
-					bno : '${requestScope.market.marketBno}',
-				},
-				success : function(list){
-			
-					let value = '<tr><td colspan="6"><h3>comments('+ list.length +')</h3></td><td><button class="btn btn-warning" id="modal-aphReply">댓글작성</button></td></tr>'
-
-					if('${sessionScope.loginUser.memberId}' == '${requestScope.market.writer}'){
-						value = '<tr><td colspan="6"><h3>comments('+ list.length +')</h3></td><td></td></tr>'
-					}
-					
-					for(let i in list){
-						value += '<tr><td><input type="hidden" value="'+ list[i].replyNo +'"></td>'
-
-						if(list[i].replySelected == 'Y'){
-							value += '<td><div class="badge badge-success">selected</div></td>'
-						}
-						else{
-							value += '<td><div class="badge badge-success"></div></td>'
-						}
-						value += '<td><h3>'+ list[i].alphabet +'</h3></td>'
-							+ '<td>'+ list[i].replyWriter + '</td>'
-							+ '<td>' + list[i].replyContent+'</td>'
-							+ '<td>'+ list[i].replyDate + '</td>'
-						
-						if('${sessionScope.loginUser.memberId}' == '${requestScope.market.writer}'){
-							console.log('똑같음!');
-							value += '<td><button type="button" class="btn btn-primary btn-sm">바꾸기</button></td></tr>'
-						}
-						else{
-							console.log('다름!');
-							value += '<td></td></tr>'
-						}
-					}
-
-					$('#commentsArea').html(value);
-				}
-			})
-		}
-
-
-		
-		
-	</script>
 
 <script>
+	
 	$(function(){
 
 	   var currentPage = 1;
 
+	   
 	   selectPageButton(currentPage);
+	   
 
 	   $(document).on('click', '.paging', function(){
 		  currentPage = this.value;
@@ -276,6 +190,7 @@
 	
 	function selectReplyList(currentPage){
 
+
 	   $.ajax({
 		  url : "replyList.aph",
 		  data : {
@@ -286,7 +201,7 @@
 	   
 			 let value = '<tr><td colspan="6"><h3>comments('+ list.length +')</h3></td><td><button class="btn btn-warning" id="modal-aphReply">댓글작성</button></td></tr>'
 
-			 if('${sessionScope.loginUser.memberId}' != '${requestScope.market.writer}'){
+			 if('${sessionScope.loginUser.memberId}' == '${requestScope.market.writer}'){
 				value = '<tr><td colspan="6"><h3>comments('+ list.length +')</h3></td><td></td></tr>'
 			 }
 			 
@@ -330,16 +245,37 @@
 		  },
 		  success : function(list){
 
-			let value = '';
-
-			/*
-			for(let i in list){
-				value = 
-			}
-			*/
 			
-			selectReplyList(currentPage);
 
+			let btnValue = '';
+
+			btnValue += '<li class="page-item">'
+				   + '<a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>'
+				   + '</li>';
+
+			for(var i = list.startPage; i <= list.endPage; i++){
+				if(i == list.currentPage){
+
+					btnValue += '<li class="page-item active">'
+						   + '<a class="page-link" href="#">' + i + '<span class="sr-only">(current)</span></a>'
+						   +'</li>';
+						   
+				}
+				else{
+					
+					btnValue += '<li class="page-item">'
+				   		   + '<a class="page-link" href="#">'+ i +'</a>'
+				   		   + '</li>';
+						   
+				}
+			}
+
+			btnValue += '<li class="page-item">'
+				  	  + '<a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>'
+				      + '</li>';
+
+			$('#commentList').html(btnValue);
+			selectReplyList(currentPage);
 		  }
 	   })
 	}

@@ -23,7 +23,7 @@
 						<div class="card-body">
 							<form action="post.aph" method="post">
 
-								<input type="hidden" value="100" name="classNo">
+								<input type="hidden" value="${requestScope.classroom.classNo}" name="classNo">
 								<input type="hidden" value="${sessionScope.loginUser.memberNo}" name="writer">
 
 								<div class="form-group row mb-4">
@@ -37,7 +37,7 @@
 									<div class="col-sm-12 col-md-7">
 										<select class="form-control selectric" name="alphabet">
 											<c:forEach items="${requestScope.category}" var="r">
-												<option>${r.alphabet} (${r.count})</option>
+												<option value="${r.alphabet}">${r.alphabet} (${r.count})</option>
 											</c:forEach>
 										</select>
 										
