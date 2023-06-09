@@ -2,6 +2,7 @@ package com.kh.wingddy.alphabetMarket.controller;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,11 @@ import com.google.gson.Gson;
 import com.kh.wingddy.alphabetMarket.model.service.AlphabetService;
 import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
+import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
+import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.Pageination;
+import com.kh.wingddy.member.model.vo.Member;
 
 @Controller
 public class AlphabetController {
@@ -53,9 +57,23 @@ public class AlphabetController {
 	
 	//마켓 디테일 뷰
 	@RequestMapping("detail.aph")
-	public String marketDetail(int bno, Model model) {
+	public String marketDetail(int bno, Model model, HttpSession session) {
 		
-		model.addAttribute("market", AlphabetService.marketDetail(bno));
+		Member m = (Member)(session.getAttribute("loginUser"));
+		AlphabetMarket am = AlphabetService.marketDetail(bno);
+	
+		model.addAttribute("market", am);
+		
+		
+		if(am.getWriter() != m.getMemberId()) {
+			
+			Alphabet ap = new Alphabet();
+			ap.setCno(am.getClassNo());
+			ap.setMno(m.getMemberNo());
+			
+			model.addAttribute("category", AlphabetService.selectCategory(ap));
+		}
+		
 	
 		return "alphabetMarket/alphabetMarketDetail";
 	}
@@ -68,7 +86,6 @@ public class AlphabetController {
 	@RequestMapping(value="replyList.aph", produces="application/json; charset=UTF-8")
 	public String ajaxReplyList(int rPage, int bno) {
 		
-		System.out.println("-------------------------------");
 
 		PageInfo pi = Pageination.getPageInfo(AlphabetService.replyCount(bno), rPage, 10, 5);
 		
@@ -94,8 +111,11 @@ public class AlphabetController {
 	
 	
 	
+	// 알파벳카테고리 가져오기
 	@RequestMapping("enroll.aph")
 	public ModelAndView  enrollAndCategory(Alphabet ap, ModelAndView mv) {
+		
+		System.out.println(ap);
 		
 		mv.addObject("category", AlphabetService.selectCategory(ap));
 		mv.setViewName("alphabetMarket/alphabetMarketEnroll");
@@ -104,6 +124,7 @@ public class AlphabetController {
 	}
 	
 	
+	// 마켓 글 등록
 	@RequestMapping("post.aph")
 	public void insertMarket(AlphabetMarket am) {
 		
@@ -111,6 +132,38 @@ public class AlphabetController {
 		
 		// return 해당 글 디테일뷰로 이동하기
 	}
+	
+	
+	
+	// 마켓 댓글 등록
+	@ResponseBody
+	@RequestMapping("insertReply.aph")
+	public String ajaxInsertReply(MarketReply mr) {
+		AlphabetService.ajaxInsertReply(mr);
+
+		
+		return "testsuccess";
+
+	}
+	
+	
+	
+	// 마켓 알파벳 바꾸기
+	@ResponseBody
+	@RequestMapping("change.aph")
+	public String ajaxChangeAlphabet(ChangeAlphabet ca) {
+
+		AlphabetService.ajaxChangeAlphabet(ca);
+		
+		return "testsuccess";
+
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	// 마이 알파벳

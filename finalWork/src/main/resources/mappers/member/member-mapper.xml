@@ -69,4 +69,18 @@
 		   AND
 		       MEMBER_ID = #{memberId}     
 	</update>
+	
+	<select id="searchId" parameterType="string" resultMap="memberResultSet">
+		SELECT
+		       MEMBER_ID,
+		       EMAIL,
+		       PHONE,
+		       MEMBER_NAME
+		  FROM
+		       MEMBER
+		 WHERE
+		       EMAIL = #{email}
+		   AND
+		       STATUS_YN = 'N'
+	</select>
 </mapper>

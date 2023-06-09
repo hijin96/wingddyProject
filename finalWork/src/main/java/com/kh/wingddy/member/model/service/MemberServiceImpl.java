@@ -41,8 +41,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int updateMember(Member m, Attachment at) {
 		
-		//int result1 = memberDao.updateMember(sqlSession, m);
-		//int result2 = memberDao.updateProfile(sqlSession, at);
+		int result1 = memberDao.updateMember(sqlSession, m);
+		int result2 = memberDao.updateProfile(sqlSession, at);
 		
 		return result1 * result2;
 	}
@@ -50,6 +50,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Attachment selectProfile(int memberNo) {
 		return memberDao.selectProfile(sqlSession, memberNo);
+	}
+
+	@Override
+	public Member searchId(String email) {
+		return memberDao.searchId(sqlSession, email);
+	}
+
+	@Override
+	public int insertProfile(Attachment at) {
+		return memberDao.insertProfile(sqlSession, at);
 	}
 	
 }

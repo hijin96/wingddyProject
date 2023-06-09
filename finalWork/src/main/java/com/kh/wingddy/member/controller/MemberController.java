@@ -2,10 +2,6 @@ package com.kh.wingddy.member.controller;
 
 import java.io.File;
 
-import java.util.ArrayList;
-
-
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.wingddy.classroom.model.service.ClassroomService;
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.template.RenameFile;
@@ -48,7 +45,7 @@ public class MemberController {
 		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
 			//System.out.println(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd()));
-			System.out.println(memberService.selectProfile(loginUser.getMemberNo()));
+			//System.out.println(memberService.selectProfile(loginUser.getMemberNo()));
 			session.setAttribute("loginUser", loginUser);
 			session.setAttribute("classList", classroomService.selectClassList(loginUser));
 			session.setAttribute("profile", memberService.selectProfile(loginUser.getMemberNo()));
@@ -160,31 +157,60 @@ public class MemberController {
 	
 	
 	@RequestMapping("updateMember.me")
-	public String updateMember(Member m, MultipartFile reUpfile, HttpSession session) {
+	public String updateMember(Member m, MultipartFile reUpfile, HttpSession session, String update) {
 		
+		//System.out.println(update);
+		int result = 1;
 		Attachment at = new Attachment();
 		if(!reUpfile.getOriginalFilename().equals("")) {
 			at = memberService.selectProfile(m.getMemberNo());
-			if(at.getOriginName() != null) {
+			if(at != null) {
 				new File(session.getServletContext().getRealPath(at.getChangeName())).delete();
+			} else {
+				at = new Attachment();
 			}
 			
 			String changeName = renameFile.fileName(reUpfile, session);
+			
+			at.setMemNo(m.getMemberNo());
 			at.setOriginName(reUpfile.getOriginalFilename());
 			at.setChangeName(changeName);
 			at.setFilePath("resources/uploadFiles/" + changeName);
 			at.setFileLevel(0);
 			
+			if(update.equals("firstUpdate")) {
+				result = memberService.insertProfile(at);
+			}
+			System.out.println(at);
+			if(result > 0) {
+				result = memberService.updateMember(m, at);
+			}
 		}
-		if(memberService.updateMember(m, at) > 0) {
+		System.out.println(result);
+		if(result > 0) {
 			session.setAttribute("alertMsg", "수정완료");
-			
+			session.removeAttribute("profile");
+			session.removeAttribute("loginUser");
+			session.setAttribute("loginUser", memberService.loginMember(m));
+			session.setAttribute("profile", memberService.selectProfile(m.getMemberNo()));
 			return "member/profile";
 		} else {
 			session.setAttribute("alertMsg", "수정실패");
 			return "member/updateForm";
 		}
 		
+	}
+	
+	@RequestMapping("forgetId.me")
+	public String forgetId() {
+		return "member/forgetId";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="searchId.me", produces="application/json; charset=UTF-8")
+	public String searchId(String email) {
+		
+		return new Gson().toJson(memberService.searchId(email));
 	}
 	
 }

@@ -5,7 +5,7 @@
 <mapper namespace="alphabetMapper">
 
 	<resultMap id="marketResultSet" 		type="alphabetmarket">
-		<result column="CLASS_NO"	 		property="classNo" />
+		<result column="REF_CLASS"	 		property="classNo" />
 		<result column="MARKET_BNO"			property="marketBno" />
 		<result column="MEMBER_ID" 			property="writer" />
 		<result column="ALPHABET" 			property="alphabet" />
@@ -78,7 +78,7 @@
 	
 	
 	<select id="selectDetail" resultMap="marketResultSet">
-	SELECT MARKET_BNO, MEMBER_ID, ALPHABET, CONTENT, CREATE_DATE, SELLING_STATUS, TITLE
+	SELECT MARKET_BNO, MEMBER_ID, ALPHABET, CONTENT, CREATE_DATE, SELLING_STATUS, TITLE, REF_CLASS
 	  FROM ALPHABET_MARKET
 	  JOIN MEMBER ON(WRITER = MEMBER_NO)
 	 WHERE MARKET_BNO = #{bno}
@@ -91,7 +91,7 @@
 		  JOIN MEMBER ON(REPLY_WRITER = MEMBER_NO)
 		 WHERE REPLY_STATUS = 'Y' 
 		   AND REF_MARKET = #{bno}
-		 ORDER BY REPLY_DATE DESC
+		 ORDER BY REPLY_DATE
 	</select>
 	
 	
@@ -106,18 +106,22 @@
 	
 	<insert id="insertMarket" parameterType="alphabetMarket" >
 		INSERT INTO ALPHABET_MARKET
-		VALUES(SEQ_MARKET_BNO.NEXTVAL, #{writer}, #{alphabet}, #{content}, DEFAULT, DEFAULT, DEFAULT, #{classNo}, #{title});
+		VALUES(SEQ_MARKET_BNO.NEXTVAL, #{writer}, #{alphabet}, #{content}, DEFAULT, DEFAULT, DEFAULT, #{classNo}, #{title})
 	</insert>
 	
+	
 	<select id="selectMyAlphabet" parameterType="alphabet" resultMap="alphabetResultSet">
-	SELECT ALPHABET, COUNT(*) as COUNT
-	  FROM ALPHABET A
-	 WHERE MEMBER_NO = #{mno}
-	   AND CLASS_NO = #{cno}
-	 GROUP BY A.ALPHABET
+		SELECT ALPHABET, COUNT(*) as COUNT
+		  FROM ALPHABET A
+		 WHERE MEMBER_NO = #{mno}
+		   AND CLASS_NO = #{cno}
+		 GROUP BY A.ALPHABET
 	</select>
 
-	
+	<insert id="insertReply" parameterType="alphabetReply">
+		INSERT INTO ALPHABET_REPLY
+		VALUES(SEQ_MARKET_RNO.NEXTVAL, #{replyWriter}, #{alphabet}, #{replyContent}, DEFAULT, #{refMarket}, DEFAULT, DEFAULT)
+	</insert>
 	
 	
 	

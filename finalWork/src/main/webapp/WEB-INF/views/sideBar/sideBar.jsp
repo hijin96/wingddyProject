@@ -389,8 +389,6 @@
                   <a href="" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>${loginUser.memberName}</span></a>
                   <ul class="dropdown-menu">
                     <li><a href="logout.me">로그아웃</a></li> 
-                    <li><a href="#">Information</a></li> 
-                    <li><a href="#">Reset Password</a></li> 
                   </ul>
                 </li>
               </c:when>
@@ -401,7 +399,7 @@
                   <ul class="dropdown-menu">
                     <li><a href="loginForm.me">로그인</a></li> 
                     <li><a href="#exampleModal" data-toggle="modal">회원가입</a></li> 
-                    <li><a href="#">아이디 찾기</a></li> 
+                    <li><a href="forgetId.me">아이디 찾기</a></li> 
                     <li><a href="errorPage.me">비밀번호 찾기</a></li> 
                   </ul>
                 </li>
