@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,8 +39,15 @@
     <section class="section">
     <div class="col-12 col-md-12 col-lg-5">
           <div class="card profile-widget">
-            <div class="profile-widget-header">                     
-              <img alt="image" src="${contextPath}/resources/assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture">
+            <div class="profile-widget-header">    
+              <c:choose>
+                  <c:when test="${not empty profile}">
+                    <img alt="image" src="${contextPath}/${profile.filePath}" class="rounded-circle profile-widget-picture">
+                  </c:when>
+                  <c:otherwise>
+                    <img alt="image" src="resources/assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture">
+                  </c:otherwise>
+                </c:choose>                 
               <div class="profile-widget-items">
                 <div class="profile-widget-item">
                   <div class="profile-widget-item-label">Posts</div>

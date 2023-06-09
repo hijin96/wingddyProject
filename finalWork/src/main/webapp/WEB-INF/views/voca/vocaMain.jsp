@@ -8,7 +8,6 @@
 <title>내 단어장</title>
 
 <style>
-
 	#voca_table{
 		text-align: center;
 	}
@@ -28,6 +27,7 @@
 			<div class="card-header">
 				<h1>내 단어장</h1>
 				<button class="btn btn-primary" id="insertBook-btn">단어장 등록</button>
+				<button class="btn btn-primary" id="updateBook-btn">단어장 수정</button>
 			</div>
 			<div class="card-body">
 				<div id="accordion">
@@ -96,7 +96,7 @@
 							}
 						}
 					}
-				}
+				};
 				
 				httpRequest.open('POST', 'vocaList.vc?bookNo=' + bookNo);
 				httpRequest.responseType = 'json';
@@ -115,12 +115,13 @@
 				}
 				
 				document.getElementById('insertBook-btn').addEventListener('click', () => {
-					location.href='insertBookForm.vc';
+					location.href='insertBook.vc';
+				});
+				
+				document.getElementById('updateBook-btn').addEventListener('click', () => {
+					location.href='updateBook.vc';
 				});
 			}
-			
-			
-			
 		</script>
 		
 		<!-- 클래스 단어장 -->

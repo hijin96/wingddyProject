@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>단어장 등록</title>
-
+<title>단어장 수정</title>
 <style>
+
 	#voca_table{
 		text-align: center;
 	}
@@ -14,6 +15,7 @@
 	.card .btn{
 		height: 40px;
 	}
+	
 	#voca_table tbody>tr:hover{
 		background-color :  #dee2e6;
 		cursor: pointer;
@@ -30,28 +32,32 @@
 						<h2>단어장 등록</h2>
 					</div>
 					<div class="card-body">
-						<form action="">
-							<div class="form-group">
-								<label>단어장 이름</label>
-								<input type="text" id="book-name" class="form-control" required>
-							</div>
-							<div class="form-group">
-								<label>단어</label>
-				                <table class="table" id="voca_table">
-									<thead>
-										<tr>
-											<th>단어</th>
-											<th>뜻</th>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
-								</table>
-							</div>
-							<div class="card-footer text-right">
-			                      <button class="btn btn-primary" id="insert-book-btn">등록</button>
-			                </div>
-		                </form>
+						<div class="form-group">
+							<label>단어장 이름</label>
+							<select class="form-control selectric" id="select-book" onchange="selectVocaList();">
+							<option value="" disabled selected></option>
+								<c:forEach var="voca" items="${ vcList }">
+									<option value="${voca.bookNo}">${voca.bookName}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>단어</label>
+							<button class="btn btn-primary btn-sm" id="deleteBook-btn">단어장 삭제</button>
+			                <table class="table" id="voca_table">
+								<thead>
+									<tr>
+										<th>단어</th>
+										<th>뜻</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+						<div class="card-footer text-right">
+							<button class="btn btn-primary" id="update-book-btn">수정</button>
+		                </div>
 					</div>
 				</div>
 			</div>
@@ -95,12 +101,34 @@
 			</div>
 		</div>
 	</div>
+	
 	<script>
 	
 		$(() => {
-			// 단어장 등록(ajax)
+			// 단어 리스트 불러오기(ajax)
+			selectVocaList = () => {
+				$.ajax({
+					url : 'vocaList.vc',
+					data : {
+						bookNo : $('#select-book option:selected').val()
+					},
+					success : list => {
+						console.log(list);
+						let value = '';
+						for(let i in list){
+							value += '<tr>'
+								  +  '<td>'+ list[i].vocaEnglish +'</td>'
+								  +  '<td>'+ list[i].vocaKorean +'</td>'
+								  +  '</tr>';
+						}
+						$('#voca_table tbody').html(value);
+					}
+				});
+			}
+			
+			// 단어장 수정(ajax)
 			let vocaArr = [];
-			$('#insert-book-btn').click(() => {
+			$('#update-book-btn').click(() => {
 				
 				$('#voca_table tbody>tr').each((i , e) => {
 					let tdArr = $(e).children('td');
@@ -109,18 +137,19 @@
 					}
 				});
 				if(vocaArr != ''){
-					insertBook();
+					updateBook();
 				}
 				else{
 					alert('단어를 입력해주세요');
 				}
 			});
 			
-			insertBook = () => {
-				let vocaObj = {bookName:$('#book-name').val(),value:vocaArr};
-				console.log(JSON.stringify(vocaObj));
+			updateBook = () => {
+				console.log(vocaArr);
+				let vocaObj = {bookNo : $('#select-book option:selected').val(),value:vocaArr};
+				
 				$.ajax({
-					url:'insertBook.vc',
+					url:'updateBook.vc',
 					type : 'POST',
 					contentType : 'application/json',
 					data : {
@@ -129,6 +158,8 @@
 					success : result => {
 						if(result>0){
 							location.href = "main.vc";
+						} else{
+							alert('단어 수정 실패!');
 						}
 					}
 				});
@@ -160,4 +191,3 @@
 	
 	</script>
 </body>
-</html>

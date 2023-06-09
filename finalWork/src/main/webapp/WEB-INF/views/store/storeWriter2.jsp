@@ -36,9 +36,9 @@
  		<div class="ck-body-wrapper">
 			<form action="insertstore.do" method="POST" enctype="multipart/form-data">
 				<div id="header">
-					<label for="spName">상품명</label><input type="text" class="form-control" name="spName">
-					<span><label for="amount">수량</label><input type="number"  class="form-control" value="0" name="amount"></span>
-					<span><label for="spPrice">가격</label><input type="number"  class="form-control" value="0" name="spPrice"></span>
+					<label>상품명</label><input type="text" class="form-control" name="spName" value="상품명">
+					<span><label>수량</label><input type="number"  class="form-control" value="0" name="amount"></span>
+					<span><label>가격</label><input type="number"  class="form-control" value="0" name="spPrice"></span>
 				</div>
 				<span><input type="text"  class="form-control" value="한줄소개" name="spOnecom"> </span>
 				 
