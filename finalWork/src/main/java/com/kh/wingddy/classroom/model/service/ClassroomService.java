@@ -20,10 +20,9 @@ public interface ClassroomService {
 	/* 선생님 */
 	// 클래스룸 생성(INSERT)
 	// - 랜덤키 생성 (controller)
-	int createClassroom(Classroom cr);
 	// 학생 입장 수락 (UPDATE)
 	// 학생 입장 거절 (DELETE)
-	int passStudent(ClassMember cm);
+	
 	// 선생님 클래스 메인페이지 
 	// 클래스 입장 요청 학생 리스트 조회 (SELECT)
 	// 클래스 입장 코드 조회 (SELECT)
@@ -37,9 +36,6 @@ public interface ClassroomService {
 	
 	/* 학생 */
 	// 클래스룸 입장 신청
-	Classroom joinClass(String enterCode);
-	
-	int insertPass(ClassMember cm);
 	// 입장코드로 클래스 정보 조회 (SELECT)
 	
 	// 학생 클래스 메인페이지

@@ -4,15 +4,6 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="commonMapper">
 	
-	<resultMap id="attachResultSet" type="attachment">
-		<result column="FILE_NO" property="fileNo"/>
-		<result column="MEMBER_NO" property="memberNo"/>
-		<result column="ORIGIN_NAME" property="originName"/>
-		<result column="CHANGE_NAME" property="changeName"/>
-		<result column="FILE_LEVEL" property="fileLevel"/>
-		<result column="FILE_PATH" property="filePath"/>
-	</resultMap>
-	
 	<insert id="insertAttach" parameterType="attachment">
 		INSERT
 		  INTO
@@ -36,41 +27,4 @@
 		      )
 	</insert>
 	
-	<insert  id="insertProfile" parameterType="attachment">
-		INSERT
-		  INTO
-		       ATTACHMENT
-		       (
-		       FILE_NO,
-		       MEMBER_NO,
-		       ORIGIN_NAME,
-		       CHANGE_NAME,
-		       FILE_LEVEL,
-		       FILE_PATH
-		       )
-		VALUES
-		      (
-		      SEQ_FNO.NEXTVAL,
-		      SEQ_MNO.CURRVAL,
-		      #{originName},
-		      #{changeName},
-		      #{fileLevel},
-		      #{filePath}
-		      )
-	</insert>
-	<select id="selectProfile" parameterType="_int" resultMap="attachResultSet">
-		SELECT
-		       FILE_NO,
-		       MEMBER_NO,
-		       ORIGIN_NAME,
-		       CHANGE_NAME,
-		       FILE_LEVEL,
-		       FILE_PATH
-		  FROM
-		       ATTACHMENT
-		 WHERE
-		       MEMBER_NO = #{memberNo}
-		   AND
-		       FILE_LEVEL = 0               
-	</select>
 </mapper>

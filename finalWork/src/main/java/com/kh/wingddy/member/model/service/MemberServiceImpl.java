@@ -38,18 +38,16 @@ public class MemberServiceImpl implements MemberService {
 		return result1 * result2;
 	}
 
+	/*
 	@Override
 	public int updateMember(Member m, Attachment at) {
 		
-		//int result1 = memberDao.updateMember(sqlSession, m);
-		//int result2 = memberDao.updateProfile(sqlSession, at);
+		int result1 = memberDao.updateMember(sqlSession, m);
+		int result2 = memberDao.updateProfile(sqlSession, at);
 		
 		return 0;
 	}
+	*/
 
-	@Override
-	public Attachment selectProfile(int memberNo) {
-		return memberDao.selectProfile(sqlSession, memberNo);
-	}
 	
 }

@@ -41,7 +41,9 @@
 			ORDER BY SP_DAY ASC
 		<!--CK확인후 수정요망  -->
 	</select>
-	<insert id="insertStoreBoard" parameterType="Map">
+
+	<insert id="insertStoreBoard" parameterType="hashmap"  >
+
 	INSERT 
 				ALL
 		INTO	
@@ -53,9 +55,9 @@
 				,FILE_LEVEL)
 		VALUES
 				(SEQ_FNO.NEXTVAL
-				,1
+				,1 <!-- ,#{loginUser.memberNo} -->
 				,#{upfile.originalFilename}
-				,#{at.setChangeName}
+				,#{at.changeName}
 				,2)
 	
 		INTO

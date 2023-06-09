@@ -85,4 +85,16 @@
 		</foreach>
 	</insert>
 	
+	<delete id="deleteVocaList">
+		DELETE
+		  FROM
+		  	   VOCA
+		 WHERE
+		 	   BOOK_NO = #{bookNo}
+	</delete>
+	
+
+	
+	
+	
 </mapper>

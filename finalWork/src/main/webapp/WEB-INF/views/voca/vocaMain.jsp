@@ -28,7 +28,6 @@
 			<div class="card-header">
 				<h1>내 단어장</h1>
 				<button class="btn btn-primary" id="insertBook-btn">단어장 등록</button>
-				<button class="btn btn-primary" id="deleteBook-btn">단어장 수정</button>
 			</div>
 			<div class="card-body">
 				<div id="accordion">

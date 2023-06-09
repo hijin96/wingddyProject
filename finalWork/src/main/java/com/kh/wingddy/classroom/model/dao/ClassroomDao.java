@@ -21,28 +21,4 @@ public class ClassroomDao {
 		return (ArrayList)sqlSession.selectList("classMapper.selectPassStudent", cno);
 	}
 	
-
-	public int passStudent(SqlSessionTemplate sqlSession, ClassMember cm) {
-		return sqlSession.update("classMapper.passStudent", cm);
-	}
-	
-	public int createClassroom(SqlSessionTemplate sqlSession, Classroom cr) {
-		return sqlSession.insert("classMapper.createClassroom", cr);
-	}
-	
-	public Classroom selectClassroom(SqlSessionTemplate sqlSession, int cno) {
-		return sqlSession.selectOne("classMapper.selectClassroom", cno);
-	}
-	
-	public ArrayList<MyCount> selectClassRanking(SqlSessionTemplate sqlSession, int cno) {
-		return (ArrayList)sqlSession.selectList("classMapper.selectClassRanking", cno);
-	}
-	
-	public Classroom joinClass(SqlSessionTemplate sqlSession, String enterCode) {
-		return sqlSession.selectOne("classMapper.joinClass", enterCode);
-	}
-	
-	public int insertPass(SqlSessionTemplate sqlSession, ClassMember cm) {
-		return sqlSession.insert("classMapper.insertPass", cm);
-	}
 }

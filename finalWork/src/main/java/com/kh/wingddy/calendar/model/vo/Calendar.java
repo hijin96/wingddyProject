@@ -10,26 +10,4 @@ public class Calendar {
 	private String startDate;
 	private String endDate;
 	private String color;
-	private int classNo;
-	private String className;
-	
-	
-	
-	public Calendar(int scheduleNo, int memberNo, String schedule, String startDate, String endDate, String color) {
-		super();
-		this.scheduleNo = scheduleNo;
-		this.memberNo = memberNo;
-		this.schedule = schedule;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.color = color;
-	}
-
-
-
-	public Calendar() {
-		super();
-	}
-	
-	
 }
