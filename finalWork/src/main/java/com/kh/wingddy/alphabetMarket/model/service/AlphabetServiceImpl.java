@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.wingddy.alphabetMarket.model.dao.AlphabetDao;
 import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
+import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.common.model.vo.PageInfo;
 
@@ -56,7 +57,43 @@ public class AlphabetServiceImpl implements AlphabetService {
 	public int insertMarket(AlphabetMarket am) {
 		
 		return alphabetDao.insertMarket(sqlSession, am);
+		
 	}
+	
+
+	@Override
+	public int ajaxInsertReply(MarketReply mr) {
+		return alphabetDao.ajaxInsertReply(sqlSession, mr);
+	}
+	
+	
+	
+	@Override
+	public String ajaxChangeAlphabet(ChangeAlphabet ca) {
+		
+		
+		// 확인하기
+		alphabetDao.checkAlphabet(sqlSession, ca);
+		
+		//바꾸기
+		//alphabetDao.ajaxChangeAlphabet(sqlSession, ca);
+		
+		
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public int deleteMarket(int marketBno) {
@@ -76,11 +113,7 @@ public class AlphabetServiceImpl implements AlphabetService {
 		return 0;
 	}
 
-	@Override
-	public int ajaxInsertReply(int marketBno) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 
 

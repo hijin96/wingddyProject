@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.wingddy.alphabetMarket.controller.AlphabetController;
 import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
+import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.common.model.vo.PageInfo;
 
@@ -66,9 +67,7 @@ public class AlphabetDao {
 	
 	
 	public int insertMarket(SqlSessionTemplate sqlSession, AlphabetMarket am) {
-		
-		System.out.println("----------------------");
-		System.out.println(am);
+
 		return sqlSession.insert("alphabetMapper.insertMarket", am);
 	};
 	
@@ -81,8 +80,23 @@ public class AlphabetDao {
 	}
 	
 	
+	public int ajaxInsertReply(SqlSessionTemplate sqlSession, MarketReply mr) {
+		return sqlSession.insert("alphabetMapper.insertReply", mr);
+	}
 	
 	
+	public int checkAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+		
+		sqlSession.selectOne("alphabetMapper.checkMarketWriterAlphabet", ca);
+		sqlSession.selectOne("alphabetMapper.checkReplyAlphabet", ca);
+		
+		return 0;
+	}
+	
+	
+	//public int ajaxChangeAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+		//return sqlSession.
+	//}
 	
 	
 	
