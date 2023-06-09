@@ -6,7 +6,7 @@
 	
 	<resultMap id="attachResultSet" type="attachment">
 		<result column="FILE_NO" property="fileNo"/>
-		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="MEMBER_NO" property="memNo"/>
 		<result column="ORIGIN_NAME" property="originName"/>
 		<result column="CHANGE_NAME" property="changeName"/>
 		<result column="FILE_LEVEL" property="fileLevel"/>
@@ -69,8 +69,21 @@
 		  FROM
 		       ATTACHMENT
 		 WHERE
-		       MEMBER_NO = #{memberNo}
+		       MEMBER_NO = #{memNo}
 		   AND
 		       FILE_LEVEL = 0               
 	</select>
+	
+	<update id="updateProfile" parameterType="attachment">
+		UPDATE
+		       ATTACHMENT
+		   SET
+		       ORIGIN_NAME = #{originName},
+		       CHANGE_NAME = #{changeName},
+		       FILE_PATH = #{filePath}
+		 WHERE
+		       FILE_NO = #{fileNo}
+		   AND
+		       MEMBER_NO = #{memNo}             
+	</update>
 </mapper>

@@ -28,4 +28,14 @@ public class MemberDao {
 		
 		return sqlSession.selectOne("commonMapper.selectProfile", memberNo);
 	}
+	
+	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
+		
+		return sqlSession.update("memberMapper.updateMember", m);
+	}
+	
+	public int updateProfile(SqlSessionTemplate sqlSession, Attachment at) {
+		
+		return sqlSession.update("commonMapper.updateProfile", at);
+	}
 }
