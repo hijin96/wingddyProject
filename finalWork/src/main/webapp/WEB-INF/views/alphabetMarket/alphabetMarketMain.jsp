@@ -55,11 +55,7 @@
 					  거래완료 안보기 
 					</label><br>
 					<!--<c:if test="${ not empty loginUser }">-->
-					<form action="enroll.aph" method="POST">
-						<input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
-						<input type="hidden" name="mno" value="${sessionScope.loginUser.memberNo}">
-						<button type="submit" class="btn btn-primary">게시글작성</button>
-					</form>	
+					<a href="enroll.aph?cno=" class="btn btn-primary" id="modal-aphReply">게시글작성</a>
 					<!--</c:if>-->
 				</div>
 				
@@ -165,15 +161,12 @@
 			ajaxSelling = 'Y';
 		}
 		
-		console.log('클래스 넘버 : '+'${requestScope.classroom.classNo}');
 
 
 		$.ajax({
-
-
-			url : 'alphabetList',
+			url : 'list.aph',
 			data  : {
-				classNo : '${requestScope.classroom.classNo}',
+				classNo : '${sessionScope.classroom.classNo}',
 				alphabet : ajaxAlphabet,
 				sellingStatus : ajaxSelling
 			},
@@ -182,18 +175,8 @@
 				console.log(list);
 
 				let value = '';
-
-				if(list.length == 0){
-
-				}
-
-				
 				
 				for(let i in list){
-
-					
-
-					
 
 					if(list[i].sellingStatus == 'Y'){
 						value  += '<div class="col-12 col-md-4 col-lg-4 boardDetail">'

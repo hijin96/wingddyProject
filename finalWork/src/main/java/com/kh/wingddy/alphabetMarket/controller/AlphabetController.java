@@ -1,5 +1,7 @@
 package com.kh.wingddy.alphabetMarket.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.kh.wingddy.alphabetMarket.model.service.AlphabetService;
-import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.Pageination;
@@ -34,9 +35,8 @@ public class AlphabetController {
 	
 	// 게시글 리스트 불러오기
 	@ResponseBody
-	@RequestMapping(value="alphabetList", produces="application/json; charset=UTF-8")
+	@RequestMapping(value="list.aph", produces="application/json; charset=UTF-8")
 	public String main(AlphabetMarket am, HttpServletResponse response) {
-		
 
 		Cookie blinding = new Cookie("blinding", am.getSellingStatus());
 		
@@ -57,6 +57,13 @@ public class AlphabetController {
 		model.addAttribute("market", AlphabetService.marketDetail(bno));
 	
 		return "alphabetMarket/alphabetMarketDetail";
+	}
+	
+	@RequestMapping("test")
+	public String test() {
+		
+	
+		return "alphabetMarket/example";
 	}
 	
 	
@@ -91,13 +98,10 @@ public class AlphabetController {
 	}
 	
 	
-	
 	@RequestMapping("enroll.aph")
-	public String enrollAndCategory(Alphabet ap) {
+	public String enrollAndCategory() {
 		
-		System.out.println(ap);
 		
-		AlphabetService.selectCategory(ap);
 		
 		return "alphabetMarket/alphabetMarketEnroll";
 	}
@@ -108,8 +112,7 @@ public class AlphabetController {
 		
 		AlphabetService.insertMarket(am);
 		
-		
-		// return 해당 글 디테일뷰로 이동하기
+		//해당 글 디테일뷰로 이동하기
 	}
 	
 	

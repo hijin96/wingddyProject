@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="alphabetMapper">
 
-	<resultMap id="marketResultSet" 		type="alphabetmarket">
+	<resultMap id="alphabetResultSet" 		type="alphabetmarket">
 		<result column="CLASS_NO"	 		property="classNo" />
 		<result column="MARKET_BNO"			property="marketBno" />
 		<result column="MEMBER_ID" 			property="writer" />
@@ -26,17 +26,10 @@
 		<result column="REPLY_STATUS" 		property="replyStatus" />
 		<result column="REPLY_SELECTED" 	property="replySelected" />
 	</resultMap>
-	
-	<resultMap id="alphabetResultSet" 			type="alphabet">
-		<result column="MEMBER_NO"	 		property="cno" />
-		<result column="CLASS_NO"		property="mno" />
-		<result column="ALPHABET" 	property="alphabet" />
-		<result column="COUNT" 		property="count" />
-	</resultMap>
 
 
 	
-	<select id="selectListOnlyAlphabet" parameterType="alphabetMarket" resultMap="marketResultSet">
+	<select id="selectListOnlyAlphabet" parameterType="alphabetMarket" resultMap="alphabetResultSet">
 		SELECT MARKET_BNO, MEMBER_ID, ALPHABET, CREATE_DATE, SELLING_STATUS, TITLE
 		  FROM ALPHABET_MARKET
 		  JOIN MEMBER ON(WRITER = MEMBER_NO)
@@ -46,7 +39,7 @@
 	</select>
 	
 	
-		<select id="selectListOnlySellingStatus" parameterType="alphabetMarket" resultMap="marketResultSet">
+		<select id="selectListOnlySellingStatus" parameterType="alphabetMarket" resultMap="alphabetResultSet">
 		SELECT MARKET_BNO, MEMBER_ID, ALPHABET, CREATE_DATE, SELLING_STATUS, TITLE
 		  FROM ALPHABET_MARKET
 		  JOIN MEMBER ON(WRITER = MEMBER_NO)
@@ -56,7 +49,7 @@
 	</select>
 	
 	
-	<select id="selectListNoneFilter" parameterType="alphabetMarket" resultMap="marketResultSet">
+	<select id="selectListNoneFilter" parameterType="alphabetMarket" resultMap="alphabetResultSet">
 		SELECT MARKET_BNO, MEMBER_ID, ALPHABET, CREATE_DATE, SELLING_STATUS, TITLE
 		  FROM ALPHABET_MARKET
 		  JOIN MEMBER ON(WRITER = MEMBER_NO)
@@ -65,7 +58,7 @@
 	</select>
 	
 	
-	<select id="selectListAllFilters" parameterType="alphabetMarket" resultMap="marketResultSet">
+	<select id="selectListAllFilters" parameterType="alphabetMarket" resultMap="alphabetResultSet">
 		SELECT MARKET_BNO, MEMBER_ID, ALPHABET, CREATE_DATE, SELLING_STATUS, TITLE
 		  FROM ALPHABET_MARKET
 		  JOIN MEMBER ON(WRITER = MEMBER_NO)
@@ -77,7 +70,7 @@
 
 	
 	
-	<select id="selectDetail" resultMap="marketResultSet">
+	<select id="selectDetail" resultMap="alphabetResultSet">
 	SELECT MARKET_BNO, MEMBER_ID, ALPHABET, CONTENT, CREATE_DATE, SELLING_STATUS, TITLE
 	  FROM ALPHABET_MARKET
 	  JOIN MEMBER ON(WRITER = MEMBER_NO)
@@ -109,14 +102,7 @@
 		VALUES(SEQ_MARKET_BNO.NEXTVAL, #{writer}, #{alphabet}, #{content}, DEFAULT, DEFAULT, DEFAULT, #{classNo}, #{title});
 	</insert>
 	
-	<select id="selectMyAlphabet" parameterType="alphabet">
-	SELECT ALPHABET, COUNT(*) as COUNT
-	  FROM ALPHABET A
-	 WHERE MEMBER_NO = #{mno}
-	   AND CLASS_NO = #{cno}
-	 GROUP BY A.ALPHABET
-	</select>
-
+	
 	
 	
 	
