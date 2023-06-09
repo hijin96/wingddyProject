@@ -7,6 +7,14 @@
 <meta charset="UTF-8">
 <title>내 단어장</title>
 
+  <!-- CSS Libraries -->
+  <link rel="stylesheet" href="resources/assets/modules/bootstrap-daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="resources/assets/modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/select2/dist/css/select2.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/jquery-selectric/selectric.css">
+  <link rel="stylesheet" href="resources/assets/modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+
 <style>
 	#voca_table{
 		text-align: center;
@@ -28,6 +36,7 @@
 				<h1>내 단어장</h1>
 				<button class="btn btn-primary" id="insertBook-btn">단어장 등록</button>
 				<button class="btn btn-primary" id="updateBook-btn">단어장 수정</button>
+				<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addClassBook">단어장 추가</button>
 			</div>
 			<div class="card-body">
 				<div id="accordion">
@@ -131,7 +140,6 @@
 					<div class="card-header">
 						<input type="hidden" value="${ classBookList[i].classNo }"/>
 						<h1>${ classBookList[i].className }</h1>
-						<button class="btn btn-outline-primary">단어장 추가</button>
 					</div>
 					<div class="card-body">
 						<div id="accordion">
@@ -165,40 +173,86 @@
 		</c:forEach>
 		
 		<!-- 모달 -->
-		<div class="modal-dialog m-0" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Modal Template</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p>Modal body text goes here.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary trigger--fire-modal-2">Save changes</button>
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-		
-		<div class="modal fade" tabindex="-1" role="dialog" id="fire-modal-2" style="display: none;">
-			<div class="modal-dialog modal-md modal-dialog-centered" role="document">
+		<div id="addClassBook" class="modal fade" role="dialog">
+			<div class="modal-dialog modal-md modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title">Modal Title</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-						</button>
+						<h5 class="modal-title">클래스 단어장 추가</h5>
 					</div>
 					<div class="modal-body">
-		          	 Modal body text goes here.
+						<div class="form-group" id="modal-book-list">
+							<label>단어장 선택</label>
+							<select class="form-control selectric" onchange="checkClassList();">
+								<c:forEach var="bList" items="${ bookList }">
+									<option value="${bList.bookNo}">${bList.bookName}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="form-group" id="modal-class-list">
+							<label>클래스 선택</label>
+							<select class="form-control selectric" multiple="">
+								<c:forEach var="cList" items="${classList}">
+									<option value="${cList.classNo}">${cList.className}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary">추가</button>
 					</div>
 				</div>
 			</div>
 		</div>
+		<script>
+		$(function(){
+			function checkClassList(){
+				$.ajax({
+					url : 'bookClassList.vc',
+					type: 'POST',
+					data : {bookNo : $('#modal-book-list option:selected').val()},
+					success : list => {
+						console.log($('#modal-class-list option[value="2"]'));
+						let clist = '';
+						for(let i in list){
+							if(i > 0){
+								clist += ', ';
+							}
+							clist += list[i].className;
+						}
+						
+						$('#modal-class-list .label').text(clist);
+					}
+				});
+			};
+		});
+		</script>
 		
 	</div>
+	<!-- General JS Scripts -->
+  <script src="resources/assets/modules/jquery.min.js"></script>
+  <script src="resources/assets/modules/popper.js"></script>
+  <script src="resources/assets/modules/tooltip.js"></script>
+  <script src="resources/assets/modules/bootstrap/js/bootstrap.min.js"></script>
+  <script src="resources/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
+  <script src="resources/assets/modules/moment.min.js"></script>
+  <script src="resources/assets/js/stisla.js"></script>
+  
+  <!-- JS Libraies -->
+  <script src="resources/assets/modules/cleave-js/dist/cleave.min.js"></script>
+  <script src="resources/assets/modules/cleave-js/dist/addons/cleave-phone.us.js"></script>
+  <script src="resources/assets/modules/jquery-pwstrength/jquery.pwstrength.min.js"></script>
+  <script src="resources/assets/modules/bootstrap-daterangepicker/daterangepicker.js"></script>
+  <script src="resources/assets/modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+  <script src="resources/assets/modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+  <script src="resources/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+  <script src="resources/assets/modules/select2/dist/js/select2.full.min.js"></script>
+  <script src="resources/assets/modules/jquery-selectric/jquery.selectric.min.js"></script>
+
+  <!-- Page Specific JS File -->
+  <script src="resources/assets/js/page/forms-advanced-forms.js"></script>
+  
+  <!-- Template JS File -->
+  <script src="resources/assets/js/scripts.js"></script>
+  <script src="resources/assets/js/custom.js"></script>
 </body>
 </html>

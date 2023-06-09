@@ -47,7 +47,7 @@ public interface VocaService {
 	// - 단어장 정보 조회(SELECT)
 	// - 내 클래스 리스트 조회(SELECT) ClassRoomService에 selectClassList
 	// - 선택 단어장의 소속 클래스 리스트 조회(SELECT)
-	ArrayList<ClassVocaBook> vocaBookClassList(int bookNo);
+	ArrayList<ClassVocaBook> selectBookClassList(int bookNo);
 	// 클래스 단어장 수정
 	int updateClassBook(ArrayList<ClassVocaBook> cvList);
 	

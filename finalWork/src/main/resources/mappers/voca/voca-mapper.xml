@@ -105,6 +105,16 @@
 		</foreach>
 	</insert>
 	
-	
+	<select id="selectBookClassList" resultMap="vocaBookResultSet">
+		SELECT
+			   CLASS_NO
+			  ,CLASS_NAME
+		 FROM
+		 	  CLASS_VOCABOOK
+		 JOIN
+		 	  CLASSROOM USING (CLASS_NO)
+		WHERE
+			  BOOK_NO = #{bookNo}
+	</select>
 	
 </mapper>

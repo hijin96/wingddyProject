@@ -11,19 +11,19 @@
 
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" scope="session"/>
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/fontawesome/css/all.min.css">
 
   <!-- CSS Libraries -->
- <%--  <link rel="stylesheet" href="${contextPath}/Rassets/modules/jqvmap/dist/jqvmap.min.css"> --%>
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/summernote/summernote-bs4.css">
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/prism/prism.css">
+  <link rel="stylesheet" href="resources/assets/modules/jqvmap/dist/jqvmap.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/summernote/summernote-bs4.css">
+  <link rel="stylesheet" href="resources/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/prism/prism.css">
 
   <!-- Template CSS -->
-  <link rel="stylesheet" href="${contextPath}/resources/assets/css/style.css">
-  <link rel="stylesheet" href="${contextPath}/resources/assets/css/components.css">
+  <link rel="stylesheet" href="resources/assets/css/style.css">
+  <link rel="stylesheet" href="resources/assets/css/components.css">
 <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
 <script>
@@ -463,11 +463,12 @@
   <script src="resources/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 
   <!-- Page Specific JS File -->
-  <!-- <script src="resources/resources/assets/js/page/index.js"></script> -->
+  <script src="resources/assets/js/page/index.js"></script>
   
   <!-- Template JS File -->
   <script src="resources/assets/js/scripts.js"></script>
   <script src="resources/assets/js/custom.js"></script>
+  
 <!-- Code injected by live-server -->
 <!-- 
 <script>
