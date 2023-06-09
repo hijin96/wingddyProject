@@ -27,5 +27,7 @@ public class StoreDao {
 	public int insertStoreBoard(SqlSessionTemplate sqlSession,HashMap<String,Object> map) {
 		// TODO Auto-generated method stub
 		System.out.println("dao작동하나요" + sqlSession.insert("storeMapper.insertStoreBoard",map));	
+		return sqlSession.insert("storeMapper.insertStoreBoard",map);
+	}
 
 }

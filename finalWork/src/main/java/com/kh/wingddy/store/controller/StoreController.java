@@ -99,6 +99,7 @@ public class StoreController {
 		return "store/storeWriter2";
 	}
 	//게시판글쓰기 -2(ck에디터사용)
+	/*
 	@RequestMapping("insertstore.do")
 	public String insertStoreBoard(HashMap<Store, Attachment> map , MultipartFile upfile,HttpSession session, Model model) {
 			System.out.println(map);
@@ -153,7 +154,7 @@ public class StoreController {
 
 		return null;
 	}
-
+	*/
 
 
 //	@RequestMapping("storeWriter")

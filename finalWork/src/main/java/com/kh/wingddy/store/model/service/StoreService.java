@@ -40,7 +40,6 @@ public interface StoreService {
 	//위시리스트 목록보기
 	//결제(insert)
 	//게시글 작성하기
-	int insertStoreBoard(HashMap<Store, Attachment> map);
 
 	
 	
