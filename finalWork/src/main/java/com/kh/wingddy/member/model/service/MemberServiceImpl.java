@@ -56,5 +56,10 @@ public class MemberServiceImpl implements MemberService {
 	public Member searchId(String email) {
 		return memberDao.searchId(sqlSession, email);
 	}
+
+	@Override
+	public int insertProfile(Attachment at) {
+		return memberDao.insertProfile(sqlSession, at);
+	}
 	
 }

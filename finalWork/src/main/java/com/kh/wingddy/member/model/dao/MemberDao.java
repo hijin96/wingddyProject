@@ -43,4 +43,9 @@ public class MemberDao {
 		
 		return sqlSession.selectOne("memberMapper.searchId", email);
 	}
+	
+	public int insertProfile(SqlSessionTemplate sqlSession, Attachment at) {
+		
+		return sqlSession.insert("commonMapper.insertProfile", at);
+	}
 }

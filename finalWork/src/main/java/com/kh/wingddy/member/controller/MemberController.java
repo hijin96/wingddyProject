@@ -45,7 +45,7 @@ public class MemberController {
 		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
 			//System.out.println(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd()));
-			System.out.println(memberService.selectProfile(loginUser.getMemberNo()));
+			//System.out.println(memberService.selectProfile(loginUser.getMemberNo()));
 			session.setAttribute("loginUser", loginUser);
 			session.setAttribute("classList", classroomService.selectClassList(loginUser));
 			session.setAttribute("profile", memberService.selectProfile(loginUser.getMemberNo()));
@@ -157,25 +157,41 @@ public class MemberController {
 	
 	
 	@RequestMapping("updateMember.me")
-	public String updateMember(Member m, MultipartFile reUpfile, HttpSession session) {
+	public String updateMember(Member m, MultipartFile reUpfile, HttpSession session, String update) {
 		
+		//System.out.println(update);
+		int result = 1;
 		Attachment at = new Attachment();
 		if(!reUpfile.getOriginalFilename().equals("")) {
 			at = memberService.selectProfile(m.getMemberNo());
-			if(at.getOriginName() != null) {
+			if(at != null) {
 				new File(session.getServletContext().getRealPath(at.getChangeName())).delete();
+			} else {
+				at = new Attachment();
 			}
 			
 			String changeName = renameFile.fileName(reUpfile, session);
+			at.setMemNo(m.getMemberNo());
 			at.setOriginName(reUpfile.getOriginalFilename());
 			at.setChangeName(changeName);
 			at.setFilePath("resources/uploadFiles/" + changeName);
 			at.setFileLevel(0);
 			
+			if(update.equals("firstUpdate")) {
+				result = memberService.insertProfile(at);
+			}
+			System.out.println(at);
+			if(result > 0) {
+				result = memberService.updateMember(m, at);
+			}
 		}
-		if(memberService.updateMember(m, at) > 0) {
+		System.out.println(result);
+		if(result > 0) {
 			session.setAttribute("alertMsg", "수정완료");
-			
+			session.removeAttribute("profile");
+			session.removeAttribute("loginUser");
+			session.setAttribute("loginUser", memberService.loginMember(m));
+			session.setAttribute("profile", memberService.selectProfile(m.getMemberNo()));
 			return "member/profile";
 		} else {
 			session.setAttribute("alertMsg", "수정실패");

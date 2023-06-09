@@ -53,13 +53,38 @@
 		  	  ,schedule schedule
 		  	  ,to_char(start_date, 'YYYY-MM-DD') startDate
 		  	  ,to_char(end_date + interval '1' day, 'YYYY-MM-DD') endDate
-		  	  ,color
+		  	  ,color color
+		  	  ,null classNo
+		  	  ,null className
 		  FROM
 		  	   CALENDAR
 		 WHERE
-		 	   MEMBER_NO = #{memberNo}
+		 	   MEMBER_NO = #{c.memberNo}
 		   AND
 		   	   #{date} BETWEEN START_DATE AND END_DATE
+		UNION
+		SELECT
+			   A.schedule_no scheduleNo
+		      ,member_no memberNo
+		      ,schedule schedule
+		      ,to_char(start_date, 'YYYY-MM-DD') startDate
+		      ,to_char(end_date + interval '1' day, 'YYYY-MM-DD') endDate
+		      ,color color
+		      ,class_no classNo
+		      ,class_name className
+		  FROM
+		       CALENDAR A
+		  JOIN 
+		       CALENDAR_CLASS B ON(A.SCHEDULE_NO = B.SCHEDULE_NO)
+		  JOIN
+		       CLASSROOM C USING(CLASS_NO)
+		 WHERE
+		       CLASS_NO IN (SELECT CLASS_NO
+		                      FROM CLASS_MEMBER
+		                     WHERE STUDENT_NO = #{c.memberNo})
+		   AND
+		       #{date} BETWEEN START_DATE AND END_DATE
+		 ORDER BY classNo
 	</select>
 
 	<delete id="deleteSchedule" parameterType="_int">
@@ -82,7 +107,7 @@
 		 	   schedule_no = #{scheduleNo}  	  
 	</update>
 	
-	<select id="selectClassScheduleList" parameterType="hashmap" resultType="calendar">
+	<select id="selectClassScheduleList" parameterType="calendar" resultType="calendar">
 		<choose>
 			<when test='memberType == "S"'>
 				SELECT 
