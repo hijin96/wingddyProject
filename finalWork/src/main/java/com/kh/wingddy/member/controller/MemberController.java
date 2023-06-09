@@ -153,4 +153,33 @@ public class MemberController {
 	}
 	
 	
+	@RequestMapping("updateMember.me")
+	public String updateMember(Member m, MultipartFile reUpfile, HttpSession session) {
+		
+		Attachment at = new Attachment();
+		if(!reUpfile.getOriginalFilename().equals("")) {
+			at = memberService.selectProfile(m.getMemberNo());
+			if(at.getOriginName() != null) {
+				new File(session.getServletContext().getRealPath(at.getChangeName())).delete();
+			}
+			
+			String changeName = renameFile.fileName(reUpfile, session);
+			at.setOriginName(reUpfile.getOriginalFilename());
+			at.setChangeName(changeName);
+			at.setFileLevel(0);
+			
+		}
+		
+		System.out.println(at);
+		System.out.println(m);
+		if(memberService.updateMember(m, at) > 0) {
+			session.setAttribute("alertMsg", "수정완료");
+			return "member/profile" + m.getMemberNo();
+		} else {
+			session.setAttribute("alertMsg", "수정실패");
+			return "member/updateForm";
+		}
+		
+	}
+	
 }
