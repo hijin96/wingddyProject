@@ -217,7 +217,7 @@
 			 }
 			 
 			 for(let i in list){
-				value += '<tr><td><input type="hidden" value="'+ list[i].replyNo +'"></td>'
+				value += '<tr><td><input type="hidden" value="'+ list[i].replyNo +'" id="replyMno"></td>'
 
 				   if(list[i].replySelected == 'Y'){
 					  value += '<td><div class="badge badge-success">selected</div></td>'
@@ -225,14 +225,14 @@
 				   else{
 					  value += '<td><div class="badge badge-success"></div></td>'
 				   }
-				value += '<td><h3>'+ list[i].alphabet +'</h3></td>'
+				value += '<td  id="replyAlphabet"><h3>'+ list[i].alphabet +'</h3></td>'
 					   + '<td>'+ list[i].replyWriter + '</td>'
 					   + '<td>' + list[i].replyContent+'</td>'
 					   + '<td>'+ list[i].replyDate + '</td>'
 				   
 				   if('${sessionScope.loginUser.memberId}' == '${requestScope.market.writer}'){
 					  //console.log('똑같음!');
-					  value += '<td><button type="button" class="btn btn-primary btn-sm" onclick="changeAlphabet();">바꾸기</button></td></tr>'
+					  value += '<td><button type="button" class="btn btn-primary btn-sm" onclick="changeAlphabet(this);">바꾸기</button></td></tr>'
 				   }
 				   else{
 					  //console.log('다름!');
@@ -292,14 +292,24 @@
 	}
 	
 
-	function changeAlphabet(){
+	function changeAlphabet(btn){
 	
         if (confirm('Do you really want to change??')) {
 			alert("확인(예)을 누르셨습니다.");
 
+
 			$.ajax({
 				url : 'change.aph',
-				data : 
+				data : {
+					classNo : '${requestScope.market.classNo}',
+					marketMno : '${sessionScope.loginUser.memberNo}',
+					marketAlphabet : '${requestScope.market.alphabet}',
+					replyMno : $('#replyMno').val(),
+					replyAlphabet : $(btn).parent().prev().prev().prev().prev().text()
+				},
+				success : function(){
+
+				}
 
 			})
 

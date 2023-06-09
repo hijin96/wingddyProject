@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.kh.wingddy.alphabetMarket.model.service.AlphabetService;
 import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
+import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.Pageination;
@@ -145,6 +146,18 @@ public class AlphabetController {
 
 	}
 	
+	
+	
+	// 마켓 알파벳 바꾸기
+	@ResponseBody
+	@RequestMapping("change.aph")
+	public String ajaxChangeAlphabet(ChangeAlphabet ca) {
+
+		AlphabetService.ajaxChangeAlphabet(ca);
+		
+		return "testsuccess";
+
+	}
 	
 	
 	

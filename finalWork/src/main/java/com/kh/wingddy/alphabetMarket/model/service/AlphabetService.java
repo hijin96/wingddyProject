@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
+import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.common.model.vo.PageInfo;
 
@@ -46,7 +47,8 @@ public interface AlphabetService {
 	int ajaxInsertReply(MarketReply mr);
 	
 	
-	// 
+	// 마켓 알파벳 체인지
+	String ajaxChangeAlphabet(ChangeAlphabet ca);
 	
 	
 	
