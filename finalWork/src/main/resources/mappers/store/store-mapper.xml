@@ -16,16 +16,13 @@
 	</resultMap>
 	<resultMap type="Attachment" id="AttachmentResultSet">
 		<result column="FILE_NO" property="fileNo"/>
-		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="MEMBER_NO" property="memNo"/>
 		<result column="ORIGIN_NAME" property="originName"/>
 		<result column="CHANGE_NAME" property="changeName"/>
 		<result column="FILE_LEVEL" property="fileLevel"/>
 		<result column="FILE_PATH" property="filePath"/>
 	
 	</resultMap>
-
-	
-	
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM S_STORE
 	</select>
@@ -44,11 +41,12 @@
 			ORDER BY SP_DAY ASC
 		<!--CK확인후 수정요망  -->
 	</select>
+
 	<insert id="insertStoreBoard" parameterType="hashmap"  >
+
 	INSERT 
 				ALL
 		INTO	
-		
 				ATTACHMENT
 				(FILE_NO
 				,MEMBER_NO
@@ -57,9 +55,9 @@
 				,FILE_LEVEL)
 		VALUES
 				(SEQ_FNO.NEXTVAL
-				,1 <!-- ,#{memberNo} -->
-				,#{originName}
-				,#{changeName}
+				,1 <!-- ,#{loginUser.memberNo} -->
+				,#{upfile.originalFilename}
+				,#{at.changeName}
 				,2)
 	
 		INTO

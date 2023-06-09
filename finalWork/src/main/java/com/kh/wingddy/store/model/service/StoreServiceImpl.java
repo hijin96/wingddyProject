@@ -42,10 +42,10 @@ public class StoreServiceImpl implements StoreService {
 	}
 	//게시글 등록
 	@Override
-	public int insertStoreBoard(HashMap<String,Object> map) {
+	public int insertStoreBoard(ArrayList<Attachment>list) {
 		// TODO Auto-generated method stub
-		System.out.println("서비스는 작동하나요?"+ storeDao.insertStoreBoard(sqlSession,map));
-		return storeDao.insertStoreBoard(sqlSession,map);
+		System.out.println("서비스는 작동하나요?"+ storeDao.insertStoreBoard(sqlSession,list));
+		return storeDao.insertStoreBoard(sqlSession,list);
 	}
 
 

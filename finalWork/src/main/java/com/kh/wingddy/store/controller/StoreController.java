@@ -46,7 +46,7 @@ public class StoreController {
 
 	@Autowired
 	private StoreService storeService;
-	
+
 	private RenameFile rename = new RenameFile();
 
 	 private Attachment at = new Attachment();
@@ -125,11 +125,12 @@ public class StoreController {
 	// 게시판글쓰기 -2(ck에디터사용)
 	
 	@RequestMapping("insertstore.do")
-	public String insertStoreBoard(Store s,  MultipartFile upfile,
+	public String insertStoreBoard(Store s,ArrayList<Attachment>list,  MultipartFile upfile,
 			HttpSession session, Model model) {
 		
 		Member m = ((Member)session.getAttribute("loginUser"));
 		HashMap<String,Object> map = new HashMap<String,Object>();
+
 		ArrayList<Attachment> atlist = new ArrayList();
 		
 		at.setOriginName(upfile.getOriginalFilename());
@@ -144,6 +145,26 @@ public class StoreController {
 		System.out.println("제발 서비스로 넘겨줘"+storeService.insertStoreBoard(map));
 	
 		if(storeService.insertStoreBoard(map)>0) {
+
+		map.put(at.getChangeName(),rename);
+	
+		System.out.println("map"+map);
+		
+		ArrayList<Store> stlist = new ArrayList<Store>();
+		System.out.println("LIST"+stlist);
+		
+		System.out.println("at"+list);
+		
+		System.out.println("게시글 원래 이미지" + upfile.getOriginalFilename());
+		if(storeService.insertStoreBoard(list)>0) {
+		String changeName = rename.fileName(upfile, session);
+		// Attachment at = new Attachment();
+		at.setOriginName(upfile.getOriginalFilename());
+		System.out.println("UPFILE:" + upfile.getOriginalFilename());
+		System.out.println("체인지:"+ at.getChangeName());
+		at.setChangeName(changeName);
+		at.setFileLevel(2);
+		at.setFilePath("resources/uploadFiles/" + changeName);
 
 		System.out.println("게시글 작성 성공");
 		return "redirect:storemain";
