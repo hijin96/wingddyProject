@@ -171,6 +171,7 @@ public class MemberController {
 			}
 			
 			String changeName = renameFile.fileName(reUpfile, session);
+			
 			at.setMemNo(m.getMemberNo());
 			at.setOriginName(reUpfile.getOriginalFilename());
 			at.setChangeName(changeName);
