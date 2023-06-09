@@ -68,7 +68,6 @@ public class AlphabetController {
 	@RequestMapping(value="replyList.aph", produces="application/json; charset=UTF-8")
 	public String ajaxReplyList(int rPage, int bno) {
 		
-		System.out.println("-------------------------------");
 
 		PageInfo pi = Pageination.getPageInfo(AlphabetService.replyCount(bno), rPage, 10, 5);
 		

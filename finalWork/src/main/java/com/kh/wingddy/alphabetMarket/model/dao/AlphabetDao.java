@@ -51,9 +51,6 @@ public class AlphabetDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		System.out.println("55555555555555555555555555555555555");
-		System.out.println((ArrayList)sqlSession.selectList("alphabetMapper.selectReplyList", bno, rowBounds));
-		
 		return (ArrayList)sqlSession.selectList("alphabetMapper.selectReplyList", bno, rowBounds);
 		
 		
@@ -70,6 +67,8 @@ public class AlphabetDao {
 	
 	public int insertMarket(SqlSessionTemplate sqlSession, AlphabetMarket am) {
 		
+		System.out.println("----------------------");
+		System.out.println(am);
 		return sqlSession.insert("alphabetMapper.insertMarket", am);
 	};
 	
