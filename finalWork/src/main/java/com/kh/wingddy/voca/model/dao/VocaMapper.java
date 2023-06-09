@@ -21,11 +21,11 @@ public interface VocaMapper {
 
 	public int insertVocaBook(VocaBook vb);
 
-	public int insertVoca(ArrayList<Voca> vlist);
+	public int insertVocaList(ArrayList<Voca> vlist);
 
 	public int deleteVocaList(int bookNo);
 
-	public int insertVoca(HashMap<String, Object> vb);
+	public int insertVocaMap(HashMap<String, Object> vb);
 	
 	
 }

@@ -73,7 +73,7 @@
 			   )
 	</insert>
 	
-	<insert id="insertVoca" parameterType="java.util.ArrayList">
+	<insert id="insertVocaList" parameterType="java.util.ArrayList">
 		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
 			  INTO VOCA
 			VALUES
@@ -93,7 +93,17 @@
 		 	   BOOK_NO = #{bookNo}
 	</delete>
 	
-
+	<insert id="insertVocaMap" parameterType="java.util.HashMap">
+		<foreach collection="vlist" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			  INTO VOCA
+			VALUES
+				  (
+				   #{bookNo}
+				  ,#{item.vocaEnglish}
+				  ,#{item.vocaKorean}
+				  )
+		</foreach>
+	</insert>
 	
 	
 	

@@ -40,7 +40,7 @@ public class VocaServiceImpl implements VocaService {
 	@Override
 	@Transactional
 	public int insertVocaBook(VocaBook vb, ArrayList<Voca> vlist) {
-		return vocaMapper.insertVocaBook(vb) * vocaMapper.insertVoca(vlist);
+		return vocaMapper.insertVocaBook(vb) * vocaMapper.insertVocaList(vlist);
 	}
 
 	@Override
@@ -49,8 +49,10 @@ public class VocaServiceImpl implements VocaService {
 	}
 
 	@Override
-	public int updateVocaBook(VocaBook vb, ArrayList<Voca> vlist) {
-		return 0;
+	@Transactional
+	public int updateVocaBook(HashMap<String, Object> vb) {
+		return vocaMapper.deleteVocaList((Integer)(vb.get("bookNo"))) 
+			 * vocaMapper.insertVocaMap(vb);
 	}
 
 	@Override
