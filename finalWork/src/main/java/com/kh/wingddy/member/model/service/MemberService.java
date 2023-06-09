@@ -14,6 +14,8 @@ public interface MemberService {
 	// 회원가입 종류(NAVER, KAKAO, GOOGLE, WINGDDY 중 WINGDDY 회원의 경우만 해당)
 	public int insertMember(Member m);
 	
+	public int insertProfile(Attachment at);
+	
 	public int insertTeacher(Member m, Attachment at);
 	
 	public int updateMember(Member m, Attachment at);
