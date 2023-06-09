@@ -104,6 +104,12 @@ public class VocaController {
 		return Integer.toString(vocaService.updateVocaBook(vb));
 	}
 	
+	@ResponseBody
+	@PostMapping(value="bookClassList.vc", produces="application/json; charset=UTF-8")
+	public String selectBookClassList(int bookNo){
+		return new Gson().toJson(vocaService.selectBookClassList(bookNo));
+	}
+	
 	public ArrayList<Voca> getVocaList(JsonObject jObj){
 		
 		
@@ -121,5 +127,7 @@ public class VocaController {
 		}
 		return list;
 	}
+	
+
 	
 }

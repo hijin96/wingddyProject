@@ -62,8 +62,8 @@ public class VocaServiceImpl implements VocaService {
 	}
 
 	@Override
-	public ArrayList<ClassVocaBook> vocaBookClassList(int bookNo) {
-		return null;
+	public ArrayList<ClassVocaBook> selectBookClassList(int bookNo) {
+		return vocaMapper.selectBookClassList(bookNo);
 	}
 
 	@Override
