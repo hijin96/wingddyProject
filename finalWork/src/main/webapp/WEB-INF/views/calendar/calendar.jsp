@@ -328,8 +328,9 @@
 				        					
 				        					
 				        				}
-				        					successCallback(value);
+			        					successCallback(value);
 		        					}
+								})
 	        				
 							} else {
 								successCallback('');
