@@ -25,8 +25,12 @@ public class calendarController {
 	
 	@ResponseBody
 	@RequestMapping(value="selectScheduleList", produces="application/json; charset=UTF-8")
-	public String ajaxScheduleList(int memberNo) {
-		return new Gson().toJson(calendarService.selectScheduleList(memberNo));
+	public String ajaxScheduleList(int memberNo, String memberType) {
+		if(memberType.equals("S")) {
+			return new Gson().toJson(calendarService.selectScheduleList(memberNo));
+		} else {
+			return "";
+		}
 	}
 	
 	@RequestMapping("insertSchedule")

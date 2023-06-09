@@ -59,6 +59,13 @@ public class AlphabetController {
 		return "alphabetMarket/alphabetMarketDetail";
 	}
 	
+	@RequestMapping("test")
+	public String test() {
+		
+	
+		return "alphabetMarket/example";
+	}
+	
 	
 	
 

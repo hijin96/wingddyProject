@@ -163,6 +163,41 @@
 			</c:if>
 		</c:forEach>
 		
+		<!-- 모달 -->
+		<div class="modal-dialog m-0" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Modal Template</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Modal body text goes here.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary trigger--fire-modal-2">Save changes</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" tabindex="-1" role="dialog" id="fire-modal-2" style="display: none;">
+			<div class="modal-dialog modal-md modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Modal Title</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+		          	 Modal body text goes here.
+					</div>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 </body>
 </html>

@@ -218,35 +218,126 @@
 	        	},
 	        	selectable : true,
 	        	googleCalendarApiKey : 'AIzaSyDFV8dRGYeO2k9b_bAtA6yueCxVEl3FuYU',
-	        	eventSources : {
-					googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
-					color : 'transparent',
-					textColor : 'gray',
-					classNames : 1
-				},
-	        	events : function(info, successCallback, failureCallback){
-	        		$.ajax({
-	        			url : 'selectScheduleList',
-	        			data : {memberNo : memberNo},
-	        			type : 'post',
-	        			success : function(list){
-	        				
+	        	
+	        	eventSources : [
+	        		{
+						googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com',
+						color : 'transparent',
+						textColor : 'gray',
+						classNames : 1
+					},
+					{
+						events : function(info, successCallback, failureCallback){
+							console.log('클래스 일정');
+							
+							$.ajax({
+		    					url : 'selectClassScheduleList', // 클래스 일정
+		    					data : {memberNo : memberNo, memberType : '${loginUser.memberType}'},
+		    					type : 'post',
+		    					success : function(clist){
+		    						
+		    						let value = [];
+		    						let cScheduleList1 = '';
+		    						let cScheduleList2 = '';
+		    						
+		    						//console.log(clist);
+		    						
+		    						for(let i in clist){
+			        					 value.push({
+			        						 title : "<" + clist[i].className + ">" + clist[i].schedule,
+			        						 start : clist[i].startDate,
+			        						 end : clist[i].endDate,
+			        						 borderColor : '#000000',
+			        						 color : '#ffffff',
+			        						 textColor : '#ff0000',
+			        						 classNames : 2
+			        					})
+			        					
+			        					
+			        					let startDate = new Date(clist[i].startDate);
+			        					let endDate = new Date(clist[i].endDate);
+			        					
+			        					//console.log(clist[i].schedule + " 의 endDate : " + endDate);
+			        					if(d >= startDate && d <= endDate){
+			        						cScheduleList1 +=  "<li><div id='scheduleName' >&lt;" + clist[i].className + "&gt; " + clist[i].schedule + "</div></li>"; 
+			        						
+			        					} 
+			        					
+			        					$('#c_todayList ul').html(cScheduleList1);
+			        					
+			        					if(t >= startDate && t <= endDate){
+			        						cScheduleList2 += "<li><div id='scheduleName'>&lt;" + clist[i].className + "&gt;" + clist[i].schedule + "</div></li>"; 
+							
+			        					}
+			        					$('#c_tomorrowList ul').html(cScheduleList2);
+			        					
+			        					
+			        				}
+		    						console.log(value);
+		    						successCallback(value);
+		    					}
+		    				})
+						}
+					},
+					{
+						events : function(info, successCallback, failureCallback){
+							console.log('개인일정');
+							
 	        				let value = [];
+	        				if(${loginUser.memberType eq "S"}){
+		        				$.ajax({
+				        			url : 'selectScheduleList', // 개인 일정
+				        			data : {memberNo : memberNo, memberType : '${loginUser.memberType}'},
+				        			type : 'post',
+				        			success : function(list){
+				        				
+				        				console.log('개인일정 조회해옴');
+				        				console.log(list);
+				        				
+				        				
+				        				let scheduleList1 = '';
+				        				let scheduleList2 = '';
+				        				let mark = '';
+				        				
+				        					for(let i in list){
+				        					//console.log(list[i].schedule + "/" + list[i].endDate);
+				        					 value.push({
+				        						 title : list[i].schedule,
+				        						 start : list[i].startDate,
+				        						 end : list[i].endDate,
+				        						 color : list[i].color,
+				        						 classNames : 3
+				        					})
+				        					
+				        					let startDate = new Date(list[i].startDate);
+				        					let endDate = new Date(list[i].endDate);
+				        					
+				        					//console.log(list[i].schedule + " 의 endDate : " + endDate);
+				        					
+				        					if(d >= startDate && d <= endDate){
+				        						scheduleList1 +=  "<li><span id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</span></li>"; 
+				        						
+				        					} 
+				        					$('#todayList ul').html(scheduleList1);
+				        					
+				        					if(t >= startDate && t <= endDate){
+				        						scheduleList2 += "<li><span id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</span></li>"; 
+								
+				        					}
+				        					$('#tomorrowList ul').html(scheduleList2);
+				        					
+				        					
+				        				}
+				        					successCallback(value);
+		        					}
 	        				
-	        				for(let i in list){
-	        					 value.push({
-	        						 title : list[i].schedule,
-	        						 start : list[i].startDate,
-	        						 end : list[i].endDate,
-	        						 color : list[i].color,
-	        						 classNames : 2
-	        					})
-	        				}
-	        				//console.log(value);
-		        			successCallback(value);
-	        			}
-	        		})
-	        	},
+							} else {
+								successCallback('');
+							}
+		        		}
+					}
+					
+				],
         		eventClick : function(info){
         			info.jsEvent.stopPropagation();
         			info.jsEvent.preventDefault();
