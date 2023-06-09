@@ -106,6 +106,7 @@ public class VocaController {
 	
 	public ArrayList<Voca> getVocaList(JsonObject jObj){
 		
+		
 		JsonArray jArr = jObj.get("value").getAsJsonArray();
 		
 		ArrayList<Voca> list = new ArrayList();
