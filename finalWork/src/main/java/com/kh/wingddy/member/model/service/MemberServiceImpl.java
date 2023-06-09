@@ -41,10 +41,10 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int updateMember(Member m, Attachment at) {
 		
-		//int result1 = memberDao.updateMember(sqlSession, m);
-		//int result2 = memberDao.updateProfile(sqlSession, at);
+		int result1 = memberDao.updateMember(sqlSession, m);
+		int result2 = memberDao.updateProfile(sqlSession, at);
 		
-		return 0;
+		return result1 * result2;
 	}
 
 	@Override

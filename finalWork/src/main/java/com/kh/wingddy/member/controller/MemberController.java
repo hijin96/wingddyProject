@@ -44,6 +44,7 @@ public class MemberController {
 		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
 			//System.out.println(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd()));
+			System.out.println(memberService.selectProfile(loginUser.getMemberNo()));
 			session.setAttribute("loginUser", loginUser);
 			session.setAttribute("classList", classroomService.selectClassList(loginUser));
 			session.setAttribute("profile", memberService.selectProfile(loginUser.getMemberNo()));
@@ -167,6 +168,7 @@ public class MemberController {
 			String changeName = renameFile.fileName(reUpfile, session);
 			at.setOriginName(reUpfile.getOriginalFilename());
 			at.setChangeName(changeName);
+			at.setFilePath("resources/uploadFiles/" + changeName);
 			at.setFileLevel(0);
 			
 		}
@@ -175,7 +177,8 @@ public class MemberController {
 		System.out.println(m);
 		if(memberService.updateMember(m, at) > 0) {
 			session.setAttribute("alertMsg", "수정완료");
-			return "member/profile" + m.getMemberNo();
+			
+			return "member/profile";
 		} else {
 			session.setAttribute("alertMsg", "수정실패");
 			return "member/updateForm";
