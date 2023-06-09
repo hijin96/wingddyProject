@@ -170,6 +170,9 @@ public class MemberController {
 			at.setFileLevel(0);
 			
 		}
+		
+		System.out.println(at);
+		System.out.println(m);
 		if(memberService.updateMember(m, at) > 0) {
 			session.setAttribute("alertMsg", "수정완료");
 			return "member/profile" + m.getMemberNo();
