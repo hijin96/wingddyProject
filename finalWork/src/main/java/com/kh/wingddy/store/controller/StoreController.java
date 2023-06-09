@@ -99,11 +99,41 @@ public class StoreController {
 		return "store/storeWriter2";
 	}
 	//게시판글쓰기 -2(ck에디터사용)
+	/*
 	@RequestMapping("insertstore.do")
 	public String insertStoreBoard(HashMap<Store, Attachment> map , MultipartFile upfile,HttpSession session, Model model) {
 			System.out.println(map);
 			System.out.println(upfile.getOriginalFilename());
 		if(storeService.insertStoreBoard(map)>0) {
+
+
+		map.put(at.getChangeName(),rename);
+	
+		System.out.println("map"+map);
+		
+		ArrayList<Store> stlist = new ArrayList<Store>();
+		
+		
+		
+		System.out.println("LIST"+stlist);
+		
+		System.out.println("at"+list);
+		
+		System.out.println("게시글 원래 이미지" + upfile.getOriginalFilename());
+		if(storeService.insertStoreBoard(map)>0) {
+		String changeName = rename.fileName(upfile, session);
+		// Attachment at = new Attachment();
+		at.setOriginName(upfile.getOriginalFilename());
+		System.out.println("UPFILE:" + upfile.getOriginalFilename());
+		System.out.println("체인지:"+ at.getChangeName());
+		at.setChangeName(changeName);
+		at.setFileLevel(2);
+		at.setFilePath("resources/uploadFiles/" + changeName);
+
+		System.out.println("게시글 작성 성공");
+		return "redirect:storemain";
+	}else {
+
 			String changeName = rename.fileName(upfile, session);
 			Attachment at = new Attachment();
 				at.setOriginName(upfile.getOriginalFilename());
@@ -116,11 +146,17 @@ public class StoreController {
 			System.out.println("게시글 작성 성공");
 			return "store/storemain";
 		}else {
+
 			model.addAttribute("errorMsg","게시글작성실패");
 			return "common/errorPage";
 		}
 	}
-	/////////삭제 작업을해 어찌이런일이삭제사게작
+
+		return null;
+	}
+	*/
+
+
 //	@RequestMapping("storeWriter")
 //	public String storeWriter() {
 //		return "store/storeWriter";

@@ -185,9 +185,31 @@
 		})
 
 	
+				
+		function selectPageButton(currentPage){
+
+			$.ajax({
+				url : 'replyPaging.aph',
+				data : {
+					rPage : currentPage,
+					bno : '${requestScope.market.marketBno}',
+				},
+				success : function(result){
+
+				}
+			})
+		}
+
+
+
+
+
 
 
 		function selectReplyList(currentPage){
+
+
+			
 
 			$.ajax({
 				url : "replyList.aph",
@@ -232,20 +254,7 @@
 			})
 		}
 
-		
-		function selectPageButton(currentPage){
 
-			$.ajax({
-				url : 'replyPaging.aph',
-				data : {
-					rPage : currentPage,
-					bno : '${requestScope.market.marketBno}',
-				},
-				success : function(result){
-
-				}
-			})
-		}
 		
 		
 	</script>
