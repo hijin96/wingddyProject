@@ -20,6 +20,7 @@ public interface MemberService {
 	
 	// 회원 아이디 찾기 (이메일 인증) select  
 	// 이메일 인증 성공시 DB에 저장되있는 회원의 ID값 출력
+	public Member searchId(String email);
 	 
 	// 회원 비밀번호 찾기 (이메일 인증) select -> update(비밀번호 재설정)
 	// 이메일 인증 성공시 비밀번호 변경을 위한 form제공 이후 변경된 비밀번호 암호화해 DB저장

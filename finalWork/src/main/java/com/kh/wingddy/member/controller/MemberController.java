@@ -2,10 +2,6 @@ package com.kh.wingddy.member.controller;
 
 import java.io.File;
 
-import java.util.ArrayList;
-
-
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.wingddy.classroom.model.service.ClassroomService;
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.template.RenameFile;
@@ -185,6 +182,18 @@ public class MemberController {
 			return "member/updateForm";
 		}
 		
+	}
+	
+	@RequestMapping("forgetId.me")
+	public String forgetId() {
+		return "member/forgetId";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="searchId.me", produces="application/json; charset=UTF-8")
+	public String searchId(String email) {
+		
+		return new Gson().toJson(memberService.searchId(email));
 	}
 	
 }
