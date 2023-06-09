@@ -129,55 +129,21 @@ public class StoreController {
 			HttpSession session, Model model) {
 		
 		Member m = ((Member)session.getAttribute("loginUser"));
-		/////////////////////////////////////////////////////
 		HashMap<String,Object> map = new HashMap<String,Object>();
+		ArrayList<Attachment> atlist = new ArrayList();
 		
-		System.out.println("STORE+AT: "+map);
-		at.setMemberNo(m.getMemberNo());
 		at.setOriginName(upfile.getOriginalFilename());
 		at.setChangeName(rename.fileName(upfile, session));
-		System.out.println(at);
-		ArrayList<Attachment> listat = new ArrayList();
-		listat.add(at);
+		atlist.add(at);
 		map.put("Store", s);
-		map.put("Attachment", listat);
+		map.put("Attachment", atlist);
+
+		System.out.println("map에 담긴것"+map);
 		
-		System.out.println("함 보자 : "+listat);
-		
-		
-//		map.put("upfileOriginal",upfile.getOriginalFilename());
-//		map.put("FILENO", at.getFileNo());
-//		map.put("loginUser.memberNo",m.getMemberNo());
-//		map.put("changeName",rename.toString());
-//		map.put("spName", s.getSpName());
-//		map.put("spContent", s.getSpContent());
-//		map.put("spPrice", s.getSpPrice());
-//		map.put("amount",s.getAmount());
-//		map.put("spOnecom",s.getSpOnecom());
-//		System.out.println("map: "+map);
-		
-		
-		//List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
-		//listMap.add(map);
-		
-		//System.out.println("listMap: "+listMap);
+		storeService.insertStoreBoard(map);
+		System.out.println("제발 서비스로 넘겨줘"+storeService.insertStoreBoard(map));
 	
-		
-	
-		//System.out.println("LIST"+hashlist);
-		
-		
-		
-		System.out.println("게시글 원래 이미지:" + upfile.getOriginalFilename());
 		if(storeService.insertStoreBoard(map)>0) {
-		String changeName = rename.fileName(upfile, session);
-		// Attachment at = new Attachment();
-		at.setOriginName(upfile.getOriginalFilename());
-		System.out.println("UPFILE:" + upfile.getOriginalFilename());
-		System.out.println("체인지:"+ at.getChangeName());
-		at.setChangeName(changeName);
-		at.setFileLevel(2);
-		at.setFilePath("resources/uploadFiles/" + changeName);
 
 		System.out.println("게시글 작성 성공");
 		return "redirect:storemain";
@@ -187,7 +153,6 @@ public class StoreController {
 		}
 	}
 
-	///////// 삭제 작업을해 어찌이런일이삭제사게작
 //	@RequestMapping("storeWriter")
 //	public String storeWriter() {
 //		return "store/storeWriter";
@@ -243,6 +208,7 @@ public class StoreController {
 		// 확장자명
 		String ext = originName.substring(originName.lastIndexOf("."));
 		// 이름바꾸기
+		
 		String changeName = currentTime + ranNum + ext;
 		// 이미지를 현재 경로와 연관된 파일에 저장하기 위해 현재 경로를 알아냄
 		String realPath = multirequest.getServletContext().getRealPath("/uploadFiles");
@@ -251,7 +217,7 @@ public class StoreController {
 		// String savePath = realPath+"upload/"+changeName;
 		String savePath = multirequest.getServletContext().getRealPath("resources/uploadFiles/") + changeName;
 
-		System.out.println("save:" + savePath);
+		System.out.println("savePath: " + savePath);
 		String uploadPath = request.getSession().getServletContext().getRealPath("/uploadFiles");
 		System.out.println("uploadPath: " + uploadPath);
 
@@ -259,15 +225,7 @@ public class StoreController {
 
 		mv.addObject("uploaded", true);
 		mv.addObject("url", uploadPath);
-		System.out.println("url: " + mv.addObject("url", uploadPath));
-
-//				Attachment at = new Attachment();
-//				at.setOriginName(upfile.getOriginalFilename());
-//				at.setChangeName("/resources/uploadFiles/");
-//		
-//				at.setFileLevel(3);
-//				
-//				list.add(at);
+		System.out.println("url: " +  uploadPath);
 
 		return mv;
 
