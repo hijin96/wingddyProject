@@ -7,22 +7,16 @@
 <title>단어장 등록</title>
 
 <style>
-	#voca_table{
-		text-align: center;
-	}
-	
-	.card .btn{
-		height: 40px;
-	}
-	#voca_table tbody>tr:hover{
-		background-color :  #dee2e6;
-		cursor: pointer;
+	.vocalist{
+		
 	}
 </style>
 </head>
 <body>
 	<jsp:include page="../sideBar/sideBar.jsp"/>
+
 	<div class="main-content">
+
 		<div class="row">
         	<div class="col-12 col-md-6 col-lg-6">
 				<div class="card">
@@ -56,6 +50,7 @@
 				</div>
 			</div>
 			<div class="col-12 col-md-6 col-lg-6">
+              	<div style="height:50px;"></div>
 				<div class="card">
 					<div class="card-header">
 						<h2>단어 추가</h2>
@@ -97,26 +92,26 @@
 	</div>
 	<script>
 	
-		$(() => {
-			// 단어장 등록(ajax)
-			let vocaArr = [];
-			$('#insert-book-btn').click(() => {
-				
-				$('#voca_table tbody>tr').each((i , e) => {
-					let tdArr = $(e).children('td');
-					if($(e).html() != ''){
-						vocaArr.push({bookNo:0,vocaEnglish:tdArr[0].innerText,vocaKorean:tdArr[1].innerText});
-					}
-				});
-				if(vocaArr != ''){
-					insertBook();
-				}
-				else{
-					alert('단어를 입력해주세요');
+		// 단어장 등록
+		let vocaArr = [];
+		$('#insert-book-btn').click(() => {
+			
+			$('#voca_table tbody>tr').each((i , e) => {
+				let tdArr = $(e).children('td');
+				if($(e).html() != ''){
+					vocaArr.push({en:tdArr[0],kr:tdArr[1]});
 				}
 			});
-			
-			insertBook = () => {
+			if(vocaArr != ''){
+				insertBook();
+			}
+			else{
+				alert('단어를 입력해주세요');
+			}
+		});
+
+		function insertbook(){
+				console.log(JSON.stringify($('#book-name').val()));
 				let vocaObj = {bookName:$('#book-name').val(),value:vocaArr};
 				console.log(JSON.stringify(vocaObj));
 				$.ajax({
@@ -127,15 +122,21 @@
 						vcList : JSON.stringify(vocaObj)
 						},
 					success : result => {
+						console.log(result);
 						if(result>0){
 							location.href = "main.vc";
 						}
+					},
+					error : () => {
+						
 					}
-				});
+				})
 			}
-		});
+
+		}
 		
 		// 단어 추가
+		
 		$('#inject-voca-btn').click(() => {
 			let en = $('#voca-en-form').val();
 			let kr = $('#voca-kr-form').val();
@@ -158,6 +159,9 @@
 		// 단어 검색(ajax)
 	
 	
+	</script>
+	
+	<script>
 	</script>
 </body>
 </html>

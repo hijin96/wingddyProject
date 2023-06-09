@@ -8,6 +8,7 @@
 <title>내 단어장</title>
 
 <style>
+
 	#voca_table{
 		text-align: center;
 	}
@@ -27,7 +28,6 @@
 			<div class="card-header">
 				<h1>내 단어장</h1>
 				<button class="btn btn-primary" id="insertBook-btn">단어장 등록</button>
-				<button class="btn btn-primary" id="updateBook-btn">단어장 수정</button>
 			</div>
 			<div class="card-body">
 				<div id="accordion">
@@ -96,7 +96,7 @@
 							}
 						}
 					}
-				};
+				}
 				
 				httpRequest.open('POST', 'vocaList.vc?bookNo=' + bookNo);
 				httpRequest.responseType = 'json';
@@ -115,13 +115,12 @@
 				}
 				
 				document.getElementById('insertBook-btn').addEventListener('click', () => {
-					location.href='insertBook.vc';
-				});
-				
-				document.getElementById('updateBook-btn').addEventListener('click', () => {
-					location.href='updateBook.vc';
+					location.href='insertBookForm.vc';
 				});
 			}
+			
+			
+			
 		</script>
 		
 		<!-- 클래스 단어장 -->
@@ -163,6 +162,41 @@
 				</div>
 			</c:if>
 		</c:forEach>
+		
+		<!-- 모달 -->
+		<div class="modal-dialog m-0" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Modal Template</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Modal body text goes here.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary trigger--fire-modal-2">Save changes</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" tabindex="-1" role="dialog" id="fire-modal-2" style="display: none;">
+			<div class="modal-dialog modal-md modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Modal Title</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+		          	 Modal body text goes here.
+					</div>
+				</div>
+			</div>
+		</div>
 		
 	</div>
 </body>

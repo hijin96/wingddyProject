@@ -38,6 +38,7 @@ public class MemberServiceImpl implements MemberService {
 		return result1 * result2;
 	}
 
+	/*
 	@Override
 	public int updateMember(Member m, Attachment at) {
 		
@@ -46,10 +47,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		return result1 * result2;
 	}
+	*/
 
-	@Override
-	public Attachment selectProfile(int memberNo) {
-		return memberDao.selectProfile(sqlSession, memberNo);
-	}
 	
 }

@@ -3,13 +3,11 @@ package com.kh.wingddy.voca.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +52,7 @@ public class VocaController {
 		return new Gson().toJson(vocaService.selectVocaList(bookNo));
 	}
 	
-	@GetMapping("insertBook.vc")
+	@RequestMapping("insertBookForm.vc")
 	public String insertBookView() {
 		return "voca/insertBookForm";
 	}
@@ -62,15 +60,22 @@ public class VocaController {
 	@ResponseBody
 	@PostMapping(value="insertBook.vc", produces="application/json; charset=UTF-8")
 	public String insertBook(@RequestBody String vcList, HttpSession session) throws UnsupportedEncodingException {
+		
 		String str = URLDecoder.decode(vcList, "UTF-8");
+		str = str.substring(str.indexOf("{"));
 		
-		JsonObject jObj = (new JsonParser().parse("{"+ str +"}").
-							getAsJsonObject()).
-							get("vcList").
-							getAsJsonObject();
+		JsonObject jObj = new JsonParser().parse(str).getAsJsonObject();
 		
-		ArrayList<Voca> vlist = getVocaList(jObj);
+		JsonArray jArr = jObj.get("value").getAsJsonArray();
 		
+		ArrayList<Voca> vlist = new ArrayList();
+		for(int i = 0; i<jArr.size(); i++) {
+			JsonObject obj = jArr.get(i).getAsJsonObject();
+			Voca vc = new Voca();
+			vc.setVocaEnglish(obj.get("vocaEnglish").getAsString());
+			vc.setVocaKorean(obj.get("vocaKorean").getAsString());
+			vlist.add(vc);
+		}
 		VocaBook vb = new VocaBook();
 		vb.setBookName(jObj.get("bookName").getAsString());
 		vb.setMemberNo(((Member)session.getAttribute("loginUser")).getMemberNo());
@@ -105,6 +110,7 @@ public class VocaController {
 	}
 	
 	public ArrayList<Voca> getVocaList(JsonObject jObj){
+		
 		
 		JsonArray jArr = jObj.get("value").getAsJsonArray();
 		

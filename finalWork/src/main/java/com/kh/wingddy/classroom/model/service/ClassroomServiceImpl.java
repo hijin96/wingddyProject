@@ -34,37 +34,4 @@ public class ClassroomServiceImpl implements ClassroomService {
 	}
 
 
-	@Override
-	public int passStudent(ClassMember cm) {
-		return classroomDao.passStudent(sqlSession, cm);
-	}
-
-	@Override
-	public int createClassroom(Classroom cr) {
-		return classroomDao.createClassroom(sqlSession, cr);
-	}
-
-	@Override
-	public Classroom selectClassroom(int cno) {
-		return classroomDao.selectClassroom(sqlSession, cno);
-	}
-
-	@Override
-	public ArrayList<MyCount> selectClassRanking(int cno) {
-		return classroomDao.selectClassRanking(sqlSession, cno);
-	}
-
-	@Override
-	public Classroom joinClass(String enterCode) {
-		return classroomDao.joinClass(sqlSession, enterCode);
-	}
-
-	@Override
-	public int insertPass(ClassMember cm) {
-		return classroomDao.insertPass(sqlSession, cm);
-	}
-	
-	
-
-
 }

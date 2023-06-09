@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,11 +34,10 @@
 									<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Alphabet</label>
 									<div class="col-sm-12 col-md-7">
 										<select class="form-control selectric" name="alphabet">
-											<c:forEach items="${requestScope.category}" var="r">
-												<option>${r.alphabet} (${r.count})</option>
-											</c:forEach>
+											<option>A</option>
+											<option>N</option>
+											<option>P</option>
 										</select>
-										
 									</div>
 									</div>
 									<div class="form-group row mb-4">

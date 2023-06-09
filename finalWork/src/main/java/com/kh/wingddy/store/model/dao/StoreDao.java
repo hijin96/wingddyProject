@@ -2,6 +2,8 @@ package com.kh.wingddy.store.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -23,8 +25,9 @@ public class StoreDao {
 		
 		return (ArrayList)sqlSession.selectList("storeMapper.selectList", null, rowBounds);
 	}
-	public int insertStoreBoard(SqlSessionTemplate sqlSession, HashMap<Store, Attachment> map) {
+	public int insertStoreBoard(SqlSessionTemplate sqlSession,ArrayList<Attachment>list) {
 		// TODO Auto-generated method stub
-		return sqlSession.insert("storeMapper.insertStoreBoard",map);
+		System.out.println("dao작동하나요" + sqlSession.insert("storeMapper.insertStoreBoard",list));	
+		return sqlSession.insert("storeMapper.insertStoreBoard",list);
 	}
 }
