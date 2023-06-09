@@ -1,6 +1,7 @@
 package com.kh.wingddy.voca.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
