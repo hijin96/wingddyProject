@@ -11,19 +11,19 @@
 
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" scope="session"/>
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/fontawesome/css/all.min.css">
 
   <!-- CSS Libraries -->
- <%--  <link rel="stylesheet" href="${contextPath}/Rassets/modules/jqvmap/dist/jqvmap.min.css"> --%>
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/summernote/summernote-bs4.css">
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/prism/prism.css">
+  <link rel="stylesheet" href="resources/assets/modules/jqvmap/dist/jqvmap.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/summernote/summernote-bs4.css">
+  <link rel="stylesheet" href="resources/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/prism/prism.css">
 
   <!-- Template CSS -->
-  <link rel="stylesheet" href="${contextPath}/resources/assets/css/style.css">
-  <link rel="stylesheet" href="${contextPath}/resources/assets/css/components.css">
+  <link rel="stylesheet" href="resources/assets/css/style.css">
+  <link rel="stylesheet" href="resources/assets/css/components.css">
 <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
 <script>
@@ -353,14 +353,14 @@
 			<c:if test="${ not empty classroom }">
         <!-- ${reqeustScope.classroom.classNo} -->
 	            <li>
-                <form action="main.aph" mehtod="POST">
+                <form action="main.aph" method="POST">
                   <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
                   <a class="nav-link"><i class="fas fa-pencil-ruler"></i> <button class="changeButton">알파벳마켓</button></a>
                 </form>
 	            </li>
 	
 	            <li>
-                <form action="#" mehtod="POST">
+                <form action="myAlphabet.aph" method="POST">
                   <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
                   <a class="nav-link"><i class="fas fa-pencil-ruler"></i> <button class="changeButton">내 알파벳</button></a>
                 </form>
@@ -389,8 +389,6 @@
                   <a href="" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>${loginUser.memberName}</span></a>
                   <ul class="dropdown-menu">
                     <li><a href="logout.me">로그아웃</a></li> 
-                    <li><a href="#">Information</a></li> 
-                    <li><a href="#">Reset Password</a></li> 
                   </ul>
                 </li>
               </c:when>
@@ -401,7 +399,7 @@
                   <ul class="dropdown-menu">
                     <li><a href="loginForm.me">로그인</a></li> 
                     <li><a href="#exampleModal" data-toggle="modal">회원가입</a></li> 
-                    <li><a href="#">아이디 찾기</a></li> 
+                    <li><a href="forgetId.me">아이디 찾기</a></li> 
                     <li><a href="errorPage.me">비밀번호 찾기</a></li> 
                   </ul>
                 </li>
@@ -463,11 +461,12 @@
   <script src="resources/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 
   <!-- Page Specific JS File -->
-  <!-- <script src="resources/resources/assets/js/page/index.js"></script> -->
+  <script src="resources/assets/js/page/index.js"></script>
   
   <!-- Template JS File -->
   <script src="resources/assets/js/scripts.js"></script>
   <script src="resources/assets/js/custom.js"></script>
+  
 <!-- Code injected by live-server -->
 <!-- 
 <script>

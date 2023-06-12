@@ -113,7 +113,6 @@
 						bookNo : $('#select-book option:selected').val()
 					},
 					success : list => {
-						console.log(list);
 						let value = '';
 						for(let i in list){
 							value += '<tr>'
@@ -145,7 +144,6 @@
 			});
 			
 			updateBook = () => {
-				console.log(vocaArr);
 				let vocaObj = {bookNo : $('#select-book option:selected').val(),value:vocaArr};
 				
 				$.ajax({

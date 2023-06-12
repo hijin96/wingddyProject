@@ -51,7 +51,7 @@
 		VALUES
 		      (
 		      SEQ_FNO.NEXTVAL,
-		      SEQ_MNO.CURRVAL,
+		      #{memNo},
 		      #{originName},
 		      #{changeName},
 		      #{fileLevel},

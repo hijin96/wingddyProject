@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.kh.wingddy.alphabetMarket.controller.AlphabetController;
 import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
+import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
+import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
 import com.kh.wingddy.common.model.vo.PageInfo;
 
 @Repository
@@ -51,9 +53,6 @@ public class AlphabetDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		System.out.println("55555555555555555555555555555555555");
-		System.out.println((ArrayList)sqlSession.selectList("alphabetMapper.selectReplyList", bno, rowBounds));
-		
 		return (ArrayList)sqlSession.selectList("alphabetMapper.selectReplyList", bno, rowBounds);
 		
 		
@@ -69,7 +68,7 @@ public class AlphabetDao {
 	
 	
 	public int insertMarket(SqlSessionTemplate sqlSession, AlphabetMarket am) {
-		
+
 		return sqlSession.insert("alphabetMapper.insertMarket", am);
 	};
 	
@@ -80,6 +79,86 @@ public class AlphabetDao {
 		
 		return (ArrayList)sqlSession.selectList("alphabetMapper.selectMyAlphabet", ap);
 	}
+	
+	
+	public int ajaxInsertReply(SqlSessionTemplate sqlSession, MarketReply mr) {
+		return sqlSession.insert("alphabetMapper.insertReply", mr);
+	}
+	
+	
+	
+	public String checkAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+		
+		
+		System.out.println("88888888888888888888888");
+		System.out.println(ca);
+		
+			
+		
+		if(sqlSession.selectOne("alphabetMapper.checkMarketWriterAlphabet", ca)) {
+			if(sqlSession.selectOne("alphabetMapper.checkReplyAlphabet", ca)) {
+				return "checkOK";
+			}else {
+				return "ReplyAlphabet";
+			}
+		}else {
+			return "MarketAlphabet";
+		}
+		
+		
+		
+	}
+	
+	
+	
+	
+	public String changeAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+		
+		
+		if(sqlSession.update("alphabetMapper.updateMarketWriterAlphabet", ca)
+				+ sqlSession.update("alphabetMapper.updateReplyAlphabet", ca) == 2) {
+			
+			
+			return "changeSuccess";
+		}else {
+			return "changeFail";
+		}
+		
+
+	}
+	
+	
+	public String changeStatus(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+
+		if(sqlSession.update("alphabetMapper.changeMarketStatus", ca)
+				+ sqlSession.update("alphabetMapper.changeReplyStatus", ca) == 2) {
+			
+			return "statusSuccess";
+		}else {
+			return "statusFail";
+		}
+		
+	}
+	
+	
+	public MyCount ajaxMyCount(SqlSessionTemplate sqlSession, MyCount mc) {
+		
+		return sqlSession.selectOne("alphabetMapper.ajaxMyCount", mc);
+	}
+	
+	
+	
+	public int writerLastMarket(SqlSessionTemplate sqlSession, AlphabetMarket am) {
+	
+		return sqlSession.selectOne("alphabetMapper.writerLastMarket", am);
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

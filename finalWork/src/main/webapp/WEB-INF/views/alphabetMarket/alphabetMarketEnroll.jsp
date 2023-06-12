@@ -23,7 +23,7 @@
 						<div class="card-body">
 							<form action="post.aph" method="post">
 
-								<input type="hidden" value="100" name="classNo">
+								<input type="hidden" value="${requestScope.classroom.classNo}" name="classNo">
 								<input type="hidden" value="${sessionScope.loginUser.memberNo}" name="writer">
 
 								<div class="form-group row mb-4">
@@ -35,9 +35,9 @@
 									<div class="form-group row mb-4">
 									<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Alphabet</label>
 									<div class="col-sm-12 col-md-7">
-										<select class="form-control selectric" name="alphabet">
+										<select class="form-control selectric" name="alphabet" required>
 											<c:forEach items="${requestScope.category}" var="r">
-												<option>${r.alphabet} (${r.count})</option>
+												<option value="${r.alphabet}">${r.alphabet} (${r.count})</option>
 											</c:forEach>
 										</select>
 										
@@ -46,7 +46,7 @@
 									<div class="form-group row mb-4">
 									<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Content</label>
 									<div class="col-sm-12 col-md-7">
-										<textarea class="summernote-simple" name="content"></textarea>
+										<textarea class="summernote-simple" name="content" required></textarea>
 									</div>
 									</div>
 									<div class="form-group row mb-4">

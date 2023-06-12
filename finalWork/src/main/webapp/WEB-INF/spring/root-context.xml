@@ -16,11 +16,12 @@
 		<property name="password" value="WINGDDY_LOCAL"/>	-->
 		 
 		 
+		 
+		
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 	 	<property name="url" value="jdbc:oracle:thin:@192.168.31.34:1521:xe"/>
 		<property name="username" value="WINGDDY"/>
 		<property name="password" value="WINGDDY"/>
-		
 		
 
 		

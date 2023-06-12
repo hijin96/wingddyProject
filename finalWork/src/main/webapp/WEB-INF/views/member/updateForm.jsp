@@ -87,7 +87,7 @@
                         </div>
                         <div class="card-body">
                             <div class="fallback">
-                              <input name="reUpfile" type="file" class="dropzone dz-clickable"/>
+                              <input name="reUpfile" type="file" class="dropzone"/>
                             </div>
                         </div>
                       </div>
@@ -100,11 +100,19 @@
                     <div class="col-5">
                       <div class="card">
                         <div class="card-header">
-                          <h4>프로필 추가하기</h4>
+                          <h4>프로필 수정하기</h4>
                         </div>
                         <div class="card-body">
                             <div class="fallback">
                               <input name="reUpfile" type="file" class="dropzone dz-clickable"/>
+                              <c:choose>
+                                <c:when test="${empty profile}">
+                                  <input type="hidden" name="update" value="firstUpdate">
+                                </c:when>
+                                <c:otherwise>
+                                  <input type="hidden" name="update" value="update">
+                                </c:otherwise>
+                              </c:choose>
                             </div>
                         </div>
                       </div>

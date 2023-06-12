@@ -38,4 +38,14 @@ public class MemberDao {
 		
 		return sqlSession.update("commonMapper.updateProfile", at);
 	}
+	
+	public Member searchId(SqlSessionTemplate sqlSession, String email) {
+		
+		return sqlSession.selectOne("memberMapper.searchId", email);
+	}
+	
+	public int insertProfile(SqlSessionTemplate sqlSession, Attachment at) {
+		
+		return sqlSession.insert("commonMapper.insertProfile", at);
+	}
 }
