@@ -1,6 +1,9 @@
 package com.kh.wingddy.store.model.vo;
 
 import java.sql.Date;
+import java.util.ArrayList;
+
+import com.kh.wingddy.common.model.vo.Attachment;
 
 import lombok.Data;
 @Data
@@ -14,5 +17,9 @@ public class Store {
 	private int viewCount;//조회수
 	private String spOnecom;//상품한줄평
 	private Date spDay;//상품등록일
+	private ArrayList<Attachment> atlist;
+	private String changeName;
+	private int fileLevel;
+	private String filePath;
 
 }

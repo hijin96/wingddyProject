@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.kh.wingddy.alphabetMarket.controller.AlphabetController;
 import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
+import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
+import com.kh.wingddy.alphabetMarket.model.vo.Words;
 import com.kh.wingddy.common.model.vo.PageInfo;
 
 @Repository
@@ -85,18 +87,111 @@ public class AlphabetDao {
 	}
 	
 	
-	public int checkAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+	
+	public String checkAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+			
 		
-		sqlSession.selectOne("alphabetMapper.checkMarketWriterAlphabet", ca);
-		sqlSession.selectOne("alphabetMapper.checkReplyAlphabet", ca);
+		if(sqlSession.selectOne("alphabetMapper.checkMarketWriterAlphabet", ca)) {
+			if(sqlSession.selectOne("alphabetMapper.checkReplyAlphabet", ca)) {
+				return "checkOK";
+			}else {
+				return "ReplyAlphabet";
+			}
+		}else {
+			return "MarketAlphabet";
+		}
 		
-		return 0;
+		
+		
 	}
 	
 	
-	//public int ajaxChangeAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
-		//return sqlSession.
-	//}
+	
+	@Transactional
+	public String changeAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) throws Exception{
+		
+		
+		try {
+			if(sqlSession.update("alphabetMapper.updateMarketWriterAlphabet", ca)
+					+ sqlSession.update("alphabetMapper.updateReplyAlphabet", ca) == 2) {
+				
+				
+				return "changeSuccess";
+			}else {
+				return "changeFail";
+			}
+		}catch (Exception e){
+			throw new Exception();
+			
+		}
+
+	}
+	
+	@Transactional
+	public String changeStatus(SqlSessionTemplate sqlSession, ChangeAlphabet ca) throws Exception{
+
+		try {
+			if(sqlSession.update("alphabetMapper.changeMarketStatus", ca)
+					+ sqlSession.update("alphabetMapper.changeReplyStatus", ca) == 2) {
+				
+				return "statusSuccess";
+			}else {
+				return "statusFail";
+			}
+		}catch (Exception e){
+			throw new Exception();
+			
+		}
+		
+	}
+	
+	
+	public MyCount ajaxMyCount(SqlSessionTemplate sqlSession, MyCount mc) {
+		
+		return sqlSession.selectOne("alphabetMapper.ajaxMyCount", mc);
+	}
+	
+	
+	
+	public int writerLastMarket(SqlSessionTemplate sqlSession, AlphabetMarket am) {
+	
+		return sqlSession.selectOne("alphabetMapper.writerLastMarket", am);
+		
+	}
+	
+	
+	
+	@Transactional
+	public String ajaxGachaAlphabet(SqlSessionTemplate sqlSession, Alphabet ap) throws Exception {
+		try {
+			sqlSession.insert("alphabetMapper.insertAlphabet", ap);
+			sqlSession.update("alphabetMapper.updateMyCount", ap);
+			return "success";
+		}catch (Exception e){
+			throw new Exception();
+			
+		}
+		
+	}
+	
+	//-----------------------------------------------------------
+	public int checkWords(SqlSessionTemplate sqlSession, Words wd) {
+		return sqlSession.selectOne("alphabetMapper.checkWords",wd);
+	}
+	
+	public int updateMyCoupon(SqlSessionTemplate sqlSession, Words wd) {
+		return sqlSession.update("alphabetMapper.updateMyCoupon",wd);
+	}
+	
+	public int deleteAlphabet(SqlSessionTemplate sqlSession, Words wd) {
+		wd.getWord().toCharArray();
+		return sqlSession.delete("alphabetMapper.deleteAlphabet",wd);
+	}
+	
+	
+	
+	
+	
 	
 	
 	

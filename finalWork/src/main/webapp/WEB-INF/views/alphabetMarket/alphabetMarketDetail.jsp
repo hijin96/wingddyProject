@@ -6,6 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>마켓 디테일</title>
+
+<style>
+	.tdStyle{
+		width: 0px;
+	}
+</style>
 </head>
 <body>
 
@@ -70,11 +76,11 @@
 
 	<!-- 댓글 모달 창-->
 	<form class="modal-part" id="modal-login-part">
-		<p>커션! 알파벳 어쩌구 </p>
+		<p>주의! 친구가 바꾸기를 눌렀을 때 해당 알파벳이 있어야만 교환할 수 있어요! </p>
 		<div class="form-group">
 		<label>알파벳</label>
 		<div class="input-group">
-			<select class="form-control selectric" id="modalAlphabet">
+			<select class="form-control selectric" id="modalAlphabet" required>
 				<c:forEach items="${requestScope.category}" var="r">
 					<option value="${r.alphabet}">${r.alphabet} (${r.count})</option>
 				</c:forEach>
@@ -84,7 +90,7 @@
 		<div class="form-group">
 		<label>Comment</label>
 		<div class="input-group">
-			<textarea id="content" class="form-control"></textarea>
+			<textarea id="content" class="form-control" required></textarea>
 		</div>
 		</div>
 	</form>
@@ -113,7 +119,14 @@
 
 	<script>
 
-		$(document).on('click', '.clickFilter', function(){
+		$(document).on('click', '.pagingBtn', function(){
+
+
+			
+			var clickPage = $(this).text().charAt(0);
+
+	   
+	   		selectPageButton(clickPage);
 
 			
 		});
@@ -129,8 +142,6 @@
 			//let form_data = $(e.target).serialize();
 			//console.log(form_data)
 
-
-			console.log()
 		
 			// DO AJAX HERE
 				/*
@@ -151,14 +162,10 @@
 					refMarket : '${requestScope.market.marketBno}'
 				},
 				success : function(result){
-					console.log('테스트댓글등록');
-					console.log(result);
+
 					window.location.reload();
 				}
 			})
-
-
-
 
 
 			e.preventDefault();
@@ -209,16 +216,24 @@
 			 bno : '${requestScope.market.marketBno}',
 		  },
 		  success : function(list){
-	   
-			 let value = '<tr><td colspan="6"><h3>comments('+ list.length +')</h3></td><td><button class="btn btn-warning" id="modal-fake">댓글작성</button></td></tr>'
 
-			 if('${sessionScope.loginUser.memberId}' == '${requestScope.market.writer}'){
+			let value = '';
+			
+			if('${requestScope.market.sellingStatus}' === 'Y' && '${sessionScope.loginUser.memberId}' != '${requestScope.market.writer}'){ // 팔고있고 댓글
+				
+				value += '<tr><td colspan="6"><h3>comments('+ list.length +')</h3></td><td><button class="btn btn-warning" id="modal-fake">댓글작성</button></td></tr>'
+			}
+			else{
+
+
 				value = '<tr><td colspan="6"><h3>comments('+ list.length +')</h3></td><td></td></tr>'
-			 }
+			}
+
 			 
 			 for(let i in list){
-				value += '<tr><td><input type="hidden" value="'+ list[i].replyNo +'" id="replyMno"></td>'
 
+				value += '<tr><td class="tdStyle"><input type="hidden" value="'+ list[i].replyNo +'" id="replyNo"></td>'
+						+ '<td class="tdStyle"><input type="hidden" value="'+ list[i].replyMno +'" id="replyMno" ></td>'
 				   if(list[i].replySelected == 'Y'){
 					  value += '<td><div class="badge badge-success">selected</div></td>'
 				   }
@@ -230,12 +245,11 @@
 					   + '<td>' + list[i].replyContent+'</td>'
 					   + '<td>'+ list[i].replyDate + '</td>'
 				   
-				   if('${sessionScope.loginUser.memberId}' == '${requestScope.market.writer}'){
-					  //console.log('똑같음!');
+				   if('${requestScope.market.sellingStatus}' === 'Y' && '${sessionScope.loginUser.memberId}' == '${requestScope.market.writer}'){
+					  
 					  value += '<td><button type="button" class="btn btn-primary btn-sm" onclick="changeAlphabet(this);">바꾸기</button></td></tr>'
 				   }
 				   else{
-					  //console.log('다름!');
 					  value += '<td></td></tr>'
 				   }
 			 }
@@ -268,14 +282,14 @@
 				if(i == list.currentPage){
 
 					btnValue += '<li class="page-item active">'
-						   + '<a class="page-link" href="#">' + i + '<span class="sr-only">(current)</span></a>'
+						   + '<a class="page-link pagingBtn" href="#" >' + i + '<span class="sr-only">(current)</span></a>'
 						   +'</li>';
 						   
 				}
 				else{
 					
 					btnValue += '<li class="page-item">'
-				   		   + '<a class="page-link" href="#">'+ i +'</a>'
+				   		   + '<a class="page-link pagingBtn" href="#">'+ i +'</a>'
 				   		   + '</li>';
 						   
 				}
@@ -294,9 +308,8 @@
 
 	function changeAlphabet(btn){
 	
-        if (confirm('Do you really want to change??')) {
-			alert("확인(예)을 누르셨습니다.");
-
+        if (confirm('Do you really want to trade it??')) {
+			
 
 			$.ajax({
 				url : 'change.aph',
@@ -305,9 +318,28 @@
 					marketMno : '${sessionScope.loginUser.memberNo}',
 					marketAlphabet : '${requestScope.market.alphabet}',
 					replyMno : $('#replyMno').val(),
-					replyAlphabet : $(btn).parent().prev().prev().prev().prev().text()
+					replyAlphabet : $(btn).parent().prev().prev().prev().prev().text(),
+					marketNo : '${requestScope.market.marketBno}',
+					replyNo : $('#replyNo').val()
 				},
-				success : function(){
+				success : function(result){
+					if(result == 'statusSuccess'){
+						alert("Exchage complete");
+						selectPageButton(1);
+					}
+					else if(result == 'ReplyAlphabet'){
+						alert("The frined must've already used the alphabet!!")
+					}
+					else if(result == 'MarketAlphabet'){
+						alert("You don't have the alphabet!!")
+					}
+					else{
+						alert("오류");
+					}
+
+
+					selectPageButton(1);
+
 
 				}
 

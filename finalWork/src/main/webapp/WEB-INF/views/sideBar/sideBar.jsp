@@ -48,6 +48,10 @@
     padding-left: 0px;
     color: gray;
   }
+  .changeButton:focus{
+  	border : 0 !important;
+  	outlint : 0 !important;
+  }
 </style>
 </head>
 
@@ -353,14 +357,14 @@
 			<c:if test="${ not empty classroom }">
         <!-- ${reqeustScope.classroom.classNo} -->
 	            <li>
-                <form action="main.aph" mehtod="POST">
+                <form action="main.aph" method="POST">
                   <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
                   <a class="nav-link"><i class="fas fa-pencil-ruler"></i> <button class="changeButton">알파벳마켓</button></a>
                 </form>
 	            </li>
 	
 	            <li>
-                <form action="#" mehtod="POST">
+                <form action="myAlphabet.aph" method="POST">
                   <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
                   <a class="nav-link"><i class="fas fa-pencil-ruler"></i> <button class="changeButton">내 알파벳</button></a>
                 </form>
@@ -380,7 +384,9 @@
 
 	
 	
-	            <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a></li>	
+	            <li>
+            		<a class="nav-link" href="couponStore?cno=${requestScope.classroom.classNo}"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a>
+	            </li>	
             </c:if>
             <c:choose>
               <c:when test="${not empty loginUser}">

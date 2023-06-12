@@ -65,181 +65,193 @@
 	.moreSmall{
 		height : 23px !important;
 	}
+	.myHeader{
+		font-size : 20px !important;
+		font-weight : bolder !important;
+	}
+
 	
 </style>
 </head>
 <body>
 <div id="app">
-<div>
-	<jsp:include page="/WEB-INF/views/sideBar/sideBar.jsp"/>
-	
-	<div class="main-content">
-    	
-    	<div id="todayTomorrowSchedule">
-	    	<div class="card card1">
+	<div>
+		<jsp:include page="../sideBar/sideBar.jsp"/>
+		
+		<div class="main-content">
 	    	
-	       		<div id="date_today" class="card-header myHeader">
-	       			<h5>today date</h5> 
-	       		</div>
-	            <div id="c_todayList" >
-	            	<ul></ul>
-            	</div>
-	            <div id="todayList">
-                    <ul></ul>
-	            </div>
-	            
-	        </div>
-	        
-	        <div id="card1" class="card card1">
-	        
-	       		<div id="date_tomorrow" class="card-header myHeader">
-	       			<h5>tomorrow date</h5>
-	       		</div>
-	       		<div id="c_tomorrowList">
-	            	<ul></ul>
-            	</div>
-	            <div id="tomorrowList" >
-	                <ul></ul>
-	            </div>
-	            
-	        </div>
-       	</div>
-    	
-    	
-    	
-    	
-		
-		<!-- 일정 추가 모달  -->
-    	<div id="content-area">
-			<!-- Button to Open the Modal -->
-			<button id="btn-modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">일정 추가</button>
-		
-			<!-- The Modal -->
-			<div class="modal fade" id="myModal">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						
-					<form action="insertSchedule" method="POST">
-						<!-- Modal Header -->
-						<div class="modal-header">
-							<h4 class="modal-title">일정 추가하기</h4>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-						
-						<!-- Modal body -->
-						<div class="modal-body">
-							<div id="choiceClass">
-								<c:if test="${loginUser.memberType eq 'T'}">
-									<input type="color" name="color" value="#ffc34d" style="display : none"/>
-									<c:forEach var="c" items="${classList}">
-										<input type="radio" name="classNo" value="${c.classNo}"/><label>${c.className}</label>
-									</c:forEach>
+	    	<!-- 오늘, 내일 스케줄 -->
+	    	<div id="todayTomorrowSchedule">
+		    	<div class="card card1">
+		    	
+		       		<div id="date_today" class="card-header myHeader">
+		       			<h5>today date</h5> 
+		       		</div>
+		       		
+		            <div id="todayScheduleList" class="ttScheduleList">
+			            <div id="c_todayList" >
+			            	<ul></ul>
+		            	</div>
+		            	
+			            <div id="todayList">
+		                    <ul></ul>
+			            </div>
+		            </div>
+		            
+		        </div>
+		        
+		        <div id="card1" class="card card1">
+		        
+		       		<div id="date_tomorrow" class="card-header myHeader">
+		       			<h5>tomorrow date</h5>
+		       		</div>
+		       		<div id="tomorrowScheduleList" class="ttScheduleList">
+			       		<div id="c_tomorrowList">
+			            	<ul></ul>
+		            	</div>
+		            	
+			            <div id="tomorrowList" >
+			                <ul></ul>
+			            </div>
+		            </div>
+		        </div>
+	       	</div>
+	    	
+			
+			<!-- 일정 추가 모달  -->
+	    	<div id="content-area">
+	    	
+				<!-- Button to Open the Modal -->
+				<button id="btn-modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">일정 추가</button>
+			
+				<!-- The Modal -->
+				<div class="modal fade" id="myModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							
+						<form action="insertSchedule" method="POST">
+							<!-- Modal Header -->
+							<div class="modal-header">
+								<h4 class="modal-title">일정 추가하기</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							
+							<!-- Modal body -->
+							<div class="modal-body">
+								<div id="choiceClass">
+									<c:if test="${loginUser.memberType eq 'T'}">
+										<input type="color" name="color" value="#ffc34d" style="display : none"/>
+										<c:forEach var="c" items="${classList}">
+											<input type="radio" name="classNo" value="${c.classNo}"/><label>${c.className}&nbsp;</label>
+										</c:forEach>
+									</c:if>
+								</div><br>
+								일정명 <input type="text" name="schedule" required/><br>
+								시작일 <input id="startDate" type="date" name="startDate" onchange="checkDate();" /><br>
+								종료일 <input id="endDate" type="date" name="endDate" onchange="checkDate();"/><br>
+								<p id="alert-endDate" style="display:none;">종료일은 시작일보다 빠를 수 없어요!</p>
+								<c:if test="${loginUser.memberType eq 'S'}">
+									배경색 <input type="color" name="color" value="#ffc34d" />
 								</c:if>
-							</div><br>
-							일정명 <input type="text" name="schedule" required/><br>
-							시작일 <input id="startDate" type="date" name="startDate" onchange="checkDate();" /><br>
-							종료일 <input id="endDate" type="date" name="endDate" onchange="checkDate();"/><br>
-							<p id="alert-endDate" style="display:none;">종료일은 시작일보다 빠를 수 없어요!</p>
-							<c:if test="${loginUser.memberType eq 'S'}">
-							배경색 <input type="color" name="color" value="#ffc34d" />
-							</c:if>
-							<input type="hidden" name="memberNo" value="${ loginUser.memberNo }" />
-							<input type="hidden" name="memberType" value="${loginUser.memberType }" />
-						</div>
+								<input type="hidden" name="memberNo" value="${ loginUser.memberNo }" />
+								<input type="hidden" name="memberType" value="${loginUser.memberType }" />
+							</div>
+							
+							<!-- Modal footer -->
+							<div class="modal-footer">
+							
+								<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+								<button type="submit" class="btn btn-warning" >등록</button>
+							</div>
+						</form>
 						
-						<!-- Modal footer -->
-						<div class="modal-footer">
-						
-							<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-							<button type="submit" class="btn btn-warning" >등록</button>
 						</div>
-					</form>
-					
 					</div>
 				</div>
-			</div>
-			
-		</div> <!-- 일정추가 모달 끝 -->
-			  
-			<div id="calendar">
 				
-			</div>
-			
-			
-		<!-- 캘린더 날짜 클릭 시 해당 날짜의 일정 보여주는 모달 -->
-		<div id="theDaySchedule-area" >
-		
-			<!-- The Modal -->
-			<div class="modal fade" id="theDaySchedule">
-				<div class="modal-dialog">
-			    	<div class="modal-content">
-			    	
-				        <!-- Modal Header -->
-						<div class="modal-header">
-							<h4 id="modal-date" class="modal-title date">날짜자리</h4>
-						</div>
-			
-						<!-- Modal body -->
-						<div id="theDaySchedule-content" class="modal-body">
-							내용자리
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		
-		<!-- 일정 수정 모달  -->
-    	<div id="content-area">
-		
-			<!-- The Modal -->
-			<div class="modal fade" id="updateModal">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						
-					<form action="updateSchedule" method="POST">
-						<!-- Modal Header -->
-						<div class="modal-header">
-							<h4 class="modal-title">일정 수정하기</h4>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-						
-						
-						<!-- Modal body -->
-						<div id="updateSchedule-info" class="modal-body">
-								
-						</div>
-						
-						<!-- Modal footer -->
-						<div class="modal-footer">
-						
-							<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-							<button type="submit" class="btn btn-warning" >수정</button>
-						</div>
-					</form>
+			</div> <!-- 일정추가 모달 끝 -->
+				  
+				<div id="calendar">
 					
+				</div>
+				
+				
+			<!-- 캘린더 날짜 클릭 시 해당 날짜의 일정 보여주는 모달 -->
+			<div id="theDaySchedule-area" >
+			
+				<!-- The Modal -->
+				<div class="modal fade" id="theDaySchedule">
+					<div class="modal-dialog">
+				    	<div class="modal-content">
+				    	
+					        <!-- Modal Header -->
+							<div class="modal-header">
+								<h4 id="modal-date" class="modal-title date">날짜자리</h4>
+							</div>
+				
+							<!-- Modal body -->
+							<div id="theDaySchedule-content" class="modal-body">
+								내용자리
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 			
-		</div> <!-- 일정수정 모달 끝 -->
-		
-		
-		
-		
-		
-		
-		
-		
-	</div>
-</div>	
+			
+			<!-- 일정 수정 모달  -->
+	    	<div id="content-area">
+			
+				<!-- The Modal -->
+				<div class="modal fade" id="updateModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							
+						<form action="updateSchedule" method="POST">
+							<!-- Modal Header -->
+							<div class="modal-header">
+								<h4 class="modal-title">일정 수정하기</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							
+							
+							<!-- Modal body -->
+							<div id="updateSchedule-info" class="modal-body">
+									
+							</div>
+							
+							<!-- Modal footer -->
+							<div class="modal-footer">
+							
+								<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+								<button type="submit" class="btn btn-warning" >수정</button>
+							</div>
+						</form>
+						
+						</div>
+					</div>
+				</div>
+				
+			</div> <!-- 일정수정 모달 끝 -->
+			
+			
+			
+			
+			
+			
+			
+			
+		</div>
+	</div>	
 </div>	
 
 
 
 	<script>
-		let memberNo = ${loginUser.memberNo};
-		let memberType = '${loginUser.memberType}';
+		var memberNo = ${loginUser.memberNo};
+		var memberType = '${loginUser.memberType}';
+		var todayArr = [];
+		var tomorrowArr = [];
 		
 		var d = new Date();
 		var t = new Date(new Date().setDate(d.getDate() + 1));
@@ -268,7 +280,7 @@
 							
 							$.ajax({
 		    					url : 'selectClassScheduleList', // 클래스 일정
-		    					data : {memberNo : memberNo, memberType : '${loginUser.memberType}'},
+		    					data : {memberNo : memberNo, memberType : memberType},
 		    					type : 'post',
 		    					success : function(clist){
 		    						let cScheduleList1 = '';
@@ -294,22 +306,20 @@
 			        					//console.log(clist[i].schedule + " 의 endDate : " + endDate);
 			        					
 			        					
-			        					
 			        					if(d >= startDate && d <= endDate){
 			        						cScheduleList1 +=  "<li><div id='scheduleName' >&lt;" + clist[i].className + "&gt; " + clist[i].schedule + "</div></li>"; 
-			        						
-			        					} 
-			        					
+					        				todayArr.push(clist[i]);
+			        					}
 			        					$('#c_todayList ul').html(cScheduleList1);
 			        					
 			        					if(t >= startDate && t <= endDate){
 			        						cScheduleList2 += "<li><div id='scheduleName'>&lt;" + clist[i].className + "&gt;" + clist[i].schedule + "</div></li>"; 
-							
+			        						tomorrowArr.push(clist[i]);
 			        					}
 			        					$('#c_tomorrowList ul').html(cScheduleList2);
 			        					
-			        					
 			        				}
+			        				//console.log(todayArr);
 		    						successCallback(value);
 		    					}
 		    				})
@@ -348,18 +358,30 @@
 											//console.log(list[i].schedule + " 의 endDate : " + endDate);
 											if(d >= startDate && d <= endDate){
 												scheduleList1 +=  "<li><span id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</span></li>"; 
-												
+												todayArr.push(list[i]);
 											} 
 											$('#todayList ul').html(scheduleList1);
 											
 											if(t >= startDate && t <= endDate){
 												scheduleList2 += "<li><span id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</span></li>"; 
-								
+												tomorrowArr.push(list[i]);
 											}
 											$('#tomorrowList ul').html(scheduleList2);
 										}
 									}
 									successCallback(value);
+
+									// 캘린더 상단에 오늘, 내일 일정 없을 경우
+			        				if(todayArr.length == 0){
+			        					console.log('길이 0');
+			        					$('#todayScheduleList').html("----- 오늘 일정이 존재하지 않습니다 -----").css({"color" : "gray", "margin" : "30px", "font-size" : "12px"});
+			        				}
+									if(tomorrowArr.length == 0){
+										$('#tomorrowScheduleList').html("----- 내일 일정이 존재하지 않습니다 -----").css({"color" : "gray", "margin" : "30px", "font-size" : "12px"});
+									}
+			        				
+			        				
+			        				
 	        					}
 							})
 		        		}
@@ -422,7 +444,7 @@
     		arr = []; // 초기화
     		let value = '';
     		
-    		
+    		console.log(arr[0]);
     		
     		$.ajax({
     			url : 'daySchedule',
@@ -432,24 +454,35 @@
     				
     				$('#modal-date').html(date);
     				
+    					//console.log(list);
     				for(let i in list){
-    					console.log(list);
 						arr.push(list[i]);
+						
+						console.log(arr[0]);
+						
     					
     					value += "<div>✔️";
     					
-    					if(list[i].memberNo != memberNo){
+    					if(list[i].className != null){
     						value += "&lt;" + list[i].className + "&gt;&nbsp;";
     					}
-    						   
-    					value += list[i].schedule + "(" + list[i].startDate + " ~ " + list[i].endDate +  ")"
+    					
+    					// 풀캘린더에 endDate +1로 조회해오기 때문에(화면 출력을 -1로 함) 문자로 보여주기 위해 재정의
+    					var endDate = new Date(list[i].endDate);
+    					endDate.setDate(endDate.getDate() - 1);
+    					//console.log(endDate);
+    					
+    					var startDate = new Date(list[i].startDate);
+    					//var startDateFormat = startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
+    					var endDateFormat = endDate.toISOString().substring(0, 10);
+    					
+    					value += list[i].schedule + "(" + list[i].startDate + " ~ " + endDateFormat +  ")"
 							   + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div id='scheduleNo' style='display:none'>" + list[i].scheduleNo + " </div>";
 							   
 						if(list[i].memberNo == memberNo ){
 						    value += "<button type='button' onclick='showUpdateModal(" + i + ");' class='btn btn-warning btn-sm moreSmall'>수정</button>"
-								   + "<button type='button' id='btn1' onclick='deleteSchedule();' class='btn btn-primary btn-sm moreSmall'>삭제</button></div><br>";
+								   + "<button type='button' id='btn1' onclick='deleteSchedule(" + i + ");' class='btn btn-primary btn-sm moreSmall'>삭제</button></div><br>";
 						}
-    				
     				}
     				$('#theDaySchedule-content').html(value);
     			}
@@ -462,25 +495,39 @@
 	  
     	
     	// 일정 삭제 버튼 클릭 시
-    	function deleteSchedule(){
-    		let scheduleNo = $('#scheduleNo').text();
-    		location.href="deleteSchedule?scheduleNo=" + scheduleNo; 
+    	function deleteSchedule(i){
+    		let s = arr[i];
+    		
+    		location.href="deleteSchedule?scheduleNo=" + s.scheduleNo; 
     	}
+    	
+    	// 일정 수정 버튼 클릭 시
  		function showUpdateModal(i){
 			
  			let s = arr[i];
- 			//console.log(s);
  			
  			let value = '';
+ 			endDate = new Date(s.endDate);
+ 			endDate.setDate(endDate.getDate() -1);
+ 			
+ 			
+ 			let inputEndDate = endDate.toISOString().substring(0, 10);
  			
  			value += "일정명 <input type='text' name='schedule' value='" + s.schedule + "'/><br>"
 				   + "시작일 <input id='re_startDate' type='date' name='startDate' onchange='checkDate();' value='" + s.startDate + "'/><br>"
-				   + "종료일 <input id='re_endDate' type='date' name='endDate' onchange='checkDate();' value='" + s.endDate + "'/><br>"
-				   + "<p id='re_alert-endDate' style='display:none'>종료일은 시작일보다 빠를 수 없어요!</p>"
-				   + "배경색 <input type='color' name='color' value='" + s.color + "'/>"
-				   + "<input type='hidden' name='scheduleNo' value='" + s.scheduleNo + "'/>";			
- 		
-				   $('#updateSchedule-info').html(value);	   
+				   + "종료일 <input id='re_endDate' type='date' name='endDate' onchange='checkDate();' value='" + inputEndDate + "'/><br>"
+				   + "<p id='re_alert-endDate' style='display:none'>종료일은 시작일보다 빠를 수 없어요!</p>";
+				   
+			if(memberType == "S"){	   
+				value += "배경색 <input type='color' name='color' value='" + s.color + "'/>";
+			} else{
+				value += "배경색 <input type='color' name='color' value='#ffeecc' style='display : none' />";
+			}
+			
+		   value += "<input type='hidden' name='scheduleNo' value='" + s.scheduleNo + "'/>";
+		   		  + "<input type='hidden' name='memberNo' value='" + memberType + "' />";
+	
+		   $('#updateSchedule-info').html(value);	   
 				   
 			$('#updateModal').modal();	   
  		}

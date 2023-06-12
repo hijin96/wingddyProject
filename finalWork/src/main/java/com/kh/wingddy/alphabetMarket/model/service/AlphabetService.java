@@ -6,6 +6,8 @@ import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
+import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
+import com.kh.wingddy.alphabetMarket.model.vo.Words;
 import com.kh.wingddy.common.model.vo.PageInfo;
 
 public interface AlphabetService {
@@ -31,17 +33,7 @@ public interface AlphabetService {
 	// 알파벳 마켓 글 작성
 	int insertMarket(AlphabetMarket am);
 	
-	
-	// 마켓 글 삭제
-	int deleteMarket(int marketBno);
 
-	
-	// 마켓 거래시 해당 알파벳 소유 여부 확인
-	int alphabet(AlphabetMarket am); // writer, alphabet
-	
-	
-	// 마켓 댓글 리스트 불러오기
-	int ajaxSelectReply(int marketBno);
 	
 	// 마켓 댓글 작성
 	int ajaxInsertReply(MarketReply mr);
@@ -51,16 +43,17 @@ public interface AlphabetService {
 	String ajaxChangeAlphabet(ChangeAlphabet ca);
 	
 	
+	// 내 알파벳 마이 카운트조회
+	MyCount ajaxMyCount(MyCount mc);
+	
+	// 작성자의 마지막 게시글 번호 조회
+	int writerLastMarket(AlphabetMarket am);
+	
+	// 알파벳 가챠
+	String ajaxGachaAlphabet(Alphabet ap);
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 단어 > 쿠폰 교환
+	public String insertWords(Words wd);
 	
 }

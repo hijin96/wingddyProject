@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Attachment {
 	private int fileNo;
-	private int memNo;
+	private int memberNo;
 	private String originName;
 	private String changeName;
 	private int fileLevel;

@@ -17,10 +17,13 @@ public interface StoreService {
 	
 	//조회수 증가하면 글보기 성공
 	int inceraseCount(int spNo);
-	//게시글 작성하기
-
-	int insertStoreBoard(HashMap<String,Object> map);
-
+	//게시글 작성하기-1 글정보만
+	int insertStoreText(HashMap<String,Object> jsonstore);
+	//게시글 작성하기-2
+	int insertStoreBoard(Store s,Attachment at);
+	//썸네일 번호 생성
+	int createFileNo();
+	
 	//int insertStoreBoard(Store s);
 
 	//게시글 수정하기

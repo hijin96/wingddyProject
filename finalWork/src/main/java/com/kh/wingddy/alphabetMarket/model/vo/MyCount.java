@@ -11,7 +11,6 @@ import lombok.ToString;
 public class MyCount extends Member {
 	
 	private int classNo; //CLASS_NO	NUMBER
-	private int memberNo; //MEMBER_NO	NUMBER
 	private int couponCount; //COUPON_COUNT	NUMBER
 	private int gachaCount; //GACHA_COUNT	NUMBER
 	private int totalCouponCount; //TOTAL_COUPON_COUNT	NUMBER

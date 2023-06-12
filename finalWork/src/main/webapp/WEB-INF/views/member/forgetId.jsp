@@ -21,13 +21,12 @@
 
                 <div class="form-group col-3">
                     <label for="email">EMAIL</label>
-                    <input id="emailFornt" type="text" class="form-control" name="email" autofocus required placeholder="Please Enter Email">
+                    <input id="emailFornt" type="text" class="form-control" name="email" autofocus required placeholder="Please Enter Front Email">
                 </div>
                 <div class="form-group col-3">
                     <label for="emailBack">Select Email</label>
                     <select class="form-control selectric" id="emailBack">
-                        <option>Enter It YourSelf</option>
-                        <option>@wingddy.com</option>
+                        <option selected>@wingddy.com</option>
                         <option>@naver.com</option>
                         <option>@gmail.com</option>
                         <option>@daum.net</option>
@@ -57,7 +56,7 @@
                             alert(member.memberId);
                         } 
                         else {
-
+                            alert('조회결과 없음');
                         }
                     },
                     error : function(){

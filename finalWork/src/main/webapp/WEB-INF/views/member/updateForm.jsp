@@ -72,32 +72,25 @@
                     </div>
                   </div>
 
-                  <div class="row">
-                    <div class="form-group col-6">
-                      <label>Phone</label>
-                      <img src="" alt="">
-                    </div>
-                  </div>
+                  
 
-                  <div class="row" id="teacher-file" style="display:none;">
-                    <div class="col-5">
+                  <div class="row">
+                    <div class="col-6">
                       <div class="card">
                         <div class="card-header">
-                          <h4>재직증명서 첨부하기</h4>
+                          <h4></h4>
                         </div>
                         <div class="card-body">
                             <div class="fallback">
-                              <input name="reUpfile" type="file" class="dropzone"/>
+                              <input type="text">
                             </div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-
-
                   <div class="row" id="profile">
-                    <div class="col-5">
+                    <div class="col-6">
                       <div class="card">
                         <div class="card-header">
                           <h4>프로필 수정하기</h4>
@@ -110,6 +103,9 @@
                                   <input type="hidden" name="update" value="firstUpdate">
                                 </c:when>
                                 <c:otherwise>
+                                  <input type="hidden" name="originName" value="${profile.originName}">
+                                  <input type="hidden" name="filePath" value="${profile.filePath}">
+                                  <input type="hidden" name="fileNo" value="${profile.fileNo}">
                                   <input type="hidden" name="update" value="update">
                                 </c:otherwise>
                               </c:choose>
@@ -118,6 +114,9 @@
                       </div>
                     </div>
                   </div>
+
+
+
 
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block">
@@ -136,26 +135,7 @@
     </section>
   </div>
   <script>
-    
-    window.onload = function(){
-      
-      var idInput = document.getElementById('frist_name');
-
-      idInput.addEventListener("keyup", ()=> keyupInput());
-    
-      const url = new URL(window.location.href);
-
-
-      console.log(url.search); // ?teacher
-
-      if(url.search === '?teacher'){
-        console.log('ok');
-        document.getElementById('teacher-file').style = 'display:show';
-      }
-      else {
-        console.log('no');
-      }
-    }
+   
     
 
   </script>
