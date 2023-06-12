@@ -188,7 +188,7 @@ public class MemberController {
 				result = memberService.updateMember(m, at);
 			}
 		}
-		System.out.println("프로필 update : " + result);
+		//System.out.println("프로필 update : " + result);
 		if(result > 0) {
 			//System.out.println("update성공한 at객체 : " + at);
 			session.setAttribute("alertMsg", "수정완료");
@@ -214,6 +214,12 @@ public class MemberController {
 	public String searchId(String email) {
 		
 		return new Gson().toJson(memberService.searchId(email));
+	}
+	
+	@RequestMapping("updateEmploy.me")
+	public String employForm() {
+		
+		return "member/employForm";
 	}
 	
 }
