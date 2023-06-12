@@ -16,14 +16,27 @@
 		        <div class="section-header">
 		     		<h1>My Alphabet</h1>
 		        </div>
-				
 
 		        <div class="section-body">
 					<div class="card">
 						<div class="card-body">
-							<div class="text-primary mb-2" id="gachaCount">내 뽑기 갯수 : 5 </div>
-							<div class="text-primary mb-2" id="couponCount">내 쿠폰 갯수 : 3</div>
-							<div class="text-primary mb-2" id="totalCouponCount">누적 쿠폰 갯수 : 12</div>
+							<table class="text-primary mb-2">
+								<tr>
+									<td>내 뽑기 갯수  :</td>
+									<td id="gachaCount"></td>
+								
+								</tr>
+								<tr>
+									<td>내 쿠폰 갯수  :</td>
+									<td id="couponCount"></td>
+									
+								</tr>
+								<tr>
+									<td>누적 쿠폰 갯수  :</td>
+									<td id="totalCouponCount">5</td>
+									
+								</tr>
+							</table>
 							<div align="right">
 								<a href="#"class="btn btn-primary" id="gachaBtn">알파벳 뽑기</a>
 								<a href="#"class="btn btn-primary">단어 만들기</a>
@@ -116,7 +129,7 @@
 
 
 	$('#gachaBtn').click(function(){
-		
+		getAlphabet();
 	})
 
 	$(function(){
@@ -135,11 +148,10 @@
 			},
 			success : function(result){
 
-				console.log("dfsdfsdf");
-				console.log(result);
-				$('#gachaCount').text('내 뽑기 갯수 : ' + result.gachaCount);
-				$('#couponCount').text('내 쿠폰 갯수 : ' + result.couponCount);
-				$('#totalCouponCount').text('누적 쿠폰 갯수 : ' + result.totalCouponCount);
+		
+				$('#gachaCount').text(result.gachaCount);
+				$('#couponCount').text(result.couponCount);
+				$('#totalCouponCount').text(result.totalCouponCount);
 			}
 		})
 	}
@@ -172,6 +184,29 @@
 				$('#alphabetList').html(value);
 			}
 		})
+	}
+
+
+	function getAlphabet(){
+	
+
+		if($('#gachaCount').text() != '0'){
+
+			if (confirm('Do you wanna get it?')) {
+
+				var alphabetArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+				var random_index = Math.floor(Math.random() * alphabetArr.length);
+				var random_alphabet = alphabetArr[random_index];
+				
+				$.ajax({
+					url : insert.
+				})
+
+				alert(random_alphabet + '를 뽑았어요!!');
+				
+			}
+
+		}
 	}
 </script>
 

@@ -180,29 +180,30 @@ public class AlphabetController {
 	}
 	
 	
-	
+	// 마이 알파벳 화면에 마이 카운트
 	@ResponseBody
 	@RequestMapping(value="myCount.aph", produces="application/json; charset=UTF-8")
 	public String ajaxMyCount(MyCount mc) {
-		
-		System.out.println(AlphabetService.ajaxMyCount(mc));
 		
 		return new Gson().toJson(AlphabetService.ajaxMyCount(mc));
 		
 	}
 	
 
+	// 마이 알파벳 화면에 내 알파벳
 	@ResponseBody
 	@RequestMapping(value="myAlphabetList.aph", produces="application/json; charset=UTF-8")
-	public String myAlphabetList(Alphabet ap) {
-		
-	
+	public String ajaxMyAlphabetList(Alphabet ap) {
 
-		
 		return new Gson().toJson(AlphabetService.selectCategory(ap));
 		
 	}
 	
+	
+	// 알파벳 뽑기 결과
+	public String ajaxInsertAlphabet(Alphabet ap) {
+		
+	}
 	
 	
 	
