@@ -159,26 +159,25 @@ public class MemberController {
 	
 	
 	@RequestMapping("updateMember.me")
-	public String updateMember(Member m, MultipartFile reUpfile, HttpSession session, String update) {
+	public String updateMember(Member m, Attachment at, MultipartFile reUpfile, HttpSession session, String update) {
 		
 		//System.out.println(update);
 		int result = 0;
-		Attachment at = new Attachment();
+		//System.out.println("기존에 존재하는 프로필 : " + at);
 		if(!reUpfile.getOriginalFilename().equals("")) {
-			at = memberService.selectProfile(m.getMemberNo());
-			if(at != null) {
-				new File(session.getServletContext().getRealPath(at.getChangeName())).delete();
-			} else {
-				at = new Attachment();
-			}
+			if(at.getOriginName() != null) {
+				new File(session.getServletContext().getRealPath(at.getFilePath())).delete();
+			} 
 			
 			String changeName = renameFile.fileName(reUpfile, session);
 			
-			at.setMemNo(m.getMemberNo());
+			at.setMemberNo(m.getMemberNo());
 			at.setOriginName(reUpfile.getOriginalFilename());
 			at.setChangeName(changeName);
 			at.setFilePath("resources/uploadFiles/" + changeName);
 			at.setFileLevel(0);
+			
+			//System.out.println("가공된 at객체 : " + at);
 			
 			if(update.equals("firstUpdate")) {
 				result = memberService.insertProfile(at);
@@ -191,6 +190,7 @@ public class MemberController {
 		}
 		//System.out.println("프로필 update : " + result);
 		if(result > 0) {
+			//System.out.println("update성공한 at객체 : " + at);
 			session.setAttribute("alertMsg", "수정완료");
 			session.removeAttribute("profile");
 			session.removeAttribute("loginUser");
@@ -214,6 +214,12 @@ public class MemberController {
 	public String searchId(String email) {
 		
 		return new Gson().toJson(memberService.searchId(email));
+	}
+	
+	@RequestMapping("updateEmploy.me")
+	public String employForm() {
+		
+		return "member/employForm";
 	}
 	
 }
