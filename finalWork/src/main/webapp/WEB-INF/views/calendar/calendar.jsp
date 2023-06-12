@@ -75,173 +75,174 @@
 </head>
 <body>
 <div id="app">
-<div>
-	<jsp:include page="/WEB-INF/views/sideBar/sideBar.jsp"/>
-	
-	<div class="main-content">
-    	
-    	<div id="todayTomorrowSchedule">
-	    	<div class="card card1">
+	<div>
+		<jsp:include page="../sideBar/sideBar.jsp"/>
+		
+		<div class="main-content">
 	    	
-	       		<div id="date_today" class="card-header myHeader">
-	       			<h5>today date</h5> 
-	       		</div>
-	            <div id="todayScheduleList" class="ttScheduleList">
-		            <div id="c_todayList" >
-		            	<ul></ul>
-	            	</div>
-		            <div id="todayList">
-	                    <ul></ul>
+	    	<!-- 오늘, 내일 스케줄 -->
+	    	<div id="todayTomorrowSchedule">
+		    	<div class="card card1">
+		    	
+		       		<div id="date_today" class="card-header myHeader">
+		       			<h5>today date</h5> 
+		       		</div>
+		       		
+		            <div id="todayScheduleList" class="ttScheduleList">
+			            <div id="c_todayList" >
+			            	<ul></ul>
+		            	</div>
+		            	
+			            <div id="todayList">
+		                    <ul></ul>
+			            </div>
 		            </div>
-	            </div>
-	            
-	        </div>
-	        
-	        <div id="card1" class="card card1">
-	        
-	       		<div id="date_tomorrow" class="card-header myHeader">
-	       			<h5>tomorrow date</h5>
-	       		</div>
-	       		<div id="tomorrowScheduleList" class="ttScheduleList">
-		       		<div id="c_tomorrowList">
-		            	<ul></ul>
-	            	</div>
-		            <div id="tomorrowList" >
-		                <ul></ul>
+		            
+		        </div>
+		        
+		        <div id="card1" class="card card1">
+		        
+		       		<div id="date_tomorrow" class="card-header myHeader">
+		       			<h5>tomorrow date</h5>
+		       		</div>
+		       		<div id="tomorrowScheduleList" class="ttScheduleList">
+			       		<div id="c_tomorrowList">
+			            	<ul></ul>
+		            	</div>
+		            	
+			            <div id="tomorrowList" >
+			                <ul></ul>
+			            </div>
 		            </div>
-	            </div>
-	            
-	        </div>
-       	</div>
-    	
-    	
-    	
-    	
-		
-		<!-- 일정 추가 모달  -->
-    	<div id="content-area">
-			<!-- Button to Open the Modal -->
-			<button id="btn-modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">일정 추가</button>
-		
-			<!-- The Modal -->
-			<div class="modal fade" id="myModal">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						
-					<form action="insertSchedule" method="POST">
-						<!-- Modal Header -->
-						<div class="modal-header">
-							<h4 class="modal-title">일정 추가하기</h4>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-						
-						<!-- Modal body -->
-						<div class="modal-body">
-							<div id="choiceClass">
-								<c:if test="${loginUser.memberType eq 'T'}">
-									<input type="color" name="color" value="#ffc34d" style="display : none"/>
-									<c:forEach var="c" items="${classList}">
-										<input type="radio" name="classNo" value="${c.classNo}"/><label>${c.className}</label>
-									</c:forEach>
+		        </div>
+	       	</div>
+	    	
+			
+			<!-- 일정 추가 모달  -->
+	    	<div id="content-area">
+	    	
+				<!-- Button to Open the Modal -->
+				<button id="btn-modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">일정 추가</button>
+			
+				<!-- The Modal -->
+				<div class="modal fade" id="myModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							
+						<form action="insertSchedule" method="POST">
+							<!-- Modal Header -->
+							<div class="modal-header">
+								<h4 class="modal-title">일정 추가하기</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							
+							<!-- Modal body -->
+							<div class="modal-body">
+								<div id="choiceClass">
+									<c:if test="${loginUser.memberType eq 'T'}">
+										<input type="color" name="color" value="#ffc34d" style="display : none"/>
+										<c:forEach var="c" items="${classList}">
+											<input type="radio" name="classNo" value="${c.classNo}"/><label>${c.className}&nbsp;</label>
+										</c:forEach>
+									</c:if>
+								</div><br>
+								일정명 <input type="text" name="schedule" required/><br>
+								시작일 <input id="startDate" type="date" name="startDate" onchange="checkDate();" /><br>
+								종료일 <input id="endDate" type="date" name="endDate" onchange="checkDate();"/><br>
+								<p id="alert-endDate" style="display:none;">종료일은 시작일보다 빠를 수 없어요!</p>
+								<c:if test="${loginUser.memberType eq 'S'}">
+									배경색 <input type="color" name="color" value="#ffc34d" />
 								</c:if>
-							</div><br>
-							일정명 <input type="text" name="schedule" required/><br>
-							시작일 <input id="startDate" type="date" name="startDate" onchange="checkDate();" /><br>
-							종료일 <input id="endDate" type="date" name="endDate" onchange="checkDate();"/><br>
-							<p id="alert-endDate" style="display:none;">종료일은 시작일보다 빠를 수 없어요!</p>
-							<c:if test="${loginUser.memberType eq 'S'}">
-								배경색 <input type="color" name="color" value="#ffc34d" />
-							</c:if>
-							<input type="hidden" name="memberNo" value="${ loginUser.memberNo }" />
-							<input type="hidden" name="memberType" value="${loginUser.memberType }" />
-						</div>
+								<input type="hidden" name="memberNo" value="${ loginUser.memberNo }" />
+								<input type="hidden" name="memberType" value="${loginUser.memberType }" />
+							</div>
+							
+							<!-- Modal footer -->
+							<div class="modal-footer">
+							
+								<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+								<button type="submit" class="btn btn-warning" >등록</button>
+							</div>
+						</form>
 						
-						<!-- Modal footer -->
-						<div class="modal-footer">
-						
-							<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-							<button type="submit" class="btn btn-warning" >등록</button>
 						</div>
-					</form>
-					
 					</div>
 				</div>
-			</div>
-			
-		</div> <!-- 일정추가 모달 끝 -->
-			  
-			<div id="calendar">
 				
-			</div>
-			
-			
-		<!-- 캘린더 날짜 클릭 시 해당 날짜의 일정 보여주는 모달 -->
-		<div id="theDaySchedule-area" >
-		
-			<!-- The Modal -->
-			<div class="modal fade" id="theDaySchedule">
-				<div class="modal-dialog">
-			    	<div class="modal-content">
-			    	
-				        <!-- Modal Header -->
-						<div class="modal-header">
-							<h4 id="modal-date" class="modal-title date">날짜자리</h4>
-						</div>
-			
-						<!-- Modal body -->
-						<div id="theDaySchedule-content" class="modal-body">
-							내용자리
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		
-		<!-- 일정 수정 모달  -->
-    	<div id="content-area">
-		
-			<!-- The Modal -->
-			<div class="modal fade" id="updateModal">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						
-					<form action="updateSchedule" method="POST">
-						<!-- Modal Header -->
-						<div class="modal-header">
-							<h4 class="modal-title">일정 수정하기</h4>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-						
-						
-						<!-- Modal body -->
-						<div id="updateSchedule-info" class="modal-body">
-								
-						</div>
-						
-						<!-- Modal footer -->
-						<div class="modal-footer">
-						
-							<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-							<button type="submit" class="btn btn-warning" >수정</button>
-						</div>
-					</form>
+			</div> <!-- 일정추가 모달 끝 -->
+				  
+				<div id="calendar">
 					
+				</div>
+				
+				
+			<!-- 캘린더 날짜 클릭 시 해당 날짜의 일정 보여주는 모달 -->
+			<div id="theDaySchedule-area" >
+			
+				<!-- The Modal -->
+				<div class="modal fade" id="theDaySchedule">
+					<div class="modal-dialog">
+				    	<div class="modal-content">
+				    	
+					        <!-- Modal Header -->
+							<div class="modal-header">
+								<h4 id="modal-date" class="modal-title date">날짜자리</h4>
+							</div>
+				
+							<!-- Modal body -->
+							<div id="theDaySchedule-content" class="modal-body">
+								내용자리
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 			
-		</div> <!-- 일정수정 모달 끝 -->
-		
-		
-		
-		
-		
-		
-		
-		
-	</div>
-</div>	
+			
+			<!-- 일정 수정 모달  -->
+	    	<div id="content-area">
+			
+				<!-- The Modal -->
+				<div class="modal fade" id="updateModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							
+						<form action="updateSchedule" method="POST">
+							<!-- Modal Header -->
+							<div class="modal-header">
+								<h4 class="modal-title">일정 수정하기</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							
+							
+							<!-- Modal body -->
+							<div id="updateSchedule-info" class="modal-body">
+									
+							</div>
+							
+							<!-- Modal footer -->
+							<div class="modal-footer">
+							
+								<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+								<button type="submit" class="btn btn-warning" >수정</button>
+							</div>
+						</form>
+						
+						</div>
+					</div>
+				</div>
+				
+			</div> <!-- 일정수정 모달 끝 -->
+			
+			
+			
+			
+			
+			
+			
+			
+		</div>
+	</div>	
 </div>	
 
 
@@ -519,6 +520,8 @@
 				   
 			if(memberType == "S"){	   
 				value += "배경색 <input type='color' name='color' value='" + s.color + "'/>";
+			} else{
+				value += "배경색 <input type='color' name='color' value='#ffeecc' style='display : none' />";
 			}
 			
 		   value += "<input type='hidden' name='scheduleNo' value='" + s.scheduleNo + "'/>";

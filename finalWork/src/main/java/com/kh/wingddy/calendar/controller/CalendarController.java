@@ -13,7 +13,7 @@ import com.kh.wingddy.calendar.model.service.CalendarServiceImpl;
 import com.kh.wingddy.calendar.model.vo.Calendar;
 
 @Controller
-public class calendarController {
+public class CalendarController {
 	
 	@Autowired
 	private CalendarServiceImpl calendarService;
@@ -62,7 +62,7 @@ public class calendarController {
 	
 	@RequestMapping("updateSchedule")
 	public String updateSchedule(Calendar c, Model model) {
-		System.out.println(c);
+		//System.out.println(c);
 		if(calendarService.updateSchedule(c) > 0) {
 			return "redirect:/calendar";
 		} else {

@@ -50,17 +50,8 @@
                 </c:choose>                 
               <div class="profile-widget-items">
                 <div class="profile-widget-item">
-                  <div class="profile-widget-item-label">Posts</div>
-                  <div class="profile-widget-item-value">187</div>
+                  <div class="profile-widget-item-label">My Profile</div>
                 </div>
-                <div class="profile-widget-item">
-                  <div class="profile-widget-item-label">Followers</div>
-                  <div class="profile-widget-item-value">6,8K</div>
-              </div>
-              <div class="profile-widget-item">
-                <div class="profile-widget-item-label">Following</div>
-                <div class="profile-widget-item-value">2,1K</div>
-              </div>
             </div>
           </div>
           <div class="profile-widget-description">
@@ -75,6 +66,9 @@
             <a href="#" class="ion-ios-calendar" data-pack="ios" data-tags="date, time, month, year" style="font-size:x-large;"></a>
             <a href="#" class="ion-ios-bookmarks" data-pack="default" data-tags="favorite, tag, save" style="font-size: x-large;"></a>
             <a href="#" id="swal-7" class="ion-android-settings" data-pack="android" data-tags="options" style="font-size:x-large;"></a>
+            <c:if test="${loginUser.memberType eq 'T'}">
+              <a href="#" id="swal-9" class="ion-android-settings" data-pack="android" data-tags="options" style="font-size:x-large;"></a>
+            </c:if>
           </div>
         </div>
       </div>
@@ -144,6 +138,44 @@
               });
             });
           });
+
+  $("#swal-9").click(function() {
+    swal({
+      title: 'What is your Password?',
+      content: {
+      element: 'input',
+      attributes: {
+        placeholder: 'Type your Password',
+        type: 'text',
+      },
+      },
+    }).then((data) => {
+      $.ajax({
+        url : 'confirmPass.me',
+        data : {memberPwd : data},
+        type : 'post',
+        success : function(result){
+            //console.log(result);
+            if(result === '1'){
+              swal('Correct Password!', 'Update Proof Of Employment?', 'success');
+              $('.swal-button--confirm').on('click', function(){
+                  //console.log('dd');
+                  if('${loginUser.memberType}' === 'T'){
+                    location.href = 'updateEmploy.me';
+                  }
+              })
+              
+            }
+            else{
+              swal('incorrect password!', 'enter agian', 'error');
+            }
+        },
+        error : function(){
+          swal('incorrect password!', 'enter agian', 'error');
+        }
+      });
+    });
+  });      
   </script>
 </body>
 </html>

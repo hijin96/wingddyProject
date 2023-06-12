@@ -21,17 +21,26 @@
 	href="resources/images/apple-touch-icon.png">
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+
 <!-- Site CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/style.css">
+<%-- <link rel="stylesheet"
+	href="${contextPath}/css/style.css"> --%>
 <!-- Responsive CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/responsive.css">
+<%-- <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/responsive.css"> --%>
 <!-- Custom CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/custom.css">
+<%-- <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/custom.css"> --%>
+	<style>
+		.ck.ck-editor  {
+			width: 80%;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		.ck-editor__editable {
+			min-height: 300px;
+		}
+	</style>	
 <meta charset="UTF-8">
 <title>상품디테일</title>
 </head>
@@ -53,7 +62,7 @@
 									<div class="carousel-inner" role="listbox">
 										<div class="carousel-item active">
 											<img class="d-block w-100"
-												src="resources/images/big-img-01.jpg" alt="First slide">
+												src="${contextPath}/${s.filePath}/${s.changeName}" alt="First slide">
 										</div>
 
 									</div>
@@ -66,43 +75,21 @@
 										class="fa fa-angle-right" aria-hidden="true"></i> <span
 										class="sr-only">Next</span>
 									</a>
-									<ol class="carousel-indicators">
-										<li data-target="#carousel-example-1" data-slide-to="0"
-											class="active"><img class="d-block w-100 img-fluid"
-											src="${pageContext.request.contextPath}/resources/resources/images/smp-img-01.jpg"
-											alt="" /></li>
-										<li data-target="#carousel-example-1" data-slide-to="1">
-											<img class="d-block w-100 img-fluid"
-											src="${pageContext.request.contextPath}/resources/images/smp-img-02.jpg"
-											alt="" />
-										</li>
-										<li data-target="#carousel-example-1" data-slide-to="2">
-											<img class="d-block w-100 img-fluid"
-											src="${pageContext.request.contextPath}/resources/images/smp-img-03.jpg"
-											alt="" />
-										</li>
-									</ol>
+						
 								</div>
 							</div>
 							<div class="col-xl-7 col-lg-7 col-md-6">
 								<div class="single-product-details">
-									<h2>상품명 </h2>
+									<h2>${s.spName}</h2>
 									<h5>
-										<del>$ 가격란원가${s. }</del>
-										$40.79 지금가격
+										<span>${s.spPrice}원<span>
+										
 									</h5>
 									<p class="available-stock">
-										<span> More than 20 available / <a href="#">8 sold
-										</a></span>
+										<span> 남은수량  ${s.amount }개</span>
 									<p>
-									<h4>Short Description:</h4>
-									<p>상품 한줄 설명 Nam sagittis a augue eget scelerisque. Nullam lacinia
-										consectetur sagittis. Nam sed neque id eros fermentum
-										dignissim quis at tortor. Nullam ultricies urna quis sem
-										sagittis pharetra. Nam erat turpis, cursus in ipsum at, tempor
-										imperdiet metus. In interdum id nulla tristique accumsan. Ut
-										semper in quam nec pretium. Donec egestas finibus suscipit.
-										Curabitur tincidunt convallis arcu.</p>
+									<h6>한줄 소개</h6>
+									<p>${s.spOnecom }</p>
 									<ul>
 										<li>
 											<div class="form-group quantity-box">
@@ -111,24 +98,17 @@
 											</div>
 										</li>
 									</ul>
-
 									<div class="price-box-bar">
 										<div class="cart-and-bay-btn">
-											<a class="btn btn-info" data-fancybox-close="" href="#"> 구매하기 New</a> 
+											<a class="btn btn-info" data-fancybox-close="" href="#"> <input type="hidden">구매하기 </a> 
 											<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">장바구니!!</button>
 										<div class="add-to-btn">
 											<div class="add-comp">
 												<a class="btn hvr-hover" href="#"> <i class="fas fa-heart"></i>위시리스트</a> 
 											</div>
 										</div>
-										
 										</div>
-										
-										
-										
 									</div>
-
-									
 										<!--장바구니 모달창 -->						
 										<div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
 								          <div class="modal-dialog" role="document">
@@ -149,25 +129,40 @@
 								            </div>
 								          </div>
 								        </div>
-								
-																	
-									
-									
-
-							<!-- 		<div class="add-to-btn">
-										<div class="add-comp">
-											<a class="btn hvr-hover" href="#"> <i class="fas fa-heart"></i>위시리스트</a> 
-											<a class="btn hvr-hover" href="#"> <i class="fas fa-sync-alt"></i> Add to Compare</a>
-										</div>
-	
-									</div> -->
+									<div class="add-to-btn">
+									</div> 
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<!--콘텐츠영역  -->
+				<script src="/wingddy/resources/ckeditor/ckeditor.js"></script> 
+				<div class="ck-body-wrapper">
+					<div id="editor"> ${s.spContent }</div>
+				</div>	
+				 <script>
+					 /* ClassicEditor
+					    .create( document.querySelector( '#editor' ), {
+					        // The editor's configuration.
+					        // ...
+					    } ).then( editor => {
+					        const toolbarElement = editor.ui.view.toolbar.element;
+	
+					        editor.on( 'change:isReadOnly', ( evt, propertyName, isReadOnly ) => {
+					            if ( isReadOnly ) {
+					                toolbarElement.style.display = 'none';
+					            } else {
+					                toolbarElement.style.display = 'flex';
+					            }
+					        } );
+					    } )
+					    .catch( error => {
+					        console.log( error );
+					    } ); */
+				</script>
+				
 				<!--댓글란-->
-
 				<div class="row my-5">
 					<div class="card card-outline-secondary my-4">
 						<div class="card-header">
