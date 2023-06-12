@@ -182,12 +182,12 @@ public class AlphabetController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value="myCount.aph")
+	@RequestMapping(value="myCount.aph", produces="application/json; charset=UTF-8")
 	public String ajaxMyCount(MyCount mc) {
 		
 		System.out.println(AlphabetService.ajaxMyCount(mc));
 		
-		return "123";
+		return new Gson().toJson(AlphabetService.ajaxMyCount(mc));
 		
 	}
 	
