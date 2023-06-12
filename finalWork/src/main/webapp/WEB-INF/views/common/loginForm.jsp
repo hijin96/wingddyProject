@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,15 +9,15 @@
   <title>Login &mdash; Wingddy</title>
 
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/fontawesome/css/all.min.css">
 
   <!-- CSS Libraries -->
-  <link rel="stylesheet" href="${contextPath}/resources/assets/modules/bootstrap-social/bootstrap-social.css">
+  <link rel="stylesheet" href="resources/assets/modules/bootstrap-social/bootstrap-social.css">
 
   <!-- Template CSS -->
-  <link rel="stylesheet" href="${contextPath}/resources/assets/css/style.css">
-  <link rel="stylesheet" href="${contextPath}/resources/assets/css/components.css">
+  <link rel="stylesheet" href="resources/assets/css/style.css">
+  <link rel="stylesheet" href="resources/assets/css/components.css">
 <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
 <script>
@@ -45,7 +46,14 @@
                 <form method="POST" action="login.me" class="needs-validation" novalidate="">
                   <div class="form-group">
                     <label for="email">ID</label>
-                    <input id="email" type="text" class="form-control" name="memberId" tabindex="1" required autofocus>
+                    <c:choose>
+                      <c:when test="${not empty cookie.saveId}">
+                        <input id="email" type="text" class="form-control" name="memberId" tabindex="1" value="${cookie.saveId.value}" autofocus>
+                      </c:when>
+                      <c:otherwise>
+                        <input id="email" type="text" class="form-control" name="memberId" tabindex="1" required autofocus>
+                      </c:otherwise>
+                    </c:choose>
                     <div class="invalid-feedback">
                       Please fill in your ID!
                     </div>
@@ -68,7 +76,14 @@
 
                   <div class="form-group">
                     <div class="custom-control custom-checkbox">
-                      <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
+                      <c:choose>
+                        <c:when test="${not empty cookie.saveId}">
+                          <input type="checkbox" name="remember" class="custom-control-input" onclick="deleteCookie();" tabindex="3" id="remember-me" value="remember" checked>
+                        </c:when>
+                        <c:otherwise>
+                          <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me" value="nope">
+                        </c:otherwise>
+                      </c:choose>
                       <label class="custom-control-label" for="remember-me">Remember Me</label>
                     </div>
                   </div>
@@ -109,6 +124,7 @@
     </section>
   </div>
 
+ 
   <!-- General JS Scripts -->
   <script src="resources/assets/modules/jquery.min.js"></script>
   <script src="resources/assets/modules/popper.js"></script>
@@ -119,7 +135,51 @@
   <script src="resources/assets/js/stisla.js"></script>
   
   <!-- JS Libraies -->
-
+  <script>
+    /*
+    $(function(){
+      //console.log($('#remember-me').is(':checked'));
+      if($('#remember-me').is(':checked') === false){
+        $.ajax({
+          url : 'deleteCookie.me',
+          type : 'POST',
+          data : {cookie : '${cookie.saveId.value}'},
+          success : function(result){
+            console.log('asd');
+              if(result == 'success'){
+                $('#remember-me').prop('checked', false);
+                $('input[name=memberId]').val('');
+              }
+          },
+          error : function(){
+              console.log('실패실패실패실패실패실패!!!!!!!!');
+          }
+        });
+      }
+    })
+    */
+    function deleteCookie(){
+      if($('remember-me').is(':checked') === false){
+        $.ajax({
+          url : 'deleteCookie.me',
+          type : 'POST',
+          data : {cookie : '${cookie.saveId.value}'},
+          success : function(result){
+              if(result === 'success'){
+                $('#remember-me').one('checked', false);
+                $('input[name=memberId]').val('');
+              }
+              
+          },
+          error : function(){
+              console.log('실패실패실패실패실패실패!!!!!!!!');
+          }
+        });
+      }
+      
+      
+    }
+  </script>
   <!-- Page Specific JS File -->
   
   <!-- Template JS File -->
