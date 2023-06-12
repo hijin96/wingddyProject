@@ -158,8 +158,9 @@ public class AlphabetController {
 	@RequestMapping("change.aph")
 	public String ajaxChangeAlphabet(ChangeAlphabet ca) {
 
-		
-		return AlphabetService.ajaxChangeAlphabet(ca);
+		String result = AlphabetService.ajaxChangeAlphabet(ca);
+		System.out.println(result);
+		return result;
 
 	}
 	
@@ -201,7 +202,12 @@ public class AlphabetController {
 	
 	
 	// 알파벳 뽑기 결과
-	public String ajaxInsertAlphabet(Alphabet ap) {
+	@ResponseBody
+	@RequestMapping("gacha.aph")
+	public String ajaxGachaAlphabet(Alphabet ap) {
+		
+		return AlphabetService.ajaxGachaAlphabet(ap);
+		
 		
 	}
 	

@@ -199,7 +199,17 @@
 				var random_alphabet = alphabetArr[random_index];
 				
 				$.ajax({
-					url : insert.
+					url : 'gacha.aph',
+					data : {
+						cno : '${requestScope.classroom.classNo}',
+						mno : '${sessionScope.loginUser.memberNo}',
+						alphabet : random_alphabet
+					},
+					success : function(result){
+						console.log('fdsf');
+						console.log(result);
+					}
+
 				})
 
 				alert(random_alphabet + '를 뽑았어요!!');

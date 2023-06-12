@@ -88,11 +88,6 @@ public class AlphabetDao {
 	
 	
 	public String checkAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
-		
-		
-		System.out.println("88888888888888888888888");
-		System.out.println(ca);
-		
 			
 		
 		if(sqlSession.selectOne("alphabetMapper.checkMarketWriterAlphabet", ca)) {
@@ -111,31 +106,40 @@ public class AlphabetDao {
 	
 	
 	
-	
-	public String changeAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+	@Transactional
+	public String changeAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) throws Exception{
 		
 		
-		if(sqlSession.update("alphabetMapper.updateMarketWriterAlphabet", ca)
-				+ sqlSession.update("alphabetMapper.updateReplyAlphabet", ca) == 2) {
+		try {
+			if(sqlSession.update("alphabetMapper.updateMarketWriterAlphabet", ca)
+					+ sqlSession.update("alphabetMapper.updateReplyAlphabet", ca) == 2) {
+				
+				
+				return "changeSuccess";
+			}else {
+				return "changeFail";
+			}
+		}catch (Exception e){
+			throw new Exception();
 			
-			
-			return "changeSuccess";
-		}else {
-			return "changeFail";
 		}
-		
 
 	}
 	
-	
-	public String changeStatus(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+	@Transactional
+	public String changeStatus(SqlSessionTemplate sqlSession, ChangeAlphabet ca) throws Exception{
 
-		if(sqlSession.update("alphabetMapper.changeMarketStatus", ca)
-				+ sqlSession.update("alphabetMapper.changeReplyStatus", ca) == 2) {
+		try {
+			if(sqlSession.update("alphabetMapper.changeMarketStatus", ca)
+					+ sqlSession.update("alphabetMapper.changeReplyStatus", ca) == 2) {
+				
+				return "statusSuccess";
+			}else {
+				return "statusFail";
+			}
+		}catch (Exception e){
+			throw new Exception();
 			
-			return "statusSuccess";
-		}else {
-			return "statusFail";
 		}
 		
 	}
@@ -156,8 +160,18 @@ public class AlphabetDao {
 	
 	
 	
-	
-	
+	@Transactional
+	public String ajaxGachaAlphabet(SqlSessionTemplate sqlSession, Alphabet ap) throws Exception {
+		try {
+			sqlSession.insert("alphabetMapper.insertAlphabet", ap);
+			sqlSession.update("alphabetMapper.updateMyCount", ap);
+			return "success";
+		}catch (Exception e){
+			throw new Exception();
+			
+		}
+		
+	}
 	
 	
 	

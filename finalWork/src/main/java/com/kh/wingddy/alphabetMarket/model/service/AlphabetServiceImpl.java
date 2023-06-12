@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.wingddy.alphabetMarket.model.dao.AlphabetDao;
 import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
@@ -73,27 +74,38 @@ public class AlphabetServiceImpl implements AlphabetService {
 	public String ajaxChangeAlphabet(ChangeAlphabet ca) {
 		
 		String check = alphabetDao.checkAlphabet(sqlSession, ca);
+		String result="";
 		
-		System.out.println("check : " + check);
+
 		// 확인하기
 		if(check.equals("checkOK")) {
 			
 			// 바꾸기
-			String change = alphabetDao.changeAlphabet(sqlSession, ca);
-			System.out.println("change : " + change);
-			if(change.equals("changeSuccess")) {
+			try {
+				result = alphabetDao.changeAlphabet(sqlSession, ca);
 				
-				// 댓글 selected로, 글 selling_status 변경
-				return 	alphabetDao.changeStatus(sqlSession, ca);
+				if(result.equals("changeSuccess")) {
+					
+					result = alphabetDao.changeStatus(sqlSession, ca);
+					// 댓글 selected로, 글 selling_status 변경
+					return 	result;
 
-			}else {
-				return change;
+				}else {
+					return result;
+					
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
 				
 			}
+			
 			
 		}else {
 			return check;
 		}
+		
+		return result;
 
 		
 	}
@@ -113,7 +125,19 @@ public class AlphabetServiceImpl implements AlphabetService {
 	}
 	
 	
-	
+
+	@Override
+	public String ajaxGachaAlphabet(Alphabet ap) {
+		
+		try {
+			return alphabetDao.ajaxGachaAlphabet(sqlSession, ap);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
+	}
 	
 	
 	
@@ -131,11 +155,9 @@ public class AlphabetServiceImpl implements AlphabetService {
 		return 0;
 	}
 
-	@Override
-	public int alphabet(AlphabetMarket am) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
+
+
 
 
 
