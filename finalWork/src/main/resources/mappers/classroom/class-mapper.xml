@@ -152,9 +152,9 @@
 		        class_no = #{cno}
 		  and
 		       member_type = 'S'
-		order
+		 order
 		    by
-		         total_coupon_count desc
+		       total_coupon_count desc
 	</select>
 	
 	<select id="joinClass" parameterType="string" resultMap="classResultSet">
