@@ -38,13 +38,12 @@ public class CalendarDao {
 	}
 	
 	public ArrayList<Calendar> selectDaySchedule(SqlSessionTemplate sqlSession, HashMap map){
-		System.out.print("memberType : ");
-		System.out.println(((Calendar)map.get("c")).getMemberType());
-
-		
-		
-		System.out.println((ArrayList)sqlSession.selectList("calendar-mapper.selectDaySchedule", map));
-		return (ArrayList)sqlSession.selectList("calendar-mapper.selectDaySchedule", map);
+		if(((Calendar)map.get("c")).getMemberType().equals("S")) {
+			return (ArrayList)sqlSession.selectList("calendar-mapper.selectDaySchedule", map);
+		} else {
+			//System.out.println((ArrayList)sqlSession.selectList("calendar-mapper.selectDaySchedule_class", map));
+			return (ArrayList)sqlSession.selectList("calendar-mapper.selectDaySchedule_class", map);
+		}
 	}
 	
 	public int deleteSchedule(SqlSessionTemplate sqlSession, int scheduleNo) {

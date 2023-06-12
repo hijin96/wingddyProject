@@ -94,7 +94,7 @@
 	 		  ,MEMBER_NO memberNo
 	 		  ,SCHEDULE schedule
 	 		  ,TO_CHAR(START_DATE, 'YYYY-MM-DD') startDate
-	 		  ,TO_CHAR(END_DATE, 'YYYY-MM-DD') endDate
+	 		  ,TO_CHAR(END_DATE + interval '1' day, 'YYYY-MM-DD') endDate
 	 		  ,COLOR color
 	 		  ,C.CLASS_NO classNo
 	 		  ,CLASS_NAME className
@@ -110,7 +110,9 @@
 	 		  				   FROM
 	 		  				   	    CLASSROOM
 	 		  				  WHERE
-	 		  				  	    TEACHER_NO = #{memberNo})	
+	 		  				  	    TEACHER_NO = #{c.memberNo})	
+	 	AND
+		      #{date} BETWEEN START_DATE AND END_DATE		  	    
 	</select>
 
 	<delete id="deleteSchedule" parameterType="_int">
