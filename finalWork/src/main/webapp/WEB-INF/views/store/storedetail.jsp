@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,9 +86,9 @@
 							</div>
 							<div class="col-xl-7 col-lg-7 col-md-6">
 								<div class="single-product-details">
-									<h2>Fachion Lorem ipsum dolor sit amet</h2>
+									<h2>상품명 </h2>
 									<h5>
-										<del>$ 가격란원가</del>
+										<del>$ 가격란원가${s. }</del>
 										$40.79 지금가격
 									</h5>
 									<p class="available-stock">
