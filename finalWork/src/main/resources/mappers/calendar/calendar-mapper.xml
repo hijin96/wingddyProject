@@ -90,7 +90,7 @@
 	
 	<select id="selectDaySchedule_class" parameterType="hashMap" resultType="calendar" >
 		SELECT 
-	 		   SCHEDULE_NO shceduleNo
+	 		   SCHEDULE_NO scheduleNo
 	 		  ,MEMBER_NO memberNo
 	 		  ,SCHEDULE schedule
 	 		  ,TO_CHAR(START_DATE, 'YYYY-MM-DD') startDate
@@ -130,7 +130,9 @@
 		   	   schedule = #{schedule}
 		   	  ,start_date = #{startDate}
 		   	  ,end_date = #{endDate}
-		   	  ,color = #{color}
+	 		<if test='memberType == "S"'>
+		   		,color = #{color}
+	   		</if>  
 		 where
 		 	   schedule_no = #{scheduleNo}  	  
 	</update>

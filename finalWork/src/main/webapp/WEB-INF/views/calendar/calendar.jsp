@@ -150,7 +150,7 @@
 							종료일 <input id="endDate" type="date" name="endDate" onchange="checkDate();"/><br>
 							<p id="alert-endDate" style="display:none;">종료일은 시작일보다 빠를 수 없어요!</p>
 							<c:if test="${loginUser.memberType eq 'S'}">
-							배경색 <input type="color" name="color" value="#ffc34d" />
+								배경색 <input type="color" name="color" value="#ffc34d" />
 							</c:if>
 							<input type="hidden" name="memberNo" value="${ loginUser.memberNo }" />
 							<input type="hidden" name="memberType" value="${loginUser.memberType }" />
@@ -313,7 +313,7 @@
 			        					
 			        					if(t >= startDate && t <= endDate){
 			        						cScheduleList2 += "<li><div id='scheduleName'>&lt;" + clist[i].className + "&gt;" + clist[i].schedule + "</div></li>"; 
-			        						tomorrowArr.pust(clist[i]);
+			        						tomorrowArr.push(clist[i]);
 			        					}
 			        					$('#c_tomorrowList ul').html(cScheduleList2);
 			        					
@@ -443,7 +443,7 @@
     		arr = []; // 초기화
     		let value = '';
     		
-    		
+    		console.log(arr[0]);
     		
     		$.ajax({
     			url : 'daySchedule',
@@ -453,10 +453,11 @@
     				
     				$('#modal-date').html(date);
     				
-    					console.log(list);
+    					//console.log(list);
     				for(let i in list){
 						arr.push(list[i]);
 						
+						console.log(arr[0]);
 						
     					
     					value += "<div>✔️";
@@ -514,11 +515,16 @@
  			value += "일정명 <input type='text' name='schedule' value='" + s.schedule + "'/><br>"
 				   + "시작일 <input id='re_startDate' type='date' name='startDate' onchange='checkDate();' value='" + s.startDate + "'/><br>"
 				   + "종료일 <input id='re_endDate' type='date' name='endDate' onchange='checkDate();' value='" + inputEndDate + "'/><br>"
-				   + "<p id='re_alert-endDate' style='display:none'>종료일은 시작일보다 빠를 수 없어요!</p>"
-				   + "배경색 <input type='color' name='color' value='" + s.color + "'/>"
-				   + "<input type='hidden' name='scheduleNo' value='" + s.scheduleNo + "'/>";			
- 		
-				   $('#updateSchedule-info').html(value);	   
+				   + "<p id='re_alert-endDate' style='display:none'>종료일은 시작일보다 빠를 수 없어요!</p>";
+				   
+			if(memberType == "S"){	   
+				value += "배경색 <input type='color' name='color' value='" + s.color + "'/>";
+			}
+			
+		   value += "<input type='hidden' name='scheduleNo' value='" + s.scheduleNo + "'/>";
+		   		  + "<input type='hidden' name='memberNo' value='" + memberType + "' />";
+	
+		   $('#updateSchedule-info').html(value);	   
 				   
 			$('#updateModal').modal();	   
  		}
