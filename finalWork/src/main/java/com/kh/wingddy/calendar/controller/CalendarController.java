@@ -13,7 +13,7 @@ import com.kh.wingddy.calendar.model.service.CalendarServiceImpl;
 import com.kh.wingddy.calendar.model.vo.Calendar;
 
 @Controller
-public class calendarController {
+public class CalendarController {
 	
 	@Autowired
 	private CalendarServiceImpl calendarService;
