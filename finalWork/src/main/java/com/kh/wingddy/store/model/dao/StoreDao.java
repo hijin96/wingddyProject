@@ -17,17 +17,37 @@ public class StoreDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("storeMapper.selectListCount");
 	}
-	public ArrayList<Store> selectList(SqlSessionTemplate sqlSession, PageInfo pageInfo) {
+	public ArrayList<Store> selectList(SqlSessionTemplate sqlSession, PageInfo pageInfo, ArrayList<HashMap<String, Object>> list) {
 		int offset = (pageInfo.getCurrentPage()-1)*pageInfo.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset,pageInfo.getBoardLimit());
-		
-		return (ArrayList)sqlSession.selectList("storeMapper.selectList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("storeMapper.selectList",list, rowBounds);
 	}
 
-	public int insertStoreBoard(SqlSessionTemplate sqlSession,HashMap<String,Object> map) {
+	public int insertStoreBoard(SqlSessionTemplate sqlSession,Attachment at, Store s) {
+		 
+		  if(sqlSession.insert("storeMapper.insertStoreAttachment",at)>0) {
+		return	sqlSession.insert("storeMapper.insertStore",s);
+		}
+		return 0;
+	}
+	public int insertStoreText(SqlSessionTemplate sqlSession, HashMap<String, Object> jsonstore) {
+		Object spContent= jsonstore.values();
+		 jsonstore.getClass().getName();
+		if(
+				sqlSession.insert("storeMapper.insertStoreText",jsonstore)>0) {
+				//sqlSession.insert("storeMapper.insertThumnail",Attachment);
+		}
+		return sqlSession.insert("storeMapper.insertStoreText",jsonstore);
+	}
+	public int createFileNo(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("storeMapper.createFileNo");
+	}
+	public int inceraseCount(SqlSessionTemplate sqlSession, int spNo) {
 		// TODO Auto-generated method stub
-		System.out.println("dao작동하나요" + sqlSession.insert("storeMapper.insertStoreBoard",map));	
-		return sqlSession.insert("storeMapper.insertStoreBoard",map);
+		return sqlSession.update("storeMapper.inceraseCount", spNo);
 	}
 
+	public Store selectStoreBoard(SqlSessionTemplate sqlSession, int spNo) {
+		return sqlSession.selectOne("storeMapper.selectStoreBoard", spNo);	
+	}
 }

@@ -29,10 +29,18 @@
 	</resultMap>
 	
 	<resultMap id="alphabetResultSet" 			type="alphabet">
-		<result column="MEMBER_NO"	 		property="cno" />
-		<result column="CLASS_NO"		property="mno" />
-		<result column="ALPHABET" 	property="alphabet" />
-		<result column="COUNT" 		property="count" />
+		<result column="MEMBER_NO"	 			property="cno" />
+		<result column="CLASS_NO"				property="mno" />
+		<result column="ALPHABET" 				property="alphabet" />
+		<result column="COUNT" 					property="count" />
+	</resultMap>
+	
+	<resultMap id="myCountResultSet" type="myCount" >
+		<result column="CLASS_NO"				property="classNo" />
+		<result column="MEMBER_NO"	 			property="memberNo" />
+		<result column="COUPON_COUNT" 			property="couponCount" />
+		<result column="GACHA_COUNT" 			property="gachaCount" />
+		<result column="TOTAL_COUPON_COUNT" 	property="totalCouponCount" />
 	</resultMap>
 
 
@@ -181,7 +189,7 @@
 	 WHERE ROWNUM = 1
 	</select>
 	
-	<select id="ajaxMyCount" parameterType="myCount" resultType="myCount">
+	<select id="ajaxMyCount" parameterType="myCount" resultMap="myCountResultSet">
 	SELECT COUPON_COUNT, GACHA_COUNT, TOTAL_COUPON_COUNT
 	  FROM CLASS_MYCOUNT
 	 WHERE CLASS_NO = #{classNo}
