@@ -18,7 +18,8 @@
 	
 	<resultMap id="replyResultSet" 			type="alphabetReply">
 		<result column="REPLY_NO"	 		property="replyNo" />
-		<result column="MEMBER_ID"		property="replyWriter" />
+		<result column="MEMBER_ID"			property="replyWriter" />
+		<result column="MEMBER_NO"			property="replyMno" />
 		<result column="REPLY_ALPHABET" 	property="alphabet" />
 		<result column="REPLY_CONTENT" 		property="replyContent" />
 		<result column="REPLY_DATE" 		property="replyDate" />
@@ -86,7 +87,7 @@
 	
 	
 	<select id="selectReplyList" resultMap="replyResultSet">
-		SELECT REPLY_NO, MEMBER_ID, REPLY_ALPHABET, REPLY_CONTENT, REPLY_DATE, REF_MARKET, REPLY_SELECTED
+		SELECT REPLY_NO, MEMBER_ID, MEMBER_NO, REPLY_ALPHABET, REPLY_CONTENT, REPLY_DATE, REF_MARKET, REPLY_SELECTED
 		  FROM ALPHABET_REPLY
 		  JOIN MEMBER ON(REPLY_WRITER = MEMBER_NO)
 		 WHERE REPLY_STATUS = 'Y' 
@@ -123,15 +124,69 @@
 		VALUES(SEQ_MARKET_RNO.NEXTVAL, #{replyWriter}, #{alphabet}, #{replyContent}, DEFAULT, #{refMarket}, DEFAULT, DEFAULT)
 	</insert>
 	
+	<select id="checkMarketWriterAlphabet"  parameterType="changeAlphabet" resultType="boolean">
+		SELECT COUNT(*)
+		  FROM ALPHABET
+		 WHERE MEMBER_NO = #{marketMno}
+		   AND CLASS_NO = #{classNo}
+		   AND ALPHABET = #{marketAlphabet}
+	</select>
+	
+	<select id="checkReplyAlphabet"  parameterType="changeAlphabet" resultType="boolean">
+		SELECT COUNT(*)
+		  FROM ALPHABET
+		 WHERE MEMBER_NO = #{replyMno}
+		   AND CLASS_NO = #{classNo}
+		   AND ALPHABET = #{replyAlphabet}
+	</select>
+	
+	<update id="updateMarketWriterAlphabet"  parameterType="changeAlphabet">
+	UPDATE ALPHABET
+	   SET ALPHABET = #{replyAlphabet}
+	 WHERE MEMBER_NO = #{marketMno}
+	   AND CLASS_NO = #{classNo}
+	   AND ALPHABET = #{marketAlphabet}
+	   AND ROWNUM = 1
+	</update>
+	
+	<update id="updateReplyAlphabet"  parameterType="changeAlphabet">
+	UPDATE ALPHABET
+	   SET ALPHABET = #{marketAlphabet}
+	 WHERE MEMBER_NO = #{replyMno}
+	   AND CLASS_NO = #{classNo}
+	   AND ALPHABET = #{replyAlphabet}
+	   AND ROWNUM = 1
+	</update>
 	
 	
+	<update id="changeMarketStatus" parameterType="changeAlphabet">
+	UPDATE ALPHABET_MARKET
+	   SET SELLING_STATUS = 'N'
+	 WHERE MARKET_BNO = #{marketNo}
+	</update>
 	
+	<update id="changeReplyStatus" parameterType="changeAlphabet">
+	UPDATE ALPHABET_REPLY
+	   SET REPLY_SELECTED = 'Y'
+	 WHERE REPLY_NO = #{replyNo}
+	</update>
 	
+	<select id="writerLastMarket" parameterType="alphabetMarket" resultType="_int">
+	SELECT MARKET_BNO
+	  FROM (SELECT MARKET_BNO
+	          FROM ALPHABET_MARKET
+	         WHERE REF_CLASS = #{classNo}
+	           AND WRITER = #{writer}
+	         ORDER BY CREATE_DATE DESC)
+	 WHERE ROWNUM = 1
+	</select>
 	
-	
-	
-	
-	
+	<select id="ajaxMyCount" parameterType="myCount" resultType="myCount">
+	SELECT COUPON_COUNT, GACHA_COUNT, TOTAL_COUPON_COUNT
+	  FROM CLASS_MYCOUNT
+	 WHERE CLASS_NO = #{classNo}
+	   AND MEMBER_NO = #{memberNo}
+	</select>
 	
 	
 	

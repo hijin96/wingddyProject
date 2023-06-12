@@ -353,14 +353,14 @@
 			<c:if test="${ not empty classroom }">
         <!-- ${reqeustScope.classroom.classNo} -->
 	            <li>
-                <form action="main.aph" mehtod="POST">
+                <form action="main.aph" method="POST">
                   <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
                   <a class="nav-link"><i class="fas fa-pencil-ruler"></i> <button class="changeButton">알파벳마켓</button></a>
                 </form>
 	            </li>
 	
 	            <li>
-                <form action="#" mehtod="POST">
+                <form action="myAlphabet.aph" method="POST">
                   <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
                   <a class="nav-link"><i class="fas fa-pencil-ruler"></i> <button class="changeButton">내 알파벳</button></a>
                 </form>

@@ -11,6 +11,7 @@ import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
+import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
 import com.kh.wingddy.common.model.vo.PageInfo;
 
 @Service
@@ -71,15 +72,44 @@ public class AlphabetServiceImpl implements AlphabetService {
 	@Override
 	public String ajaxChangeAlphabet(ChangeAlphabet ca) {
 		
+		String check = alphabetDao.checkAlphabet(sqlSession, ca);
 		
+		System.out.println("check : " + check);
 		// 확인하기
-		alphabetDao.checkAlphabet(sqlSession, ca);
+		if(check.equals("checkOK")) {
+			
+			// 바꾸기
+			String change = alphabetDao.changeAlphabet(sqlSession, ca);
+			System.out.println("change : " + change);
+			if(change.equals("changeSuccess")) {
+				
+				// 댓글 selected로, 글 selling_status 변경
+				return 	alphabetDao.changeStatus(sqlSession, ca);
+
+			}else {
+				return change;
+				
+			}
+			
+		}else {
+			return check;
+		}
+
 		
-		//바꾸기
-		//alphabetDao.ajaxChangeAlphabet(sqlSession, ca);
+	}
+	
+	@Override
+	public int writerLastMarket(AlphabetMarket am) {
 		
+		return alphabetDao.writerLastMarket(sqlSession, am);
+	}
+	
+	
+	@Override
+	public MyCount ajaxMyCount(MyCount mc) {
+
 		
-		return null;
+		return alphabetDao.ajaxMyCount(sqlSession, mc);
 	}
 	
 	
@@ -106,13 +136,6 @@ public class AlphabetServiceImpl implements AlphabetService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	@Override
-	public int ajaxSelectReply(int marketBno) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 
 
 

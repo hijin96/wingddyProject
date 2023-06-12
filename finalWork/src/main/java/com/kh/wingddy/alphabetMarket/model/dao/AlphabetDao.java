@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.kh.wingddy.alphabetMarket.controller.AlphabetController;
 import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
+import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
 import com.kh.wingddy.common.model.vo.PageInfo;
 
 @Repository
@@ -85,18 +86,83 @@ public class AlphabetDao {
 	}
 	
 	
-	public int checkAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+	
+	public String checkAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
 		
-		sqlSession.selectOne("alphabetMapper.checkMarketWriterAlphabet", ca);
-		sqlSession.selectOne("alphabetMapper.checkReplyAlphabet", ca);
 		
-		return 0;
+		System.out.println("88888888888888888888888");
+		System.out.println(ca);
+		
+			
+		
+		if(sqlSession.selectOne("alphabetMapper.checkMarketWriterAlphabet", ca)) {
+			if(sqlSession.selectOne("alphabetMapper.checkReplyAlphabet", ca)) {
+				return "checkOK";
+			}else {
+				return "ReplyAlphabet";
+			}
+		}else {
+			return "MarketAlphabet";
+		}
+		
+		
+		
 	}
 	
 	
-	//public int ajaxChangeAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
-		//return sqlSession.
-	//}
+	
+	
+	public String changeAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+		
+		
+		if(sqlSession.update("alphabetMapper.updateMarketWriterAlphabet", ca)
+				+ sqlSession.update("alphabetMapper.updateReplyAlphabet", ca) == 2) {
+			
+			
+			return "changeSuccess";
+		}else {
+			return "changeFail";
+		}
+		
+
+	}
+	
+	
+	public String changeStatus(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+
+		if(sqlSession.update("alphabetMapper.changeMarketStatus", ca)
+				+ sqlSession.update("alphabetMapper.changeReplyStatus", ca) == 2) {
+			
+			return "statusSuccess";
+		}else {
+			return "statusFail";
+		}
+		
+	}
+	
+	
+	public MyCount ajaxMyCount(SqlSessionTemplate sqlSession, MyCount mc) {
+		
+		return sqlSession.selectOne("alphabetMapper.ajaxMyCount", mc);
+	}
+	
+	
+	
+	public int writerLastMarket(SqlSessionTemplate sqlSession, AlphabetMarket am) {
+	
+		return sqlSession.selectOne("alphabetMapper.writerLastMarket", am);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
