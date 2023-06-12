@@ -162,7 +162,7 @@ public class MemberController {
 	public String updateMember(Member m, MultipartFile reUpfile, HttpSession session, String update) {
 		
 		//System.out.println(update);
-		int result = 1;
+		int result = 0;
 		Attachment at = new Attachment();
 		if(!reUpfile.getOriginalFilename().equals("")) {
 			at = memberService.selectProfile(m.getMemberNo());
@@ -183,12 +183,13 @@ public class MemberController {
 			if(update.equals("firstUpdate")) {
 				result = memberService.insertProfile(at);
 			}
-			System.out.println(at);
-			if(result > 0) {
+			//System.out.println("프로필 insert : " + result);
+			//System.out.println(at);
+			if(update.equals("update")) {
 				result = memberService.updateMember(m, at);
 			}
 		}
-		System.out.println(result);
+		//System.out.println("프로필 update : " + result);
 		if(result > 0) {
 			session.setAttribute("alertMsg", "수정완료");
 			session.removeAttribute("profile");
