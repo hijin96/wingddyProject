@@ -57,23 +57,12 @@ public class StoreController {
 	@RequestMapping("storemain")
 	public String storeMain(@RequestParam(value = "cPage",defaultValue = "1") int currentPage, Model m,Attachment at) {
 		PageInfo pageInfo = Pageination.getPageInfo(storeService.selectListCount(), currentPage, 9, 5);
-		at.setMemerNo(at.getMemerNo());
-
-	//	ArrayList<Store> goodsList = storeService.selectList(pageInfo);
-		ArrayList<HashMap<String, Object>>list = new ArrayList<HashMap<String,Object>>();
-		HashMap<String, Object> atmap = new HashMap<String, Object> ();
-		atmap.put("FileNo", at.getFileNo());
-		atmap.put("FileLevel", at.getFileLevel());
-		atmap.put("OriginName",at.getOriginName());
-		atmap.put("FilePath", at.getFilePath());
-		HashMap<String, Object>smap = new HashMap<String, Object>();
-		list.add(atmap);
-		list.add(smap);
-		storeService.selectList(pageInfo, list);
-		System.out.println("cont"+list);
+		//at.setMemerNo(at.getMemerNo());
+		
 		m.addAttribute("pageInfo",pageInfo);
-		m.addAttribute("goodsList",storeService.selectList(pageInfo,list));
-		//System.out.println(goodsList);
+		m.addAttribute("goodsList",storeService.selectList(pageInfo));
+		
+		
 		return "store/storemain";
 	}
 

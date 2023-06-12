@@ -13,7 +13,7 @@ public interface StoreService {
 	int selectListCount();
 	
 	//게시글 리스트 조회
-	ArrayList<Store> selectList(PageInfo pageInfo,ArrayList<HashMap<String, Object>> list);
+	ArrayList<Store> selectList(PageInfo pageInfo);
 	
 	//조회수 증가하면 글보기 성공
 	int inceraseCount(int spNo);
