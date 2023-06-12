@@ -17,6 +17,7 @@ import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
+import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.Pageination;
 import com.kh.wingddy.member.model.vo.Member;
@@ -59,9 +60,11 @@ public class AlphabetController {
 	@RequestMapping("detail.aph")
 	public String marketDetail(int bno, Model model, HttpSession session) {
 		
+		
+		
 		Member m = (Member)(session.getAttribute("loginUser"));
 		AlphabetMarket am = AlphabetService.marketDetail(bno);
-	
+
 		model.addAttribute("market", am);
 		
 		
@@ -74,7 +77,6 @@ public class AlphabetController {
 			model.addAttribute("category", AlphabetService.selectCategory(ap));
 		}
 		
-	
 		return "alphabetMarket/alphabetMarketDetail";
 	}
 	
@@ -115,7 +117,6 @@ public class AlphabetController {
 	@RequestMapping("enroll.aph")
 	public ModelAndView  enrollAndCategory(Alphabet ap, ModelAndView mv) {
 		
-		System.out.println(ap);
 		
 		mv.addObject("category", AlphabetService.selectCategory(ap));
 		mv.setViewName("alphabetMarket/alphabetMarketEnroll");
@@ -124,13 +125,17 @@ public class AlphabetController {
 	}
 	
 	
-	// 마켓 글 등록
+	// 마켓 글 등록!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 	@RequestMapping("post.aph")
-	public void insertMarket(AlphabetMarket am) {
+	public void insertMarket(AlphabetMarket am, Model model, HttpSession session) {
 		
-		AlphabetService.insertMarket(am);
 		
-		// return 해당 글 디테일뷰로 이동하기
+		
+		if(AlphabetService.insertMarket(am) == 1) {
+			marketDetail(AlphabetService.writerLastMarket(am), model, session);// 해당 글 상세보기로 되돌려주긴
+
+		}
+		
 	}
 	
 	
@@ -153,9 +158,8 @@ public class AlphabetController {
 	@RequestMapping("change.aph")
 	public String ajaxChangeAlphabet(ChangeAlphabet ca) {
 
-		AlphabetService.ajaxChangeAlphabet(ca);
 		
-		return "testsuccess";
+		return AlphabetService.ajaxChangeAlphabet(ca);
 
 	}
 	
@@ -170,8 +174,37 @@ public class AlphabetController {
 	@RequestMapping("myAlphabet.aph")
 	public String myAlphabet() {
 		
+		
+		
 		return "alphabetMarket/myAlphabet";
 	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="myCount.aph")
+	public String ajaxMyCount(MyCount mc) {
+		
+		System.out.println(AlphabetService.ajaxMyCount(mc));
+		
+		return "123";
+		
+	}
+	
+
+	@ResponseBody
+	@RequestMapping(value="myAlphabetList.aph", produces="application/json; charset=UTF-8")
+	public String myAlphabetList(Alphabet ap) {
+		
+	
+
+		
+		return new Gson().toJson(AlphabetService.selectCategory(ap));
+		
+	}
+	
+	
+	
 	
 	@RequestMapping("makeWords.aph")
 	public String makeWords() {

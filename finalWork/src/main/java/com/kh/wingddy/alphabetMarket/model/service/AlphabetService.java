@@ -6,6 +6,7 @@ import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
+import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
 import com.kh.wingddy.common.model.vo.PageInfo;
 
 public interface AlphabetService {
@@ -40,9 +41,6 @@ public interface AlphabetService {
 	int alphabet(AlphabetMarket am); // writer, alphabet
 	
 	
-	// 마켓 댓글 리스트 불러오기
-	int ajaxSelectReply(int marketBno);
-	
 	// 마켓 댓글 작성
 	int ajaxInsertReply(MarketReply mr);
 	
@@ -51,11 +49,11 @@ public interface AlphabetService {
 	String ajaxChangeAlphabet(ChangeAlphabet ca);
 	
 	
+	// 내 알파벳 마이 카운트조회
+	MyCount ajaxMyCount(MyCount mc);
 	
-	
-	
-	
-	
+	// 작성자의 마지막 게시글 번호 조회
+	int writerLastMarket(AlphabetMarket am);
 	
 	
 	

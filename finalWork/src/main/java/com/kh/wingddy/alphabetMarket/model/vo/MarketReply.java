@@ -9,6 +9,7 @@ public class MarketReply {
 
 	private int replyNo;
 	private String replyWriter;
+	private int replyMno;
 	private String alphabet;
 	private String replyContent;
 	private Date replyDate;
