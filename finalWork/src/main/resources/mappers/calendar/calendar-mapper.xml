@@ -48,22 +48,6 @@
 
 	<select id="selectDaySchedule" parameterType="hashMap" resultType="calendar" >
 		SELECT
-			   schedule_no scheduleNo
-		  	  ,member_no memberNo
-		  	  ,schedule schedule
-		  	  ,to_char(start_date, 'YYYY-MM-DD') startDate
-		  	  ,to_char(end_date + interval '1' day, 'YYYY-MM-DD') endDate
-		  	  ,color color
-		  	  ,null classNo
-		  	  ,null className
-		  FROM
-		  	   CALENDAR
-		 WHERE
-		 	   MEMBER_NO = #{c.memberNo}
-		   AND
-		   	   #{date} BETWEEN START_DATE AND END_DATE
-		UNION
-		SELECT
 			   A.schedule_no scheduleNo
 		      ,member_no memberNo
 		      ,schedule schedule
@@ -83,8 +67,52 @@
 		                      FROM CLASS_MEMBER
 		                     WHERE STUDENT_NO = #{c.memberNo})
 		   AND
-		       #{date} BETWEEN START_DATE AND END_DATE
-		 ORDER BY classNo
+		       #{date} BETWEEN START_DATE AND END_DATE 
+		 UNION
+		SELECT
+			   schedule_no scheduleNo
+		  	  ,member_no memberNo
+		  	  ,schedule schedule
+		  	  ,to_char(start_date, 'YYYY-MM-DD') startDate
+		  	  ,to_char(end_date + interval '1' day, 'YYYY-MM-DD') endDate
+		  	  ,color color
+		  	  ,null classNo
+		  	  ,null className
+		  FROM
+		  	   CALENDAR
+		 WHERE
+		 	   MEMBER_NO = #{c.memberNo}
+		   AND
+		   	   #{date} BETWEEN START_DATE AND END_DATE
+		 ORDER BY classNo 
+			
+	</select>
+	
+	<select id="selectDaySchedule_class" parameterType="hashMap" resultType="calendar" >
+		SELECT 
+	 		   SCHEDULE_NO scheduleNo
+	 		  ,MEMBER_NO memberNo
+	 		  ,SCHEDULE schedule
+	 		  ,TO_CHAR(START_DATE, 'YYYY-MM-DD') startDate
+	 		  ,TO_CHAR(END_DATE + interval '1' day, 'YYYY-MM-DD') endDate
+	 		  ,COLOR color
+	 		  ,C.CLASS_NO classNo
+	 		  ,CLASS_NAME className
+	 	 FROM
+	 	 	  CALENDAR A
+	 	 JOIN
+	 	 	  CALENDAR_CLASS B USING(SCHEDULE_NO)
+	 	 JOIN
+	 	 	  CLASSROOM C ON(B.CLASS_NO = C.CLASS_NO)	  	  	  
+	 	WHERE
+	 		  B.CLASS_NO IN (SELECT
+	 		  					    CLASS_NO
+	 		  				   FROM
+	 		  				   	    CLASSROOM
+	 		  				  WHERE
+	 		  				  	    TEACHER_NO = #{c.memberNo})	
+	 	AND
+		      #{date} BETWEEN START_DATE AND END_DATE		  	    
 	</select>
 
 	<delete id="deleteSchedule" parameterType="_int">
@@ -102,7 +130,9 @@
 		   	   schedule = #{schedule}
 		   	  ,start_date = #{startDate}
 		   	  ,end_date = #{endDate}
-		   	  ,color = #{color}
+	 		<if test='memberType == "S"'>
+		   		,color = #{color}
+	   		</if>  
 		 where
 		 	   schedule_no = #{scheduleNo}  	  
 	</update>
