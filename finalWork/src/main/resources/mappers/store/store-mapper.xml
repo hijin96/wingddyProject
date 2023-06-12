@@ -24,7 +24,7 @@
 	
 	</resultMap>
 	<select id="selectListCount" resultType="_int">
-		SELECT COUNT(*) FROM S_STORE
+		SELECT COUNT(*) FROM S_STORE WHERE AMOUNT > 0
 	</select>
 	<select id="selectList" resultMap="storeResultSet,AttachmentResultSet">
 			SELECT 
@@ -34,31 +34,61 @@
 			    ,S.SP_DAY   
 			    ,A.FILE_NO
 			    ,A.FILE_LEVEL
+                ,A.FILE_PATH
+                ,A.CHANGE_NAME
+                
 			FROM S_STORE S
 			JOIN ATTACHMENT A  ON (S.FILE_NO= A.FILE_NO)
 			WHERE A.FILE_LEVEL = 2
 			AND AMOUNT > 0
-			ORDER BY SP_DAY ASC
-		<!--CK확인후 수정요망  -->
+			ORDER BY SP_DAY DESC
+	
 	</select>
-	<insert id="insertStoreBoard" parameterType="Map">
+	<insert id="insertStoreAttachment" parameterType="Attachment">
 	INSERT 
-				ALL
 		INTO	
 				ATTACHMENT
 				(FILE_NO
 				,MEMBER_NO
 				,ORIGIN_NAME
 				,CHANGE_NAME
-				,FILE_LEVEL)
+				,FILE_LEVEL
+				,FILE_PATH)
 		VALUES
-				(SEQ_FNO.NEXTVAL
-				,1
-				,#{upfile.originalFilename}
-				,#{at.setChangeName}
-				,2)
-	
+				(#{fileNo}+1
+				,#{memerNo}
+				,#{originName}
+				,#{changeName}
+				,2
+				,#{filePath})
+	</insert>
+	<insert id="insertStore"  parameterType="Store">
+	INSERT 
 		INTO
+				S_STORE
+				(SP_NO
+				 ,FILE_NO
+				,SP_NAME
+				,SP_CONTENT
+				,SP_PRICE
+				,AMOUNT
+				,SP_ONECOM
+				,SP_DAY)
+		VALUES
+			(SEQ_SP_NO.NEXTVAL
+			,#{fileNo}+1
+			,#{spName}
+			,#{spContent}
+			,#{spPrice}
+			,#{amount}
+			,#{spOnecom}
+			,SYSDATE)	
+	
+		
+	</insert>
+	<insert id="insertStoreText" parameterType="hashmap">
+		INSERT
+			INTO
 				S_STORE
 				(SP_NO
 				 ,FILE_NO
@@ -76,7 +106,42 @@
 			,#{spPrice}
 			,#{amount}
 			,#{spOnecom}
-			,SYSDATE)	
-		SELECT * FROM DUAL
+			,SYSDATE)		
 	</insert>
+	<select id="createFileNo" resultType="_int">
+		SELECT SEQ_FNO.NEXTVAL FROM DUAL
+	</select>
+	<update id="inceraseCount">
+		UPDATE
+			S_STORE
+		SET
+			VIEW_COUNT = VIEW_COUNT+1
+        WHERE
+        	SP_NO=#{spNo}
+    	AND
+        	AMOUNT >0
+		
+	</update>
+	<select id="selectStoreBoard"  resultMap="storeResultSet,AttachmentResultSet">
+		        	SELECT 
+				S.SP_NO
+				,S.FILE_NO
+				,S.SP_NAME
+				,S.SP_CONTENT 
+				,S.SP_PRICE
+				,S.AMOUNT
+				,S.VIEW_COUNT 
+				,S.SP_ONECOM
+				,S.SP_DAY 
+                ,A.FILE_NO
+                ,A.FILE_PATH
+                ,A.CHANGE_NAME
+                
+		FROM
+			S_STORE S
+        JOIN ATTACHMENT A  ON (S.FILE_NO= A.FILE_NO)
+        WHERE AMOUNT > 0
+        AND SP_NO = #{spNo}
+	
+	</select>
 </mapper>

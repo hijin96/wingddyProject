@@ -2,10 +2,12 @@ package com.kh.wingddy.store.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,19 +18,23 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.Pageination;
 import com.kh.wingddy.common.template.RenameFile;
+import com.kh.wingddy.member.model.vo.Member;
 import com.kh.wingddy.store.model.service.StoreService;
 import com.kh.wingddy.store.model.vo.Store;
 import com.sun.media.jfxmedia.events.NewFrameEvent;
@@ -49,19 +55,39 @@ public class StoreController {
 	
 	//메인페이지
 	@RequestMapping("storemain")
-	public String storeMain(@RequestParam(value = "cPage",defaultValue = "1") int currentPage, Model m) {
+	public String storeMain(@RequestParam(value = "cPage",defaultValue = "1") int currentPage, Model m,Attachment at) {
 		PageInfo pageInfo = Pageination.getPageInfo(storeService.selectListCount(), currentPage, 9, 5);
-		ArrayList<Store> goodsList = storeService.selectList(pageInfo);
+		at.setMemerNo(at.getMemerNo());
+
+	//	ArrayList<Store> goodsList = storeService.selectList(pageInfo);
+		ArrayList<HashMap<String, Object>>list = new ArrayList<HashMap<String,Object>>();
+		HashMap<String, Object> atmap = new HashMap<String, Object> ();
+		atmap.put("FileNo", at.getFileNo());
+		atmap.put("FileLevel", at.getFileLevel());
+		atmap.put("OriginName",at.getOriginName());
+		atmap.put("FilePath", at.getFilePath());
+		HashMap<String, Object>smap = new HashMap<String, Object>();
+		list.add(atmap);
+		list.add(smap);
+		storeService.selectList(pageInfo, list);
+		System.out.println("cont"+list);
 		m.addAttribute("pageInfo",pageInfo);
-		m.addAttribute("goodsList",storeService.selectList(pageInfo));
+		m.addAttribute("goodsList",storeService.selectList(pageInfo,list));
 		//System.out.println(goodsList);
 		return "store/storemain";
 	}
+
 	
 	//게시판 글 상세보기
 	@RequestMapping("storedetail")
-	public String storeDetail() {
-		return "store/storedetail";
+	public ModelAndView storeDetail(int spNo,ModelAndView mv) {
+		if(storeService.inceraseCount(spNo)>0) {
+			mv.addObject("s",storeService.selectStoreBoard(spNo)).setViewName("store/storedetail");
+		}else {
+			mv.addObject("errorMsg","게시글조회실패");
+			mv.setViewName("common/error");
+		}
+		return mv;
 	}
 	//장바구니
 	@RequestMapping("storecart")
@@ -90,118 +116,81 @@ public class StoreController {
 	}
 	//게시판 글쓰기 -1
 	@RequestMapping("storeInsert")
-	public String storeInsert() {
+	public String storeInsert1212() {
 		return "store/storeInsertEnrollForm";
 	}
-	//게시판 글쓰기
-	@RequestMapping("storeWriter")
+	//게시판 글쓰기 ajax
+	@RequestMapping("storeWriter1")
 	public String sample() {
 		return "store/storeWriter2";
 	}
+	
+	//게시판 글쓰기 최종
+	@RequestMapping("storeWriter")
+	public ModelAndView storeInsert(ModelAndView mv) {
+		Store s = new Store();
+		s.setFileNo(storeService.createFileNo());
+		int fileNo = storeService.createFileNo();
+	//	mv.addObject(fileNo);
+		mv.addObject("fileNo", fileNo);
+		mv.setViewName("store/storeWriter");
+		
+		return mv;
+	}
 	//게시판글쓰기 -2(ck에디터사용)
 	/*
-	@RequestMapping("insertstore.do")
-	public String insertStoreBoard(HashMap<Store, Attachment> map , MultipartFile upfile,HttpSession session, Model model) {
-			System.out.println(map);
-			System.out.println(upfile.getOriginalFilename());
-		if(storeService.insertStoreBoard(map)>0) {
-
-
-		map.put(at.getChangeName(),rename);
-	
-		System.out.println("map"+map);
+	@ResponseBody
+	@PostMapping("insertstore.do")
+	public String insertStoreBoard(@RequestParam HashMap<String, Object> jsonstore,HttpSession session,HttpServletRequest request,MultipartFile upfile) {
+		System.out.println("스토어정보:  "+jsonstore);
+		storeService.insertStoreText(jsonstore);
+		//String spName = 
+		Attachment at = new Attachment();
 		
-		ArrayList<Store> stlist = new ArrayList<Store>();
-		
-		
-		
-		System.out.println("LIST"+stlist);
-		
-		System.out.println("at"+list);
-		
-		System.out.println("게시글 원래 이미지" + upfile.getOriginalFilename());
-		if(storeService.insertStoreBoard(map)>0) {
-		String changeName = rename.fileName(upfile, session);
-		// Attachment at = new Attachment();
 		at.setOriginName(upfile.getOriginalFilename());
-		System.out.println("UPFILE:" + upfile.getOriginalFilename());
-		System.out.println("체인지:"+ at.getChangeName());
-		at.setChangeName(changeName);
-		at.setFileLevel(2);
-		at.setFilePath("resources/uploadFiles/" + changeName);
+		at.setChangeName(rename.fileName(upfile, session));
+		System.out.println("at에 담긴것: "+at);
+	
+		if(storeService.insertStoreText(jsonstore)>0) {
 
+		System.out.println("게시글 작성 성공");
+		
+	
+	}return "redirect:storemain";
+	
+	*/
+	
+	@RequestMapping("insertstore.do")
+	public String insertStoreBoard(Store s,  MultipartFile upfile,
+			HttpSession session, Model model) {
+		//HashMap<String, Object> map = new HashMap<String, Object>(); 
+		Member m = ((Member)session.getAttribute("loginUser"));
+		Attachment at = new Attachment();
+		at.setOriginName(upfile.getOriginalFilename());
+		at.setChangeName(rename.fileName(upfile, session));
+		at.setFilePath("resources/uploadFiles/");
+		at.setFileNo(s.getFileNo());
+		at.setMemerNo(m.getMemberNo());
+		if(storeService.insertStoreBoard(s,at)>0) {
 		System.out.println("게시글 작성 성공");
 		return "redirect:storemain";
 	}else {
-
-			String changeName = rename.fileName(upfile, session);
-			Attachment at = new Attachment();
-				at.setOriginName(upfile.getOriginalFilename());
-			
-				System.out.println("UPFILE:"+upfile.getOriginalFilename());
-				at.setChangeName(changeName);
-				at.setFileLevel(2);
-				at.setFilePath("resources/uploadFiles/" + changeName);
-			
-			System.out.println("게시글 작성 성공");
-			return "store/storemain";
-		}else {
-
 			model.addAttribute("errorMsg","게시글작성실패");
 			return "common/errorPage";
 		}
 	}
+	
 
-		return null;
-	}
-	*/
+//ATTACHMENT 랑 STORE를 MAP에 담아서 mapper에서 한번에 insert하는것에 어려움 느낌
+	//JSP에 담긴 값들이 Object타입이라 controller에서 받아오는 타입에 어려움 느낌
+	
 
-
-//	@RequestMapping("storeWriter")
-//	public String storeWriter() {
-//		return "store/storeWriter";
-//	}
-	//게시판 사진등록하기-2
-//	@RequestMapping(value="resources/uploadFiles",  produces="application/json;charset-8")
-//	public ArrayList<Attachment>  storeWriterInsert(MultipartRequest request,HttpSession session, ModelAndView mv) {
-//	
-//		
-//		ArrayList<Attachment>list = new ArrayList();
-//		for(int i = 0; i<=list.size(); i++ ) {
-//			MultipartFile upfile = request.getFile("upload");
-//				
-//			if(!upfile.getOriginalFilename().contentEquals("")) {
-//				String originName = upfile.getOriginalFilename();
-//				String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-//				int ranNum = (int)(Math.random()*9000+1000);
-//				String ext = originN ame.substring(originName.lastIndexOf("."));
-//				String changeName = currentTime + ranNum + ext;
-//				String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
-//				String uploadPath = "./resources/uploadFiles/"+changeName;
-//				try {ㅋㅌㅊㅋㅌㅊ
-//					upfile.transferTo(new File(savePath+ changeName));
-//				} catch (IllegalStateException | IOException e) {
-//					e.printStackTrace(); 이상해ㅇㄴㄹㄴㅇ
-//				}
-//				System.out.println("파일들어가?"+upfile);
-//				Attachment at = new Attachment();
-//				at.setOriginName(upfile.getOriginalFilename());
-//				at.setChangeName("/resources/uploadFiles/");
-//		
-//				mv.addObject("uploaded",true);
-//				mv.addObject("url",uploadPath);
-//			}
-//		}
-//		
-//		
-//		return (ArrayList)list;
-//	}
-//	
-	@RequestMapping(value="/resources/uploadFiles",  produces="application/json;charset-8")
-	public  ModelAndView  storeWriterInsert(HttpServletRequest request,MultipartHttpServletRequest multirequest, ModelAndView mv) throws Exception  {
-		//ArrayList<Attachment>list = new ArrayList();
-			MultipartFile upfile = multirequest.getFile("upload");
+	@ResponseBody
+	@PostMapping(value="/resources/uploadFiles",  produces="application/json;charset-8")
+	public  String storeWriterInsert(HttpServletRequest request,MultipartHttpServletRequest multirequest, ModelAndView mv) throws Exception  {
 			
+			MultipartFile upfile = multirequest.getFile("upload");
+			PrintWriter printWriter = null;
 				
 				//파일 원래이름
 				String originName = upfile.getOriginalFilename();
@@ -214,33 +203,24 @@ public class StoreController {
 				//이름바꾸기
 				String changeName = currentTime + ranNum + ext;
 				// 이미지를 현재 경로와 연관된 파일에 저장하기 위해 현재 경로를 알아냄
-				String realPath = multirequest.getServletContext().getRealPath("/uploadFiles");
-				System.out.println("현재 경로 realPath"+ realPath);
+				String realPath = multirequest.getServletContext().getRealPath("/");
 				//현재 저장경로
-				//String savePath = realPath+"upload/"+changeName;
-				String savePath = multirequest.getServletContext().getRealPath("resources/uploadFiles/")+changeName;
-				
-				//System.out.println("save:"+savePath);
-				String uploadPath = request.getSession().getServletContext().getRealPath("resources/uploadFiles");
-				System.out.println("uploadPath: "+ uploadPath);
-				
-				upfile.transferTo(new File(savePath+ changeName));
-				
+				String savePath = realPath+"resources/uploadFiles/" +changeName;
+				String uploadPath = "./resources/uploadFiles/"+changeName;
+				upfile.transferTo(new File(savePath));
 				mv.addObject("uploaded",true);
 				mv.addObject("url",uploadPath);
-				System.out.println("url: "+ mv.addObject("url",uploadPath));
-				
-				System.out.println("파일들어가?"+upfile);
-//				Attachment at = new Attachment();
-//				at.setOriginName(upfile.getOriginalFilename());
-//				at.setChangeName("/resources/uploadFiles/");
-//		
-//				at.setFileLevel(3);
-//				
-//				list.add(at);
-	
-		
-		return mv;
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("uploaded", true);
+				map.put("url",uploadPath);
+			
+				//CK에디터 등록하기 위해서 JSON으로 리턴하는것에 어려움을 느꼈음. 
+				//경로 지정하는것 어려워했음 ㅠ 
+				//JSON이 버전에 따라 사용법이 다름 
+		return new Gson().toJson(map);
 	
 	}
 }
+
+
+	
