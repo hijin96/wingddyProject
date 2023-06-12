@@ -13,6 +13,7 @@ import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
+import com.kh.wingddy.alphabetMarket.model.vo.Words;
 import com.kh.wingddy.common.model.vo.PageInfo;
 
 @Service
@@ -139,21 +140,26 @@ public class AlphabetServiceImpl implements AlphabetService {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	@Override
-	public int deleteMarket(int marketBno) {
-		// TODO Auto-generated method stub
-		return 0;
+	public String insertWords(Words wd) {
+		
+		if(alphabetDao.checkWords(sqlSession, wd) > 0) {
+			alphabetDao.updateMyCoupon(sqlSession, wd);
+			alphabetDao.deleteAlphabet(sqlSession, wd);
+		}
+		
+		
+		return null;
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 

@@ -38,83 +38,19 @@
 								</tr>
 							</table>
 							<div align="right">
-								<a href="#"class="btn btn-primary" id="gachaBtn">알파벳 뽑기</a>
-								<a href="#"class="btn btn-primary">단어 만들기</a>
+								<button class="btn btn-primary" id="gachaBtn">알파벳 뽑기</button>
+							
+								<form action="makeWords.aph" method="post">
+									<input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
+									<button type="submit"class="btn btn-primary" onclick="moveMakeWords();">단어 만들기</button>
+								</form>
+							
 							</div>
 						</div>
 						<hr>
 						<div class="card-body">
 							<div class="row" id="alphabetList">
-								<div class="col-12 col-sm-6 col-md-6 col-lg-3">
-									<article class="article article-style-b">
-										<div class="article-header">
-											<div align="right">
-											   <div class="article-badge">
-												  <div class="article-badge-item bg-danger">9</div>
-											   </div>
-											</div>   
-											<div class="article-image">
-											   <p style="text-align: center; font-size: 150px; margin-top: 70px;">A</p>
-											</div>
-										</div>
-									</article>
-								</div>
-								<div class="col-12 col-sm-6 col-md-6 col-lg-3">
-									<article class="article article-style-b">
-										<div class="article-header">
-											<div align="right">
-											   <div class="article-badge">
-												  <div class="article-badge-item bg-danger">9</div>
-											   </div>
-											</div>   
-											<div class="article-image">
-											   <p style="text-align: center; font-size: 150px; margin-top: 70px;">A</p>
-											</div>
-										</div>
-									</article>
-								</div>
-								<div class="col-12 col-sm-6 col-md-6 col-lg-3">
-									<article class="article article-style-b">
-										<div class="article-header">
-											<div align="right">
-											   <div class="article-badge">
-												  <div class="article-badge-item bg-danger">9</div>
-											   </div>
-											</div>   
-											<div class="article-image">
-											   <p style="text-align: center; font-size: 150px; margin-top: 70px;">A</p>
-											</div>
-										</div>
-									</article>
-								</div>
-								<div class="col-12 col-sm-6 col-md-6 col-lg-3">
-									<article class="article article-style-b">
-										<div class="article-header">
-											<div align="right">
-											   <div class="article-badge">
-												  <div class="article-badge-item bg-danger">9</div>
-											   </div>
-											</div>   
-											<div class="article-image">
-											   <p style="text-align: center; font-size: 150px; margin-top: 70px;">A</p>
-											</div>
-										</div>
-									</article>
-								</div>
-								<div class="col-12 col-sm-6 col-md-6 col-lg-3">
-									<article class="article article-style-b">
-										<div class="article-header">
-											<div align="right">
-											   <div class="article-badge">
-												  <div class="article-badge-item bg-danger">9</div>
-											   </div>
-											</div>   
-											<div class="article-image">
-											   <p style="text-align: center; font-size: 150px; margin-top: 70px;">A</p>
-											</div>
-										</div>
-									</article>
-								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -133,7 +69,6 @@
 	})
 
 	$(function(){
-
 		myAlphabet();
 		myCount();
 	})
@@ -206,8 +141,12 @@
 						alphabet : random_alphabet
 					},
 					success : function(result){
-						console.log('fdsf');
-						console.log(result);
+						if(result == 'success'){
+							myAlphabet();
+							myCount();
+						}else{
+							alert('실패');
+						}
 					}
 
 				})
@@ -217,7 +156,14 @@
 			}
 
 		}
+		else{
+			alert("You don't have a chance to get an alphabet!!")
+		}
 	}
+
+
+
+
 </script>
 
 </body>

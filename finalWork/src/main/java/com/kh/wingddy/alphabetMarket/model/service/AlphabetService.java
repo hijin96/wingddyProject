@@ -7,6 +7,7 @@ import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
+import com.kh.wingddy.alphabetMarket.model.vo.Words;
 import com.kh.wingddy.common.model.vo.PageInfo;
 
 public interface AlphabetService {
@@ -32,10 +33,6 @@ public interface AlphabetService {
 	// 알파벳 마켓 글 작성
 	int insertMarket(AlphabetMarket am);
 	
-	
-	// 마켓 글 삭제
-	int deleteMarket(int marketBno);
-
 
 	
 	// 마켓 댓글 작성
@@ -56,6 +53,7 @@ public interface AlphabetService {
 	String ajaxGachaAlphabet(Alphabet ap);
 	
 	
-	
+	// 단어 > 쿠폰 교환
+	public String insertWords(Words wd);
 	
 }

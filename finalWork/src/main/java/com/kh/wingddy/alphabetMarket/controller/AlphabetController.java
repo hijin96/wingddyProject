@@ -18,6 +18,7 @@ import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
+import com.kh.wingddy.alphabetMarket.model.vo.Words;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.Pageination;
 import com.kh.wingddy.member.model.vo.Member;
@@ -208,11 +209,10 @@ public class AlphabetController {
 		
 		return AlphabetService.ajaxGachaAlphabet(ap);
 		
-		
 	}
 	
 	
-	
+	// 내 알파벳 화면
 	@RequestMapping("makeWords.aph")
 	public String makeWords() {
 		
@@ -220,4 +220,26 @@ public class AlphabetController {
 	}
 	
 
+	@RequestMapping("insertWords.aph")
+	public String insertWords(Words wd) {
+		
+		AlphabetService.insertWords(wd);
+		
+		return "alphabetMarket/makeWords";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

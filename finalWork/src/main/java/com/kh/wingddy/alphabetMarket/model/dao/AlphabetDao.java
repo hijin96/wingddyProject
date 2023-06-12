@@ -12,6 +12,7 @@ import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
+import com.kh.wingddy.alphabetMarket.model.vo.Words;
 import com.kh.wingddy.common.model.vo.PageInfo;
 
 @Repository
@@ -171,6 +172,20 @@ public class AlphabetDao {
 			
 		}
 		
+	}
+	
+	//-----------------------------------------------------------
+	public int checkWords(SqlSessionTemplate sqlSession, Words wd) {
+		return sqlSession.selectOne("alphabetMapper.checkWords",wd);
+	}
+	
+	public int updateMyCoupon(SqlSessionTemplate sqlSession, Words wd) {
+		return sqlSession.update("alphabetMapper.updateMyCoupon",wd);
+	}
+	
+	public int deleteAlphabet(SqlSessionTemplate sqlSession, Words wd) {
+		wd.getWord().toCharArray();
+		return sqlSession.delete("alphabetMapper.deleteAlphabet",wd);
 	}
 	
 	
