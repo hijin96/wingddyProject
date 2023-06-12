@@ -7,7 +7,7 @@
 		<result column="SP_NO" property="spNo"/>
 		<result column="FILE_NO" property="fileNo"/>
 		<result column="SP_NAME" property="spName"/>
-		<result column="SP_CONTENT" property="spCount"/>
+		<result column="SP_CONTENT" property="spContent"/>
 		<result column="SP_PRICE" property="spPrice"/>
 		<result column="AMOUNT" property="amount"/>
 		<result column="VIEW_COUNT" property="viewCount"/>
@@ -16,9 +16,7 @@
 		<result column="CHANGE_NAME" property="changeName"/>
 		<result column="FILE_PATH" property="filePath"/>
 		<result column="FILE_LEVEL" property="fileLevel"/>
-		<!-- <collection property="changeName" resultMap="Attachment"></collection>
-		<collection property="fileLevel" resultMap="Attachment"></collection>
-		<collection property="filePath" resultMap="Attachment"></collection> -->
+
 	</resultMap>
 	<resultMap type="Attachment" id="AttachmentResultSet">
 		<result column="FILE_NO" property="fileNo"/>
@@ -42,6 +40,7 @@
 			    ,A.FILE_LEVEL
                 ,A.FILE_PATH
                 ,A.CHANGE_NAME
+                ,S.SP_NO
                 
 			FROM S_STORE S
 			JOIN ATTACHMENT A  ON (S.FILE_NO= A.FILE_NO)
@@ -61,8 +60,8 @@
 				,FILE_LEVEL
 				,FILE_PATH)
 		VALUES
-				(#{fileNo}+1
-				,#{memerNo}
+				(#{fileNo}
+				,#{memberNo}
 				,#{originName}
 				,#{changeName}
 				,2
@@ -82,7 +81,7 @@
 				,SP_DAY)
 		VALUES
 			(SEQ_SP_NO.NEXTVAL
-			,#{fileNo}+1
+			,#{fileNo}
 			,#{spName}
 			,#{spContent}
 			,#{spPrice}

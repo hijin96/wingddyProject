@@ -21,7 +21,7 @@ public class StoreDao {
 	public ArrayList<Store> selectList(SqlSessionTemplate sqlSession, PageInfo pageInfo) {
 		int offset = (pageInfo.getCurrentPage()-1)*pageInfo.getBoardLimit();
 			RowBounds rowBounds = new RowBounds(offset,pageInfo.getBoardLimit());
-		System.out.println( (ArrayList)sqlSession.selectList("storeMapper.selectList",null, rowBounds));
+		//System.out.println( (ArrayList)sqlSession.selectList("storeMapper.selectList",null, rowBounds));
 		return (ArrayList)sqlSession.selectList("storeMapper.selectList",null, rowBounds);
 	}
 

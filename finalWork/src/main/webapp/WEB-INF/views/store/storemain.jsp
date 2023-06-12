@@ -48,34 +48,31 @@
 						<div role="tabpanel" class="tab-pane fade show active" id="grid-view">
 							<div class="row" id="storespNo">
 								<c:forEach items="${goodsList}" var="s">
-									
-								<!--------------------------------------------------  -->
-								<div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix" class="storefileNo">
-                                                <div class="box-img-hover">
-                                                    <div class="type-lb">${s.fileNo }
-                                                        <p class="sale"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">판매</font></font></p>
-                                                    </div>
-                                                   <img src="${contextPath}/resources/images/img-pro-01.jpg" class="img-fluid" alt="Image">
-                                                    <div class="mask-icon">
-                                                        <ul>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                        </ul>
-                                                        <a class="cart" href="#">장바구니에 담기</a>
-                                                    </div>
-                                                </div>
-                                                <div class="why-text">
-                                                    <h4>${s.spName }</h4>
-                                                    <h5>${s.spPrice }</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-									
-								<!--------------------------------------------->
-									
-									
+									<!--------------------------------------------------  -->
+									<div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+	                                     <div class="products-single">${s.spNo }
+	                                         <div class="box-img-hover">
+	                                             <div class="type-lb">
+	                                                 <p class="spNo">${s.spNo }</p>
+	                                             </div>
+	                                            <img src="${contextPath}/${s.filePath}/${s.changeName}" class="img-fluid" alt="Image">
+	                                             <div class="mask-icon">
+	                                                 <ul>
+	                                                     <li><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="View">${s.viewCount }<i class="fas fa-eye"></i></a></li>
+	                                                     <li><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Compare"><i class="fas fa-sync-alt"></i></a></li>
+	                                                     <li><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+	                                                 </ul>
+	                                                 <a class="cart" href="#">장바구니에 담기</a>
+	                                             </div>
+	                                         </div>
+	                                         <div class="why-text">
+	                                             <h4>${s.spName }</h4>
+	                                             <h5>${s.spPrice }</h5>
+	                                         </div>
+	                                     </div>
+	                                </div>
+	                                
+									<!--------------------------------------------->
 								</c:forEach>
 
 							</div>
@@ -85,13 +82,20 @@
 				 </div> 
 
 				 <script>
-					
-		
+				 
 				 $(function() {
-						$('.products-single').click(function(){
-							location.href='storedetail?'+$(this).children('.spNo').text();;
+						$('.mask-icon').click(function(){
+							location.href='storedetail?='+$(this).find('.spNo').text();
 						})
 					})	
+					
+		
+				  $(function() {
+						$('.products-single').click(function(){
+							
+							location.href='storedetail?spNo='+$(this).find('.spNo').text();
+						})
+					})	 
 				 </script>
 				<script>
 					$('#storeAdd').click(function(){
@@ -99,7 +103,7 @@
 				
 					})
 				</script>				 
-				
+					
 				 
 		 	          <div id="pagingArea">
 		                <ul class="pagination">
