@@ -159,7 +159,7 @@ public class StoreController {
 		at.setChangeName(rename.fileName(upfile, session));
 		at.setFilePath("resources/uploadFiles/");
 		at.setFileNo(s.getFileNo());
-		at.setMemerNo(m.getMemberNo());
+		
 		if(storeService.insertStoreBoard(s,at)>0) {
 		System.out.println("게시글 작성 성공");
 		return "redirect:storemain";
