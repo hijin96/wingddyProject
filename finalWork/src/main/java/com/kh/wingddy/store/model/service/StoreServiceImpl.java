@@ -27,9 +27,9 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public ArrayList<Store> selectList(PageInfo pageInfo, ArrayList<HashMap<String, Object>> list) {
+	public ArrayList<Store> selectList(PageInfo pageInfo) {
 		
-		return storeDao.selectList(sqlSession,pageInfo,list);
+		return storeDao.selectList(sqlSession,pageInfo);
 	}
 	
 	@Override

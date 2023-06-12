@@ -48,10 +48,10 @@
 						<div role="tabpanel" class="tab-pane fade show active" id="grid-view">
 							<div class="row" id="storespNo">
 								<c:forEach items="${goodsList}" var="s">
-								
+									
 								<!--------------------------------------------------  -->
 								<div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix" name="storefileNo">
+                                            <div class="products-single fix" class="storefileNo">
                                                 <div class="box-img-hover">
                                                     <div class="type-lb">${s.fileNo }
                                                         <p class="sale"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">판매</font></font></p>
@@ -73,7 +73,7 @@
                                             </div>
                                         </div>
 									
-								<!--  ----------------------------------------->
+								<!--------------------------------------------->
 									
 									
 								</c:forEach>
@@ -85,9 +85,11 @@
 				 </div> 
 
 				 <script>
+					
+		
 				 $(function() {
-						$('#storespNo> ').click(function(){
-							location.href='storedetail?'+$(this).children('[name=storefileNo]').text();
+						$('.products-single').click(function(){
+							location.href='storedetail?'+$(this).children('.spNo').text();;
 						})
 					})	
 				 </script>
