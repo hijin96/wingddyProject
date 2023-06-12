@@ -65,6 +65,10 @@
 	.moreSmall{
 		height : 23px !important;
 	}
+	.myHeader{
+		font-size : 20px !important;
+		font-weight : bolder !important;
+	}
 	
 </style>
 </head>
@@ -432,13 +436,13 @@
     				
     				$('#modal-date').html(date);
     				
-    				for(let i in list){
     					console.log(list);
+    				for(let i in list){
 						arr.push(list[i]);
     					
     					value += "<div>✔️";
     					
-    					if(list[i].memberNo != memberNo){
+    					if(list[i].className != null){
     						value += "&lt;" + list[i].className + "&gt;&nbsp;";
     					}
     						   
