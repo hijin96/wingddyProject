@@ -31,6 +31,7 @@
 			<mapping path="/main.aph"/>
 			<mapping path="/enroll.aph"/>
 			<mapping path="/myAlphabet.aph"/>
+			<mapping path="/makeWords.aph"/>
 			<beans:bean class="com.kh.wingddy.common.interceptor.ClassroomInterceptor" id="ClassroomInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>

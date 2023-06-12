@@ -62,7 +62,7 @@ public class StoreController {
 		m.addAttribute("pageInfo",pageInfo);
 		m.addAttribute("goodsList",storeService.selectList(pageInfo));
 		
-		
+		//System.out.println("게시판리스트: " +storeService.selectList(pageInfo) );
 		return "store/storemain";
 	}
 
@@ -72,9 +72,10 @@ public class StoreController {
 	public ModelAndView storeDetail(int spNo,ModelAndView mv) {
 		if(storeService.inceraseCount(spNo)>0) {
 			mv.addObject("s",storeService.selectStoreBoard(spNo)).setViewName("store/storedetail");
+			
 		}else {
 			mv.addObject("errorMsg","게시글조회실패");
-			mv.setViewName("common/error");
+			mv.setViewName("common/errorPage");
 		}
 		return mv;
 	}
@@ -83,7 +84,7 @@ public class StoreController {
 	public String storeCart() {
 		return "store/storecart";
 	}
-	//구매하기
+	//구매하기-> 주문하기 번호 미리 만들기
 	@RequestMapping("storebuy")
 	public String storebuy() {
 		return "store/storebuy";
@@ -159,7 +160,7 @@ public class StoreController {
 		at.setChangeName(rename.fileName(upfile, session));
 		at.setFilePath("resources/uploadFiles/");
 		at.setFileNo(s.getFileNo());
-		
+		at.setMemberNo(m.getMemberNo());
 		if(storeService.insertStoreBoard(s,at)>0) {
 		System.out.println("게시글 작성 성공");
 		return "redirect:storemain";

@@ -333,6 +333,9 @@
 					else if(result == 'MarketAlphabet'){
 						alert("You don't have the alphabet!!")
 					}
+					else{
+						alert("오류");
+					}
 
 
 					selectPageButton(1);

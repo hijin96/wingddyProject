@@ -121,10 +121,11 @@
 	
 	<select id="selectMyAlphabet" parameterType="alphabet" resultMap="alphabetResultSet">
 		SELECT ALPHABET, COUNT(*) as COUNT
-		  FROM ALPHABET A
+		  FROM ALPHABET
 		 WHERE MEMBER_NO = #{mno}
 		   AND CLASS_NO = #{cno}
-		 GROUP BY A.ALPHABET
+		 GROUP BY ALPHABET
+		  ORDER BY ALPHABET
 	</select>
 
 	<insert id="insertReply" parameterType="alphabetReply">
@@ -176,7 +177,7 @@
 	<update id="changeReplyStatus" parameterType="changeAlphabet">
 	UPDATE ALPHABET_REPLY
 	   SET REPLY_SELECTED = 'Y'
-	 WHERE REPLY_NO = #{replyNo}
+	 WHERE REPLY_NO = #{replyNo};
 	</update>
 	
 	<select id="writerLastMarket" parameterType="alphabetMarket" resultType="_int">
@@ -198,8 +199,43 @@
 	
 	
 	
+	<insert id="insertAlphabet" parameterType="alphabet">
+	INSERT INTO ALPHABET
+	VALUES(#{mno}, #{cno}, #{alphabet})
 	
+	</insert>
 	
+	<update id="updateMyCount" parameterType="alphabet">
+	UPDATE CLASS_MYCOUNT 
+	   SET GACHA_COUNT = GACHA_COUNT - 1
+	 WHERE CLASS_NO = #{cno}
+	   AND MEMBER_NO = #{mno}
+	</update>
+	
+	<select id="checkWords" parameterType="words" resultType="_int">
+	SELECT VOCA_EN, VOCA_KR, CLASS_NO
+	  FROM VOCA
+	  JOIN VOCABOOK USING(BOOK_NO)
+	  JOIN CLASS_VOCABOOK USING(BOOK_NO)
+	 WHERE CLASS_NO = #{classNo}
+	   AND VOCA_EN = #{word}
+	   AND VOCA_KR = #{meaning}
+	</select>
+	
+	<update id="updateMyCoupon" parameterType="words">
+	UPDATE CLASS_MYCOUNT 
+	   SET COUPON_COUNT = COUPON_COUNT + 1, TOTAL_COUPON_COUNT = TOTAL_COUPON_COUNT + 1
+	 WHERE CLASS_NO = #{classNo}
+	   AND MEMBER_NO = #{memberNo}
+	</update>
+	
+	<delete id="deleteAlphabet" parameterType="words">
+	DELETE FROM ALPHABET
+	 WHERE CLASS_NO = #{classNo}
+	   AND MEMBER_NO = #{memberNo}
+	   AND ALPHABET = 
+	   AND ROWNUM = 1;
+	</delete>
 	
 	
 

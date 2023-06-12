@@ -79,15 +79,7 @@
 		                <h5>단어 검색</h5>
 						<div class="form-group">
 							<input type="text" class="form-control" id="voca-search-form">
-							<div class="card voca-list">
-								<div class="row">
-									<div class="group col-md-6"> 영어</div>
-									<div class="group col-md-6"> 해석</div>
-								</div>
-								<div class="row">
-									<div class="group col-md-6"> 영어</div>
-									<div class="group col-md-6"> 해석</div>
-								</div>
+							<div class="card voca-list" id="voca-search-result">
 							</div>
 						</div>
 					</div>
@@ -155,8 +147,35 @@
 			e.target.parentElement.innerHTML = '';
 		});
 		
+		// 단어 검색 이벤트
+		$('#voca-search-form').keyup(() => {
+			let text = $.trim($('#voca-search-form').val());
+			if(text != ''){
+				searchText(text);
+			}
+			else{
+				$('#voca-search-result').html('');
+			}
+		});
+		
 		// 단어 검색(ajax)
-	
+		function searchText(text){
+			$.ajax({
+				url : 'search.vc',
+				data : {text : text},
+				success : list => {
+
+					let result = '';
+					for(let i in list){
+						result += '<div class="row">' 
+								+	'<div class="group col-md-6">'+ list[i].vocaEnglish +'</div>'
+								+	'<div class="group col-md-6">'+ list[i].vocaKorean +'</div>'
+							    + '</div>';
+					}
+					$('#voca-search-result').html(result);
+				}
+			});
+		}
 	
 	</script>
 </body>

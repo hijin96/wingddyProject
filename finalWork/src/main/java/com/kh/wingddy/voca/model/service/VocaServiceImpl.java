@@ -46,7 +46,7 @@ public class VocaServiceImpl implements VocaService {
 
 	@Override
 	public ArrayList<Voca> searchVoca(String text) {
-		return null;
+		return vocaMapper.searchVoca(text);
 	}
 
 	@Override
@@ -58,7 +58,13 @@ public class VocaServiceImpl implements VocaService {
 
 	@Override
 	public int insertClassBook(ArrayList<ClassVocaBook> cvList) {
-		return 0;
+		return vocaMapper.deleteClassBook(cvList.get(0).getBookNo())
+			 * vocaMapper.insertClassBook(cvList);
+	}
+	
+	@Override
+	public int deleteClassBook(int bookNo) {
+		return vocaMapper.deleteClassBook(bookNo);
 	}
 
 	@Override
@@ -66,10 +72,6 @@ public class VocaServiceImpl implements VocaService {
 		return vocaMapper.selectBookClassList(bookNo);
 	}
 
-	@Override
-	public int updateClassBook(ArrayList<ClassVocaBook> cvList) {
-		return 0;
-	}
 
 
 }

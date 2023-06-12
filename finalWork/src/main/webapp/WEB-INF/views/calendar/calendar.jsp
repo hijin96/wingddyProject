@@ -76,7 +76,7 @@
 <body>
 <div id="app">
 	<div>
-		<jsp:include page="/WEB-INF/views/sideBar/sideBar.jsp"/>
+		<jsp:include page="../sideBar/sideBar.jsp"/>
 		
 		<div class="main-content">
 	    	
