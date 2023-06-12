@@ -110,6 +110,9 @@
                                   <input type="hidden" name="update" value="firstUpdate">
                                 </c:when>
                                 <c:otherwise>
+                                  <input type="hidden" name="originName" value="${profile.originName}">
+                                  <input type="hidden" name="filePath" value="${profile.filePath}">
+                                  <input type="hidden" name="fileNo" value="${profile.fileNo}">
                                   <input type="hidden" name="update" value="update">
                                 </c:otherwise>
                               </c:choose>

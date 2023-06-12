@@ -18,5 +18,8 @@ public class Store {
 	private String spOnecom;//상품한줄평
 	private Date spDay;//상품등록일
 	private ArrayList<Attachment> atlist;
+	private String changeName;
+	private int fileLevel;
+	private String filePath;
 
 }

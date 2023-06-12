@@ -13,10 +13,16 @@
 		<result column="VIEW_COUNT" property="viewCount"/>
 		<result column="SP_ONECOM" property="spOnecom"/>
 		<result column="SP_DAY" property="spDay"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="FILE_PATH" property="filePath"/>
+		<result column="FILE_LEVEL" property="fileLevel"/>
+		<!-- <collection property="changeName" resultMap="Attachment"></collection>
+		<collection property="fileLevel" resultMap="Attachment"></collection>
+		<collection property="filePath" resultMap="Attachment"></collection> -->
 	</resultMap>
 	<resultMap type="Attachment" id="AttachmentResultSet">
 		<result column="FILE_NO" property="fileNo"/>
-		<result column="MEMBER_NO" property="memNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
 		<result column="ORIGIN_NAME" property="originName"/>
 		<result column="CHANGE_NAME" property="changeName"/>
 		<result column="FILE_LEVEL" property="fileLevel"/>
@@ -26,13 +32,13 @@
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM S_STORE WHERE AMOUNT > 0
 	</select>
-	<select id="selectList" resultMap="storeResultSet,AttachmentResultSet">
+	<select id="selectList" resultMap="storeResultSet" resultType="Store">
 			SELECT 
 			    S.SP_NAME
 			    ,S.SP_PRICE
 			    ,S.VIEW_COUNT
 			    ,S.SP_DAY   
-			    ,A.FILE_NO
+			    ,S.FILE_NO
 			    ,A.FILE_LEVEL
                 ,A.FILE_PATH
                 ,A.CHANGE_NAME
