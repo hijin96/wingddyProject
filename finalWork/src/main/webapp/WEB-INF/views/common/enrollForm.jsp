@@ -166,7 +166,7 @@
     function keyupInput(){
       const getIdCheck= RegExp(/^[a-zA-Z0-9]{5,13}$/);
       const getPwCheck= RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
-      const getName= RegExp(/^[가-힣]+$/);
+      const getName= RegExp(/^[가-힣]{,5}$/);
       const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
       const getPhone = RegExp(/^[0-9]{11}$/);
       var idInput = document.getElementById('frist_name');

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.wingddy.alphabetMarket.model.dao.AlphabetDao;
 import com.kh.wingddy.alphabetMarket.model.vo.Alphabet;
@@ -12,6 +13,7 @@ import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
+import com.kh.wingddy.alphabetMarket.model.vo.Words;
 import com.kh.wingddy.common.model.vo.PageInfo;
 
 @Service
@@ -74,28 +76,24 @@ public class AlphabetServiceImpl implements AlphabetService {
 		
 		String check = alphabetDao.checkAlphabet(sqlSession, ca);
 		
-		System.out.println("check : " + check);
-		// 확인하기
+		
 		if(check.equals("checkOK")) {
-			
-			// 바꾸기
-			String change = alphabetDao.changeAlphabet(sqlSession, ca);
-			System.out.println("change : " + change);
-			if(change.equals("changeSuccess")) {
+			if(alphabetDao.updateMarketWriterAlphabet(sqlSession, ca) > 0){
+				alphabetDao.updateReplyAlphabet(sqlSession, ca);
 				
-				// 댓글 selected로, 글 selling_status 변경
-				return 	alphabetDao.changeStatus(sqlSession, ca);
-
-			}else {
-				return change;
+				if(alphabetDao.changeMarketStatus(sqlSession, ca) + alphabetDao.changeReplyStatus(sqlSession, ca) == 2) {
+					return "statusSuccess";
+				}else {
+					return "statusFail";
+				}
 				
+			}else{
+				return "changeFail";
 			}
-			
 		}else {
 			return check;
 		}
 
-		
 	}
 	
 	@Override
@@ -112,10 +110,30 @@ public class AlphabetServiceImpl implements AlphabetService {
 		return alphabetDao.ajaxMyCount(sqlSession, mc);
 	}
 	
+
+	@Override
+	public String ajaxGachaAlphabet(Alphabet ap) {
+		
+		if (alphabetDao.insertAlphabet(sqlSession, ap) + alphabetDao.updateMyCount(sqlSession, ap) == 2) {
+			return "success";
+		}else {
+			return "fail";
+		}
+
+	}
 	
 	
-	
-	
+	@Override
+	public String insertWords(Words wd) {
+		
+		if(alphabetDao.checkWords(sqlSession, wd) > 0) {
+			alphabetDao.updateMyCoupon(sqlSession, wd);
+			alphabetDao.deleteAlphabet(sqlSession, wd);
+		}
+		
+		return null;
+	}
+
 	
 	
 	
@@ -125,17 +143,9 @@ public class AlphabetServiceImpl implements AlphabetService {
 	
 	
 
-	@Override
-	public int deleteMarket(int marketBno) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
-	@Override
-	public int alphabet(AlphabetMarket am) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
+
 
 
 

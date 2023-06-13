@@ -61,5 +61,10 @@ public class MemberServiceImpl implements MemberService {
 	public int insertProfile(Attachment at) {
 		return memberDao.insertProfile(sqlSession, at);
 	}
+
+	@Override
+	public Attachment selectEmploy(int memberNo) {
+		return memberDao.selectEmploy(sqlSession, memberNo);
+	}
 	
 }

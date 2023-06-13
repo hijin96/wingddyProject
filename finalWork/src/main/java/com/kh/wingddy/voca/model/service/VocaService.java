@@ -40,16 +40,17 @@ public interface VocaService {
 	
 	// 클래스 단어장 등록 페이지
 	// - 내 클래스 리스트 조회(SELECT) ClassRoomService에 selectClassList
-	// 클래스 단어장 추가(INSERT)
+	// 클래스 단어장 추가 및 수정(INSERT)
 	int insertClassBook(ArrayList<ClassVocaBook> cvList);
+	// 클래스 단어장 삭제
+	int deleteClassBook(int bookNo);
+	
 	
 	// 클래스 단어장 수정 페이지
 	// - 단어장 정보 조회(SELECT)
 	// - 내 클래스 리스트 조회(SELECT) ClassRoomService에 selectClassList
 	// - 선택 단어장의 소속 클래스 리스트 조회(SELECT)
 	ArrayList<ClassVocaBook> selectBookClassList(int bookNo);
-	// 클래스 단어장 수정
-	int updateClassBook(ArrayList<ClassVocaBook> cvList);
 	
 	/* 학생 */
 	
