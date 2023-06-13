@@ -67,7 +67,7 @@
 				</div>
 			</div>
 			<div id="contents" class="row">
-			
+				
 				<div class="col-12 col-sm-6 col-md-6 col-lg-3">
                		<article class="article">
                  		<div class="article-header">
@@ -101,17 +101,10 @@
 <script>
 	var memberNo = ${loginUser.memberNo};
 	var memberType = '${loginUser.memberType}';
-	var classNo = ${reqeustScope.classroom.classNo};
+	//var classNo = ${reqeustScope.classroom.classNo};
+	//console.log(classNo);
 
-	// 상품 리스트 조회
-	$.ajax({
-		url : '',
-		type : 'post',
-		data : {classNo : },
-		success : function(){
-				
-		}
-	})
+	console.log(${cpList});
 
 
 

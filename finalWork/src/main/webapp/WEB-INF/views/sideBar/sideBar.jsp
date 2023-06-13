@@ -393,7 +393,6 @@
 	            
 	            <script>
 	            	function submitCouponForm(){
-	            		console.log('클릭');
 	            		$('#form-coupon').submit();
 	            	}	
 	            </script>
