@@ -163,8 +163,6 @@
       nameInput.addEventListener("keyup", ()=> keyupNameCheck());
       phoneInput.addEventListener("keyup", ()=> keyupPhoneCheck());
 
-      
-    
       const url = new URL(window.location.href);
 
       console.log(url.search); // ?teacher
