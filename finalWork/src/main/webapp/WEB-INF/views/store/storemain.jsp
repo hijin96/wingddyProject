@@ -53,7 +53,7 @@
 	                                     <div class="products-single">${s.spNo }
 	                                         <div class="box-img-hover">
 	                                             <div class="type-lb">
-	                                                 <p class="spNo">${s.spNo }</p>
+	                                              <input type="hidden" value="${s.spNo }">   <p class="spNo">${s.spNo }</p>
 	                                             </div>
 	                                            <img src="${contextPath}/${s.filePath}/${s.changeName}" class="img-fluid" alt="Image">
 	                                             <div class="mask-icon">
