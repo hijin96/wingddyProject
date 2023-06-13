@@ -35,14 +35,17 @@ public class VocaServiceImpl implements VocaService {
 	}
 
 	@Override
+	@Transactional
 	public int deleteVocaBook(int bookNo) {
-		return vocaMapper.deleteVocabook(bookNo);
+		return vocaMapper.deleteVocaList(bookNo)
+			 * vocaMapper.deleteVocabook(bookNo);
 	}
 
 	@Override
 	@Transactional
 	public int insertVocaBook(VocaBook vb, ArrayList<Voca> vlist) {
-		return vocaMapper.insertVocaBook(vb) * vocaMapper.insertVocaList(vlist);
+		return vocaMapper.insertVocaBook(vb) 
+			 * vocaMapper.insertVocaList(vlist);
 	}
 
 	@Override

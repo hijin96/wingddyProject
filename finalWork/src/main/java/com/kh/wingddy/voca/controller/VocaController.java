@@ -125,6 +125,19 @@ public class VocaController {
 		return Integer.toString(vocaService.updateVocaBook(vb));
 	}
 	
+	@RequestMapping("deleteBook.vc")
+	public ModelAndView deleteBook(int bookNo, ModelAndView mv) {
+		
+		if(vocaService.deleteVocaBook(bookNo) > 0) {
+			mv.setViewName("redirect:main.vc");
+		} else {
+			mv.addObject("alertMsg", "단어장 삭제에 실패하였습니다")
+			  .setViewName("voca/updateBookForm");
+		}
+		
+		return mv;
+	}
+	
 	@ResponseBody
 	@PostMapping(value="bookClassList.vc", produces="application/json; charset=UTF-8")
 	public String selectBookClassList(int bookNo){
