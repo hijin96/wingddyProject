@@ -22,7 +22,7 @@
 					<div class="card">
 						<div align="right">
 							<div class="card-body">
-								<button type="button" class="btn btn-primary">마니또 매칭</button>
+								<button type="button" class="btn btn-primary" id="matching">마니또 매칭</button>
 								<button type="button" class="btn btn-primary">마니또 종료</button>
 							</div>
 						</div>
@@ -58,6 +58,25 @@
 		    </section>
 	    </div>
 </div>
+
+<script>
+	$('#matching').click(function(){
+
+		console.log('123');
+		console.log('${requestScope.classroom.classNo}');
+		
+		$.ajax({
+			url : 'matching.mani',
+			data : {
+				classNo : '${requestScope.classroom.classNo}'
+			},
+			success : function(){
+
+			}
+			
+		})
+	})
+</script>
 
 </body>
 </html>

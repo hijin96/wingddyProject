@@ -32,9 +32,6 @@ public class AlphabetController {
 	@Autowired
 	private AlphabetService AlphabetService;
 	
-	@Autowired
-	private ClassroomService classroomService;
-	
 	
 	// 게시글 리스트 화면
 	@RequestMapping("main.aph")
