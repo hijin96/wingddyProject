@@ -2,6 +2,8 @@ package com.kh.wingddy.member.controller;
 
 import java.io.File;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,13 +41,21 @@ public class MemberController {
 	@RequestMapping("login.me")
 	public ModelAndView loginMember(Member m
 									,ModelAndView mv
-									,HttpSession session) {
+									,HttpSession session
+									,HttpServletResponse response
+									,String[] remember) {
 		
 		Member loginUser = memberService.loginMember(m);
-		
+		int month = (60 * 60 * 24 * 28);
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
 			//System.out.println(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd()));
 			//System.out.println(memberService.selectProfile(loginUser.getMemberNo()));
+			//System.out.println(remember[0]);
+			if(remember != null) {
+				Cookie saveId = new Cookie("saveId", m.getMemberId());
+				saveId.setMaxAge(month);
+				response.addCookie(saveId);
+			}
 			session.setAttribute("loginUser", loginUser);
 			session.setAttribute("classList", classroomService.selectClassList(loginUser));
 			session.setAttribute("profile", memberService.selectProfile(loginUser.getMemberNo()));
@@ -217,9 +227,23 @@ public class MemberController {
 	}
 	
 	@RequestMapping("updateEmploy.me")
-	public String employForm() {
+	public ModelAndView employForm(ModelAndView mv, HttpSession session) {
 		
-		return "member/employForm";
+		int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
+		mv.addObject("employ", memberService.selectEmploy(memberNo));
+		mv.setViewName("member/");
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("deleteCookie.me")
+	public String deleteCookie(String cookie, HttpServletResponse response) {
+		
+		Cookie ck = new Cookie("saveId", "nope");
+		ck.setMaxAge(0);
+		response.addCookie(ck);
+		
+		return cookie != null ? "success" : "fail"; 
 	}
 	
 }

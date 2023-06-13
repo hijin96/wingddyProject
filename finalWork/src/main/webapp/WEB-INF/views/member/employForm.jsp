@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,12 +27,48 @@
                 <div class="chocolat-parent">
                     <a href="#" class="chocolat-image" title="Just an example">
                         <div data-crop-image="285">
-                            <img alt="image" src="resources/assets/img/example-image.jpg" class="img-fluid">
+                            <c:choose>
+                                <c:when test="${empty profile}">
+                                    <img alt="image" src="resources/assets/img/example-image.jpg" class="img-fluid">
+                                </c:when>
+                                <c:otherwise>
+                                    <img alt="image" src="${employ.filePath}" class="img-fluid">
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </a>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>재직증명서 첨부하기</h4>
+                </div>
+                <div class="card-body">
+                  <form action="updateEmploy.me" method="POST" class="dropzone" id="mydropzone">
+                    <div class="fallback">
+                      <input name="reUpfile" type="file" />
+                      <c:choose>
+                        <c:when test="${empty employ}">
+                          <input type="hidden" name="update" value="firstUpdate">
+                        </c:when>
+                        <c:otherwise>
+                          <input type="hidden" name="originName" value="${employ.originName}">
+                          <input type="hidden" name="filePath" value="${employ.filePath}">
+                          <input type="hidden" name="fileNo" value="${employ.fileNo}">
+                          <input type="hidden" name="update" value="update">
+                        </c:otherwise>
+                      </c:choose>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </section>
     </div>
 
