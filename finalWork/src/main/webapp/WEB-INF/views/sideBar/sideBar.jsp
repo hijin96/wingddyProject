@@ -385,11 +385,20 @@
 	
 	
 	            <li>
-	            	<form action="couponStore" method="post">
-            			<div><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></div>
+	            	<form id="form-coupon" action="couponStore" method="post">
+            			<a id="couponHandler" class="nav-link" onclick="submitCouponForm();"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a>
             			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
             		</form>
 	            </li>	
+	            
+	            <script>
+	            	function submitCouponForm(){
+	            		console.log('클릭');
+	            		$('#form-coupon').submit();
+	            	}	
+	            </script>
+	            
+	            
             </c:if>
             <c:choose>
               <c:when test="${not empty loginUser}">
