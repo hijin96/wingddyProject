@@ -103,7 +103,10 @@
                   <div class="row">
                     <div class="form-group col-6">
                       <label>Phone</label>
-                      <input type="text" class="form-control" name="phone" placeholder="Please Enter Phone" required>
+                      <input type="text" id="phone" class="form-control" name="phone" placeholder="Please Enter Phone" required>
+                    </div>
+                    <div class="form-group col-6">
+                      <label for="phone" id="chkPhone"></label>
                     </div>
                   </div>
 
@@ -124,13 +127,13 @@
 
                   <div class="form-group">
                     <div class="custom-control custom-checkbox">
-                      <input type="checkbox" name="agree" class="custom-control-input" id="agree">
+                      <input type="checkbox" name="agree" class="custom-control-input" id="agree" onclick="agreeEnroll();">
                       <label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                    <button type="submit" id="enrollBtn" class="btn btn-primary btn-lg btn-block" disabled>
                       Join Wingddy
                     </button>
                   </div>
@@ -152,11 +155,15 @@
       var pwdInput = document.getElementById('password');
       var rePwdInput = document.getElementById('password2');
       var nameInput = document.getElementById('last_name');
+      var phoneInput = document.getElementById('phone');
 
       idInput.addEventListener("keyup", ()=> keyupInput());
       pwdInput.addEventListener("keyup", ()=> keyupPwdCheck());
       rePwdInput.addEventListener("keyup", ()=> keyupRePwdCheck());
       nameInput.addEventListener("keyup", ()=> keyupNameCheck());
+      phoneInput.addEventListener("keyup", ()=> keyupPhoneCheck());
+
+      
     
       const url = new URL(window.location.href);
 
@@ -173,9 +180,9 @@
     
     function keyupInput(){
       const getIdCheck= RegExp(/^[a-zA-Z0-9]{4,12}$/);
-      const getName= RegExp(/^[가-힣]{,5}$/);
-      const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-      const getPhone = RegExp(/^[0-9]{11}$/);
+      //const getName= RegExp(/^[가-힣]{,5}$/);
+      const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/); // 이메일 인증만들어야됨
+      //const getPhone = RegExp(/^[0-9]{11}$/);
       var idInput = document.getElementById('frist_name');
       var idValue = idInput.value;
       var idLength = idValue.length;
@@ -247,7 +254,27 @@
         else{
           $('#chkName').text('');
         }
+    }
 
+    function keyupPhoneCheck(){
+      var phoneInput = $('#phone').val();
+      const getPhone = RegExp(/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/);
+      //const getPhone = RegExp(/^[0-9]{11}$/);
+      if(!getPhone.test(phoneInput)){
+        $('#chkPhone').text('-를 포함해서 입력해주세요! (11자리)');
+      }
+      else{
+        $('#chkPhone').text('');
+      }
+    }
+
+    function agreeEnroll(){
+      if($('#agree').is(':checked') == true){
+          $('#enrollBtn').attr('disabled', false);
+      }
+      else{
+        $('#enrollBtn').attr('disabled', true);
+      }
     }
   </script>
 
