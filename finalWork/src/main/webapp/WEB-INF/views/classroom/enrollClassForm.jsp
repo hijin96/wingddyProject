@@ -27,7 +27,7 @@
                                     <i class="fas fa-envelope"></i>
                                 </div>
                             </div>
-                            <input type="text" class="form-control" placeholder="Enter Code" name="enterCode">
+                            <input type="text" class="form-control" placeholder="Enter Code" name="enterCode" required>
                             <input type="hidden" name="studentNo" value="${loginUser.memberNo}">
                         </div>
                     </div>
