@@ -42,7 +42,7 @@
 		
 		        <div class="section-body">
 					<div class="card">
-						<form action="insertWords.aph" method="post">
+						<form action="insertWords.aph" method="post" id="moveToinsertWords">
 							<div class="card-body">
 								
 								<input type="hidden" name="classNo" value="${requestScope.classroom.classNo}">
@@ -80,17 +80,7 @@
 
 
 
-<c:if test="${ not empty cno }">
-	<form action="makeWords.aph" method="post" id="moveToinsertWords">
-		<input type="hidden" name="cno" value="${sessionScope.cno}">
-	</form>
-	
-	<script>
-		console.log('${sessionScope.cno}');
-		$('#moveToinsertWords').submit();
-	</script>
-	<c:remove var="cno" scope="session" />
-</c:if>
+
 
 
 
@@ -102,7 +92,6 @@
 
 		myAlphabet();
 
-		console.log('${sessionScope.cno}');
 	})
 
 
@@ -137,14 +126,12 @@
 
 	var result = '';
 	var alphabetCount = 0;
-	var deleteAlphabet = '';
 	var insertNum = 0;
 
 	$(document).on('click', '.alphabet', function(){
 		
 		if($(this).find('.alphabetCount').text() != '0'){
 
-			
 
 			result += $(this).find('.alphabetText').text()
 
@@ -161,56 +148,31 @@
 
 	$('#word').click(function(){
 
+		console.log($('#word').val().substr($('#word').val().length-1,$('#word').val().length));// 빠진 글자
+
+		
+		var deleteAlphabet = $('#word').val().substr($('#word').val().length-1,$('#word').val().length);
+
+
+		$('.alphabetText').each(function() {
+			if ($(this).text() === deleteAlphabet) {
+
+				insertNum = Number($((this)).parent().parent().find('.alphabetCount').text())+1
+				
+				$((this)).parent().parent().find('.alphabetCount').text(insertNum);
+
+			}
+		});
+
 		
 		if($('#word').val().substr(0,$('#word').val().length-1).length == 0){ // 하나 뺐을 때 아무 것도 없다면(원래 하나만 있었다면)
-			//console.log($('#word').val().substr($('#word').val().length-1,$('#word').val().length));// 빠진 글자
+
 			result = '';
 			$('#word').val(result);
-
-			deleteAlphabet = $('#word').val().substr($('#word').val().length-1,$('#word').val().length);
-			console.log(deleteAlphabet);
-
-			$('.alphabetText').each(function() {
-				if ($(this).text() === deleteAlphabet) {
-
-					insertNum = Number($((this)).parent().parent().find('.alphabetCount').text())+1
-					
-					$((this)).parent().parent().find('.alphabetCount').text(insertNum);
-					//console.log($(this))
-				}
-			});
-
-
-
-
 		}
 		else{
-
-			//빠진 알파벳
-			deleteAlphabet = $('#word').val().substr($('#word').val().length-1,$('#word').val().length)
-			console.log(deleteAlphabet);
-
-
-
-			$('.alphabetText').each(function() {
-				if ($(this).text() === deleteAlphabet) {
-
-					insertNum = Number($((this)).parent().parent().find('.alphabetCount').text())+1
-					
-					$((this)).parent().parent().find('.alphabetCount').text(insertNum);
-					//console.log($(this))
-				}
-			});
-
-			//빠진 결과 출력
 			$('#word').val($('#word').val().substr(0,$('#word').val().length-1));
-
 		}
-		
-
-	
-		
-
 	})
 	
 

@@ -227,7 +227,7 @@ public class AlphabetController {
 	
 
 	@RequestMapping("insertWords.aph")
-	public String insertWords(Words wd, HttpSession session) {
+	public String insertWords(Words wd, HttpSession session, HttpServletRequest request) {
 		
 		
 		
@@ -243,9 +243,10 @@ public class AlphabetController {
 			session.setAttribute("alertMsg", "에러 발생! 다시 시도해 보세요!");
 		}
 		
-		session.setAttribute("cno", wd.getClassNo());
+		request.setAttribute("cno", wd.getClassNo());
 		
-		return "alphabetMarket/makeWords";
+		
+		return "sideBar/sideBar";
 	}
 	
 	

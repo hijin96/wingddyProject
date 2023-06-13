@@ -126,7 +126,8 @@ public class AlphabetServiceImpl implements AlphabetService {
 	@Override
 	public String insertWords(Words wd) {
 		
-		String word = wd.getWord();
+		String word = wd.getWord().toUpperCase();
+		int deleteNum = 0;
 	
 		
 		if(alphabetDao.checkWords(sqlSession, wd)) {
@@ -134,10 +135,12 @@ public class AlphabetServiceImpl implements AlphabetService {
 				
 				for(int i = 0; i < word.length(); i++) {
 					wd.setWord(String.valueOf(word.charAt(i)));
-					alphabetDao.deleteAlphabet(sqlSession, wd);
 					
-					return "success";
+					deleteNum += alphabetDao.deleteAlphabet(sqlSession, wd);
+					
 				}
+				
+				if(deleteNum == word.length()) {return "success";}
 			}
 			return "error";
 		}else {

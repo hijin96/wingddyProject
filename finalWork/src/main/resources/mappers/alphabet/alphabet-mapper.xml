@@ -233,8 +233,8 @@
 	DELETE FROM ALPHABET
 	 WHERE CLASS_NO = #{classNo}
 	   AND MEMBER_NO = #{memberNo}
-	   AND ALPHABET = 
-	   AND ROWNUM = 1;
+	   AND ALPHABET = #{word}
+	   AND ROWNUM = 1
 	</delete>
 	
 	
