@@ -170,7 +170,10 @@
 		<script>
 			$('.select-voca').on('click','h4', e => {
 				selectVoca(e);
-			})
+			});
+			$('.select-voca').click(e => {
+				$(e.target).children('h4').click();
+			});
 			/*
 			let voca = document.getElementsByClassName('select-voca');
 	
