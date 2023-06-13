@@ -46,7 +46,7 @@
                 <form method="POST" action="enrollMember.me" enctype="multipart/form-data">
                   <div class="row">
                     <div class="form-group col-6">
-                      <label for="frist_name">Your ID</label><button type="button" id="checkBtn" class="btn btn-icon btn-success" onclick="checkId();" style="margin-left:195px; height:30px;" disabled=true;>check ID</button>
+                      <label for="frist_name">Your ID</label><button type="button" id="checkBtn" class="btn btn-icon btn-success" style="margin-left:195px; height:30px;" disabled="true">check ID</button>
                       <input id="frist_name" type="text" class="form-control" name="memberId" autofocus required placeholder="Please Enter ID">
                     </div>
                     <div class="form-group col-6">
@@ -164,7 +164,7 @@
     }
     
     function keyupInput(){
-      const getIdCheck= RegExp(/^[a-zA-Z0-9]{5,13}$/);
+      const getIdCheck= RegExp(/^[a-zA-Z0-9]{4,12}$/);
       const getPwCheck= RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
       const getName= RegExp(/^[가-힣]{,5}$/);
       const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
@@ -173,9 +173,8 @@
       var idValue = idInput.value;
       var idLength = idValue.length;
         //console.log(idValue);
-      if(idLength >= 5){
+      if(idLength >= 4){
         //console.log(idValue);
-        httpRequest = new XMLHttpRequest();
 
         var textEl = document.getElementById('chkId');
         var text = textEl.value;
@@ -184,8 +183,25 @@
           textEl.innerText = '아이디는 첫글자 영문,그 외 영문자/숫자로 4~12자로 입력해주세요.';
           document.getElementById('checkBtn').disabled = true;
         }
-      } else {
+        else{
+          textEl.innerText = '';
           document.getElementById('checkBtn').disabled = false;
+          $('.checkBtn').click(function(){
+            $.ajax({
+              url : 'idCheck.me',
+              type : 'POST',
+              data : { memberId : $('input[name=memberId]').val()},
+              success : function(){
+                
+              },
+              error : function(){
+                console.log('asdasasdasd')
+              }
+            });
+          })
+        }
+      } else {
+          
       }
     }
 
