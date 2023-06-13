@@ -99,12 +99,12 @@
                 </div>
                 <div class="row sm-gutters">
                   <div class="col-6">
-                    <a class="btn btn-block btn-social btn-facebook">
+                    <a class="btn btn-block btn-success btn-social btn-facebook">
                       <span class="fab fa-facebook"></span> NAVER
                     </a>
                   </div>
                   <div class="col-6">
-                    <a class="btn btn-block btn-social btn-twitter">
+                    <a class="btn btn-warning btn-block btn-social btn-twitter">
                       <span class="fab fa-twitter"></span> KAKAO
                     </a>                                
                   </div>
@@ -113,7 +113,7 @@
               </div>
             </div>
             <div class="mt-5 text-muted text-center">
-              Don't have an account? <a href="auth-register.html">Create One</a>
+              Don't have an account? <a href="enrollForm.me">Create One</a>
             </div>
             <div class="simple-footer">
               Copyright &copy; Wingddy 2023
