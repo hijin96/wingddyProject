@@ -83,4 +83,13 @@
 		   AND
 		       STATUS_YN = 'N'
 	</select>
+	
+	<select id="idCheck" parameterType="string" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM
+		       MEMBER
+		 WHERE
+		       MEMBER_ID = #{memberId}           
+	</select>
 </mapper>

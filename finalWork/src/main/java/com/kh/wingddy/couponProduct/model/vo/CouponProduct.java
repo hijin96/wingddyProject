@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CouponProduct {
-	private int cpNo;
+	private int pNo;
 	private int classNo;
 	private int cartNo;
 	private String productName;
@@ -12,6 +12,5 @@ public class CouponProduct {
 	private int couponPrice;
 	private int amount;
 	private String reName;
-	private String thumbnail;
 	
 }

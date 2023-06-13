@@ -66,5 +66,10 @@ public class MemberServiceImpl implements MemberService {
 	public Attachment selectEmploy(int memberNo) {
 		return memberDao.selectEmploy(sqlSession, memberNo);
 	}
+
+	@Override
+	public int idCheck(String memberId) {
+		return memberDao.idCheck(sqlSession, memberId);
+	}
 	
 }

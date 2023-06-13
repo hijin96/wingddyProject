@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.RenameFile;
+import com.kh.wingddy.store.model.vo.Cart;
 import com.kh.wingddy.store.model.vo.Store;
 @Repository
 public class StoreDao {
@@ -32,15 +33,16 @@ public class StoreDao {
 		}
 		return 0;
 	}
-	public int insertStoreText(SqlSessionTemplate sqlSession, HashMap<String, Object> jsonstore) {
-		Object spContent= jsonstore.values();
-		 jsonstore.getClass().getName();
-		if(
-				sqlSession.insert("storeMapper.insertStoreText",jsonstore)>0) {
-				//sqlSession.insert("storeMapper.insertThumnail",Attachment);
-		}
-		return sqlSession.insert("storeMapper.insertStoreText",jsonstore);
-	}
+
+	/*
+	 * public int insertStoreText(SqlSessionTemplate sqlSession, HashMap<String,
+	 * Object> jsonstore) { Object spContent= jsonstore.values();
+	 * jsonstore.getClass().getName(); if(
+	 * sqlSession.insert("storeMapper.insertStoreText",jsonstore)>0) {
+	 * //sqlSession.insert("storeMapper.insertThumnail",Attachment); } return
+	 * sqlSession.insert("storeMapper.insertStoreText",jsonstore);
+	 
+	}*/
 	public int createFileNo(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("storeMapper.createFileNo");
 	}
@@ -51,5 +53,9 @@ public class StoreDao {
 
 	public Store selectStoreBoard(SqlSessionTemplate sqlSession, int spNo) {
 		return sqlSession.selectOne("storeMapper.selectStoreBoard", spNo);	
+	}
+	public int insertStoreCart(SqlSessionTemplate sqlSession, Store s, Cart cart) {
+		
+		return sqlSession.insert("storeMapper.insertStoreCart",cart);
 	}
 }

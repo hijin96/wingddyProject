@@ -27,6 +27,15 @@
 		<result column="FILE_PATH" property="filePath"/>
 	
 	</resultMap>
+	<resultMap type="Cart" id="CartResultSet">
+		<result column="CART_NO" property="cartNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="SP_NO" property="spNo"/>
+		<result column="BUY_COUNT" property="buyCount"/>
+		<result column="ORDER_YN" property="orderYn"/>
+		<result column="CART_DAY" property="cartDay"/>
+		<result column="ORDER_NO" property="orderNo"/>
+	</resultMap>
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM S_STORE WHERE AMOUNT > 0
 	</select>
@@ -149,4 +158,18 @@
         AND SP_NO = #{spNo}
 	
 	</select>
+	
+	<insert id="insertStoreCart">
+	INSERT INTO 
+		S_CART 
+	VALUES 
+		(SEQ_CART_NO.NEXTVAL
+		,#{memberNo}
+		,#{spNo}
+		,#{buyCount}
+		,'N'
+		,SYSDATE
+		,null)
+	
+	</insert>
 </mapper>
