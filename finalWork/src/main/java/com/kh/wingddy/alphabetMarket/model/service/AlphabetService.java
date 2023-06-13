@@ -32,7 +32,6 @@ public interface AlphabetService {
 	
 	// 알파벳 마켓 글 작성
 	int insertMarket(AlphabetMarket am);
-	
 
 	
 	// 마켓 댓글 작성

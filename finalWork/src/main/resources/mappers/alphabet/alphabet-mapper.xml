@@ -177,7 +177,7 @@
 	<update id="changeReplyStatus" parameterType="changeAlphabet">
 	UPDATE ALPHABET_REPLY
 	   SET REPLY_SELECTED = 'Y'
-	 WHERE REPLY_NO = #{replyNo};
+	 WHERE REPLY_NO = #{replyNo}
 	</update>
 	
 	<select id="writerLastMarket" parameterType="alphabetMarket" resultType="_int">

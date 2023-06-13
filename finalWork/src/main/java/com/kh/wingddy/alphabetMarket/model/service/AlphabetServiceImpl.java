@@ -75,40 +75,25 @@ public class AlphabetServiceImpl implements AlphabetService {
 	public String ajaxChangeAlphabet(ChangeAlphabet ca) {
 		
 		String check = alphabetDao.checkAlphabet(sqlSession, ca);
-		String result="";
 		
-
-		// 확인하기
+		
 		if(check.equals("checkOK")) {
-			
-			// 바꾸기
-			try {
-				result = alphabetDao.changeAlphabet(sqlSession, ca);
+			if(alphabetDao.updateMarketWriterAlphabet(sqlSession, ca) > 0){
+				alphabetDao.updateReplyAlphabet(sqlSession, ca);
 				
-				if(result.equals("changeSuccess")) {
-					
-					result = alphabetDao.changeStatus(sqlSession, ca);
-					// 댓글 selected로, 글 selling_status 변경
-					return 	result;
-
+				if(alphabetDao.changeMarketStatus(sqlSession, ca) + alphabetDao.changeReplyStatus(sqlSession, ca) == 2) {
+					return "statusSuccess";
 				}else {
-					return result;
-					
+					return "statusFail";
 				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
 				
+			}else{
+				return "changeFail";
 			}
-			
-			
 		}else {
 			return check;
 		}
-		
-		return result;
 
-		
 	}
 	
 	@Override
@@ -125,20 +110,18 @@ public class AlphabetServiceImpl implements AlphabetService {
 		return alphabetDao.ajaxMyCount(sqlSession, mc);
 	}
 	
-	
 
 	@Override
 	public String ajaxGachaAlphabet(Alphabet ap) {
 		
-		try {
-			return alphabetDao.ajaxGachaAlphabet(sqlSession, ap);
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (alphabetDao.insertAlphabet(sqlSession, ap) + alphabetDao.updateMyCount(sqlSession, ap) == 2) {
+			return "success";
+		}else {
 			return "fail";
 		}
+
 	}
+	
 	
 	@Override
 	public String insertWords(Words wd) {
@@ -147,7 +130,6 @@ public class AlphabetServiceImpl implements AlphabetService {
 			alphabetDao.updateMyCoupon(sqlSession, wd);
 			alphabetDao.deleteAlphabet(sqlSession, wd);
 		}
-		
 		
 		return null;
 	}

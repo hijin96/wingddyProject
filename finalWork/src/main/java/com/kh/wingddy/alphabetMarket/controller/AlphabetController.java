@@ -160,7 +160,7 @@ public class AlphabetController {
 	public String ajaxChangeAlphabet(ChangeAlphabet ca) {
 
 		String result = AlphabetService.ajaxChangeAlphabet(ca);
-		System.out.println(result);
+
 		return result;
 
 	}
