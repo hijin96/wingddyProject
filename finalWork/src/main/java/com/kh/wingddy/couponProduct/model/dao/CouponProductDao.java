@@ -7,7 +7,12 @@ import org.springframework.stereotype.Repository;
 public class CouponProductDao {
 	
 	public int selectListCount(SqlSessionTemplate sqlSession, int classNo) {
-		return sqlSession.selectOne("");
-		
+		return sqlSession.selectOne("coupon-mapper.selectListCount", classNo);
 	}
+	
+	
+	
+	
+	
+	
 }

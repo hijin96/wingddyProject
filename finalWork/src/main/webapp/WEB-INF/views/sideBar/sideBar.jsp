@@ -355,7 +355,7 @@
             </c:if>
 			
 			<c:if test="${ not empty classroom }">
-        <!-- ${reqeustScope.classroom.classNo} -->
+        	<!-- ${reqeustScope.classroom.classNo} -->
 	            <li>
                 <form action="main.aph" method="POST">
                   <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
@@ -385,8 +385,10 @@
 	
 	
 	            <li>
-	            	<form action="" method=""></form>
-            		<a class="nav-link" href="couponStore?cno=${requestScope.classroom.classNo}"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a>
+	            	<form action="couponStore" method="post">
+            			<div><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></div>
+            			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
+            		</form>
 	            </li>	
             </c:if>
             <c:choose>
