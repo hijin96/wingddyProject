@@ -226,8 +226,8 @@
                 <li><a class="nav-link" href="storebuy">구매목록</a></li>
               </ul>
             </li>
-            <li class="menu-header">PRIVATE</li>
             <c:if test="${not empty loginUser}">
+            <li class="menu-header">PRIVATE</li>
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>마이페이지</span></a>
               <ul class="dropdown-menu">
@@ -235,44 +235,49 @@
                 <li><a href="profile.me">내정보수정</a></li>
               </ul>
             </li>    
-            <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
+            <li><a class="nav-link" href="main.vc"><i class="fas fa-book"></i> <span>단어장</span></a></li>
             </c:if>
 			<li class="menu-header className">${requestScope.classroom.className}</li>
 			<c:if test="${ not empty classroom }">
         	<!-- ${reqeustScope.classroom.classNo} -->
               <li>
 	            	<form action="myAlphabet.aph" method="POST" class="submit">
-            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>My alphabet</span></a>
+            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
             			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
             		</form>
 	            </li>	
 	
               <li>
 	            	<form action="main.aph" method="POST" class="submit">
-            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>Alphabet Market</span></a>
+            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>알파벳 마켓</span></a>
             			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
             		</form>
 	            </li>	
 	
 	            <li>
-	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
+	              <a href="" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
 	            </li>
               
 
               <li>
 	            	<form action="matching.mani" method="POST" class="submit">
-            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>Manitto Management</span></a>
+            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
             			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
             		</form>
 	            </li>	
              
 	            <li>
-	            	<form id="form-coupon" action="couponStore" method="post">
+	            	<form id="form-coupon" action="couponStore" method="post" class="submit">
             			<a id="couponHandler" class="nav-link" onclick="submitCouponForm();"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a>
             			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
             		</form>
 	            </li>	
-	            
+   	            <li>
+	            	<form action="main.edu" method="POST" class="submit">
+            			<a class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>학습</span></a>
+            			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
+            		</form>
+	            </li>	
 	            <script>
 	            	function submitCouponForm(){
 	            		$('#form-coupon').submit();
@@ -319,19 +324,19 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">회원가입 후 이용가능 합니다</h5>
+          <h5 class="modal-title">WELCOME WINGDDY!!</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <p>
-          	<a href="enrollForm.me?teacher" class="btn btn-primary">Teacher</a>
-          	<a href="enrollForm.me?student" class="btn btn-primary">Student</a>
+          	회원가입 후 이용가능 합니다
           </p>
         </div>
         <div class="modal-footer bg-whitesmoke br" style="margin:auto;">
-
+		  <a href="enrollForm.me?teacher" class="btn btn-primary">선생님으로 이용</a>
+          <a href="enrollForm.me?student" class="btn btn-primary">학생으로 이용</a>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
         </div>
       </div>
