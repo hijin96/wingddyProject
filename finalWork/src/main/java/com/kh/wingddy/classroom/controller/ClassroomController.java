@@ -99,4 +99,11 @@ public class ClassroomController {
 		
 		return classroomService.createClassroom(cr) > 0 ? "redirect:/" : "common/errorPage";
 	}
+	
+	@RequestMapping("classManagement.cl")
+	public ModelAndView studentManagement(ModelAndView mv, int cno) {
+		
+		mv.setViewName("classroom/studentManagement");
+		return mv;
+	}
 }

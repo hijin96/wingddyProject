@@ -142,9 +142,6 @@ public class MemberController {
 	@PostMapping("confirmPass.me")
 	public String confirmPass(String memberPwd, HttpSession session) {
 	
-		
-		
-		
 		//System.out.println(memberPwd);
 		String userId = ((Member)session.getAttribute("loginUser")).getMemberId();
 		String loginPwd = ((Member)session.getAttribute("loginUser")).getMemberPwd();
