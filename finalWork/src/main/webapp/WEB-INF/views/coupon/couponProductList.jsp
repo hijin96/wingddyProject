@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>CouponProduct</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 	#header{
 		margin-bottom : 50px !important;
@@ -40,7 +41,9 @@
 		margin-top : 5px !important;
 		margin-bottom : 5px !important;
 	}
-	
+	.productContent{
+		font-size : 13px !important;
+	}
 	
 </style>
 </head>
@@ -67,27 +70,43 @@
 				</div>
 			</div>
 			<div id="contents" class="row">
-				
-				<div class="col-12 col-sm-6 col-md-6 col-lg-3">
-               		<article class="article">
-                 		<div class="article-header">
-                   			<div class="article-image" data-background="assets/img/news/img04.jpg" style="background-image: url(&quot;assets/img/news/img04.jpg&quot;);"></div>
-                 		</div>
-                		<div class="article-details">
-                			<h5>상품이름</h5>
-                			<p class="couponPrice">쿠폰 2개</p>
-                			<hr>
-                   			<p>Duis aute irure dolor in reprehenderit in voluptate velit esse
-                   			cillum dolore eu fugiat nulla pariatur. </p>
-                   			<div class="article-cta">                           
-                    			<div>수량 : 10개</div>
-                    			<button class="btn btn-primary">교환하기</button>
-                   			</div>
-                 		</div>
-               		</article>
-             	</div>
+				<c:forEach var="cp" items="${cplist}">
+					<div class="col-12 col-sm-6 col-md-6 col-lg-3">
+	               		<article class="article">
+	                 		<div class="article-header">
+	                   			<div class="article-image" data-background="assets/img/news/img04.jpg" style="background-image: url(&quot;assets/img/news/img04.jpg&quot;);"></div>
+	                 		</div>
+	                		<div class="article-details">
+	                			<h5>${cp.productName}</h5>
+	                			<p class="couponPrice">쿠폰 ${cp.couponPrice}개</p>
+	                			<hr>
+	                   			<p class="productContent">${cp.productContent}</p>
+	                   			<div class="article-cta">                           
+	                    			<div>수량 : ${cp.amount}개</div>
+	                    			<button class="btn btn-primary">교환하기</button>
+	                   			</div>
+	                 		</div>
+	               		</article>
+	             	</div>
+             	</c:forEach>
              	
-             	
+             	<div class="card-body">
+                    <nav aria-label="...">
+                      <ul class="pagination">
+                        <li class="page-item disabled">
+                          <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active">
+                          <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                          <a class="page-link" href="#">Next</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
              	
 			</div>
 		
@@ -101,10 +120,10 @@
 <script>
 	var memberNo = ${loginUser.memberNo};
 	var memberType = '${loginUser.memberType}';
-	//var classNo = ${reqeustScope.classroom.classNo};
-	//console.log(classNo);
-
-	console.log(${cpList});
+	var cno = ${requestScope.classroom.classNo};
+	var cPage = null;
+	console.log(memberNo, memberType, classNo);
+	
 
 
 
