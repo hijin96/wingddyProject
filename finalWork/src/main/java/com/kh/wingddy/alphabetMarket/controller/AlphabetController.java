@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.kh.wingddy.alphabetMarket.model.service.AlphabetService;
@@ -221,11 +222,23 @@ public class AlphabetController {
 	
 
 	@RequestMapping("insertWords.aph")
-	public String insertWords(Words wd) {
+	public String insertWords(Words wd, HttpSession session, RedirectAttributes red) {
 		
-		AlphabetService.insertWords(wd);
+		wd.setWord(wd.getWord().toLowerCase());
 		
-		return "alphabetMarket/makeWords";
+		String result = AlphabetService.insertWords(wd);
+		
+		if(result.equals("success")) {
+			session.setAttribute("alertMsg", "쿠폰으로 교환됐어요!");
+		}else if(result.equals("noWord")){
+			session.setAttribute("alertMsg", "그런 단어는 배운적 없어요!");
+		}else {
+			session.setAttribute("alertMsg", "에러 발생! 다시 시도해 보세요!");
+		}
+		
+		red.addFlashAttribute("cno", wd.getClassNo());
+		
+		return "redirect:/makeWords.aph";
 	}
 	
 	

@@ -212,8 +212,8 @@
 	   AND MEMBER_NO = #{mno}
 	</update>
 	
-	<select id="checkWords" parameterType="words" resultType="_int">
-	SELECT VOCA_EN, VOCA_KR, CLASS_NO
+	<select id="checkWords" parameterType="words" resultType="boolean">
+	SELECT COUNT(*)
 	  FROM VOCA
 	  JOIN VOCABOOK USING(BOOK_NO)
 	  JOIN CLASS_VOCABOOK USING(BOOK_NO)

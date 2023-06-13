@@ -159,8 +159,13 @@ public class AlphabetDao {
 	
 	
 	//-----------------------------------------------------------
-	public int checkWords(SqlSessionTemplate sqlSession, Words wd) {
-		return sqlSession.selectOne("alphabetMapper.checkWords",wd);
+	public boolean checkWords(SqlSessionTemplate sqlSession, Words wd) {
+		
+	return sqlSession.selectOne("alphabetMapper.checkWords",wd);
+		
+	
+		
+		
 	}
 	
 	public int updateMyCoupon(SqlSessionTemplate sqlSession, Words wd) {
