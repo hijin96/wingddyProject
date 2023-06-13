@@ -50,7 +50,7 @@ public class VocaController {
 		
 		ArrayList<VocaBook> bookList = vocaService.selectVocaBookList(m.getMemberNo());
 		
-		ArrayList<ClassVocaBook> classBookList = vocaService.selectClassVocaBookList(m.getMemberNo());
+		ArrayList<ClassVocaBook> classBookList = vocaService.selectClassVocaBookList(m);
 		
 		mv.addObject("bookList", bookList)
 		  .addObject("classBookList", classBookList)
@@ -82,6 +82,11 @@ public class VocaController {
 		
 		ArrayList<Voca> vlist = getVocaList(jObj);
 		
+		for(Voca v : vlist) {
+			String en = v.getVocaEnglish().toLowerCase();
+			v.setVocaEnglish(en);
+		}
+		
 		VocaBook vb = new VocaBook();
 		vb.setBookName(jObj.get("bookName").getAsString());
 		vb.setMemberNo(((Member)session.getAttribute("loginUser")).getMemberNo());
@@ -108,6 +113,11 @@ public class VocaController {
 							getAsJsonObject();
 		
 		ArrayList<Voca> vlist = getVocaList(jObj);
+		
+		for(Voca v : vlist) {
+			String en = v.getVocaEnglish().toLowerCase();
+			v.setVocaEnglish(en);
+		}
 		
 		HashMap<String, Object> vb = new HashMap();
 		vb.put("bookNo",jObj.get("bookNo").getAsInt());
@@ -161,12 +171,11 @@ public class VocaController {
 	
 	@ResponseBody
 	@RequestMapping(value="search.vc", produces="application/json; charset=UTF-8")
-	public String searchVoca(String text) {
+	public String searchVoca(String text, String source, String target) {
 		ArrayList<Voca> list = vocaService.searchVoca(text);
 		
-		Voca vc = checkList(text, papgoTranslate(text, "en", "ko"));
-		System.out.println(vc);
-		if(vc.getVocaEnglish() != null) {
+		Voca vc = checkList(text, papgoTranslate(text, source, target), source);
+		if(vc != null && vc.getVocaEnglish() != null) {
 			list.add(vc);
 		}
 		
@@ -250,7 +259,7 @@ public class VocaController {
         }
     }
     
-    private Voca checkList(String text, String result){
+    private Voca checkList(String text, String result, String source){
     	Voca vc = new Voca();
     	
     	JsonObject jObj = new JsonParser().parse(result).getAsJsonObject()
@@ -260,9 +269,16 @@ public class VocaController {
     	String engineType = jObj.get("engineType").getAsString();
     	String transText = jObj.get("translatedText").getAsString();
     	
-    	if(engineType.equals("PRETRANS") && !(transText.charAt(0) >= 'A' || transText.charAt(0) <= 'z')) {
-    		vc.setVocaEnglish(text);
-    		vc.setVocaKorean(transText.replace('.',' '));
+    	if(engineType.equals("PRETRANS")) {
+    		if(source.equals("en") && !((transText.length() == 1) && (transText.charAt(0) >= 'A' || transText.charAt(0) <= 'z'))) {
+	    		vc.setVocaEnglish(text);
+	    		vc.setVocaKorean(transText.replace('.',' '));
+    		} else if(source.equals("ko")){
+    			vc.setVocaEnglish(transText.replace('.',' '));
+    			vc.setVocaKorean(text);
+    		} else {
+    			return null;
+    		}
     	}
     	return vc;
     }
