@@ -13,6 +13,9 @@
 		<jsp:include page="../sideBar/sideBar.jsp"/>
 		
 		<div class="main-content">
+			<div>
+				<h1>Coupon Store</h1>
+			</div>
 		
 		
 		

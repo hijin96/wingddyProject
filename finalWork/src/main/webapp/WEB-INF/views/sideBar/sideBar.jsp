@@ -385,6 +385,7 @@
 	
 	
 	            <li>
+	            	<form action="" method=""></form>
             		<a class="nav-link" href="couponStore?cno=${requestScope.classroom.classNo}"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a>
 	            </li>	
             </c:if>
