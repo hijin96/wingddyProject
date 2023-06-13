@@ -4,6 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
+
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
 
@@ -51,6 +54,10 @@
   .changeButton:focus{
   	border : 0 !important;
   	outlint : 0 !important;
+  }
+
+  .submit:hover{
+    cursor: pointer;
   }
 </style>
 </head>
@@ -356,34 +363,34 @@
 			
 			<c:if test="${ not empty classroom }">
         	<!-- ${reqeustScope.classroom.classNo} -->
-	            <li>
-                <form action="main.aph" method="POST">
-                  <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
-                  <a class="nav-link"><i class="fas fa-pencil-ruler"></i> <button class="changeButton">알파벳마켓</button></a>
-                </form>
-	            </li>
+
+
+              <li>
+	            	<form action="myAlphabet.aph" method="POST" class="submit">
+            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>My alphabet</span></a>
+            			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
+            		</form>
+	            </li>	
 	
-	            <li>
-                <form action="myAlphabet.aph" method="POST">
-                  <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
-                  <a class="nav-link"><i class="fas fa-pencil-ruler"></i> <button class="changeButton">내 알파벳</button></a>
-                </form>
-	            </li>
-	
+              <li>
+	            	<form action="main.aph" method="POST" class="submit">
+            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>Alphabet Market</span></a>
+            			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
+            		</form>
+	            </li>	
 	
 	            <li>
 	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
 	            </li>
-	
-              <li>
-                <form action="#" mehtod="POST">
-                  <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
-                  <a class="nav-link"><i class="fas fa-pencil-ruler"></i> <button class="changeButton">마니또 관리</button></a>
-                </form>
-	            </li>
+              
 
-	
-	
+              <li>
+	            	<form action="matching.mani" method="POST" class="submit">
+            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>Manitto Management</span></a>
+            			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
+            		</form>
+	            </li>	
+             
 	            <li>
 	            	<form id="form-coupon" action="couponStore" method="post">
             			<a id="couponHandler" class="nav-link" onclick="submitCouponForm();"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a>
@@ -393,9 +400,13 @@
 	            
 	            <script>
 	            	function submitCouponForm(){
-	            		console.log('클릭');
 	            		$('#form-coupon').submit();
 	            	}	
+
+                $('.submit').click(function(){
+                  $(this).submit();
+                });
+
 	            </script>
 	            
 	            
@@ -461,6 +472,27 @@
 		</script>
 		<c:remove var="alertMsg" scope="session" />
 	</c:if>
+
+
+  <c:if test="${ not empty cno }">
+    <form action="makeWords.aph" method="post" id="moveToinsertWords">
+      <input type="hidden" name="cno" value="${requestScope.cno}">
+      <input type="hidden" name="mno" value="${sessionScope.loginUser.memberNo}">
+    </form>
+    
+    <script>
+      window.onload(movePage());
+      
+      function movePage (){
+        document.getElementById('moveToinsertWords').submit();
+      }
+    </script>
+    <c:remove var="cno" scope="request" />
+  </c:if>
+
+
+  
+  
 
   <!-- General JS Scripts -->
   <script src="resources/assets/modules/jquery.min.js"></script>
