@@ -35,8 +35,12 @@
 			<div class="card-header">
 				<h1>내 단어장</h1>
 				<button class="btn btn-primary" id="insertBook-btn">단어장 등록</button>
-				<button class="btn btn-primary" id="updateBook-btn">단어장 수정</button>
-				<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addClassBook">단어장 추가</button>
+				<c:if test="${not empty bookList}">
+					<button class="btn btn-primary" id="updateBook-btn">단어장 수정</button>
+				</c:if>
+				<c:if test="${loginUser.memberType ne 'S'}">
+					<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addClassBook">단어장 추가</button>
+				</c:if>
 			</div>
 			<div class="card-body">
 				<div id="accordion">
@@ -149,6 +153,7 @@
 										<div class="accordion-header select-voca" id="class-${i}-book-head-${j}" role="button" data-toggle="collapse" data-target="#class-${i}voca-book-${j}">
 											<input type="hidden" value="${ classBookList[j].bookNo }"/>
 											<h4>${ classBookList[j].bookName }</h4>
+											
 										</div>
 										<div class="accordion-body collapse" id="class-${i}voca-book-${j}" data-parent="#accordion${i}">
 											<table class="table" id="voca_table">
