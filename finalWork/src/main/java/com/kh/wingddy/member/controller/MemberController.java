@@ -246,4 +246,11 @@ public class MemberController {
 		return cookie != null ? "success" : "fail"; 
 	}
 	
+	@ResponseBody
+	@RequestMapping("idCheck.me")
+	public int idCheck(String memberId) {
+		
+		return memberService.idCheck(memberId);
+	}
+	
 }

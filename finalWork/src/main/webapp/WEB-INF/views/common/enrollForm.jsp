@@ -54,11 +54,11 @@
                       <input id="last_name" type="text" class="form-control" name="memberName" placeholder="Please Enter Name">
                     </div>
                     <!--중복체크-->
-                    <div class="form-group col-6" sytle="display:hidden;">
+                    <div class="form-group col-6">
                       <label for="first_name" id="chkId"></label>
                     </div>
                     <div class="form-group col-6">
-                      <label for="last_name">sda</label>
+                      <label for="last_name" id="chkName"></label>
                     </div>
                   </div>
 
@@ -83,12 +83,16 @@
                       <input id="password" type="password" class="form-control pwstrength" name="memberPwd" required placeholder="Please Enter Password">
                       <div id="pwindicator" class="pwindicator">
                         <div class="bar"></div>
-                        <div class="label"></div>
+                        <div class="label" id="chkPwd">특수문자를 포함한 영어 대,소문자 8자이상</div>
                       </div>
                     </div>
                     <div class="form-group col-6">
                       <label for="password2" class="d-block">Password Confirmation</label>
                       <input id="password2" type="password" class="form-control" name="password-confirm" required placeholder="Please Enter Password">
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label" id="chkRePwd"></div>                                                                       
+                      </div>
                     </div>
                   </div>
 
@@ -99,7 +103,7 @@
                   <div class="row">
                     <div class="form-group col-6">
                       <label>Phone</label>
-                      <input type="name" class="form-control" name="phone" placeholder="Please Enter Phone" required>
+                      <input type="text" class="form-control" name="phone" placeholder="Please Enter Phone" required>
                     </div>
                   </div>
 
@@ -144,13 +148,17 @@
   <script>
     
     window.onload = function(){
-      
       var idInput = document.getElementById('frist_name');
+      var pwdInput = document.getElementById('password');
+      var rePwdInput = document.getElementById('password2');
+      var nameInput = document.getElementById('last_name');
 
       idInput.addEventListener("keyup", ()=> keyupInput());
+      pwdInput.addEventListener("keyup", ()=> keyupPwdCheck());
+      rePwdInput.addEventListener("keyup", ()=> keyupRePwdCheck());
+      nameInput.addEventListener("keyup", ()=> keyupNameCheck());
     
       const url = new URL(window.location.href);
-
 
       console.log(url.search); // ?teacher
 
@@ -165,16 +173,14 @@
     
     function keyupInput(){
       const getIdCheck= RegExp(/^[a-zA-Z0-9]{4,12}$/);
-      const getPwCheck= RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
       const getName= RegExp(/^[가-힣]{,5}$/);
       const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
       const getPhone = RegExp(/^[0-9]{11}$/);
       var idInput = document.getElementById('frist_name');
       var idValue = idInput.value;
       var idLength = idValue.length;
-        //console.log(idValue);
+
       if(idLength >= 4){
-        //console.log(idValue);
 
         var textEl = document.getElementById('chkId');
         var text = textEl.value;
@@ -186,25 +192,63 @@
         else{
           textEl.innerText = '';
           document.getElementById('checkBtn').disabled = false;
-          $('.checkBtn').click(function(){
+          $('#checkBtn').click(function(){
             $.ajax({
               url : 'idCheck.me',
               type : 'POST',
               data : { memberId : $('input[name=memberId]').val()},
-              success : function(){
-                
+              success : function(result){
+                if(result > 0){
+                  textEl.innerText = '이미 생성되어있는 아이디입니다!';
+                  $('input[name=memberId]').val('');
+                }
+                else if(result == 0){
+                  textEl.innerText = '멋진 아이디네요!';
+                }
               },
               error : function(){
                 console.log('asdasasdasd')
               }
             });
           })
-        }
-      } else {
-          
-      }
+        };
+      };
+    };
+
+    function keyupPwdCheck(){
+      var pwdInput = document.getElementById('password');
+      var rePwdInput = document.getElementById('password2');
+      const getPwCheck= RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
+        if(pwdInput.value.length >= 5){
+          if(getPwCheck.test(pwdInput.value)){
+            $('#chkPwd').text('');
+          }
+        };
     }
 
+    function keyupRePwdCheck(){
+      var pwdInput = $('#password').val();
+      var rePwdInput = $('#password2').val();
+      if(pwdInput != rePwdInput){
+        $('#chkRePwd').text('비밀번호가 일치하지 않습니다!');
+      }
+      else{
+        $('#chkRePwd').text('');
+      }
+    }
+    
+    function keyupNameCheck(){
+      var nameInput = $('#last_name').val();
+      const getName= RegExp(/^[가-힣]{2,5}$/);
+
+        if(!getName.test(nameInput)){
+          $('#chkName').text('이름은 5자 이내 한글로 적어주세요!');
+        }
+        else{
+          $('#chkName').text('');
+        }
+
+    }
   </script>
 
   <!-- General JS Scripts -->
