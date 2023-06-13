@@ -5,18 +5,20 @@ import java.util.ArrayList;
 import com.kh.wingddy.couponProduct.model.vo.CouponProduct;
 
 public interface CouponProductService {
+	
+	int selectListCount(int classNo);
 
-	public ArrayList<CouponProduct> selectCouponProductList(int classNo);
+	ArrayList<CouponProduct> selectCouponProductList(int classNo);
 	
-	public int insertCouponProduct(CouponProduct cp);
+	int insertCouponProduct(CouponProduct cp);
 	
-	public int updateCouponProduct(CouponProduct cp);
+	int updateCouponProduct(CouponProduct cp);
 	
-	public int deleteCouponProduct(int cpNo);
+	int deleteCouponProduct(int cpNo);
 	
-	public ArrayList<CouponProduct> myCouponList(int memberNo);
+	ArrayList<CouponProduct> myCouponList(int memberNo);
 	
-	public int useCoupon(int memberNo, int cpNo);
+	int useCoupon(int memberNo, int cpNo);
 	
 	
 	

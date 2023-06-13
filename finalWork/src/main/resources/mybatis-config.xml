@@ -40,7 +40,7 @@
       <mapper resource="/mappers/classroom/class-mapper.xml" />
       <mapper resource="/mappers/voca/voca-mapper.xml"/>
       <mapper resource="/mappers/calendar/calendar-mapper.xml" />
-      
+      <mapper resource="/mappers/couponProduct/coupon-mapper.xml" />
       <mapper resource="/mappers/common/common-mapper.xml" />
       <mapper resource="/mappers/store/store-mapper.xml" />
    </mappers>
