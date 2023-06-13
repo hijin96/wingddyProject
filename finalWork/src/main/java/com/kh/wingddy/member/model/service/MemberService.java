@@ -36,5 +36,6 @@ public interface MemberService {
 	// AJAX 회원 회원가입 아이디 중복체크(select)
 	// 회원가입 시 아이디 중복체크를 위한 5자 이상부터 회원 중복체크 여부 확인
 	// 중복없이 진행 후 아이디 사용 체크 확인 -> 확인시 readonly로 아이디 막아주고
+	public int idCheck(String memberId);
 	// 회원가입 진행 
 }
