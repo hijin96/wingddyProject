@@ -100,50 +100,29 @@ public class AlphabetDao {
 		}else {
 			return "MarketAlphabet";
 		}
-		
-		
-		
 	}
 	
 	
 	
-	@Transactional
-	public String changeAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) throws Exception{
-		
-		
-		try {
-			if(sqlSession.update("alphabetMapper.updateMarketWriterAlphabet", ca)
-					+ sqlSession.update("alphabetMapper.updateReplyAlphabet", ca) == 2) {
-				
-				
-				return "changeSuccess";
-			}else {
-				return "changeFail";
-			}
-		}catch (Exception e){
-			throw new Exception();
-			
-		}
+	
+	public int updateMarketWriterAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+		return sqlSession.update("alphabetMapper.updateMarketWriterAlphabet", ca);
+	}
+	
+	public int updateReplyAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+		return sqlSession.update("alphabetMapper.updateReplyAlphabet", ca);
+	}
+	
+	public int changeMarketStatus(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+		return sqlSession.update("alphabetMapper.changeMarketStatus", ca);
+	}
+	
+	public int changeReplyStatus(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+		return sqlSession.update("alphabetMapper.changeReplyStatus", ca);
+	}
 
-	}
-	
-	@Transactional
-	public String changeStatus(SqlSessionTemplate sqlSession, ChangeAlphabet ca) throws Exception{
 
-		try {
-			if(sqlSession.update("alphabetMapper.changeMarketStatus", ca)
-					+ sqlSession.update("alphabetMapper.changeReplyStatus", ca) == 2) {
-				
-				return "statusSuccess";
-			}else {
-				return "statusFail";
-			}
-		}catch (Exception e){
-			throw new Exception();
-			
-		}
-		
-	}
+	
 	
 	
 	public MyCount ajaxMyCount(SqlSessionTemplate sqlSession, MyCount mc) {
@@ -160,19 +139,24 @@ public class AlphabetDao {
 	}
 	
 	
+
 	
-	@Transactional
-	public String ajaxGachaAlphabet(SqlSessionTemplate sqlSession, Alphabet ap) throws Exception {
-		try {
-			sqlSession.insert("alphabetMapper.insertAlphabet", ap);
-			sqlSession.update("alphabetMapper.updateMyCount", ap);
-			return "success";
-		}catch (Exception e){
-			throw new Exception();
-			
-		}
-		
+	public int insertAlphabet(SqlSessionTemplate sqlSession, Alphabet ap) {
+		return sqlSession.insert("alphabetMapper.insertAlphabet", ap);
 	}
+	
+	public int updateMyCount(SqlSessionTemplate sqlSession, Alphabet ap) {
+		return sqlSession.insert("alphabetMapper.updateMyCount", ap);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//-----------------------------------------------------------
 	public int checkWords(SqlSessionTemplate sqlSession, Words wd) {
