@@ -117,4 +117,35 @@
 			  BOOK_NO = #{bookNo}
 	</select>
 	
+	<delete id="deleteClassBook">
+		DELETE
+		  FROM
+		  	   CLASS_VOCABOOK
+		 WHERE
+		 	   BOOK_NO = #{bookNo}
+	</delete>
+	
+	<insert id="insertClassBook" parameterType="java.util.ArrayList">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			  INTO CLASS_VOCABOOK
+			VALUES
+				  (
+				   #{item.bookNo}
+				  ,#{item.classNo}
+				  )
+		</foreach>
+	</insert>
+	
+	<select id="searchVoca" resultMap="vocaResultSet" parameterType="string">
+		SELECT 
+		       VOCA_EN,
+		       VOCA_KR
+		  FROM
+		       VOCA
+		 WHERE
+		       VOCA_EN LIKE '%'||#{text}||'%'
+		    OR
+		       VOCA_KR LIKE '%'||#{text}||'%'
+	</select>
+	
 </mapper>

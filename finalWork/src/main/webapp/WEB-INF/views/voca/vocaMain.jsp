@@ -142,7 +142,7 @@
 						<h1>${ classBookList[i].className }</h1>
 					</div>
 					<div class="card-body">
-						<div id="accordion">
+						<div id="accordion${i}">
 							<c:forEach var="j" begin="0" end="${ classBookList.size() - 1 }">
 								<c:if test="${ classBookList[i].classNo eq classBookList[j].classNo }">
 									<div class="accordion">
@@ -150,7 +150,7 @@
 											<input type="hidden" value="${ classBookList[j].bookNo }"/>
 											<h4>${ classBookList[j].bookName }</h4>
 										</div>
-										<div class="accordion-body collapse" id="class-${i}voca-book-${j}" data-parent="#accordion">
+										<div class="accordion-body collapse" id="class-${i}voca-book-${j}" data-parent="#accordion${i}">
 											<table class="table" id="voca_table">
 												<thead>
 													<tr>
@@ -179,51 +179,74 @@
 					<div class="modal-header">
 						<h5 class="modal-title">클래스 단어장 추가</h5>
 					</div>
-					<div class="modal-body">
-						<div class="form-group" id="modal-book-list">
-							<label>단어장 선택</label>
-							<select class="form-control selectric" onchange="checkClassList();">
-								<c:forEach var="bList" items="${ bookList }">
-									<option value="${bList.bookNo}">${bList.bookName}</option>
-								</c:forEach>
-							</select>
+					<!-- 클래스 단어장 추가 -->
+					<form action="insertClassBook.vc" method="POST" id="addClassBook-form">
+						<div class="modal-body">
+							<div class="form-group" id="modal-book-list">
+								<label>단어장 선택</label>
+								<select class="form-control selectric" name="bookNo" >
+									<option value="0" disabled selected >단어장을 선택해주세요</option>
+									<c:forEach var="bList" items="${ bookList }">
+										<option value="${bList.bookNo}">${bList.bookName}</option>
+									</c:forEach>
+								</select>
+							</div>
+							<div class="form-group" id="modal-class-list" >
+								<label>클래스 선택</label>
+								<select class="form-control selectric" multiple="" name="classNoList">
+									<option value="0">선택안함</option>
+									<c:forEach var="cList" items="${classList}">
+										<option value="${cList.classNo}">${cList.className}</option>
+									</c:forEach>
+								</select>
+							</div>
 						</div>
-						<div class="form-group" id="modal-class-list">
-							<label>클래스 선택</label>
-							<select class="form-control selectric" multiple="">
-								<c:forEach var="cList" items="${classList}">
-									<option value="${cList.classNo}">${cList.className}</option>
-								</c:forEach>
-							</select>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">추가</button>
 						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary">추가</button>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>
 		<script>
+		
+		
+		
 		$(function(){
-			function checkClassList(){
+			let li = [];
+			
+			function emptyClassList(){
+				if(li != ''){
+					for(let i in li){
+						$($('#modal-class-list li')[li[i]]).click();
+					}
+					li = [];
+				}
+			}
+			// 단어장 클래스 리스트 불러오기(ajax)
+			$('#modal-book-list select').on('change', () => {
+				console.log($('#modal-class-list').find('li'));
+				emptyClassList();
 				$.ajax({
 					url : 'bookClassList.vc',
 					type: 'POST',
 					data : {bookNo : $('#modal-book-list option:selected').val()},
 					success : list => {
-						console.log($('#modal-class-list option[value="2"]'));
-						let clist = '';
-						for(let i in list){
-							if(i > 0){
-								clist += ', ';
+						if(list != ''){
+							let optionArr = $('#modal-class-list option');
+							
+							for(let i in list){
+								for(let j = 0; j < optionArr.length; j++){
+									if($(optionArr[j]).val() == list[i].classNo){
+										$($('#modal-class-list li')[j]).click();
+										li.push(j);
+									} 
+								}
 							}
-							clist += list[i].className;
 						}
-						
-						$('#modal-class-list .label').text(clist);
 					}
 				});
-			};
+			});
 		});
 		</script>
 		

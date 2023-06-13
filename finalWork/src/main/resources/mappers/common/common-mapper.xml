@@ -86,4 +86,20 @@
 		   AND
 		       MEMBER_NO = #{memberNo}             
 	</update>
+	
+	<select id="selectEmploy" parameterType="_int" resultMap="attachResultSet">
+		SELECT
+		       FILE_NO,
+		       MEMBER_NO,
+		       ORIGIN_NAME,
+		       CHANGE_NAME,
+		       FILE_LEVEL,
+		       FILE_PATH
+		  FROM
+		       ATTACHMENT
+		 WHERE
+		       MEMBER_NO = #{memberNo}
+		   AND
+		       FILE_LEVEL = 1               
+	</select>
 </mapper>

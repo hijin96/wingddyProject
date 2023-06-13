@@ -10,6 +10,8 @@ public interface MemberService {
 	public Member loginMember(Member m);
 	
 	public Attachment selectProfile(int memberNo);
+	
+	public Attachment selectEmploy(int memberNo);
 	// 회원 회원가입 메소드 (insert member, attachment) 
 	// 회원가입 종류(NAVER, KAKAO, GOOGLE, WINGDDY 중 WINGDDY 회원의 경우만 해당)
 	public int insertMember(Member m);

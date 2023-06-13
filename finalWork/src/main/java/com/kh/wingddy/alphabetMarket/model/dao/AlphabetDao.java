@@ -12,6 +12,7 @@ import com.kh.wingddy.alphabetMarket.model.vo.AlphabetMarket;
 import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
+import com.kh.wingddy.alphabetMarket.model.vo.Words;
 import com.kh.wingddy.common.model.vo.PageInfo;
 
 @Repository
@@ -88,11 +89,6 @@ public class AlphabetDao {
 	
 	
 	public String checkAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
-		
-		
-		System.out.println("88888888888888888888888");
-		System.out.println(ca);
-		
 			
 		
 		if(sqlSession.selectOne("alphabetMapper.checkMarketWriterAlphabet", ca)) {
@@ -104,41 +100,29 @@ public class AlphabetDao {
 		}else {
 			return "MarketAlphabet";
 		}
-		
-		
-		
 	}
 	
 	
 	
 	
-	public String changeAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
-		
-		
-		if(sqlSession.update("alphabetMapper.updateMarketWriterAlphabet", ca)
-				+ sqlSession.update("alphabetMapper.updateReplyAlphabet", ca) == 2) {
-			
-			
-			return "changeSuccess";
-		}else {
-			return "changeFail";
-		}
-		
+	public int updateMarketWriterAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+		return sqlSession.update("alphabetMapper.updateMarketWriterAlphabet", ca);
+	}
+	
+	public int updateReplyAlphabet(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+		return sqlSession.update("alphabetMapper.updateReplyAlphabet", ca);
+	}
+	
+	public int changeMarketStatus(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+		return sqlSession.update("alphabetMapper.changeMarketStatus", ca);
+	}
+	
+	public int changeReplyStatus(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
+		return sqlSession.update("alphabetMapper.changeReplyStatus", ca);
+	}
 
-	}
-	
-	
-	public String changeStatus(SqlSessionTemplate sqlSession, ChangeAlphabet ca) {
 
-		if(sqlSession.update("alphabetMapper.changeMarketStatus", ca)
-				+ sqlSession.update("alphabetMapper.changeReplyStatus", ca) == 2) {
-			
-			return "statusSuccess";
-		}else {
-			return "statusFail";
-		}
-		
-	}
+	
 	
 	
 	public MyCount ajaxMyCount(SqlSessionTemplate sqlSession, MyCount mc) {
@@ -155,9 +139,38 @@ public class AlphabetDao {
 	}
 	
 	
+
+	
+	public int insertAlphabet(SqlSessionTemplate sqlSession, Alphabet ap) {
+		return sqlSession.insert("alphabetMapper.insertAlphabet", ap);
+	}
+	
+	public int updateMyCount(SqlSessionTemplate sqlSession, Alphabet ap) {
+		return sqlSession.insert("alphabetMapper.updateMyCount", ap);
+	}
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	//-----------------------------------------------------------
+	public int checkWords(SqlSessionTemplate sqlSession, Words wd) {
+		return sqlSession.selectOne("alphabetMapper.checkWords",wd);
+	}
+	
+	public int updateMyCoupon(SqlSessionTemplate sqlSession, Words wd) {
+		return sqlSession.update("alphabetMapper.updateMyCoupon",wd);
+	}
+	
+	public int deleteAlphabet(SqlSessionTemplate sqlSession, Words wd) {
+		wd.getWord().toCharArray();
+		return sqlSession.delete("alphabetMapper.deleteAlphabet",wd);
+	}
 	
 	
 	
