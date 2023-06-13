@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.store.model.dao.StoreDao;
+import com.kh.wingddy.store.model.vo.Cart;
 import com.kh.wingddy.store.model.vo.Store;
 
 @Service
@@ -50,14 +51,14 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		return storeDao.insertStoreBoard(sqlSession,at,s);
 	}
-	@Override
-	public int insertStoreText(HashMap<String, Object> jsonstore) {
-		
-		
-		System.out.println("게시글등록 서비스 "+ jsonstore);
-		return  storeDao.insertStoreText(sqlSession,jsonstore);
-	}
-	
+
+	/*
+	 * @Override public int insertStoreText(HashMap<String, Object> jsonstore) {
+	 * 
+	 * 
+	 * System.out.println("게시글등록 서비스 "+ jsonstore); return
+	 * storeDao.insertStoreText(sqlSession,jsonstore); }
+	 */
 	@Override
 	public int updateStoreBoard(int spNo) {
 		// TODO Auto-generated method stub
@@ -74,6 +75,24 @@ public class StoreServiceImpl implements StoreService {
 	public Store selectStoreBoard(int spNo) {
 		// TODO Auto-generated method stub
 		return storeDao.selectStoreBoard(sqlSession, spNo);
+	}
+
+	@Override
+	public int insertStoreCart(Store s, Cart cart) {
+		
+		return storeDao.insertStoreCart(sqlSession,s,cart);
+	}
+
+	@Override
+	public int selectStoreCart(int cartNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteCart(int cartNo) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

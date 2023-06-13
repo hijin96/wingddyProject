@@ -27,8 +27,9 @@
 		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.MarketReply" alias="alphabetReply" />
 		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.Alphabet" alias="alphabet" />
 		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet" alias="changeAlphabet" />
+		
 		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.Words" alias="words" />
-
+		<typeAlias type="com.kh.wingddy.store.model.vo.Cart" alias="Cart"/>
 
    </typeAliases>
    
@@ -40,7 +41,7 @@
       <mapper resource="/mappers/classroom/class-mapper.xml" />
       <mapper resource="/mappers/voca/voca-mapper.xml"/>
       <mapper resource="/mappers/calendar/calendar-mapper.xml" />
-      
+      <mapper resource="/mappers/coupon/coupon-mapper.xml" />
       <mapper resource="/mappers/common/common-mapper.xml" />
       <mapper resource="/mappers/store/store-mapper.xml" />
    </mappers>
