@@ -444,11 +444,22 @@
     </div>
   </div>
 
+  <form action="makeWords.aph" method="post" id="moveToinsertWords">
+    <input type="hidden" name="cno" value="${sessionScope.cno}">
+  </form>
+
   <c:if test="${ not empty alertMsg }">
 		<script>
 			alert('${alertMsg}');
 		</script>
 		<c:remove var="alertMsg" scope="session" />
+	</c:if>
+
+  <c:if test="${ not empty cno }">
+		<script>
+      $("#moveToinsertWords").submit();
+		</script>
+		<c:remove var="cno" scope="session" />
 	</c:if>
 
   <!-- General JS Scripts -->

@@ -173,7 +173,6 @@ public class AlphabetDao {
 	}
 	
 	public int deleteAlphabet(SqlSessionTemplate sqlSession, Words wd) {
-		wd.getWord().toCharArray();
 		return sqlSession.delete("alphabetMapper.deleteAlphabet",wd);
 	}
 	

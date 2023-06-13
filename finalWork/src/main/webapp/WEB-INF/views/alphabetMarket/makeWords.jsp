@@ -79,20 +79,30 @@
 
 
 
+
+<c:if test="${ not empty cno }">
+	<form action="makeWords.aph" method="post" id="moveToinsertWords">
+		<input type="hidden" name="cno" value="${sessionScope.cno}">
+	</form>
+	
+	<script>
+		console.log('${sessionScope.cno}');
+		$('#moveToinsertWords').submit();
+	</script>
+	<c:remove var="cno" scope="session" />
+</c:if>
+
+
+
+
+
 <script>
 
 	$(function(){
 
 		myAlphabet();
 
-		console.log("----");
-		console.log('${requestScope.msg}');
-
-		<c:if test="empty ${requestScope.msg}">
-			console.log("----");
-			console.log('${requestScope.msg}');
-			alert(${requestScope.msg});
-		</c:if >
+		console.log('${sessionScope.cno}');
 	})
 
 

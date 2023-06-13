@@ -1,6 +1,7 @@
 package com.kh.wingddy.alphabetMarket.controller;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +21,7 @@ import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
 import com.kh.wingddy.alphabetMarket.model.vo.Words;
+import com.kh.wingddy.classroom.model.service.ClassroomService;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.Pageination;
 import com.kh.wingddy.member.model.vo.Member;
@@ -29,6 +31,9 @@ public class AlphabetController {
 	
 	@Autowired
 	private AlphabetService AlphabetService;
+	
+	@Autowired
+	private ClassroomService classroomService;
 	
 	
 	// 게시글 리스트 화면
@@ -215,14 +220,16 @@ public class AlphabetController {
 	
 	// 내 알파벳 화면
 	@RequestMapping("makeWords.aph")
-	public String makeWords() {
+	public String makeWords(int cno, HttpServletRequest request) {
 		
 		return "alphabetMarket/makeWords";
 	}
 	
 
 	@RequestMapping("insertWords.aph")
-	public String insertWords(Words wd, HttpSession session, RedirectAttributes red) {
+	public String insertWords(Words wd, HttpSession session) {
+		
+		
 		
 		wd.setWord(wd.getWord().toLowerCase());
 		
@@ -236,9 +243,9 @@ public class AlphabetController {
 			session.setAttribute("alertMsg", "에러 발생! 다시 시도해 보세요!");
 		}
 		
-		red.addFlashAttribute("cno", wd.getClassNo());
+		session.setAttribute("cno", wd.getClassNo());
 		
-		return "redirect:/makeWords.aph";
+		return "alphabetMarket/makeWords";
 	}
 	
 	
