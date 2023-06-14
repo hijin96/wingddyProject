@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
 import com.kh.wingddy.classroom.model.dao.ClassroomDao;
@@ -62,6 +63,16 @@ public class ClassroomServiceImpl implements ClassroomService {
 	@Override
 	public int insertPass(ClassMember cm) {
 		return classroomDao.insertPass(sqlSession, cm);
+	}
+
+	@Override
+	@Transactional
+	public int kickoutStudent(ArrayList<ClassMember> memberNoList) {
+		int result = 0;
+		for(int i = 0; i < memberNoList.size(); i++) {
+			result *= classroomDao.kickoutStudent(sqlSession, memberNoList.get(i));
+		}
+		return result > 0 ? result : 0;
 	}
 	
 	
