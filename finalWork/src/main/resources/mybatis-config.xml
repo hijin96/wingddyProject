@@ -14,6 +14,8 @@
 		<typeAlias type="com.kh.wingddy.classroom.model.vo.Classroom" alias="class"/>
 		<typeAlias type="com.kh.wingddy.voca.model.vo.Voca" alias="voca"/>
 		<typeAlias type="com.kh.wingddy.voca.model.vo.ClassVocaBook" alias="vocaBook"/>
+		<typeAlias type="com.kh.wingddy.education.model.vo.Edu" alias="edu" />
+		<typeAlias type="com.kh.wingddy.education.model.vo.Quiz" alias="quiz" />
 		
 		<typeAlias type="com.kh.wingddy.calendar.model.vo.Calendar" alias="calendar" />
 		<typeAlias type="com.kh.wingddy.couponProduct.model.vo.CouponProduct" alias="couponProduct" />
@@ -30,7 +32,6 @@
 		
 		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.Words" alias="words" />
 		<typeAlias type="com.kh.wingddy.store.model.vo.Cart" alias="Cart"/>
-
    </typeAliases>
    
    <mappers>
@@ -40,6 +41,7 @@
       <mapper resource="/mappers/manitto/manitto-mapper.xml" />
       <mapper resource="/mappers/classroom/class-mapper.xml" />
       <mapper resource="/mappers/voca/voca-mapper.xml"/>
+      <mapper resource="/mappers/education/education-mapper.xml" />
       <mapper resource="/mappers/calendar/calendar-mapper.xml" />
       <mapper resource="/mappers/coupon/coupon-mapper.xml" />
       <mapper resource="/mappers/common/common-mapper.xml" />

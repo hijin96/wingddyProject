@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>내 단어장</title>
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="resources/assets/modules/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="resources/assets/modules/fontawesome/css/all.min.css">
 
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="resources/assets/modules/bootstrap-daterangepicker/daterangepicker.css">
@@ -14,7 +17,10 @@
   <link rel="stylesheet" href="resources/assets/modules/jquery-selectric/selectric.css">
   <link rel="stylesheet" href="resources/assets/modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css">
   <link rel="stylesheet" href="resources/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
-
+  <link rel="stylesheet" href="resources/assets/modules/chocolat/dist/css/chocolat.css">
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="resources/assets/css/style.css">
+  <link rel="stylesheet" href="resources/assets/css/components.css">
 <style>
 	#voca_table{
 		text-align: center;
@@ -26,7 +32,6 @@
 </style>
 </head>
 <body>
-	
 	<jsp:include page="../sideBar/sideBar.jsp"/>
 	
 	<div class="main-content">
@@ -34,13 +39,17 @@
 		<div class="card">
 			<div class="card-header">
 				<h1>내 단어장</h1>
-				<button class="btn btn-primary" id="insertBook-btn">단어장 등록</button>
-				<c:if test="${not empty bookList}">
-					<button class="btn btn-primary" id="updateBook-btn">단어장 수정</button>
-				</c:if>
-				<c:if test="${loginUser.memberType ne 'S'}">
-					<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addClassBook">단어장 추가</button>
-				</c:if>
+				<div class="card-header-action">
+					<div class="btn-group">
+						<button type="button" class="btn btn-primary" id="insertBook-btn">단어장 등록</button>
+						<c:if test="${not empty bookList}">
+							<button type="button" class="btn btn-primary" id="updateBook-btn">단어장 수정</button>
+						</c:if>
+						<c:if test="${loginUser.memberType ne 'S'}">
+							<button type="button" class="btn btn-primary" type="button" data-toggle="modal" data-target="#addClassBook">단어장 추가</button>
+						</c:if>
+					</div>
+				</div>
 			</div>
 			<div class="card-body">
 				<div id="accordion">
