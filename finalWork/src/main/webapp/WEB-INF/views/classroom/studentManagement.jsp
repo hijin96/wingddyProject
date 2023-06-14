@@ -79,9 +79,9 @@
 
             var chkArr = new Array();
 
-            var chkArr = $('.student:checked');
+            var chkArr = $('input[name=studentNo]:checked');
 
-            console.log(chkArr[0]);
+            console.log(chkArr.length);
             
             var studentNoArr = [];  
             for(var i = 0; i <= chkArr.length; i++){
@@ -96,7 +96,7 @@
                 url : 'kickoutStudent.cl',
                 type : 'POST',
                 data : {
-                    memberNo : studentNoArr,
+                    studentArr : studentNoArr,
                     classNo : $('input[name=classNo]').val()
                 },
                 success : function(result){
