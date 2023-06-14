@@ -16,7 +16,7 @@
 		height: 40px;
 	}
 	
-	#voca_table tbody>tr:hover{
+	#voca_table tbody>tr:hover, .search-voca-list:hover{
 		background-color :  #dee2e6;
 		cursor: pointer;
 	}
@@ -43,7 +43,10 @@
 						</div>
 						<div class="form-group">
 							<label>단어</label>
-							<button class="btn btn-primary btn-sm" id="deleteBook-btn">단어장 삭제</button>
+							<form action="deleteBook.vc" method="POST">
+								<input type="hidden" id="deleteBookNo" name="bookNo">
+								<button class="btn btn-primary btn-sm">단어장 삭제</button>
+							</form>
 			                <table class="table" id="voca_table">
 								<thead>
 									<tr>
@@ -67,7 +70,6 @@
 						<h2>단어 추가</h2>
 					</div>
 					<div class="card-body">
-						<h5>직접 입력</h5>
 						<div class="form-row" id="inject-voca">
 							<input type="hidden" value="1" id="voca-index-form"/>
 							<div class="form-group col-md-6">
@@ -83,17 +85,13 @@
 		                      <button class="btn btn-primary" id="inject-voca-btn">추가</button>
 		                </div>
 		                <h5>단어 검색</h5>
+		                <div class="btn-group mb-3" role="group" aria-label="Basic example" id="select-language">
+		                	<button type="button" class="btn btn-primary" value="en">영어</button>
+		                	<button type="button" class="btn btn-secondary search-language" value="ko">한글</button>
+		                </div>
 						<div class="form-group">
-							<input type="text" class="form-control" id="voca-search-form">
-							<div class="card voca-list">
-								<div class="row">
-									<div class="group col-md-6"> 영어</div>
-									<div class="group col-md-6"> 해석</div>
-								</div>
-								<div class="row">
-									<div class="group col-md-6"> 영어</div>
-									<div class="group col-md-6"> 해석</div>
-								</div>
+							<input type="text" class="form-control" id="voca-search-form" placeholder="영어를 입력해주세요.">
+							<div class="card voca-list" id="voca-search-result">
 							</div>
 						</div>
 					</div>
@@ -107,10 +105,14 @@
 		$(() => {
 			// 단어 리스트 불러오기(ajax)
 			selectVocaList = () => {
+				let bookNo = $('#select-book option:selected').val();
+				
+				$('#deleteBookNo').val(bookNo);
+				
 				$.ajax({
 					url : 'vocaList.vc',
 					data : {
-						bookNo : $('#select-book option:selected').val()
+						bookNo : bookNo
 					},
 					success : list => {
 						let value = '';
@@ -155,7 +157,7 @@
 						},
 					success : result => {
 						if(result>0){
-							location.href = "main.vc";
+							location.href = "http://localhost:8007/wingddy/main.vc";
 						} else{
 							alert('단어 수정 실패!');
 						}
@@ -184,8 +186,56 @@
 			e.target.parentElement.innerHTML = '';
 		});
 		
+		// 단어 검색 이벤트
+		$('#voca-search-form').keyup(() => {
+			let text = $.trim($('#voca-search-form').val());
+			if(text != ''){
+				searchText(text);
+			}
+			else{
+				$('#voca-search-result').html('');
+			}
+		});
+		
+		// 언어 선택
+		$('#select-language').on('click','.search-language', e => {
+			$('#voca-search-form').prop('placeholder',$('.search-language').text() + '를 입력해주세요.');
+			$('.search-language').siblings('button').removeClass('btn-primary').addClass('search-language btn-secondary');
+			$(e.target).removeClass('search-language btn-secondary').addClass('btn-primary');
+		});
+		
 		// 단어 검색(ajax)
-	
+		function searchText(text){
+			
+			$.ajax({
+				url : 'search.vc',
+				data : {
+					source : $('#select-language .btn-primary').val(),
+					target : $('#select-language .btn-secondary').val(),
+					text : text
+				},
+				success : list => {
+
+					let result = '';
+					for(let i in list){
+						result += '<div class="row search-voca-list">' 
+								+	'<div class="group col-md-6 en">'+ list[i].vocaEnglish +'</div>'
+								+	'<div class="group col-md-6 kr">'+ list[i].vocaKorean +'</div>'
+							    + '</div>';
+					}
+					$('#voca-search-result').html(result);
+				}
+			});
+		}
+		
+		// 검색 결과를 input에 넣기
+		$('#voca-search-result').on('click','.search-voca-list', e => {
+			let en = $(e.target).children('.en').prevObject.text();
+			let kr = $(e.target).children('.kr').prevObject.next().text();
+			$('#voca-en-form').val(en);
+			$('#voca-kr-form').val(kr);
+			$('#voca-search-form').val('');
+		});
 	
 	</script>
 </body>

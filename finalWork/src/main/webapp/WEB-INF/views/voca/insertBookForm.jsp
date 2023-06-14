@@ -122,9 +122,7 @@
 						vcList : JSON.stringify(vocaObj)
 						},
 					success : result => {
-						if(result>0){
-							location.href = "main.vc";
-						}
+						location.href = "http://localhost:8007/wingddy/main.vc";
 					}
 				});
 			}

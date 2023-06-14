@@ -118,15 +118,6 @@
 			
 			window.onload = () => {
 				
-				let voca = document.getElementsByClassName('select-voca');
-
-				for(let i = 0; i < voca.length; i++){
-					voca[i].getElementsByTagName('h4')[0].addEventListener('click', e => selectVoca(e));
-					voca[i].addEventListener('click', e => {
-						e.target.getElementsByTagName('h4')[0].click();
-					});
-				}
-				
 				document.getElementById('insertBook-btn').addEventListener('click', () => {
 					location.href='insertBook.vc';
 				});
@@ -176,7 +167,24 @@
 				</div>
 			</c:if>
 		</c:forEach>
-		
+		<script>
+			$('.select-voca').on('click','h4', e => {
+				selectVoca(e);
+			});
+			$('.select-voca').click(e => {
+				$(e.target).children('h4').click();
+			});
+			/*
+			let voca = document.getElementsByClassName('select-voca');
+	
+			for(let i = 0; i < voca.length; i++){
+				voca[i].getElementsByTagName('h4')[0].addEventListener('click', e => selectVoca(e));
+				voca[i].addEventListener('click', e => {
+					e.target.getElementsByTagName('h4')[0].click();
+				});
+			}
+			*/
+		</script>
 		<!-- 모달 -->
 		<div id="addClassBook" class="modal fade" role="dialog">
 			<div class="modal-dialog modal-md modal-dialog-centered">

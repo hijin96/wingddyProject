@@ -98,6 +98,14 @@
 			   )
 	</insert>
 	
+	<delete id="deleteVocabook" >
+		DELETE
+		  FROM
+		  	   VOCABOOK
+		 WHERE
+		 	   BOOK_NO = #{bookNo}
+	</delete>
+	
 	<insert id="insertVocaList" parameterType="java.util.ArrayList">
 		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
 			  INTO VOCA
