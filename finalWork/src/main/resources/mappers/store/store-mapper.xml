@@ -100,28 +100,7 @@
 	
 		
 	</insert>
-	<insert id="insertStoreText" parameterType="hashmap">
-		INSERT
-			INTO
-				S_STORE
-				(SP_NO
-				 ,FILE_NO
-				,SP_NAME
-				,SP_CONTENT
-				,SP_PRICE
-				,AMOUNT
-				,SP_ONECOM
-				,SP_DAY)
-		VALUES
-			(SEQ_SP_NO.NEXTVAL
-			,SEQ_FNO.NEXTVAL 
-			,#{spName}
-			,#{spContent}
-			,#{spPrice}
-			,#{amount}
-			,#{spOnecom}
-			,SYSDATE)		
-	</insert>
+	
 	<select id="createFileNo" resultType="_int">
 		SELECT SEQ_FNO.NEXTVAL FROM DUAL
 	</select>
@@ -159,7 +138,7 @@
 	
 	</select>
 	
-	<insert id="insertStoreCart">
+	<insert id="insertStoreCart" parameterType="cart">
 	INSERT INTO 
 		S_CART 
 	VALUES 
@@ -172,4 +151,46 @@
 		,null)
 	
 	</insert>
+	<select id="selectStoreCart"  resultMap="storeResultSet,AttachmentResultSet,CartResultSet">
+		SELECT
+		  	 CHANGE_NAME
+ 			 ,FILE_PATH
+   			, S.FILE_NO
+		    ,SP_NAME
+		    ,S_CART.SP_NO
+		    ,SP_PRICE
+		    ,BUY_COUNT
+		    ,CART_DAY
+		    ,S_CART.MEMBER_NO
+		FROM S_STORE S
+		JOIN S_CART  ON(S_CART.SP_NO = S.SP_NO)
+		JOIN ATTACHMENT ON(ATTACHMENT.FILE_NO= S.FILE_NO)
+		WHERE S_CART.MEMBER_NO = #{memberNo}
+	</select>
+	<select id="checkStoreCart"  resultType="_int" >
+	SELECT
+		 COUNT(*) 
+	FROM 
+		S_CART 
+	WHERE 
+		MEMBER_NO = #{memberNo}
+	 AND 
+	 	ORDER_YN='N'
+	</select>
+	<delete id="deleteStoreCart"   parameterType="cart">
+	DELETE 
+		FROM S_CART 
+	WHERE 
+		MEMBER_NO= #{memberNo} 
+		AND SP_NO=#{spNo}
+	</delete>
+	<update id="updateStoreCart" parameterType="cart">
+		UPDATE 
+			S_CART
+    	SET 
+    		BUY_COUNT =BUY_COUNT+#{buyCount}
+		WHERE CART_NO=#{cartNo}
+		AND MEMBER_NO=#{memberNo}
+	</update>
+
 </mapper>

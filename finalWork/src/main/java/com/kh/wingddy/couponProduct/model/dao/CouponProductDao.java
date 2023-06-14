@@ -18,7 +18,7 @@ public class CouponProductDao {
 	
 	public ArrayList<CouponProduct> selectCouponProductList(SqlSessionTemplate sqlSession, PageInfo pi, int classNo){
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowbounds = new RowBounds(offset, pi.getPageLimit());
+		RowBounds rowbounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("coupon-mapper.selectCouponProductList", classNo, rowbounds);
 	}
 	

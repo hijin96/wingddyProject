@@ -32,9 +32,6 @@ public class AlphabetController {
 	@Autowired
 	private AlphabetService AlphabetService;
 	
-	@Autowired
-	private ClassroomService classroomService;
-	
 	
 	// 게시글 리스트 화면
 	@RequestMapping("main.aph")
@@ -150,11 +147,11 @@ public class AlphabetController {
 	// 마켓 댓글 등록
 	@ResponseBody
 	@RequestMapping("insertReply.aph")
-	public String ajaxInsertReply(MarketReply mr) {
-		AlphabetService.ajaxInsertReply(mr);
+	public int ajaxInsertReply(MarketReply mr) {
+		//AlphabetService.ajaxInsertReply(mr);
 
 		
-		return "testsuccess";
+		return AlphabetService.ajaxInsertReply(mr);
 
 	}
 	

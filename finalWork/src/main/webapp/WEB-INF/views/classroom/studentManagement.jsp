@@ -16,11 +16,11 @@
         <section class="section">
             <div class="section-header">
                 <h1>A클래스</h1>
-                <h4>(user01)선생님</h4>
+                <h4>(user01)선생님 </h4>
                 <div class="section-header-breadcrumb">
                     <div class="card-body">
-                        <a href="#" style="margin-bottom:5px;" class="btn btn-block btn-success">&nbsp;학생추방</a>
-                        <a href="#" style="margin-bottom:5px;" class="btn btn-block btn-warning">&nbsp;뽑기횟수</a>
+                        <button type="button" style="margin-bottom:5px;" class="btn btn-block btn-success" onclick="kickout();">&nbsp;학생추방</button>
+                        <button type="button" style="margin-bottom:5px;" class="btn btn-block btn-warning">&nbsp;뽑기횟수</button>
                     </div>
                 </div>
             </div>
@@ -42,51 +42,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <c:forEach var="cm" items="${classMember}">
                                     <tr>
-                                        <td>학생7</td>
+                                        <td>${cm.studentNo}</td>
                                         <td>user07</td>
                                         <td>010-1234-1234</td>
                                         <td>11 / 12</td>
                                         <td>
-                                            <input type="checkbox" name="student">
+                                            <input type="checkbox" class="student" name="studentNo" value="${cm.studentNo}">
+                                            <input type="hidden" name="classNo" value="${cm.classNo}">
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>학생8</td>
-                                        <td>user08</td>
-                                        <td>010-1234-1234</td>
-                                        <td>10 / 12</td>
-                                        <td>
-                                            <input type="checkbox" name="student">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>학생6</td>
-                                        <td>user06</td>
-                                        <td>010-1234-1234</td>
-                                        <td>9 / 12</td>
-                                        <td>
-                                            <input type="checkbox" name="student">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>학생9</td>
-                                        <td>user09</td>
-                                        <td>010-1234-1234</td>
-                                        <td>6 / 12</td>
-                                        <td>
-                                            <input type="checkbox" name="student">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>학생10</td>
-                                        <td>user10</td>
-                                        <td>010-1234-1234</td>
-                                        <td>3 / 12</td>
-                                        <td>
-                                            <input type="checkbox" name="student">
-                                        </td>
-                                    </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -99,14 +66,50 @@
     <script>
         $(function(){
                 $('.management').find('tbody>tr').click(function(){
-                    if($(this).find('input[name=student]').is(':checked') == false){
-                        $(this).find('input[name=student]').prop('checked', true);
+                    if($(this).find('input[name=studentNo]').is(':checked') == false){
+                        $(this).find('input[name=studentNo]').prop('checked', true);
                     }
                     else{
-                        $(this).find('input[name=student]').prop('checked', false);
+                        $(this).find('input[name=studentNo]').prop('checked', false);
                     }
                 })
         })
+
+        function kickout(){
+
+            var chkArr = new Array();
+
+            var chkArr = $('input[name=studentNo]:checked');
+
+            console.log(chkArr.length);
+            
+            var studentNoArr = [];  
+            for(var i = 0; i <= chkArr.length; i++){
+                //console.log(chkArr[i].value);
+                if($(chkArr[i]).is(':checked')){
+                    studentNoArr.push(chkArr[i].value);
+                }
+            }
+            console.log(studentNoArr);
+            
+            $.ajax({
+                url : 'kickoutStudent.cl',
+                type : 'POST',
+                data : {
+                    studentArr : studentNoArr,
+                    classNo : $('input[name=classNo]').val()
+                },
+                success : function(result){
+                    location.href=location.href;
+                },
+                error : function(){
+                    console.log('asdasd');
+                }
+            });
+            
+
+
+        }
     </script>
     <script src="resources/assets/js/page/features-posts.js"></script>
 </body>

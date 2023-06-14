@@ -1,10 +1,13 @@
 package com.kh.wingddy.classroom.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -103,7 +106,33 @@ public class ClassroomController {
 	@RequestMapping("classManagement.cl")
 	public ModelAndView studentManagement(ModelAndView mv, int cno) {
 		
+		// 관리페이지 내 select문에서 가져올 데이터
+		//System.out.println(cno);
+		mv.addObject("classMember", classroomService.selectPassStudent(cno));
 		mv.setViewName("classroom/studentManagement");
 		return mv;
+	}
+	
+	@RequestMapping("kickoutStudent.cl")
+	public int kickoutStudent(@RequestParam(value="studentArr[]")int[] studentNoArr, int classNo) {
+		
+		System.out.println("asdasd");   
+		System.out.println(studentNoArr[0]);
+		
+        
+		ArrayList<ClassMember> cmList = new ArrayList();
+		for(int i = 0; i < studentNoArr.length; i++) {
+			ClassMember cm = new ClassMember();
+			cm.setStudentNo(studentNoArr[i]);
+			cm.setClassNo(classNo);
+			
+			cmList.add(cm);
+		}
+		
+		//System.out.println(memberNoList.get(0));
+		
+		int result = classroomService.kickoutStudent(cmList);
+		
+		return 0;
 	}
 }

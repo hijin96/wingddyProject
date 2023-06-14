@@ -29,6 +29,7 @@
 		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.MarketReply" alias="alphabetReply" />
 		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.Alphabet" alias="alphabet" />
 		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet" alias="changeAlphabet" />
+		<typeAlias type="com.kh.wingddy.manitto.model.vo.Manitto" alias="manitto" />
 		
 		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.Words" alias="words" />
 		<typeAlias type="com.kh.wingddy.store.model.vo.Cart" alias="Cart"/>

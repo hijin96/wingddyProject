@@ -260,16 +260,17 @@
               
 
               <li>
-	            	<form action="matching.mani" method="POST" class="submit">
-            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
+	            	<form action="main.mani" method="POST" class="submit">
+            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>Manitto Management</span></a>
             			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
             		</form>
 	            </li>	
              
 	            <li>
-	            	<form id="form-coupon" action="couponStore" method="post" class="submit">
-            			<a id="couponHandler" class="nav-link" onclick="submitCouponForm();"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a>
+	            	<form id="form-coupon" action="couponStore" method="post">
+            			<a id="couponHandler" class="nav-link" onclick="submitCouponForm();"><i class="fas fa-pencil-ruler"></i> <span id="coupon-span">쿠폰스토어</span></a>
             			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
+            			<input type="hidden" name="cPage" vaule="1" />
             		</form>
 	            </li>	
    	            <li>
@@ -280,13 +281,18 @@
 	            </li>	
 	            <script>
 	            	function submitCouponForm(){
-	            		$('#form-coupon').submit();
+	            		console.log(${requestScope.classroom.classNo});
+	            		window.location.href = "couponStore?cno=" + ${requestScope.classroom.classNo};
+	            		//$('#form-coupon').submit();
 	            	}	
 
-                $('.submit').click(function(){
-                  $(this).submit();
-                });
+	                $('.submit').click(function(){
+	                  $(this).submit();
+	                });
 
+	               
+	                
+	                
 	            </script>
 	            
 	            
@@ -434,5 +440,5 @@
 	// ]]>
 </script>
  -->
-
+</body>
 </html>

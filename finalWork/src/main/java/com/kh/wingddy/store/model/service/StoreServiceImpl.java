@@ -35,7 +35,6 @@ public class StoreServiceImpl implements StoreService {
 	
 	@Override
 	public int inceraseCount(int spNo) {
-		// TODO Auto-generated method stub
 		return storeDao.inceraseCount(sqlSession,spNo);
 	}
 	//썸네일 번호 생성
@@ -52,13 +51,7 @@ public class StoreServiceImpl implements StoreService {
 		return storeDao.insertStoreBoard(sqlSession,at,s);
 	}
 
-	/*
-	 * @Override public int insertStoreText(HashMap<String, Object> jsonstore) {
-	 * 
-	 * 
-	 * System.out.println("게시글등록 서비스 "+ jsonstore); return
-	 * storeDao.insertStoreText(sqlSession,jsonstore); }
-	 */
+
 	@Override
 	public int updateStoreBoard(int spNo) {
 		// TODO Auto-generated method stub
@@ -70,29 +63,29 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
 	@Override
 	public Store selectStoreBoard(int spNo) {
-		// TODO Auto-generated method stub
 		return storeDao.selectStoreBoard(sqlSession, spNo);
 	}
 
 	@Override
 	public int insertStoreCart(Store s, Cart cart) {
-		
-		return storeDao.insertStoreCart(sqlSession,s,cart);
+		if(storeDao.checkStoreCart(sqlSession,s,cart)<1) {
+			return storeDao.insertStoreCart(sqlSession,s,cart);
+		}else {//업데이트
+			return storeDao.updateStoreCart(sqlSession,cart);
+	}
 	}
 
 	@Override
-	public int selectStoreCart(int cartNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public ArrayList<Cart> selectStoreCart (Store s,Cart cart) {
+		return storeDao.selectStoreCart(sqlSession,s,cart);
 	}
 
 	@Override
-	public int deleteCart(int cartNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteCart(Cart cart) {
+		return storeDao.deleteStoreCart(sqlSession,cart);
 	}
 
 

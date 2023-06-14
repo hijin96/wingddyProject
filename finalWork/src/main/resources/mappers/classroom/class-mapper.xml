@@ -185,4 +185,15 @@
 		       #{studentNo}
 		       )
 	</insert>
+	
+	<update id="kickoutStudent" parameterType="classMember">
+		UPDATE
+			   CLASS_MEMBER
+		   SET
+		       ENTER_STATUS = 'N'
+		 WHERE
+		       STUDENT_NO = #{memberNo}
+		   AND
+		       CLASS_NO = #{classNo}         
+	</update>
 </mapper>

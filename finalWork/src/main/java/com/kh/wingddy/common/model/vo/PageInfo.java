@@ -9,9 +9,9 @@ public class PageInfo {
 	private int boardLimit;
 	private int pageLimit;
 	
-	private int maxPage;
-	private int startPage;
-	private int endPage;
+	private int maxPage; // 가장 마지막 페이지
+	private int startPage; // 현재 페이지에서 가장 앞 페이징 버튼
+	private int endPage; // 현재 페이지에서 마지막 페이징버튼
 	
 	public PageInfo(int listCount, int currentPage, int boardLimit, int pageLimit, int maxPage, int startPage,
 			int endPage) {
