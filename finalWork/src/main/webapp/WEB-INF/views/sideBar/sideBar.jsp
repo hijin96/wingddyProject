@@ -56,7 +56,9 @@
   	border : 0 !important;
   	outlint : 0 !important;
   }
-
+  .submit:hover{
+  	cursor: pointer;
+  }
 </style>
 </head>
 
@@ -76,7 +78,7 @@
           </div>
         </form>
         <ul class="navbar-nav navbar-right">
-          <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
+          <li class="dropdown dropdown-list-toggle"><a href="" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
               <div class="dropdown-header">Messages
                 <div class="float-right">
@@ -144,7 +146,7 @@
           </li>
           <c:choose>
             <c:when test="${not empty loginUser}">
-              <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+              <li class="dropdown"><a href="" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <c:choose>
                   <c:when test="${not empty profile}">
                     <img alt="image" src="${contextPath}/${profile.filePath}" class="rounded-circle mr-1">
@@ -166,7 +168,7 @@
               </li>
             </c:when>
             <c:otherwise>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+              <li class="dropdown"><a href="" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <div class="dropdown-menu dropdown-menu-right">
               </a>
               <a href="#enrollModal" data-toggle="modal" class="dropdown-item has-icon">
@@ -245,16 +247,6 @@
         		<form action="" method="POST" id="postSender">
         			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
         		</form>
-            	<form action="" method="POST" class="submit">
-           		</form>
-            	<form action="" method="POST" class="submit">
-           		</form>
-            	<form action="" method="POST" class="submit">
-           		</form>
-            	<form id="form-coupon" action="" method="post" class="submit">
-           		</form>
-            	<form action="" method="POST" class="submit">
-           		</form>
 				<li>
 					<a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
 					<input type="hidden" name="url" value="myAlphabet.aph" /> 
@@ -279,11 +271,13 @@
 					<a class="nav-link submit"><i class="fas fa-pencil-ruler"></i> <span>과제</span></a>
 					<input type="hidden" name="url" value="main.edu" /> 
 				</li>	
-	            <script>
-	                $('.submit').click(function(){
-	                  $('#postSender').submit();
-	                });
-	            </script>
+				<script>
+					$('.submit').click(function(){
+						let url = $(this).next().val();
+						$('#postSender').prop('action', url);
+						$('#postSender').submit();
+					});
+				</script>
 	            
 	            
             </c:if>
