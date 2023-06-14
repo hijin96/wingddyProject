@@ -393,7 +393,7 @@
              
 	            <li>
 	            	<form id="form-coupon" action="couponStore" method="post">
-            			<a id="couponHandler" class="nav-link" onclick="submitCouponForm();"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a>
+            			<a id="couponHandler" class="nav-link" onclick="submitCouponForm();"><i class="fas fa-pencil-ruler"></i> <span id="coupon-span">쿠폰스토어</span></a>
             			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
             			<input type="hidden" name="cPage" vaule="1" />
             		</form>
@@ -401,18 +401,18 @@
 	            
 	            <script>
 	            	function submitCouponForm(){
-	            		$('#form-coupon').submit();
+	            		console.log(${requestScope.classroom.classNo});
+	            		window.location.href = "couponStore?cno=" + ${requestScope.classroom.classNo};
+	            		//$('#form-coupon').submit();
 	            	}	
 
 	                $('.submit').click(function(){
 	                  $(this).submit();
 	                });
 
-	                $(function(){
-	                	console.log('안녕하세요');
-               			console.log($(body));
-	                	
-	                })
+	               
+	                
+	                
 	            </script>
 	            
 	            

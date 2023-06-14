@@ -44,6 +44,9 @@
 	.productContent{
 		font-size : 13px !important;
 	}
+	.text-center{
+		margin : auto !important;
+	}
 	
 </style>
 </head>
@@ -90,26 +93,60 @@
 	             	</div>
              	</c:forEach>
              	
-             	<div class="card-body">
-                    <nav aria-label="...">
-                      <ul class="pagination">
-                        <li class="page-item disabled">
-                          <a class="page-link" href="#" tabindex="-1">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active">
-                          <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                          <a class="page-link" href="#">Next</a>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
+             	
              	
 			</div>
-		
+			<div id="paging">
+				<form id="form-movePage" action="couponStore" method="post" class="text-center">
+					<div class="card-body">
+	                	<nav aria-label="...">
+	                    	<ul class="pagination">
+                    			<c:choose>
+	                    			<c:when test="${pi.currentPage eq 1}">
+	                    				<li class="page-item disabled">
+			                          		<a class="page-link" >Previous</a>
+		                        		</li>
+	                          		</c:when>
+	                          		<c:otherwise>
+		                          		<li class="page-item">
+			                          		<a class="page-link page-pv" >Previous</a>
+		                        		</li>
+	                          		</c:otherwise>
+                          		</c:choose>
+                          		<c:forEach begin="${pi.startPage}" end="${pi.endPage}" var="p">
+                          			<c:choose>
+                          				<c:when test="${pi.currentPage eq p}">
+		                        			<li class="page-item active"><a class="page-link page-number" href="#">${p}</a></li>
+		                        		</c:when>
+		                        		<c:otherwise>
+		                        			<li class="page-item"><a class="page-link page-number" href="#">${p}</a></li>
+		                        		</c:otherwise>
+		                        	</c:choose>
+		                        </c:forEach>
+		                        <!-- 
+		                        <li class="page-item active">
+		                        	<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+		                        </li>
+		                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+		                        -->
+		                        
+		                        <c:choose>
+			                        <c:when test="${pi.currentPage eq pi.maxPage}">
+				                        <li class="page-item disabled">
+				                        	<a class="page-link">Next</a>
+				                        </li>
+			                        </c:when>
+			                        <c:otherwise>
+		                        	    <li class="page-item">
+				                        	<a class="page-link page-nt">Next</a>
+				                        </li>
+			                        </c:otherwise>
+		                        </c:choose>
+	                      	</ul>
+	                    </nav>
+	                 </div>
+                 <</form>
+			</div>
 		
 		
 		
@@ -122,9 +159,25 @@
 	var memberType = '${loginUser.memberType}';
 	var cno = ${requestScope.classroom.classNo};
 	var cPage = null;
-	console.log(memberNo, memberType, classNo);
+	console.log(memberNo, memberType, cno);
 	
-
+	$('.page-number').on('click', function(){
+		$(this).append('<input type="hidden" name="cno" value="' + cno + '" /><input type="hidden" name="cPage" value="' + $(this).text() + '"/>')
+		$('#form-movePage').submit();
+		
+	})
+		
+	$('.page-pv').on('click', function(){
+		$(this).append('<input type="hidden" name="cno" value="' + cno + '" /><input type="hidden" name="cPage" value="' + (${pi.currentPage} - 1) + '"/>');
+		$('#form-movePage').submit();
+	})
+		
+	$('.page-nt').on('click', function(){
+		$(this).append('<input type="hidden" name="cno" value="' + cno + '" /><input type="hidden" name="cPage" value="' + (${pi.currentPage} + 1) + '"/>');
+		$('#form-movePage').submit();
+	})
+	
+	
 
 
 </script>
