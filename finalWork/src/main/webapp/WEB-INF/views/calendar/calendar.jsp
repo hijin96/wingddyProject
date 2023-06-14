@@ -373,7 +373,7 @@
 
 									// 캘린더 상단에 오늘, 내일 일정 없을 경우
 			        				if(todayArr.length == 0){
-			        					console.log('길이 0');
+			        					//console.log('길이 0');
 			        					$('#todayScheduleList').html("----- 오늘 일정이 존재하지 않습니다 -----").css({"color" : "gray", "margin" : "30px", "font-size" : "12px"});
 			        				}
 									if(tomorrowArr.length == 0){
@@ -444,8 +444,6 @@
     		arr = []; // 초기화
     		let value = '';
     		
-    		console.log(arr[0]);
-    		
     		$.ajax({
     			url : 'daySchedule',
     			data : {memberNo : memberNo, date : date, memberType : memberType},
@@ -458,9 +456,6 @@
     				for(let i in list){
 						arr.push(list[i]);
 						
-						console.log(arr[0]);
-						
-    					
     					value += "<div>✔️";
     					
     					if(list[i].className != null){
@@ -470,10 +465,8 @@
     					// 풀캘린더에 endDate +1로 조회해오기 때문에(화면 출력을 -1로 함) 문자로 보여주기 위해 재정의
     					var endDate = new Date(list[i].endDate);
     					endDate.setDate(endDate.getDate() - 1);
-    					//console.log(endDate);
     					
     					var startDate = new Date(list[i].startDate);
-    					//var startDateFormat = startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
     					var endDateFormat = endDate.toISOString().substring(0, 10);
     					
     					value += list[i].schedule + "(" + list[i].startDate + " ~ " + endDateFormat +  ")"
@@ -487,8 +480,6 @@
     				$('#theDaySchedule-content').html(value);
     			}
     		});
-    			//console.log(arr);
-    		
     		$('#theDaySchedule').modal();
     		$('#modal-date').text(date);
     	}
@@ -521,7 +512,7 @@
 			if(memberType == "S"){	   
 				value += "배경색 <input type='color' name='color' value='" + s.color + "'/>";
 			} else{
-				value += "배경색 <input type='color' name='color' value='#ffeecc' style='display : none' />";
+				value += "<input type='color' name='color' value='#ffeecc' style='display : none' />";
 			}
 			
 		   value += "<input type='hidden' name='scheduleNo' value='" + s.scheduleNo + "'/>";

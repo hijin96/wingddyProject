@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="${contextPath}/resources/assets/modules/fontawesome/css/all.min.css">
         <!-- CSS Libraries -->
         <link rel="stylesheet" href="${contextPath}/resources/assets/modules/chocolat/dist/css/chocolat.css">
+        <link rel="stylesheet" href="${contextPath}/resources/assets/modules/ionicons/css/ionicons.min.css">
         <!-- Template CSS -->
         <link rel="stylesheet" href="${contextPath}/resources/assets/css/style.css">
         <link rel="stylesheet" href="${contextPath}/resources/assets/css/components.css">
@@ -35,6 +36,7 @@
                 <div class="section-header-breadcrumb">
                   <div class="card-body">
                     <p>
+                      <a href="classManagement.cl?cno=${classroom.classNo}" style="margin-bottom:5px;" class="ion-android-options btn btn-block btn-success" data-pack="android" data-tags="settings, mixer">&nbsp;학생관리</a>
                       <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         Class Code
                       </button>
@@ -46,7 +48,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+            </div>
               <div class="row">
                 <div class="col-12 col-md-12 col-lg-6">
                   <div class="card card-primary">
@@ -150,6 +152,7 @@
   <script src="resources/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
   <script src="resources/assets/modules/jquery-ui/jquery-ui.min.js"></script>
   <!-- Page Specific JS File -->
+  <script src="resources/assets/js/page/modules-ion-icons.js"></script>
   <!-- Template JS File -->
   <script src="resources/assets/js/scripts.js"></script>
   <script src="resources/assets/js/custom.js"></script>

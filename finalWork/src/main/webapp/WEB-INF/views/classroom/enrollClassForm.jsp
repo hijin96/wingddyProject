@@ -15,19 +15,19 @@
         <div class="card" id="sample-login">
             <form action="enrollClass.cl" method="POST">
                 <div class="card-header">
-                    <h4>Enroll Class</h4>
+                    <h4>클래스 입장</h4>
                 </div>
                 <div class="card-body pb-0">
-                    <p class="text-muted">Join Your Wingddy Class !!</p>
+                    <p class="text-muted">당신의 윙디 클래스 페이지!</p>
                     <div class="form-group">
-                        <label>Class Name</label>
+                        <label>들어가는 클래스 이름</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <i class="fas fa-envelope"></i>
                                 </div>
                             </div>
-                            <input type="text" class="form-control" placeholder="Enter Code" name="enterCode">
+                            <input type="text" class="form-control" placeholder="Enter Code" name="enterCode" required>
                             <input type="hidden" name="studentNo" value="${loginUser.memberNo}">
                         </div>
                     </div>

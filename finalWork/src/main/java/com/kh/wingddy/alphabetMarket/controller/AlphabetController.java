@@ -1,6 +1,7 @@
 package com.kh.wingddy.alphabetMarket.controller;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.kh.wingddy.alphabetMarket.model.service.AlphabetService;
@@ -19,6 +21,7 @@ import com.kh.wingddy.alphabetMarket.model.vo.ChangeAlphabet;
 import com.kh.wingddy.alphabetMarket.model.vo.MarketReply;
 import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
 import com.kh.wingddy.alphabetMarket.model.vo.Words;
+import com.kh.wingddy.classroom.model.service.ClassroomService;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.Pageination;
 import com.kh.wingddy.member.model.vo.Member;
@@ -144,11 +147,11 @@ public class AlphabetController {
 	// 마켓 댓글 등록
 	@ResponseBody
 	@RequestMapping("insertReply.aph")
-	public String ajaxInsertReply(MarketReply mr) {
-		AlphabetService.ajaxInsertReply(mr);
+	public int ajaxInsertReply(MarketReply mr) {
+		//AlphabetService.ajaxInsertReply(mr);
 
 		
-		return "testsuccess";
+		return AlphabetService.ajaxInsertReply(mr);
 
 	}
 	
@@ -214,18 +217,33 @@ public class AlphabetController {
 	
 	// 내 알파벳 화면
 	@RequestMapping("makeWords.aph")
-	public String makeWords() {
+	public String makeWords(int cno, HttpServletRequest request) {
 		
 		return "alphabetMarket/makeWords";
 	}
 	
 
 	@RequestMapping("insertWords.aph")
-	public String insertWords(Words wd) {
+	public String insertWords(Words wd, HttpSession session, HttpServletRequest request) {
 		
-		AlphabetService.insertWords(wd);
 		
-		return "alphabetMarket/makeWords";
+		
+		wd.setWord(wd.getWord().toLowerCase());
+		
+		String result = AlphabetService.insertWords(wd);
+		
+		if(result.equals("success")) {
+			session.setAttribute("alertMsg", "쿠폰으로 교환됐어요!");
+		}else if(result.equals("noWord")){
+			session.setAttribute("alertMsg", "그런 단어는 배운적 없어요!");
+		}else {
+			session.setAttribute("alertMsg", "에러 발생! 다시 시도해 보세요!");
+		}
+		
+		request.setAttribute("cno", wd.getClassNo());
+		
+		
+		return "sideBar/sideBar";
 	}
 	
 	

@@ -163,7 +163,10 @@
 				},
 				success : function(result){
 
-					window.location.reload();
+					if(result > 0){
+						window.location.reload();
+					}
+					
 				}
 			})
 

@@ -53,4 +53,9 @@ public class MemberDao {
 		
 		return sqlSession.selectOne("commonMapper.selectEmploy", memberNo);
 	}
+	
+	public int idCheck(SqlSessionTemplate sqlSession, String memberId) {
+		
+		return sqlSession.selectOne("memberMapper.idCheck", memberId);
+	}
 }

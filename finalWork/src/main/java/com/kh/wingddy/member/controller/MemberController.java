@@ -142,9 +142,6 @@ public class MemberController {
 	@PostMapping("confirmPass.me")
 	public String confirmPass(String memberPwd, HttpSession session) {
 	
-		
-		
-		
 		//System.out.println(memberPwd);
 		String userId = ((Member)session.getAttribute("loginUser")).getMemberId();
 		String loginPwd = ((Member)session.getAttribute("loginUser")).getMemberPwd();
@@ -244,6 +241,13 @@ public class MemberController {
 		response.addCookie(ck);
 		
 		return cookie != null ? "success" : "fail"; 
+	}
+	
+	@ResponseBody
+	@RequestMapping("idCheck.me")
+	public int idCheck(String memberId) {
+		
+		return memberService.idCheck(memberId);
 	}
 	
 }

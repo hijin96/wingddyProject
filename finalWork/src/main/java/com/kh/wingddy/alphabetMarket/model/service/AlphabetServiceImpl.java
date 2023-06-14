@@ -126,12 +126,28 @@ public class AlphabetServiceImpl implements AlphabetService {
 	@Override
 	public String insertWords(Words wd) {
 		
-		if(alphabetDao.checkWords(sqlSession, wd) > 0) {
-			alphabetDao.updateMyCoupon(sqlSession, wd);
-			alphabetDao.deleteAlphabet(sqlSession, wd);
+		String word = wd.getWord().toUpperCase();
+		int deleteNum = 0;
+	
+		
+		if(alphabetDao.checkWords(sqlSession, wd)) {
+			if(alphabetDao.updateMyCoupon(sqlSession, wd) == 1) {
+				
+				for(int i = 0; i < word.length(); i++) {
+					wd.setWord(String.valueOf(word.charAt(i)));
+					
+					deleteNum += alphabetDao.deleteAlphabet(sqlSession, wd);
+					
+				}
+				
+				if(deleteNum == word.length()) {return "success";}
+			}
+			return "error";
+		}else {
+
+			return "noWord";
 		}
 		
-		return null;
 	}
 
 	
