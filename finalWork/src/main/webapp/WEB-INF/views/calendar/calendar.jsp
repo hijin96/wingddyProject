@@ -53,9 +53,10 @@
 		display : inline-block;
 		margin : 5px;
 	}
-	#alert-endDate{
+	.alert-endDate{
 		color : red;
 		font-size : small;
+		display : none;
 	}
 	.card1{
 		width : 400px !important;
@@ -129,7 +130,7 @@
 					<div class="modal-dialog">
 						<div class="modal-content">
 							
-						<form action="insertSchedule" method="POST">
+						<form class="form-schedule" action="insertSchedule" method="POST">
 							<!-- Modal Header -->
 							<div class="modal-header">
 								<h4 class="modal-title">일정 추가하기</h4>
@@ -142,14 +143,14 @@
 									<c:if test="${loginUser.memberType eq 'T'}">
 										<input type="color" name="color" value="#ffc34d" style="display : none"/>
 										<c:forEach var="c" items="${classList}">
-											<input type="radio" name="classNo" value="${c.classNo}"/><label>${c.className}&nbsp;</label>
+											<input type="radio" name="classNo" value="${c.classNo}" required/><label>${c.className}&nbsp;</label>
 										</c:forEach>
 									</c:if>
 								</div><br>
 								일정명 <input type="text" name="schedule" required/><br>
-								시작일 <input id="startDate" type="date" name="startDate" onchange="checkDate();" /><br>
-								종료일 <input id="endDate" type="date" name="endDate" onchange="checkDate();"/><br>
-								<p id="alert-endDate" style="display:none;">종료일은 시작일보다 빠를 수 없어요!</p>
+								시작일 <input class="startDate" type="date" name="startDate" onchange="checkDate();" required/><br>
+								종료일 <input class="endDate" type="date" name="endDate" onchange="checkDate();" required/><br>
+								<p class="alert-endDate">종료일은 시작일보다 빠를 수 없어요!</p>
 								<c:if test="${loginUser.memberType eq 'S'}">
 									배경색 <input type="color" name="color" value="#ffc34d" />
 								</c:if>
@@ -161,7 +162,7 @@
 							<div class="modal-footer">
 							
 								<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-								<button type="submit" class="btn btn-warning" >등록</button>
+								<button type="submit" id="btn-insert" class="btn btn-warning" onclick="insertSchedule();">등록</button>
 							</div>
 						</form>
 						
@@ -207,7 +208,7 @@
 					<div class="modal-dialog">
 						<div class="modal-content">
 							
-						<form action="updateSchedule" method="POST">
+						<form class="re-form-schedule" action="updateSchedule" method="POST">
 							<!-- Modal Header -->
 							<div class="modal-header">
 								<h4 class="modal-title">일정 수정하기</h4>
@@ -217,14 +218,17 @@
 							
 							<!-- Modal body -->
 							<div id="updateSchedule-info" class="modal-body">
-									
+								일정명 <input type="text" name="schedule" required/><br>
+								시작일 <input class="startDate" type="date" name="startDate" onchange="checkDate();" required/><br>
+								종료일 <input class="endDate" type="date" name="endDate" onchange="checkDate();" required/><br>
+								<p class="alert-endDate">종료일은 시작일보다 빠를 수 없어요!</p>
 							</div>
 							
 							<!-- Modal footer -->
 							<div class="modal-footer">
 							
 								<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-								<button type="submit" class="btn btn-warning" >수정</button>
+								<button type="submit" class="btn btn-warning" onclick="updateSchedule">수정</button>
 							</div>
 						</form>
 						
@@ -423,18 +427,27 @@
 			
     	});
 	    	
-    	// 일정 추가시 시작일과 종료일 비교
+    	
+    	// 일정 모달에서 시작일과 종료일 비교
     	function checkDate(){
-    		var endDate = $('#endDate').val();
-    		var startDate = $('#startDate').val();
+    		console.log('비교');
+    		var endDate = $('.endDate').val();
+    		var startDate = $('.startDate').val();
     		
     		if(endDate < startDate){
-    			$('#alert-endDate').attr('style', 'display:block');
+    			$('.alert-endDate').attr('style', 'display:block');
+    			$('.form-schedule').attr('onsubmit', 'return false');
+    			console.log('맞다');
+    			
     		} else{
-    			$('#alert-endDate').attr('style', 'display:none');
+    			console.log('아니다');
+    			$('.alert-endDate').attr('style', 'display:none');
+    			$('.form-schedule').attr('onsubmit', 'return true');
     		}
-    		
+			
     	};
+    	
+    
     	
    		let arr = []; // 전역변수 생성
    		
@@ -503,11 +516,12 @@
  			
  			
  			let inputEndDate = endDate.toISOString().substring(0, 10);
- 			
- 			value += "일정명 <input type='text' name='schedule' value='" + s.schedule + "'/><br>"
-				   + "시작일 <input id='re_startDate' type='date' name='startDate' onchange='checkDate();' value='" + s.startDate + "'/><br>"
-				   + "종료일 <input id='re_endDate' type='date' name='endDate' onchange='checkDate();' value='" + inputEndDate + "'/><br>"
-				   + "<p id='re_alert-endDate' style='display:none'>종료일은 시작일보다 빠를 수 없어요!</p>";
+ 
+			//var re_schedule = s.schedule;
+			 
+			$('.re-schedule').attr('value', s.schedule);				   
+			$('.re-startDate').attr('value', s.startDate);
+			$('.re-endDate').attr('vaule', inputEndDate);
 				   
 			if(memberType == "S"){	   
 				value += "배경색 <input type='color' name='color' value='" + s.color + "'/>";
@@ -515,10 +529,9 @@
 				value += "<input type='color' name='color' value='#ffeecc' style='display : none' />";
 			}
 			
-		   value += "<input type='hidden' name='scheduleNo' value='" + s.scheduleNo + "'/>";
-		   		  + "<input type='hidden' name='memberNo' value='" + memberType + "' />";
+			value += "<input type='hidden' name='scheduleNo' value='" + s.scheduleNo + "'/>";
+		   		   + "<input type='hidden' name='memberNo' value='" + memberType + "' />";
 	
-		   $('#updateSchedule-info').html(value);	   
 				   
 			$('#updateModal').modal();	   
  		}
