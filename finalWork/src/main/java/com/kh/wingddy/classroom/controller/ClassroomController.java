@@ -122,7 +122,7 @@ public class ClassroomController {
         
 		ArrayList<ClassMember> cmList = new ArrayList();
 		for(int i = 0; i < studentNoArr.length; i++) {
-			ClassMember cm = new ClassMember();
+			ClassMember cm = new ClassMember();  
 			cm.setStudentNo(studentNoArr[i]);
 			cm.setClassNo(classNo);
 			
