@@ -17,14 +17,11 @@ public interface StoreService {
 	//조회수 증가하면 글보기 성공
 	int inceraseCount(int spNo);
 	//게시글 작성하기-1 글정보만
-//	int insertStoreText(HashMap<String,Object> jsonstore);
 	//게시글 작성하기-2
 	int insertStoreBoard(Store s,Attachment at);
 	//썸네일 번호 생성
 	int createFileNo();
 	
-	//int insertStoreBoard(Store s);
-
 	//게시글 수정하기
 	int updateStoreBoard(int spNo);
 	//게시글 삭제하기
@@ -34,9 +31,9 @@ public interface StoreService {
 	//장바구니추가
 	int insertStoreCart(Store s,Cart cart);
 	//장바구니 목록보기
-	int selectStoreCart(int cartNo);
+	ArrayList<Cart> selectStoreCart(Store s,Cart cart);
 	//장바구니 삭제
-	int deleteCart(int cartNo);
+	int deleteCart(Cart cart);
 	//위시리스트 추가 및 삭제
 	//댓글리스트 조회
 	//댓글 작성하기 

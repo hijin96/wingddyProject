@@ -81,12 +81,26 @@ public class StoreController {
 	}
 
 	// 장바구니페이지이동
-	@RequestMapping("storecart")
-	public String storeCart(Store s) {
+	@PostMapping("storebuybasket")
+	public String storeCart(Cart cart,Store s,HttpSession session,Model model) {
 		// 장바구니 페이지 들어오면 구매하기 넘어가기 전에 구매번호랑 장바구니 번호 가지고 들어가야함!
 		// 장바구니 페이지 들어올때 detail에서 (구매수량, 상품번호,주문완료여부, 장바구니번호 )필요한 정보들 받아오기
+		Member m = ((Member) session.getAttribute("loginUser"));
+		cart.setMemberNo(m.getMemberNo());
+		int memberNo=m.getMemberNo();
 
-		return "store/storecart";
+	
+		if(storeService.insertStoreCart(s,cart)<1) {
+			storeService.selectStoreCart(s,cart);
+			model.addAttribute("cart",cart);
+			model.addAttribute("s", s);
+			model.addAttribute("memberNo",memberNo);
+			model.addAttribute("cartsum",s.getSpPrice()*cart.getBuyCount());
+			return "store/storecart";
+		}else {
+			model.addAttribute("errorMsg", "구매실패");
+			return "common/errorPage";
+		}
 	}
 
 	// 장바구니 ajax
@@ -94,6 +108,8 @@ public class StoreController {
 	@RequestMapping(value = "storecart.do", produces = "application/json;charset-8")
 	public String ajaxStoreCart(Store s,Cart cart, HttpSession session) {
 		Member m = ((Member) session.getAttribute("loginUser"));
+		cart.setMemberNo(m.getMemberNo());
+		
 		return new Gson().toJson(storeService.insertStoreCart(s,cart));
 	}
 
@@ -122,16 +138,6 @@ public class StoreController {
 		return "store/orderInfo";
 	}
 
-	// 게시판 글쓰기 -1
-	@RequestMapping("storeInsert")
-	public String storeInsert1212() {
-		return "store/storeInsertEnrollForm";
-	}
-	// 게시판 글쓰기 ajax
-//	@RequestMapping("storeWriter1")
-//	public String sample() {
-//		return "store/storeWriter2";
-//	}
 
 	// 게시판 글쓰기 최종
 	@RequestMapping("storeWriter")
@@ -145,28 +151,7 @@ public class StoreController {
 
 		return mv;
 	}
-	// 게시판글쓰기 -2(ck에디터사용)
-	/*
-	 * @ResponseBody
-	 * 
-	 * @PostMapping("insertstore.do") public String insertStoreBoard(@RequestParam
-	 * HashMap<String, Object> jsonstore,HttpSession session,HttpServletRequest
-	 * request,MultipartFile upfile) { System.out.println("스토어정보:  "+jsonstore);
-	 * storeService.insertStoreText(jsonstore); //String spName = Attachment at =
-	 * new Attachment();
-	 * 
-	 * at.setOriginName(upfile.getOriginalFilename());
-	 * at.setChangeName(rename.fileName(upfile, session));
-	 * System.out.println("at에 담긴것: "+at);
-	 * 
-	 * if(storeService.insertStoreText(jsonstore)>0) {
-	 * 
-	 * System.out.println("게시글 작성 성공");
-	 * 
-	 * 
-	 * }return "redirect:storemain";
-	 * 
-	 */
+
 
 	@RequestMapping("insertstore.do")
 	public String insertStoreBoard(Store s, MultipartFile upfile, HttpSession session, Model model) {
@@ -176,6 +161,7 @@ public class StoreController {
 		at.setOriginName(upfile.getOriginalFilename());
 		at.setChangeName(rename.fileName(upfile, session));
 		at.setFilePath("resources/uploadFiles/");
+		
 		at.setFileNo(s.getFileNo());
 		at.setMemberNo(m.getMemberNo());
 		if (storeService.insertStoreBoard(s, at) > 0) {
@@ -191,7 +177,7 @@ public class StoreController {
 	// JSP에 담긴 값들이 Object타입이라 controller에서 받아오는 타입에 어려움 느낌
 
 	@ResponseBody
-	@PostMapping(value = "/resources/uploadFiles", produces = "application/json;charset-8")
+	@PostMapping(value = "/resources/uploadFiles", produces = "application/json;charset=UTF-8")
 	public String storeWriterInsert(HttpServletRequest request, MultipartHttpServletRequest multirequest,
 			ModelAndView mv) throws Exception {
 
@@ -213,13 +199,16 @@ public class StoreController {
 		// 현재 저장경로
 		String savePath = realPath + "resources/uploadFiles/" + changeName;
 		String uploadPath = "./resources/uploadFiles/" + changeName;
+		
 		upfile.transferTo(new File(savePath));
 		mv.addObject("uploaded", true);
 		mv.addObject("url", uploadPath);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("uploaded", true);
 		map.put("url", uploadPath);
-
+		
+		//System.out.println(savePath);
+		
 		// CK에디터 등록하기 위해서 JSON으로 리턴하는것에 어려움을 느꼈음.
 		// 경로 지정하는것 어려워했음 ㅠ
 		// JSON이 버전에 따라 사용법이 다름
