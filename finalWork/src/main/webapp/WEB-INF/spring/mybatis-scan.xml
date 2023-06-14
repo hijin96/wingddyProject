@@ -6,5 +6,6 @@
   http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
   <mybatis:scan base-package="com.kh.wingddy.voca.model.dao" />
+  <mybatis:scan base-package="com.kh.wingddy.education.model.dao"/>
 
 </beans>
