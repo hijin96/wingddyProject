@@ -116,7 +116,7 @@ public class ClassroomController {
 	@RequestMapping("kickoutStudent.cl")
 	public int kickoutStudent(@RequestParam(value="studentArr[]")int[] studentNoArr, int classNo) {
 		
-		System.out.println("asdasd");
+		System.out.println("asdasd");   
 		System.out.println(studentNoArr[0]);
 		
         
