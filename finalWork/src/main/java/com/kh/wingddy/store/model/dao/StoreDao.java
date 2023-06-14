@@ -27,22 +27,12 @@ public class StoreDao {
 	}
 
 	public int insertStoreBoard(SqlSessionTemplate sqlSession,Attachment at, Store s) {
-		 
 		  if(sqlSession.insert("storeMapper.insertStoreAttachment",at)>0) {
 		return	sqlSession.insert("storeMapper.insertStore",s);
 		}
 		return 0;
 	}
 
-	/*
-	 * public int insertStoreText(SqlSessionTemplate sqlSession, HashMap<String,
-	 * Object> jsonstore) { Object spContent= jsonstore.values();
-	 * jsonstore.getClass().getName(); if(
-	 * sqlSession.insert("storeMapper.insertStoreText",jsonstore)>0) {
-	 * //sqlSession.insert("storeMapper.insertThumnail",Attachment); } return
-	 * sqlSession.insert("storeMapper.insertStoreText",jsonstore);
-	 
-	}*/
 	public int createFileNo(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("storeMapper.createFileNo");
 	}
@@ -55,7 +45,20 @@ public class StoreDao {
 		return sqlSession.selectOne("storeMapper.selectStoreBoard", spNo);	
 	}
 	public int insertStoreCart(SqlSessionTemplate sqlSession, Store s, Cart cart) {
-		
 		return sqlSession.insert("storeMapper.insertStoreCart",cart);
+	}
+	public ArrayList<Cart> selectStoreCart(SqlSessionTemplate sqlSession, Store s, Cart cart) {
+		return (ArrayList)sqlSession.selectList( "storeMapper.selectStoreCart",cart);
+	}
+	public int checkStoreCart(SqlSessionTemplate sqlSession,Store s, Cart cart) {
+		return sqlSession.selectOne("storeMapper.checkStoreCart", cart);
+	}
+	public int deleteStoreCart(SqlSessionTemplate sqlSession, Cart cart) {
+		
+		return sqlSession.delete("storeMapper.deleteStoreCart",cart);
+	}
+	public int updateStoreCart(SqlSessionTemplate sqlSession, Cart cart) {
+		
+		return sqlSession.update("storeMapper.updateStoreCart",cart);
 	}
 }

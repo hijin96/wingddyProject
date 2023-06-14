@@ -71,46 +71,52 @@
 							</div>
 							<div class="col-xl-7 col-lg-7 col-md-6">
 								<div class="single-product-details">
-									<h2>${s.spName}</h2>
-									<h5>
-										<span><input type="hidden" name="spPrice" value="${s.spPrice}" >${s.spPrice}원<span>
-									</h5>
-									<p class="available-stock">
-										<span><input type="hidden" value="${s.spNo }" name="spNo"  id="spNo">상품번호 ${s.spNo }</span>
-										<span> 남은수량 ${s.amount }개</span>
-									<p>
-									<h6>한줄 소개</h6>
-									<p>${s.spOnecom }</p>
-									<ul>
-										<li>
-											<div class="form-group quantity-box">
-												<label for="buyCount" class="control-label">수량</label>
-												 <input class="form-control" value="1" min="0" max="20" type="number" name="buyCount" id="buyCount">
-											</div>
-										</li>
-									</ul>
-									<div class="price-box-bar">
-										<div class="cart-and-bay-btn">
-										<input type="hidden" name="cartNo" value="cartNo">	
-											<button class="btn btn-info" data-fancybox-close="" href="storecart.do" type="button" id="buy">구매하기</button>
-										<input type="hidden" name="cartNo">
-											<button class="btn btn-primary trigger--fire-modal-6" id="cart" type="button">장바구니!!</button>
-												<div class="add-to-btn">
-													<div class="add-comp">
-														<a class="btn hvr-hover" href="#"> 
-														<i class="fas fa-heart"></i>위시리스트 </a>
-													</div>
+									<form  action="storebuybasket" method="POST">
+									 	<input type="hidden" name="spName" value="${s.spName}">
+										<h2>${s.spName}</h2>
+										<h5>
+											<span><input type="hidden" value="${s.spPrice}" name="spPrice">${s.spPrice}원<span>
+										</h5>
+										<p class="available-stock">
+											<span><input type="hidden"  id="spNo" name="spNo" value= "${s.spNo }">상품번호 ${s.spNo }</span>
+											<span> 남은수량 ${s.amount }개</span>
+										<p>
+										<h6>한줄 소개</h6>
+										<p>${s.spOnecom }</p>
+										<ul>
+											<li>
+												<div class="form-group quantity-box">
+													<label for="buyCount" class="control-label">수량</label>
+													<input class="form-control"  min="1" max="100" type="number" name="buyCount" id="buyCount" value="1">
 												</div>
+											</li>
+										</ul>
+										<div class="price-box-bar">
+											<div class="cart-and-bay-btn">
+												<input type="hidden" name="fileNo" value="${s.fileNo }">
+							
+												<button class="btn btn-info" type="submit" id="buy" >구매하기</button>
+									
+												<button class="btn btn-primary trigger--fire-modal-6" id="cart" type="button">장바구니!!</button>
+													<div class="add-to-btn">
+														<div class="add-comp">
+															<a class="btn hvr-hover" href="#"> 
+															<i class="fas fa-heart"></i>위시리스트 </a>
+														</div>
+													</div>
+											</div>
 										</div>
-									</div>
-									<!--장바구니 모달창 -->
+									</form>
+										<!--장바구니 모달창 -->
 									<script>
 										
 										var buyCount = $('#buyCount').val();
-										var spNo = ${s.spNo}
-										var spPrice = ${s.spPrice}
+										var spNo = ${s.spNo};
+										var spPrice = ${s.spPrice};
+										var memberNo =${ loginUser.memberNo};
 										console.log(spNo);
-										console.log(amount)
+										console.log(buyCount);
+										console.log(memberNo);
 										
 										$("#cart").fireModal({
 										  title: '장바구니',
@@ -126,7 +132,7 @@
 										
 										$('#cart').click(function(){
 										  $.ajax({
-										    url: storecart.do,
+										    url: 'storecart.do',
 										    data: { spNo: spNo,
 										    	buyCount:buyCount,
 										    	spPrice: spPrice
@@ -135,8 +141,8 @@
 										    type: 'POST'
 										  });
 										});
-
 										
+								 		
 										
 								     </script>
 									<div class="add-to-btn"></div>

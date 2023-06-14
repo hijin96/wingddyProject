@@ -55,7 +55,7 @@
 	                                             <div class="type-lb">
 	                                              <input type="hidden" value="${s.spNo }">   <p class="spNo">${s.spNo }</p>
 	                                             </div>
-	                                            <img src="${contextPath}/${s.filePath}/${s.changeName}" class="img-fluid" alt="Image">
+	                                            <img src="./${s.filePath}${s.changeName}" class="img-fluid" alt="Image">
 	                                             <div class="mask-icon">
 	                                                 <ul>
 	                                                     <li><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="View">${s.viewCount }<i class="fas fa-eye"></i></a></li>
