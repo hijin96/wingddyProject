@@ -75,64 +75,6 @@
           <div class="search-element">
             <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
             <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-            <div class="search-backdrop"></div>
-            <div class="search-result">
-              <div class="search-header">
-                Histories
-              </div>
-              <div class="search-item">
-                <a href="#">How to hack NASA using CSS</a>
-                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-              </div>
-              <div class="search-item">
-                <a href="#">Kodinger.com</a>
-                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-              </div>
-              <div class="search-item">
-                <a href="#">#Stisla</a>
-                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-              </div>
-              <div class="search-header">
-                Result
-              </div>
-              <div class="search-item">
-                <a href="#">
-                  <img class="mr-3 rounded" width="30" src="resources/assets/img/products/product-3-50.png" alt="product">
-                  oPhone S9 Limited Edition
-                </a>
-              </div>
-              <div class="search-item">
-                <a href="#">
-                  <img class="mr-3 rounded" width="30" src="resources/assets/img/products/product-2-50.png" alt="product">
-                  Drone X2 New Gen-7
-                </a>
-              </div>
-              <div class="search-item">
-                <a href="#">
-                  <img class="mr-3 rounded" width="30" src="resources/assets/img/products/product-1-50.png" alt="product">
-                  Headphone Blitz
-                </a>
-              </div>
-              <div class="search-header">
-                Projects
-              </div>
-              <div class="search-item">
-                <a href="#">
-                  <div class="search-icon bg-danger text-white mr-3">
-                    <i class="fas fa-code"></i>
-                  </div>
-                  Stisla Admin Template
-                </a>
-              </div>
-              <div class="search-item">
-                <a href="#">
-                  <div class="search-icon bg-primary text-white mr-3">
-                    <i class="fas fa-laptop"></i>
-                  </div>
-                  Create a new Homepage Design
-                </a>
-              </div>
-            </div>
           </div>
         </form>
         <ul class="navbar-nav navbar-right">
@@ -202,65 +144,6 @@
               </div>
             </div>
           </li>
-          <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
-            <div class="dropdown-menu dropdown-list dropdown-menu-right">
-              <div class="dropdown-header">Notifications
-                <div class="float-right">
-                  <a href="#">Mark All As Read</a>
-                </div>
-              </div>
-              <div class="dropdown-list-content dropdown-list-icons">
-                <a href="#" class="dropdown-item dropdown-item-unread">
-                  <div class="dropdown-item-icon bg-primary text-white">
-                    <i class="fas fa-code"></i>
-                  </div>
-                  <div class="dropdown-item-desc">
-                    Template update is available now!
-                    <div class="time text-primary">2 Min Ago</div>
-                  </div>
-                </a>
-                <a href="#" class="dropdown-item">
-                  <div class="dropdown-item-icon bg-info text-white">
-                    <i class="far fa-user"></i>
-                  </div>
-                  <div class="dropdown-item-desc">
-                    <b>You</b> and <b>Dedik Sugiharto</b> are now friends
-                    <div class="time">10 Hours Ago</div>
-                  </div>
-                </a>
-                <a href="#" class="dropdown-item">
-                  <div class="dropdown-item-icon bg-success text-white">
-                    <i class="fas fa-check"></i>
-                  </div>
-                  <div class="dropdown-item-desc">
-                    <b>Kusnaedi</b> has moved task <b>Fix bug header</b> to <b>Done</b>
-                    <div class="time">12 Hours Ago</div>
-                  </div>
-                </a>
-                <a href="#" class="dropdown-item">
-                  <div class="dropdown-item-icon bg-danger text-white">
-                    <i class="fas fa-exclamation-triangle"></i>
-                  </div>
-                  <div class="dropdown-item-desc">
-                    Low disk space. Let's clean it!
-                    <div class="time">17 Hours Ago</div>
-                  </div>
-                </a>
-                <a href="#" class="dropdown-item">
-                  <div class="dropdown-item-icon bg-info text-white">
-                    <i class="fas fa-bell"></i>
-                  </div>
-                  <div class="dropdown-item-desc">
-                    Welcome to Stisla template!
-                    <div class="time">Yesterday</div>
-                  </div>
-                </a>
-              </div>
-              <div class="dropdown-footer text-center">
-                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
-              </div>
-            </div>
-          </li>
           <c:choose>
             <c:when test="${not empty loginUser}">
               <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
@@ -275,17 +158,11 @@
                   <div class="d-sm-none d-lg-inline-block">${loginUser.memberName}</div></a>
                   <div class="dropdown-menu dropdown-menu-right">
                   <a href="features-profile.html" class="dropdown-item has-icon">
-                  <i class="far fa-user"></i> Profile
-                  </a>
-                  <a href="features-activities.html" class="dropdown-item has-icon">
-                  <i class="fas fa-bolt"></i> Activities
-                  </a>
-                  <a href="features-settings.html" class="dropdown-item has-icon">
-                  <i class="fas fa-cog"></i> Settings
+                  <i class="far fa-user"></i> 프로필
                   </a>
                   <div class="dropdown-divider"></div>
                   <a href="logout.me" class="dropdown-item has-icon text-danger">
-                  <i class="fas fa-sign-out-alt"></i> Logout
+                  <i class="fas fa-sign-out-alt"></i> 로그아웃
                   </a>
                   </div>
               </li>
@@ -294,12 +171,12 @@
               <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <div class="dropdown-menu dropdown-menu-right">
               </a>
-              <a href="#exampleModal" data-toggle="modal" class="dropdown-item has-icon">
-                <i class="fas fa-cog"></i> EnrollForm
+              <a href="#enrollModal" data-toggle="modal" class="dropdown-item has-icon">
+                <i class="fas fa-cog"></i> 회원가입
               </a>
               <div class="dropdown-divider"></div>
               <a href="loginForm.me" class="dropdown-item has-icon text-danger">
-                <i class="fas fa-sign-out-alt"></i> Login
+                <i class="fas fa-sign-out-alt"></i> 로그인
               </a>
             	</div>
           	   </li>
@@ -316,32 +193,32 @@
             <a href="${contextPath}"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Ft0B9e%2Fbtsh9BI8zya%2FUifPbFfhfWwk7NzrRCW6J0%2Fimg.png" alt="메인페이지로고" width="250px" height="50px"/></a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">St</a>
+            <a href="${contextPath}">wing</a>
           </div>
           <ul class="sidebar-menu">
-            <li class="menu-header">Starter</li>
+            <li class="menu-header">MENU</li>
             <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>클래스</span></a>
+              <a href="" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>클래스</span></a>
               <ul class="dropdown-menu">
                 <c:forEach var="cList" items="${classList}">
                 	<li><a class="nav-link" href="classMain.cl?cno=${cList.classNo}">${cList.className}</a></li>
                 </c:forEach>
                 <c:choose>
                   <c:when test="${loginUser.memberType eq 'T'}">
-                    <li><a href="addClassForm.cl">Add Class +</a></li>
+                    <li><a href="addClassForm.cl">클래스 개설 +</a></li>
                   </c:when>
                   <c:when test="${loginUser.memberType eq 'S'}">
-                    <li><a href="enrollClassForm.cl">Enroll Class +</a></li>
+                    <li><a href="enrollClassForm.cl">클래스 입장 +</a></li>
                   </c:when>
                   <c:otherwise>
-                    <li><a href="#exampleModal" data-toggle="modal">Enroll Class +</a></li>
+                    <li><a href="#enrollModal" data-toggle="modal">클래스 입장 +</a></li>
                   </c:otherwise>
                 </c:choose>
               </ul>
             </li>
            <!--  <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>마이페이지</span></a></li> -->
             <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>스토어</span></a>
+              <a href="" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>스토어</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="storemain">스토어로이동</a></li>
                 <li><a class="nav-link" href="storecart">장바구니</a></li>
@@ -349,8 +226,8 @@
                 <li><a class="nav-link" href="storebuy">구매목록</a></li>
               </ul>
             </li>
-            <li class="menu-header className">${requestScope.classroom.className}</li>
             <c:if test="${not empty loginUser}">
+            <li class="menu-header">PRIVATE</li>
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>마이페이지</span></a>
               <ul class="dropdown-menu">
@@ -358,29 +235,27 @@
                 <li><a href="profile.me">내정보수정</a></li>
               </ul>
             </li>    
-            <li><a class="nav-link" href="main.vc"><i class="fas fa-pencil-ruler"></i> <span>단어장</span></a></li>
+            <li><a class="nav-link" href="main.vc"><i class="fas fa-book"></i> <span>단어장</span></a></li>
             </c:if>
-			
+			<li class="menu-header className">${requestScope.classroom.className}</li>
 			<c:if test="${ not empty classroom }">
         	<!-- ${reqeustScope.classroom.classNo} -->
-
-
               <li>
 	            	<form action="myAlphabet.aph" method="POST" class="submit">
-            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>My alphabet</span></a>
+            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
             			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
             		</form>
 	            </li>	
 	
               <li>
 	            	<form action="main.aph" method="POST" class="submit">
-            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>Alphabet Market</span></a>
+            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>알파벳 마켓</span></a>
             			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
             		</form>
 	            </li>	
 	
 	            <li>
-	              <a href="#" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
+	              <a href="" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
 	            </li>
               
 
@@ -393,27 +268,38 @@
              
 	            <li>
 	            	<form id="form-coupon" action="couponStore" method="post">
-            			<a id="couponHandler" class="nav-link" onclick="submitCouponForm();"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a>
+            			<a id="couponHandler" class="nav-link" onclick="submitCouponForm();"><i class="fas fa-pencil-ruler"></i> <span id="coupon-span">쿠폰스토어</span></a>
+            			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
+            			<input type="hidden" name="cPage" vaule="1" />
+            		</form>
+	            </li>	
+   	            <li>
+	            	<form action="main.edu" method="POST" class="submit">
+            			<a class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>학습</span></a>
             			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
             		</form>
 	            </li>	
-	            
 	            <script>
 	            	function submitCouponForm(){
-	            		$('#form-coupon').submit();
+	            		console.log(${requestScope.classroom.classNo});
+	            		window.location.href = "couponStore?cno=" + ${requestScope.classroom.classNo};
+	            		//$('#form-coupon').submit();
 	            	}	
 
-                $('.submit').click(function(){
-                  $(this).submit();
-                });
+	                $('.submit').click(function(){
+	                  $(this).submit();
+	                });
 
+	               
+	                
+	                
 	            </script>
 	            
 	            
             </c:if>
             <c:choose>
               <c:when test="${not empty loginUser}">
-                <li class="menu-header">프로필</li>
+                <li class="menu-header">PROFILE</li>
                 <li class="dropdown">
                   <a href="" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>${loginUser.memberName}</span></a>
                   <ul class="dropdown-menu">
@@ -427,7 +313,7 @@
                   <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Insert Login</span></a>
                   <ul class="dropdown-menu">
                     <li><a href="loginForm.me">로그인</a></li> 
-                    <li><a href="#exampleModal" data-toggle="modal">회원가입</a></li> 
+                    <li><a href="#enrollModal" data-toggle="modal">회원가입</a></li> 
                     <li><a href="forgetId.me">아이디 찾기</a></li> 
                     <li><a href="errorPage.me">비밀번호 찾기</a></li> 
                   </ul>
@@ -435,32 +321,29 @@
               </c:otherwise>
             </c:choose>
           </ul>
-          <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-            <a href="#" class="btn btn-primary btn-lg btn-block btn-icon-split">
-              <i class="fas fa-rocket"></i> 버튼버튼메인으로?
-            </a>
-          </div>    
           </aside>
       </div>      
     </div>
   </div>
 
-  <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+  <div class="modal fade" tabindex="-1" role="dialog" id="enrollModal">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">JOIN WINNGDDY!</h5>
+          <h5 class="modal-title">WELCOME WINGDDY!!</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>What are the types of customers to sign up for?</p>
+          <p>
+          	회원가입 후 이용가능 합니다
+          </p>
         </div>
         <div class="modal-footer bg-whitesmoke br" style="margin:auto;">
-          <a href="enrollForm.me?teacher" class="btn btn-primary">Teacher</a>
-          <a href="enrollForm.me?student" class="btn btn-primary">Student</a>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  <a href="enrollForm.me?teacher" class="btn btn-primary">선생님으로 이용</a>
+          <a href="enrollForm.me?student" class="btn btn-primary">학생으로 이용</a>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
         </div>
       </div>
     </div>
@@ -557,5 +440,5 @@
 	// ]]>
 </script>
  -->
-
+</body>
 </html>

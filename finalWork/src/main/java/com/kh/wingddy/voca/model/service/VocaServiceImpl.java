@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.wingddy.member.model.vo.Member;
 import com.kh.wingddy.voca.model.dao.VocaMapper;
 import com.kh.wingddy.voca.model.vo.ClassVocaBook;
 import com.kh.wingddy.voca.model.vo.Voca;
@@ -29,19 +30,22 @@ public class VocaServiceImpl implements VocaService {
 	}
 
 	@Override
-	public ArrayList<ClassVocaBook> selectClassVocaBookList(int memNo) {
-		return vocaMapper.selectClassVocaBookList(memNo);
+	public ArrayList<ClassVocaBook> selectClassVocaBookList(Member m) {
+		return vocaMapper.selectClassVocaBookList(m);
 	}
 
 	@Override
+	@Transactional
 	public int deleteVocaBook(int bookNo) {
-		return vocaMapper.deleteVocabook(bookNo);
+		return vocaMapper.deleteVocaList(bookNo)
+			 * vocaMapper.deleteVocabook(bookNo);
 	}
 
 	@Override
 	@Transactional
 	public int insertVocaBook(VocaBook vb, ArrayList<Voca> vlist) {
-		return vocaMapper.insertVocaBook(vb) * vocaMapper.insertVocaList(vlist);
+		return vocaMapper.insertVocaBook(vb) 
+			 * vocaMapper.insertVocaList(vlist);
 	}
 
 	@Override

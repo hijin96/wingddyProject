@@ -3,6 +3,7 @@ package com.kh.wingddy.voca.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.wingddy.member.model.vo.Member;
 import com.kh.wingddy.voca.model.vo.ClassVocaBook;
 import com.kh.wingddy.voca.model.vo.Voca;
 import com.kh.wingddy.voca.model.vo.VocaBook;
@@ -16,7 +17,7 @@ public interface VocaService {
 	// 단어장 단어 리스트 조회(SELECT)
 	ArrayList<Voca> selectVocaList(int bookNo);
 	// 내 클래스별 단어장 리스트 조회(SELECT)
-	ArrayList<ClassVocaBook> selectClassVocaBookList(int memNo);
+	ArrayList<ClassVocaBook> selectClassVocaBookList(Member m);
 	// 단어장 삭제(UPDATE)
 	int deleteVocaBook(int bookNo);
 	

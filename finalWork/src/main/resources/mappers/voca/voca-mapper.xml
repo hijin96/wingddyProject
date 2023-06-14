@@ -41,24 +41,49 @@
 	</select>
 	
 	
-	<!-- 선생님일 경우 (나중에 학생일 경우도 추가) -->
-	<select id="selectClassVocaBookList" resultMap="vocaBookResultSet">
-		SELECT
-		       CLASS_NO
-		      ,CLASS_NAME
-		      ,BOOK_NO
-		      ,BOOK_NAME
-		  FROM
-		       CLASSROOM
-		  JOIN
-		       CLASS_VOCABOOK USING (CLASS_NO)
-		  JOIN
-		       VOCABOOK USING(BOOK_NO)
-		 WHERE
-		       TEACHER_NO = #{memNo}
-         ORDER
-            BY
-               CLASS_NO 
+	<select id="selectClassVocaBookList" parameterType="member" resultMap="vocaBookResultSet">
+		<choose>
+			<when test='memberType == "T"' >
+				SELECT
+				       CLASS_NO
+				      ,CLASS_NAME
+				      ,BOOK_NO
+				      ,BOOK_NAME
+				  FROM
+				       CLASSROOM
+				  JOIN
+				       CLASS_VOCABOOK USING (CLASS_NO)
+				  JOIN
+				       VOCABOOK USING(BOOK_NO)
+				 WHERE
+				       TEACHER_NO = #{memberNo}
+		         ORDER
+		            BY
+		               CLASS_NO 
+        	</when>
+			<otherwise>       
+		        SELECT
+				       CLASS_NO
+				      ,CLASS_NAME
+				      ,BOOK_NO
+                      ,BOOK_NAME
+				  FROM
+				       CLASS_MEMBER
+				  JOIN
+				       CLASSROOM USING(CLASS_NO)
+                  JOIN
+                       CLASS_VOCABOOK USING (CLASS_NO)
+                  JOIN
+                       VOCABOOK USING(BOOK_NO)
+				 WHERE
+				       STUDENT_NO = #{memberNo}
+				   AND
+				   	   ENTER_STATUS = 'Y'
+				 ORDER
+				    BY 
+				       CLASS_NO
+			</otherwise>		       
+		</choose>
 	</select>
 	
 	<insert id="insertVocaBook" parameterType="vocaBook">
@@ -72,6 +97,14 @@
 			  ,#{bookName}
 			   )
 	</insert>
+	
+	<delete id="deleteVocabook" >
+		DELETE
+		  FROM
+		  	   VOCABOOK
+		 WHERE
+		 	   BOOK_NO = #{bookNo}
+	</delete>
 	
 	<insert id="insertVocaList" parameterType="java.util.ArrayList">
 		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
@@ -137,7 +170,7 @@
 	</insert>
 	
 	<select id="searchVoca" resultMap="vocaResultSet" parameterType="string">
-		SELECT 
+		SELECT DISTINCT
 		       VOCA_EN,
 		       VOCA_KR
 		  FROM

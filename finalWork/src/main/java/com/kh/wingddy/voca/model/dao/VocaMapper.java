@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.kh.wingddy.member.model.vo.Member;
 import com.kh.wingddy.voca.model.vo.ClassVocaBook;
 import com.kh.wingddy.voca.model.vo.Voca;
 import com.kh.wingddy.voca.model.vo.VocaBook;
@@ -16,7 +17,7 @@ public interface VocaMapper {
 
 	public ArrayList<Voca> selectVocaList(int bookNo);
 
-	public ArrayList<ClassVocaBook> selectClassVocaBookList(int memNo);
+	public ArrayList<ClassVocaBook> selectClassVocaBookList(Member m);
 
 	public int deleteVocabook(int bookNo);
 

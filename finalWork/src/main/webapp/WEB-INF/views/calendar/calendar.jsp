@@ -512,7 +512,7 @@
 			if(memberType == "S"){	   
 				value += "배경색 <input type='color' name='color' value='" + s.color + "'/>";
 			} else{
-				value += "배경색 <input type='color' name='color' value='#ffeecc' style='display : none' />";
+				value += "<input type='color' name='color' value='#ffeecc' style='display : none' />";
 			}
 			
 		   value += "<input type='hidden' name='scheduleNo' value='" + s.scheduleNo + "'/>";

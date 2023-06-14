@@ -3,7 +3,27 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="coupon-mapper">
-	<select id="selectListCount" parameterType="_int">
-		
+	<select id="selectListCount" parameterType="_int" resultType="_int">
+		select count(*)
+		  from coupon_product_shop
+		 where class_no = #{classNo}
+		 group 
+		    by class_no
+	</select>
+	
+	<select id="selectCouponProductList" parameterType="_int" resultType="couponProduct" >
+		select 
+		       product_no pNo
+		      ,cart_no cartNo
+		      ,product_name productName
+		      ,product_content productContent
+		      ,coupon_price CouponPrice
+		      ,amount
+		      ,re_name as "reName"
+		      ,class_no classNo
+		  from 
+		       coupon_product_shop
+		 where 
+		       class_no = #{classNo}
 	</select>
 </mapper>

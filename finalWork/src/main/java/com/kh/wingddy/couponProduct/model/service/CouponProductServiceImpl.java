@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.couponProduct.model.dao.CouponProductDao;
 import com.kh.wingddy.couponProduct.model.vo.CouponProduct;
 
@@ -19,14 +20,13 @@ public class CouponProductServiceImpl implements CouponProductService {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public ArrayList<CouponProduct> selectCouponProductList(int classNo) {
-		int listCount = selectListCount(classNo);
-		return null;
+	public int selectListCount(int classNo) {
+		return cpDao.selectListCount(sqlSession, classNo);
 	}
 
 	@Override
-	public int selectListCount(int classNo) {
-		return cpDao.selectListCount(sqlSession, classNo);
+	public ArrayList<CouponProduct> selectCouponProductList(PageInfo pi, int classNo) {
+		return cpDao.selectCouponProductList(sqlSession, pi, classNo);
 	}
 	
 	@Override

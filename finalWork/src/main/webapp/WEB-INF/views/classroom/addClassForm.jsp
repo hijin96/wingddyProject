@@ -15,19 +15,19 @@
         <div class="card" id="sample-login">
             <form action="addClass.cl" method="POST">
                 <div class="card-header">
-                    <h4>Add Class</h4>
+                    <h4>클래스 생성페이지</h4>
                 </div>
                 <div class="card-body pb-0">
-                    <p class="text-muted">Create Your Wingddy Class !!</p>
+                    <p class="text-muted">선생님만에 클래스 페이지를 만들어보아요!</p>
                     <div class="form-group">
-                        <label>Class Name</label>
+                        <label>클래스 이름을 적어주세요!</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <i class="fas fa-envelope"></i>
                                 </div>
                             </div>
-                            <input type="text" class="form-control" placeholder="ClassName" name="className">
+                            <input type="text" class="form-control" placeholder="ClassName" name="className" required>
                             <input type="hidden" name="teacherName" value="${loginUser.memberNo}">
                         </div>
                     </div>
