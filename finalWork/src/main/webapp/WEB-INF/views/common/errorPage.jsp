@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="${contextPath}/resources/assets/css/style.css">
         <link rel="stylesheet" href="${contextPath}/resources/assets/css/components.css">
       <!-- Start GA -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script> 
       <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -56,13 +56,13 @@
         </div>
       
         <!-- General JS Scripts -->
-        <script src="assets/modules/jquery.min.js"></script>
+       <!--  <script src="assets/modules/jquery.min.js"></script>
         <script src="assets/modules/popper.js"></script>
         <script src="assets/modules/tooltip.js"></script>
         <script src="assets/modules/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
         <script src="assets/modules/moment.min.js"></script>
-        <script src="assets/js/stisla.js"></script>
+        <script src="assets/js/stisla.js"></script> -->
         
         <!-- JS Libraies -->
       

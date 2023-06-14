@@ -260,8 +260,8 @@
               
 
               <li>
-	            	<form action="matching.mani" method="POST" class="submit">
-            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
+	            	<form action="main.mani" method="POST" class="submit">
+            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>Manitto Management</span></a>
             			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
             		</form>
 	            </li>	

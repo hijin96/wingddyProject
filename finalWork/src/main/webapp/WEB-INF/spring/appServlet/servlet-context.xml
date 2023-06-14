@@ -33,8 +33,10 @@
 			<mapping path="/enroll.aph"/>
 			<mapping path="/myAlphabet.aph"/>
 			<mapping path="/makeWords.aph"/>
-			<mapping path="/matching.mani"/>
+
+			<mapping path="/main.mani"/>
 			<mapping path="/classManagement.cl"/>
+
 
 			<mapping path="/couponStore" />
 
