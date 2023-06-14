@@ -40,5 +40,23 @@ public class ManittoController {
 	}
 	
 	
+	@ResponseBody
+	@RequestMapping("delete.mani")
+	private int deleteManitto(int classNo) {
+
+		return ManittoService.deleteManitto(classNo);
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="myManitti.mani",  produces="html/text; charset=UTF-8")
+	private String selectMyManitti(Manitto mt) {
+		
+		
+
+		return ManittoService.selectMyManitti(mt);
+	}
+	
 
 }

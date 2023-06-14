@@ -35,10 +35,6 @@
 			<mapping path="/makeWords.aph"/>
 
 			<mapping path="/main.mani"/>
-			
-			
-
-			<mapping path="/matching.mani"/>
 			<mapping path="/classManagement.cl"/>
 
 

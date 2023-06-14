@@ -23,12 +23,42 @@
 	VALUES (#{classNo}, #{manittoNo}, #{manittiNo})
 </insert>
 
-<select id="selectManittoList" parameterType="manitto" resultMap="manittoResultSet">
+<select id="selectManittoList" resultMap="manittoResultSet">
 	SELECT A.MEMBER_ID||'('||A.MEMBER_NAME||')' AS "MANITTO", B.MEMBER_ID||'('||B.MEMBER_NAME||')' AS "MANITTI"
 	  FROM MANITTO
 	  JOIN MEMBER A ON(MANITTO = A.MEMBER_NO)
 	  JOIN MEMBER B ON(MANITTI = B.MEMBER_NO)
 	  WHERE CLASS_NO = #{classNo}
 </select>
+
+<delete id="deleteManitto">
+	DELETE FROM MANITTO
+	 WHERE CLASS_NO = #{classNo}
+</delete>
+
+<select id="selectMyManitti" parameterType="manitto" resultType="string">
+	SELECT B.MEMBER_ID||'('||B.MEMBER_NAME||')' AS "MANITTI"
+	  FROM MANITTO
+	  JOIN MEMBER A ON(MANITTO = A.MEMBER_NO)
+	  JOIN MEMBER B ON(MANITTI = B.MEMBER_NO)
+	 WHERE CLASS_NO = #{classNo}
+	   AND MANITTO = #{manittoNo}
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </mapper>
