@@ -43,6 +43,7 @@
     text-align: center !important;
     color: #6777ef !important;
     font-size: large !important;
+    line-height: 60px !important;
   }
 
   .changeButton{
@@ -56,9 +57,6 @@
   	outlint : 0 !important;
   }
 
-  .submit:hover{
-    cursor: pointer;
-  }
 </style>
 </head>
 
@@ -237,62 +235,54 @@
             </li>    
             <li><a class="nav-link" href="main.vc"><i class="fas fa-book"></i> <span>단어장</span></a></li>
             </c:if>
-			<li class="menu-header className">${requestScope.classroom.className}</li>
+            
+			<div class="sidebar-brand className">
+				${requestScope.classroom.className}
+			</div>
+			<div class="sidebar-brand sidebar-brand-sm"></div>
 			<c:if test="${ not empty classroom }">
         	<!-- ${reqeustScope.classroom.classNo} -->
-              <li>
-	            	<form action="myAlphabet.aph" method="POST" class="submit">
-            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
-            			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
-            		</form>
-	            </li>	
-	
-              <li>
-	            	<form action="main.aph" method="POST" class="submit">
-            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>알파벳 마켓</span></a>
-            			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
-            		</form>
-	            </li>	
-	
-	            <li>
-	              <a href="" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
-	            </li>
-              
-
-              <li>
-	            	<form action="main.mani" method="POST" class="submit">
-            			<a class="nav-link" ><i class="fas fa-pencil-ruler"></i> <span>Manitto Management</span></a>
-            			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
-            		</form>
-	            </li>	
-             
-	            <li>
-	            	<form id="form-coupon" action="couponStore" method="post">
-            			<a id="couponHandler" class="nav-link" onclick="submitCouponForm();"><i class="fas fa-pencil-ruler"></i> <span id="coupon-span">쿠폰스토어</span></a>
-            			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
-            			<input type="hidden" name="cPage" vaule="1" />
-            		</form>
-	            </li>	
-   	            <li>
-	            	<form action="main.edu" method="POST" class="submit">
-            			<a class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>학습</span></a>
-            			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
-            		</form>
-	            </li>	
+        		<form action="" method="POST" id="postSender">
+        			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
+        		</form>
+            	<form action="" method="POST" class="submit">
+           		</form>
+            	<form action="" method="POST" class="submit">
+           		</form>
+            	<form action="" method="POST" class="submit">
+           		</form>
+            	<form id="form-coupon" action="" method="post" class="submit">
+           		</form>
+            	<form action="" method="POST" class="submit">
+           		</form>
+				<li>
+					<a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
+					<input type="hidden" name="url" value="myAlphabet.aph" /> 
+				</li>	
+				<li>
+					<a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>알파벳 마켓</span></a>
+					<input type="hidden" name="url" value="main.aph" /> 
+				</li>	
+				<li>
+					<a class="nav-link submit"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
+					<input type="hidden" name="url" value="" />
+				</li>
+				<li>
+					<a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
+					<input type="hidden" name="url" value="main.mani" /> 
+				</li>	
+				<li>
+					<a id="couponHandler" class="nav-link submit"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a>
+					<input type="hidden" name="url" value="couponStore" /> 
+				</li>	
+				<li>
+					<a class="nav-link submit"><i class="fas fa-pencil-ruler"></i> <span>과제</span></a>
+					<input type="hidden" name="url" value="main.edu" /> 
+				</li>	
 	            <script>
-	            	function submitCouponForm(){
-	            		console.log(${requestScope.classroom.classNo});
-	            		window.location.href = "couponStore?cno=" + ${requestScope.classroom.classNo};
-	            		//$('#form-coupon').submit();
-	            	}	
-
 	                $('.submit').click(function(){
-	                  $(this).submit();
+	                  $('#postSender').submit();
 	                });
-
-	               
-	                
-	                
 	            </script>
 	            
 	            
