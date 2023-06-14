@@ -25,9 +25,174 @@
 				</c:if>
 	        </div>
 	        <div class="section-body">
-	            
+            	<div class="col-12">
+            		<h2 class="section-title">등록된 과제</h2>
+            	</div>
+	            <div class="row sortable-card">
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-primary">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-warning">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-danger">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-primary">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-warning">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-danger">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div><div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-primary">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-warning">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-danger">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            	<div class="col-12">
+	            		<h2 class="section-title">완료된 과제</h2>
+	            	</div>
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-primary">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-warning">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-danger">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-primary">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-warning">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-danger">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div><div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-primary">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-warning">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            	<div class="col-12 col-md-6 col-lg-3">
+	            		<div class="card card-danger">
+	            			<div class="card-header">
+	            			</div>
+	            			<div class="card-body">
+	            			</div>
+	            		</div>
+	            	</div>
+	            </div>
 	        </div>
 	    </section>
 	</div>
+	<!-- General JS Scripts -->
+	<script src="resources/assets/modules/jquery.min.js"></script>
+	<script src="resources/assets/modules/popper.js"></script>
+	<script src="resources/assets/modules/tooltip.js"></script>
+	<script src="resources/assets/modules/bootstrap/js/bootstrap.min.js"></script>
+	<script src="resources/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
+	<script src="resources/assets/modules/moment.min.js"></script>
+	<script src="resources/assets/js/stisla.js"></script>
+	
+	<!-- JS Libraies -->
+	<script src="resources/assets/modules/jquery-ui/jquery-ui.min.js"></script>
+	<script src="resources/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+	
+	<!-- Template JS File -->
+	<script src="resources/assets/js/scripts.js"></script>
+	<script src="resources/assets/js/custom.js"></script>
 </body>
 </html>
