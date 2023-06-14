@@ -1,10 +1,14 @@
 package com.kh.wingddy.manitto.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.kh.wingddy.manitto.model.service.ManittoService;
 import com.kh.wingddy.manitto.model.vo.Manitto;
 
@@ -23,10 +27,16 @@ public class ManittoController {
 	@ResponseBody
 	@RequestMapping("matching.mani")
 	private String manittoMatching(Manitto mt) {
+
+		return ManittoService.manittoMatching(mt);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="manittoList.mani", produces="application/json; charset=UTF-8")
+	private String selectManittoList(int classNo) {
 		
-		ManittoService.manittoMatching(mt);
+		return new Gson().toJson(ManittoService.selectManittoList(classNo));
 		
-		return "";
 	}
 	
 	

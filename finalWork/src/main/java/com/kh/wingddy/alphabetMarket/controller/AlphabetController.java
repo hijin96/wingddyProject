@@ -147,11 +147,11 @@ public class AlphabetController {
 	// 마켓 댓글 등록
 	@ResponseBody
 	@RequestMapping("insertReply.aph")
-	public String ajaxInsertReply(MarketReply mr) {
-		AlphabetService.ajaxInsertReply(mr);
+	public int ajaxInsertReply(MarketReply mr) {
+		//AlphabetService.ajaxInsertReply(mr);
 
 		
-		return "testsuccess";
+		return AlphabetService.ajaxInsertReply(mr);
 
 	}
 	

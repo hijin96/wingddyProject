@@ -21,9 +21,8 @@
 		        <div class="section-body">
 					<div class="card">
 						<div align="right">
-							<div class="card-body">
-								<button type="button" class="btn btn-primary" id="matching">마니또 매칭</button>
-								<button type="button" class="btn btn-primary">마니또 종료</button>
+							<div class="card-body" id="createBtn">
+								
 							</div>
 						</div>
 
@@ -60,22 +59,60 @@
 </div>
 
 <script>
-	$('#matching').click(function(){
 
-		console.log('123');
-		console.log('${requestScope.classroom.classNo}');
-		
+	$(document).on('click', '#matching', function(){
+
 		$.ajax({
 			url : 'matching.mani',
 			data : {
 				classNo : '${requestScope.classroom.classNo}'
 			},
-			success : function(){
-
+			success : function(result){
+				setManittoList();
 			}
 			
 		})
+
+	});
+
+
+
+
+
+
+	$(function(){
+		setManittoList();
 	})
+
+
+	function setManittoList(){
+
+		$.ajax({
+			url : 'manittoList.mani',
+			data : {
+				classNo : '${requestScope.classroom.classNo}'
+			}, 
+			success : function(list){
+
+				var result = '';
+
+				for(var i in list){
+					result += '<tr><td>' + i + '</td><td>' + list[i].manittoId + '</td><td>' + list[i].manittiId + '</td></tr>'
+				}
+
+				$('tbody').html(result);
+
+				if(list.length == 0){
+					$('#createBtn').html('<button type="button" class="btn btn-primary" id="matching">마니또 매칭</button>')
+				}
+				else{
+					$('#createBtn').html('<button type="button" class="btn btn-primary">마니또 종료</button>');
+				}
+			}
+		})
+	}
+
+	
 </script>
 
 </body>

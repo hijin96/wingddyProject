@@ -6,5 +6,8 @@ import lombok.Data;
 public class Manitto {
 
 	private int classNo;
-	private String memberId;
+	private int manittoNo;
+	private int manittiNo;
+	private String manittoId;
+	private String manittiId;
 }

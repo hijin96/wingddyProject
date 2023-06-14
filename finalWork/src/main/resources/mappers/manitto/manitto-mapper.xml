@@ -4,6 +4,13 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="manittoMapper">
 
+<resultMap id="manittoResultSet" 		type="manitto">
+		<result column="CLASS_No"	 		property="classNo" />
+		<result column="MANITTO"			property="manittoId" />
+		<result column="MANITTi" 			property="manittiId" />
+	</resultMap>
+
+
 
 <select id="selectStudentNo" parameterType="manitto" resultType="int">
 	SELECT STUDENT_NO
@@ -11,7 +18,17 @@
 	 WHERE CLASS_NO = #{classNo}
 </select>
 
+<insert id="insertMatchingResult" parameterType="manitto">
+	INSERT INTO MANITTO
+	VALUES (#{classNo}, #{manittoNo}, #{manittiNo})
+</insert>
 
-
+<select id="selectManittoList" parameterType="manitto" resultMap="manittoResultSet">
+	SELECT A.MEMBER_ID||'('||A.MEMBER_NAME||')' AS "MANITTO", B.MEMBER_ID||'('||B.MEMBER_NAME||')' AS "MANITTI"
+	  FROM MANITTO
+	  JOIN MEMBER A ON(MANITTO = A.MEMBER_NO)
+	  JOIN MEMBER B ON(MANITTI = B.MEMBER_NO)
+	  WHERE CLASS_NO = #{classNo}
+</select>
 
 </mapper>

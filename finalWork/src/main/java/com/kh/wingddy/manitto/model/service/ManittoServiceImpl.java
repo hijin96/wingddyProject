@@ -20,16 +20,18 @@ public class ManittoServiceImpl implements ManittoService{
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public ArrayList manittoMatching(Manitto mt) {
+	public String manittoMatching(Manitto mt) {
 		
 		ArrayList manitto = manittoDao.selectStudentNo(sqlSession, mt);
-		System.out.println("---------------------");
-		System.out.println("마니또  : " + manitto);	
+		//System.out.println("---------------------");
+		//System.out.println("마니또  : " + manitto);	
 		
 		
 		ArrayList manitti = new ArrayList();
 		
 		boolean check = true;
+		
+		int result = 0;
 		
 		while(check) {
 			for(int i = 0; i < manitto.size(); i++) {
@@ -37,32 +39,73 @@ public class ManittoServiceImpl implements ManittoService{
 
 			}
 			
-			System.out.println("셔플 전 마니띠  : " + manitti);
+			//System.out.println("셔플 전 마니띠  : " + manitti);
 			Collections.shuffle(manitti);
 			
 			for(int i = 0; i < manitto.size(); i++) {
 				if(manitto.get(i) == manitti.get(i)) {
-					System.out.println("똑같은 거 있을 때 : " + manitti);
-
+					//System.out.println("똑같은 거 있을 때 : " + manitti);
+					//System.out.println(i);
 					manitti.clear();
 					
 					break;
-				}else {
-					check = false;
 				}
 			}
-			System.out.println("**");
+			
+			if(!manitti.isEmpty()) {
+				check = false;
+			}
 		}
 		
-
-		
+		for(int i = 0; i < manitto.size(); i++) {
+			mt.setManittoNo((Integer)manitto.get(i));
+			mt.setManittiNo((Integer)manitti.get(i));
 			
-		System.out.println("last : " + manitti);
+			result += manittoDao.insertMatchingResult(sqlSession, mt);
+		}
 		
-		
-		
-		return null;
+		if(result == manitto.size()) {
+			//System.out.println(manittoDao.selectMatchingList(sqlSession, mt));
+			return "success";
+		}else {
+			return "fail";
+		}
+
 	}
+
+	@Override
+	public ArrayList<Manitto> selectManittoList(int classNo) {
+		
+		return manittoDao.selectManittoList(sqlSession, classNo);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }
