@@ -11,6 +11,7 @@ import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.store.model.dao.StoreDao;
 import com.kh.wingddy.store.model.vo.Cart;
+import com.kh.wingddy.store.model.vo.Order;
 import com.kh.wingddy.store.model.vo.Store;
 
 @Service
@@ -72,13 +73,20 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public int insertStoreCart(Store s, Cart cart) {
-		if(storeDao.checkStoreCart(sqlSession,s,cart)<1) {
+		if(storeDao.checkStoreCart(sqlSession,s,cart)==0) {
+			
+			//System.out.println("서비스 데이터 값 INSERT :"+storeDao.insertStoreCart(sqlSession,s,cart));
 			return storeDao.insertStoreCart(sqlSession,s,cart);
-		}else {//업데이트
+		}else {
+			//System.out.println("UPDATE: "+storeDao.updateStoreCart(sqlSession,cart) );
 			return storeDao.updateStoreCart(sqlSession,cart);
 	}
 	}
-
+	@Override
+	public int insertOrder(Order order) {
+		//주문번호만들기 성고하면 주문페이지로 이동
+		return	storeDao.createOrderNo(sqlSession,order);
+	}
 	@Override
 	public int deleteCart(Cart cart) {
 		return storeDao.deleteStoreCart(sqlSession,cart);

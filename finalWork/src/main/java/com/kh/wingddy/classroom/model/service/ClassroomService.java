@@ -32,6 +32,7 @@ public interface ClassroomService {
 	// 학생관리 페이지
 	// 클래스 내 학생 리스트 조회 (SELECT)
 	// - 과제 참여율 조회 (SELECT)
+	ArrayList<ClassMember> selectProgressRate(int cno);
 	// 학생 클래스 추방 (DELETE)
 	int kickoutStudent(ArrayList<ClassMember> memberNoList);
 	// 학생에게 뽑기 횟수 부여 X (UPDATE)

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.store.model.vo.Cart;
+import com.kh.wingddy.store.model.vo.Order;
 import com.kh.wingddy.store.model.vo.Store;
 
 public interface StoreService {
@@ -35,6 +36,9 @@ public interface StoreService {
 	ArrayList<Cart> selectStoreCart(Store s,Cart cart);
 	//장바구니 삭제
 	int deleteCart(Cart cart);
+	//구매하기페이지 
+	int insertOrder(Order order);
+	
 	//위시리스트 추가 및 삭제
 	//댓글리스트 조회
 	//댓글 작성하기 

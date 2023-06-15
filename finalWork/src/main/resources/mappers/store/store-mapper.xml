@@ -36,6 +36,16 @@
 		<result column="CART_DAY" property="cartDay"/>
 		<result column="ORDER_NO" property="orderNo"/>
 	</resultMap>
+	<resultMap type="order" id="OrderResultSet">
+		<result column="ORDER_NO" property="orderNo"/>	
+		<result column="MEMBER_NO" property="memberNo"/>	
+		<result column="RES_NAME" property="resName"/>	
+		<result column="SEND_NAME" property="sendName"/>	
+		<result column="RES_PHONE" property="resPhone"/>	
+		<result column="SUMPRICE" property="sumprice"/>
+		<result column="ORDER_DAY" property="orderDay"/>
+		<result column="OR_ADDRESS" property="orderAddress"/>
+	</resultMap>
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM S_STORE WHERE AMOUNT > 0
 	</select>
@@ -146,7 +156,7 @@
 		,#{memberNo}
 		,#{spNo}
 		,#{buyCount}
-		,'N'
+		,DEFAULT
 		,SYSDATE
 		,null)
 	
@@ -176,6 +186,8 @@
 		MEMBER_NO = #{memberNo}
 	 AND 
 	 	ORDER_YN='N'
+	 AND
+	 	SP_NO=#{spNo}
 	</select>
 	<delete id="deleteStoreCart"   parameterType="cart">
 	DELETE 
@@ -189,8 +201,16 @@
 			S_CART
     	SET 
     		BUY_COUNT =BUY_COUNT+#{buyCount}
-		WHERE CART_NO=#{cartNo}
+		WHERE SP_NO=#{spNo}
 		AND MEMBER_NO=#{memberNo}
 	</update>
+	<insert id="createOrderNo">
+		INSERT INTO 
+				S_ORDER (ORDER_NO
+						,MEMBER_NO)
+				VALUES 
+						(SEQ_ORDER_NO.NEXTVAL
+						,#{memberNo})
+	</insert>
 
 </mapper>
