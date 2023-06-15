@@ -62,11 +62,11 @@ public class MemberController {
 			mv.setViewName("redirect:/");
 		} else {
 			session.setAttribute("alertMsg", "로그인실패");
-			mv.setViewName("common/errorPage");
+			mv.setViewName("common/loginForm");
 		}
 		return mv;
 	}
-	
+	  
 	@RequestMapping("loginForm.me")
 	public String loginForm() {
 		
