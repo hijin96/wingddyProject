@@ -12,5 +12,5 @@ public class EduProgress extends Edu{
 
 	private int totalCount;
 	private int completeCount;
-	private int progressRate;
+	private Double progressRate;
 }

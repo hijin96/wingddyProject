@@ -10,6 +10,7 @@
 		<result column="EDU_NAME" property="eduName"/>
 		<result column="EDU_TYPE" property="eduType"/>
 		<result column="END_TIME" property="endTime"/>
+		<result column="LIMIT_TIME" property="limitTime"/>
 		<result column="TOTAL_COUNT" property="totalCount"/>
 		<result column="COMPLETE_COUNT" property="completeCount"/>
 		<result column="PROGRESS_RATE" property="progressRate"/>
@@ -33,9 +34,8 @@
 		       EDU_NO
 		      ,EDU_NAME
 		      ,EDU_TYPE
-		      ,CASE WHEN (END_TIME - SYSDATE) > 0 
-		            THEN TO_CHAR(END_TIME - SYSDATE)
-		            ELSE TO_CHAR(END_TIME, 'YY"년" MM"월" DD"일"') END END_TIME
+		      ,TO_CHAR(END_TIME, 'YY"년" MM"월" DD"일"') END_TIME
+		      ,(END_TIME - SYSDATE) LIMIT_TIME
 		      ,TOTAL_COUNT
 		      ,NVL(CC, 0) COMPLETE_COUNT
 		      ,ROUND(NVL(CC, 0) / TOTAL_COUNT, 3) PROGRESS_RATE
