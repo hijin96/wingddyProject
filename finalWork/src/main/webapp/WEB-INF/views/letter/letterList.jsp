@@ -68,7 +68,7 @@
 											<tr>
 												<th class="p-0 text-center">
 													<div class="form-check">
-														<input type="checkbox" id="test" data-checkboxes="mygroup" data-checkbox-role="dad" class="form-check-input" id="checkbox-all">
+														<input type="checkbox" id="test" class="form-check-input" id="receivedCheckbox-all" onclick="test(this)">
 													</div>
 												</th>
 												<th>From</th>
@@ -79,7 +79,7 @@
 											<tr>
 												<td class="p-0 text-center">
 													<div class="form-check">
-														<input type="checkbox" data-checkboxes="mygroup" class="form-check-input">
+														<input type="checkbox"  class="form-check-input receivedCheckbox">
 													</div>
 												</td>
 												<td>
@@ -92,7 +92,7 @@
 											<tr>
 												<td class="p-0 text-center">
 													<div class="form-check">
-														<input type="checkbox" data-checkboxes="mygroup" class="form-check-input">
+														<input type="checkbox"  class="form-check-input receivedCheckbox">
 													</div>
 												</td>
 												<td>
@@ -243,6 +243,31 @@
 
 	<script>
 
+		function test(btn){
+			console.log(btn);
+		}
+
+
+		
+		$('#receivedCheckbox-all').click(function(){
+			console.log('fsjhdfldskjfl')
+			console.log($(this).is(':checked'));
+		})
+
+
+
+		
+		/*
+		$(document).on('click', '#receivedCheckbox-all', function(){
+
+			console.log('fsjhdfldskjfl')
+			console.log($(this).is(':checked'));
+
+		});
+		*/AnimationEffect
+
+	
+
 		var currentPage = 1;
 
 
@@ -345,7 +370,7 @@
 						}
 					}
 
-					$('#receivedLetterArea').html(value);
+					//$('#receivedLetterArea').html(value);
 
 				}
 			})
