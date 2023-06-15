@@ -6,12 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>학습페이지</title>
+
 <style>
 
 
 </style>
 </head>
 <body>
+
 	<jsp:include page="../sideBar/sideBar.jsp" />
 	
 	<div class="main-content">
@@ -29,45 +31,47 @@
             		<h2 class="section-title">등록된 과제</h2>
             	</div>
 	            <div class="row sortable-card">
-            	<c:forEach var="edu" items="${eList}">
-            		<c:if>
-	            		<c:choose>
-	            			<c:when test="${edu.eduType eq 'W'}">
-		            			<div class="col-12 col-md-6 col-lg-3">
-				            		<div class="card card-primary">
-				            			<div class="card-header">
-				            			</div>
-				            			<div class="card-body">
-				            			</div>
-				            		</div>
-				            	</div>
-	            			</c:when>
-	            			<c:when test="${edu.eduType eq 'S'}">
-	            				<div class="col-12 col-md-6 col-lg-3">
-				            		<div class="card card-warning">
-				            			<div class="card-header">
-				            			</div>
-				            			<div class="card-body">
-				            			</div>
-				            		</div>
-				            	</div>
-	            			</c:when>
-	            			<c:otherwise>
-	            				<div class="col-12 col-md-6 col-lg-3">
-				            		<div class="card card-danger">
-				            			<div class="card-header">
-				            			</div>
-				            			<div class="card-body">
-				            			</div>
-				            		</div>
-				            	</div>
-	            			</c:otherwise>
-	            		</c:choose>
-            		</c:if>
-            	</c:forEach>
+	            	<c:forEach var="edu" items="${eList}">
+	            		<c:if test="${edu.limitTime gt 0}">
+	            			<div class="col-12 col-md-6 col-lg-3">
+	            				<input type="hidden" value="${edu.eduNo}" name="eduNo"/>
+			            		<div class="card card-primary">
+			            			<div class="card-header">
+			            				<h5>${edu.eduName}</h5>
+			            			</div>
+			            			<div class="card-body">
+			            				<p>
+			            					남은시간 : <div>${edu.limitTime}일</div><br>
+			            					유형 : ${edu.eduType} <br>
+			            					진행율 : ${edu.progressRate*100}% 
+			            				</p>
+			            			</div>
+			            		</div>
+			            	</div>
+	            		</c:if>
+	            	</c:forEach>
 	            	<div class="col-12">
 	            		<h2 class="section-title">완료된 과제</h2>
 	            	</div>
+	            	<c:forEach var="edu" items="${eList}">
+	            		<c:if test="${edu.limitTime le 0}">
+	            			<div class="col-12 col-md-6 col-lg-3">
+			            		<input type="hidden" value="${edu.eduNo}" name="eduNo"/>
+			            		<div class="card card-primary">
+			            			<div class="card-header">
+			            				<h5>${edu.eduName}</h5>
+			            			</div>
+			            			<div class="card-body">
+			            				<p>
+			            					${edu.endTime}<br>
+			            					유형 : ${edu.eduType} <br>
+			            					진행율 : ${edu.progressRate*100}% 
+			            				</p>
+			            			</div>
+			            		</div>
+			            	</div>
+	            		</c:if>
+	            	</c:forEach>
 	            </div>
 	        </div>
 	    </section>
@@ -88,5 +92,13 @@
 	<!-- Template JS File -->
 	<script src="resources/assets/js/scripts.js"></script>
 	<script src="resources/assets/js/custom.js"></script>
+	<script>
+		$(function(){
+			console.log('${eList}');
+			function checkTime(num){
+				console.log(num);
+			}
+		})
+	</script>
 </body>
 </html>
