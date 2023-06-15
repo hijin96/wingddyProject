@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
 import com.kh.wingddy.classroom.model.vo.ClassMember;
 import com.kh.wingddy.classroom.model.vo.Classroom;
+import com.kh.wingddy.education.model.vo.Incorrect;
 import com.kh.wingddy.member.model.vo.Member;
 
 public interface ClassroomService {
@@ -35,6 +36,8 @@ public interface ClassroomService {
 	ArrayList<ClassMember> selectProgressRate(int cno);
 	// 학생 클래스 추방 (DELETE)
 	int kickoutStudent(ArrayList<ClassMember> memberNoList);
+	
+	ArrayList<Incorrect> selectProgressStudent(ClassMember cm);
 	// 학생에게 뽑기 횟수 부여 X (UPDATE)
 	
 	/* 학생 */

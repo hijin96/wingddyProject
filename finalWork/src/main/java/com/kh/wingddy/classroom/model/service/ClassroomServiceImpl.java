@@ -11,6 +11,7 @@ import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
 import com.kh.wingddy.classroom.model.dao.ClassroomDao;
 import com.kh.wingddy.classroom.model.vo.ClassMember;
 import com.kh.wingddy.classroom.model.vo.Classroom;
+import com.kh.wingddy.education.model.vo.Incorrect;
 import com.kh.wingddy.member.model.vo.Member;
 
 @Service
@@ -78,6 +79,11 @@ public class ClassroomServiceImpl implements ClassroomService {
 	@Override
 	public ArrayList<ClassMember> selectProgressRate(int cno) {
 		return classroomDao.selectProgressRate(sqlSession, cno);
+	}
+
+	@Override
+	public ArrayList<Incorrect> selectProgressStudent(ClassMember cm) {
+		return classroomDao.selectProgressStudent(sqlSession, cm);
 	}
 	
 	

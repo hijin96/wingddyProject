@@ -2,13 +2,13 @@ package com.kh.wingddy.classroom.model.dao;
 
 import java.util.ArrayList;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
 import com.kh.wingddy.classroom.model.vo.ClassMember;
 import com.kh.wingddy.classroom.model.vo.Classroom;
+import com.kh.wingddy.education.model.vo.Incorrect;
 import com.kh.wingddy.member.model.vo.Member;
 
 @Repository
@@ -53,5 +53,9 @@ public class ClassroomDao {
 	
 	public ArrayList<ClassMember> selectProgressRate(SqlSessionTemplate sqlSession, int cno){
 		return (ArrayList)sqlSession.selectList("classMapper.selectProgressRate", cno);
+	}
+	
+	public ArrayList<Incorrect> selectProgressStudent(SqlSessionTemplate sqlSession, ClassMember cm){
+		return (ArrayList)sqlSession.selectList("com.kh.wingddy.education.model.dao.EduMapper.selectProgressStudent", cm);
 	}
 }
