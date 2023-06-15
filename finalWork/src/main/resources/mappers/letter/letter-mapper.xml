@@ -17,6 +17,25 @@
 </resultMap>
 
 
+<select id="receviedCount" parameterType="letter" resultType="_int">
+SELECT COUNT(*)
+  FROM LETTER
+  JOIN MEMBER USING ON (SENDER = MEMBER_NO)
+ WHERE CLASS_NO = #{classNo}
+   AND RECIPIENT = #{recipient}
+ ORDER BY SEND_DATE DESC
+</select>
+
+<select id="sentCount" parameterType="letter" resultType="_int">
+SELECT COUNT(*)
+   FROM LETTER
+   JOIN MEMBER USING ON (RECIPIENT = MEMBER_NO)
+  WHERE CLASS_NO = #{classNo}
+    AND SENDER = #{sender}
+  ORDER BY SEND_DATE DESC
+</select>
+
+
 <select id="ajaxReceivedLetter" parameterType="letter" resultMap="letterResultSet">
 SELECT LETTER_NO, MEMBER_ID||'('||MEMBER_NAME||')' AS "SENDER", SUBSTR(LETTER_CONTENT, 0, 10)||'...' AS "LETTER_CONTENT", TO_CHAR(SEND_DATE, 'YYYY/MM/DD') AS "SEND_DATE", ANONYMOUS, GIFT, READ_CHECK
   FROM LETTER

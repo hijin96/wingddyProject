@@ -59,8 +59,8 @@
 									</div>
 									<div class="card-body p-0">
 									  <div class="table-responsive">
-										<table class="table table-striped">
-											<tr>
+										<table class="table table-striped text-center" id="receivedLetterArea">
+											<tr align="left">
 												<td colspan="5">
 													<button class="btn btn-primary">삭제</button>
 												</td>
@@ -79,11 +79,10 @@
 											<tr>
 												<td class="p-0 text-center">
 													<div class="form-check">
-														<input type="checkbox" data-checkboxes="mygroup" class="form-check-input" id="checkbox-1">
+														<input type="checkbox" data-checkboxes="mygroup" class="form-check-input">
 													</div>
 												</td>
 												<td>
-													<img alt="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG-vsvOvF2g5-8PhbDK8pbcX8neO2lWMTm0MZYt7tHmw&s" class="rounded-circle" width="35" data-toggle="tooltip" title="Wildan Ahdian">
 													김길동
 												</td>
 												<td>내용sfsdfsdfsdfsdfsf!</td>
@@ -93,38 +92,24 @@
 											<tr>
 												<td class="p-0 text-center">
 													<div class="form-check">
-														<input type="checkbox" data-checkboxes="mygroup" class="form-check-input" id="checkbox-1">
+														<input type="checkbox" data-checkboxes="mygroup" class="form-check-input">
 													</div>
 												</td>
 												<td>
-													<img alt="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG-vsvOvF2g5-8PhbDK8pbcX8neO2lWMTm0MZYt7tHmw&s" class="rounded-circle" width="35" data-toggle="tooltip" title="Wildan Ahdian">
 													김길동
 												</td>
 												<td>내용sfsdfsdfsdfsdfsf!</td>
 												<td>2018-01-20</td>
 												<td><div class="badge badge-info">확인완료</div></td>
 											</tr>
-											<tr>
-												<td class="p-0 text-center">
-													<div class="form-check">
-														<input type="checkbox" data-checkboxes="mygroup" class="form-check-input" id="checkbox-1">
-													</div>
-												</td>
-												<td>
-													<img alt="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG-vsvOvF2g5-8PhbDK8pbcX8neO2lWMTm0MZYt7tHmw&s" class="rounded-circle" width="35" data-toggle="tooltip" title="Wildan Ahdian">
-													김길동
-												</td>
-												<td>내용sfsdfsdfsdfsdfsf!</td>
-												<td>2018-01-20</td>
-												<td><div class="badge badge-info">확인완료</div></td>
-											</tr>
+											
 											
 											
 										</table>
 
 										<div class="card-footer text-center">
 											<nav class="d-inline-block">
-												<ul class="pagination mb-0" id="fromPagingArea">
+												<ul class="pagination mb-0" id="receivedPagingArea">
 		
 												</ul>
 											</nav>
@@ -166,7 +151,7 @@
 										<table class="table table-striped">
 											<tr>
 												<td colspan="5">
-													<button class="btn btn-primary">삭제</button>
+													<button class="btn btn-primary">삭제123</button>
 												</td>
 											</tr>
 											<tr>
@@ -180,6 +165,9 @@
 												<th>Date</th>
 												<th>Status</th>
 											</tr>
+										</table>
+
+										<table class="table table-striped">	
 											<tr>
 												<td class="p-0 text-center">
 													<div class="form-check">
@@ -188,7 +176,7 @@
 												</td>
 												<td>
 													<img alt="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG-vsvOvF2g5-8PhbDK8pbcX8neO2lWMTm0MZYt7tHmw&s" class="rounded-circle" width="35" data-toggle="tooltip" title="Wildan Ahdian">
-													김길동
+													김길동123
 												</td>
 												<td>내용sfsdfsdfsdfsdfsf!</td>
 												<td>2018-01-20</td>
@@ -228,7 +216,7 @@
 
 										<div class="card-footer text-center">
 											<nav class="d-inline-block">
-												<ul class="pagination mb-0" id="toPagingArea">
+												<ul class="pagination mb-0" id="sentPagingArea">
 		
 												</ul>
 											</nav>
@@ -254,82 +242,149 @@
 
 
 	<script>
+
+		var currentPage = 1;
+
+
 		$(function(){
-			console.log('${requestScope.classroom.classNo}');
-
-			receivedLetter();
-			sentLetter();
-
-
-
-			//----------------------------------
-			let btnValue = '';
-
-			
-			btnValue += '<li class="page-item">'
-				   + '<a class="page-link preBtn" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>'
-				   + '</li>';
-			
-			
-
-					btnValue += '<li class="page-item active">'
-						   + '<a class="page-link pagingBtn" href="#" >' + 1 + '<span class="sr-only">(current)</span></a>'
-						   +'</li>';
-						   
-				
-				
-					
-					btnValue += '<li class="page-item">'
-				   		   + '<a class="page-link pagingBtn" href="#">'+ 2 +'</a>'
-				   		   + '</li>';
-						   
-				
-			
-
-			btnValue += '<li class="page-item">'
-				  	  + '<a class="page-link nextBtn " href="#"><i class="fas fa-chevron-right"></i></a>'
-				      + '</li>';
-			
-
-			$('#toPagingArea').html(btnValue);
-			$('#fromPagingArea').html(btnValue);
-
-			selectReplyList(currentPage);
+			receivedPaging(currentPage);
+			sentPaging(currentPage);
 		})
 
 
-		function receivedLetter(){
+		function receivedPaging(currentPage){
+
+			$.ajax({
+				url : 'receivedPaging.le',
+				data : {
+					rPage : currentPage,
+					classNo : '${requestScope.classroom.classNo}',
+					recipient : '${sessionScope.loginUser.memberNo}'
+				},
+				success : function(list){
+					console.log('받은 쪽지 페이징 버튼')
+					console.log(list);
+
+
+					let btnValue = '';
+
+					if(currentPage > 1){
+					btnValue += '<li class="page-item">'
+							  + '<a class="page-link preBtn" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>'
+						      + '</li>';
+					}
+			
+			
+					for(var i = list.startPage; i <= list.endPage; i++){
+						if(i == list.currentPage){
+							btnValue += '<li class="page-item active">'
+									  + '<a class="page-link pagingBtn" href="#" >' + i + '<span class="sr-only">(current)</span></a>'
+									  +'</li>';
+						}	   
+						else{
+							btnValue += '<li class="page-item">'
+									+ '<a class="page-link pagingBtn" href="#">'+ i +'</a>'
+									+ '</li>';
+						}
+					}
+				
+			
+					if(currentPage < list.maxPage){
+						btnValue += '<li class="page-item">'
+								+ '<a class="page-link nextBtn " href="#"><i class="fas fa-chevron-right"></i></a>'
+								+ '</li>';
+					}
+
+
+					$('#receivedPagingArea').html(btnValue);
+					receivedLetter(currentPage);
+				}
+			})
+
+		}
+
+
+		function receivedLetter(currentPage){
 
 			$.ajax({
 				url : 'recevied.le',
 				data : {
-					rPage : 1,
+					rPage : currentPage,
 					classNo : '${requestScope.classroom.classNo}',
 					recipient : '${sessionScope.loginUser.memberNo}'
 				},
 				success : function(list){
 
-					console.log('${requestScope.classroom.classNo}');
-					console.log('${sessionScope.loginUser.memberNo}');
+					var value = '<tr align="left"><td colspan="5"><button class="btn btn-primary">삭제</button></td></tr>'
+							  + '<tr><th class="p-0 text-center"><div class="form-check">'
+							  + '<input type="checkbox" id="test" data-checkboxes="mygroup" data-checkbox-role="dad" class="form-check-input" id="checkbox-all"></div></th>'
+							  + '<th>From</th><th>Detail</th><th>Date</th><th>Status</th></tr>';
 
-					console.log('from');
-					console.log(list);
+
+					for(let i in list){
+						value += '<tr><td class="p-0 text-center"><div class="form-check">'
+							   + '<input type="checkbox" data-checkboxes="mygroup" class="form-check-input">'
+							   + '<input type="hidden" value="' + list[i].letterNo +'"></div></td>';
+
+
+						if(list[i].anonymous == 'Y'){
+							value += '<td>'+ '<b>Manitto</b>' +'</td>';
+						}
+						else{
+							value += '<td>'+ list[i].sender +'</td>';
+						}
+
+						value += '<td>' + list[i].letterContent + '</td>'
+							   + '<td>' + list[i].sendDate +'</td>';
+
+						if(list[i].readCheck == 'Y'){
+							value += '<td><div class="badge badge-info">확인완료</div></td></tr>'
+						}
+						else{
+							value += '<td><div class="badge badge-info"></div></td></tr>'
+						}
+					}
+
+					$('#receivedLetterArea').html(value);
 
 				}
 			})
 
 		}
 
-		function sentLetter(){
+
+		function sentPaging(currentPage){
 
 			$.ajax({
-				url : 'sent.le',
+				url : 'sentPaging.le',
 				data : {
+					rPage : currentPage,
 					classNo : '${requestScope.classroom.classNo}',
 					sender : '${sessionScope.loginUser.memberNo}'
 				},
 				success : function(list){
-					console.log('to');
+
+
+					console.log(list);
+
+					sentLetter(currentPage);
+
+				}
+			})
+
+		}
+
+		function sentLetter(currentPage){
+
+			$.ajax({
+				url : 'sent.le',
+				data : {
+					rPage : currentPage,
+					classNo : '${requestScope.classroom.classNo}',
+					sender : '${sessionScope.loginUser.memberNo}'
+				},
+				success : function(list){
+
 					console.log(list);
 				}
 			})

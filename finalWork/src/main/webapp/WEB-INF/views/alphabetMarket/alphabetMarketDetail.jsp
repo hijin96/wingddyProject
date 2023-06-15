@@ -300,6 +300,7 @@
 				   + '<a class="page-link preBtn" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>'
 				   + '</li>';
 			}
+
 			for(var i = list.startPage; i <= list.endPage; i++){
 				if(i == list.currentPage){
 
@@ -318,9 +319,9 @@
 			}
 
 			if(currentPage < list.maxPage){
-			btnValue += '<li class="page-item">'
-				  	  + '<a class="page-link nextBtn " href="#"><i class="fas fa-chevron-right"></i></a>'
-				      + '</li>';
+				btnValue += '<li class="page-item">'
+						+ '<a class="page-link nextBtn " href="#"><i class="fas fa-chevron-right"></i></a>'
+						+ '</li>';
 
 			}
 
