@@ -118,17 +118,48 @@
 
 
 	<script>
+		var currentPage = 1;
+
+		$(function(){
+
+			selectPageButton(currentPage);
+		})
+
+		$(document).on('click', '#modal-fake', function(){
+			$('#modal-aphReply').click();
+		})
+		
+
 
 		$(document).on('click', '.pagingBtn', function(){
 
 
 			
-			var clickPage = $(this).text().charAt(0);
+			currentPage = $(this).text().charAt(0);
 
 	   
-	   		selectPageButton(clickPage);
+	   		selectPageButton(currentPage);
 
 			
+		});
+
+		$(document).on('click', '.preBtn', function(){
+
+			currentPage--;
+
+			//console.log(currentPage);
+
+	   
+	   		selectPageButton(currentPage);
+		});
+
+		$(document).on('click', '.nextBtn', function(){
+
+			currentPage++;
+
+			//console.log(currentPage);
+				
+			selectPageButton(currentPage);
 		});
 
 		
@@ -194,19 +225,7 @@
 
 <script>
 	
-	$(function(){
 
-	   var currentPage = 1;
-
-	   
-	   selectPageButton(currentPage);
-	   
-
-	   $(document).on('click', '#modal-fake', function(){
-		 $('#modal-aphReply').click();
-	   })
-
-	})
 
 	
 	function selectReplyList(currentPage){
@@ -273,14 +292,14 @@
 		  },
 		  success : function(list){
 
-			
 
 			let btnValue = '';
 
+			if(currentPage > 1){
 			btnValue += '<li class="page-item">'
-				   + '<a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>'
+				   + '<a class="page-link preBtn" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>'
 				   + '</li>';
-
+			}
 			for(var i = list.startPage; i <= list.endPage; i++){
 				if(i == list.currentPage){
 
@@ -298,9 +317,12 @@
 				}
 			}
 
+			if(currentPage < list.maxPage){
 			btnValue += '<li class="page-item">'
-				  	  + '<a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>'
+				  	  + '<a class="page-link nextBtn " href="#"><i class="fas fa-chevron-right"></i></a>'
 				      + '</li>';
+
+			}
 
 			$('#commentList').html(btnValue);
 			selectReplyList(currentPage);
