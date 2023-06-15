@@ -1,10 +1,15 @@
 package com.kh.wingddy.education.model.service;
 
+import java.util.ArrayList;
+
+import com.kh.wingddy.education.model.vo.EduProgress;
+
 public interface EducationService {
 
 	/* 공통 */
 	// 학습 메인 페이지
 	// 내 클래스 학습 리스트 조회 
+	ArrayList<EduProgress> selectEduList(int cno);
 	
 	/* 선생님 */
 	// 조기 마감 (Time 컬럼을 현재 시간으로 UPDATE)

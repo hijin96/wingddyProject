@@ -29,6 +29,8 @@
             		<h2 class="section-title">등록된 과제</h2>
             	</div>
 	            <div class="row sortable-card">
+	            <div class="col-12">
+	            	<div>
 	            	<div class="col-12 col-md-6 col-lg-3">
 	            		<div class="card card-primary">
 	            			<div class="card-header">
@@ -37,6 +39,8 @@
 	            			</div>
 	            		</div>
 	            	</div>
+	            	</div>
+            	</div>
 	            	<div class="col-12 col-md-6 col-lg-3">
 	            		<div class="card card-warning">
 	            			<div class="card-header">
