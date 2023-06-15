@@ -301,7 +301,7 @@
 		function receivedLetter(){
 
 			$.ajax({
-				url : 'letterFrom.le',
+				url : 'recevied.le',
 				data : {
 					rPage : 1,
 					classNo : '${requestScope.classroom.classNo}',
@@ -323,7 +323,7 @@
 		function sentLetter(){
 
 			$.ajax({
-				url : 'letterFrom.le',
+				url : 'sent.le',
 				data : {
 					classNo : '${requestScope.classroom.classNo}',
 					sender : '${sessionScope.loginUser.memberNo}'

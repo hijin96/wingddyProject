@@ -15,6 +15,7 @@ public class LetterDao {
 	
 	}
 	
+	
 	public ArrayList<Letter> ajaxSentLetter(SqlSessionTemplate session, Letter letter) {
 		return (ArrayList)session.selectList("letterMapper.ajaxSentLetter", letter);
 	}

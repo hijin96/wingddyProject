@@ -24,7 +24,7 @@ public class LetterController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="letterFrom.le",  produces="application/json; charset=UTF-8")
+	@RequestMapping(value="recevied.le",  produces="application/json; charset=UTF-8")
 	public String ajaxReceivedLetter(Letter letter) {
 
 		
@@ -34,7 +34,7 @@ public class LetterController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="letterTo.le", produces="application/json; charset=UTF-8")
+	@RequestMapping(value="sent.le", produces="application/json; charset=UTF-8")
 	public String ajaxSentLetter(Letter letter) {
 		return new Gson().toJson(letterService.ajaxSentLetter(letter));
 	}
