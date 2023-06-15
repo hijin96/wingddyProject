@@ -33,6 +33,7 @@
 		
 		<typeAlias type="com.kh.wingddy.alphabetMarket.model.vo.Words" alias="words" />
 		<typeAlias type="com.kh.wingddy.store.model.vo.Cart" alias="Cart"/>
+		<typeAlias type="com.kh.wingddy.store.model.vo.Order" alias="order"/>
    </typeAliases>
    
    <mappers>

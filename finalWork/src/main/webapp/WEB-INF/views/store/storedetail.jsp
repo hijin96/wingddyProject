@@ -95,7 +95,7 @@
 											<div class="cart-and-bay-btn">
 												<input type="hidden" name="fileNo" value="${s.fileNo }">
 							
-												<button onclick="buycount();" class="btn btn-info" id="buyCart" disabled>구매하기</button>
+												<button onclick="buycount();" class="btn btn-info" id="buyCart" >구매하기</button>
 									
 												<button class="btn btn-primary trigger--fire-modal-6" id="cart" type="button">장바구니!!</button>
 													<div class="add-to-btn">
@@ -116,7 +116,7 @@
 										
 										var emptyloginUser = ${not empty loginUser}
 										$('#cart').click(function(){
-											if(${not empty loginUser}){
+											if(emptyloginUser== true){
 												$.ajax({
 													url: 'storecart.do',
 													data: { spNo: spNo,
