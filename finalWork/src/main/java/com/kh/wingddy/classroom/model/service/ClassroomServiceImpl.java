@@ -68,11 +68,16 @@ public class ClassroomServiceImpl implements ClassroomService {
 	@Override
 	@Transactional
 	public int kickoutStudent(ArrayList<ClassMember> memberNoList) {
-		int result = 0;
+		int result = 1;
 		for(int i = 0; i < memberNoList.size(); i++) {
 			result *= classroomDao.kickoutStudent(sqlSession, memberNoList.get(i));
 		}
-		return result > 0 ? result : 0;
+		return result;
+	}
+
+	@Override
+	public ArrayList<ClassMember> selectProgressRate(int cno) {
+		return classroomDao.selectProgressRate(sqlSession, cno);
 	}
 	
 	
