@@ -57,11 +57,11 @@
 								</div>
 								</div>
 								<div class="card-footer text-center">
-								<nav class="d-inline-block">
-									<ul class="pagination mb-0" id="commentList">
+									<nav class="d-inline-block">
+										<ul class="pagination mb-0" id="commentList">
 
-									</ul>
-								</nav>
+										</ul>
+									</nav>
 								</div>
 							</div>
 					</div>
@@ -88,7 +88,7 @@
 		</div>
 		</div>
 		<div class="form-group">
-		<label>Comment</label>
+		<label>Comments</label>
 		<div class="input-group">
 			<textarea id="content" class="form-control" required></textarea>
 		</div>
