@@ -22,7 +22,7 @@
 		width : 85% !important;
 	}
 	.selectric{
-		width : 200px !important;
+		width : 230px !important;
 	}
 	.article-cta div{
 		display : inline-block !important;
@@ -47,9 +47,24 @@
 	.text-center{
 		margin : auto !important;
 	}
-	.amount{
-		
+	.inputWidth{
+		width : 50% !important;
+		margin : 0 !important;
 	}
+	.modal-custom{
+		width : 450px !important;
+		height : 200px !important;
+	}
+	.col-form-label{
+		width : 200px !important;
+	}
+	.modal-body div{
+		text-align : center !important;
+	}
+	#noneCp{
+		padding : 100px;
+	}
+	
 	
 </style>
 </head>
@@ -65,8 +80,9 @@
 			<div id="content-top">
 				<div id="content-top1">
 					<select class="selectric">
-						<option>거래 가능 상품만 보기</option>
 						<option>낮은 가격 순으로 보기</option>
+						<option>높은 가격 순으로 보기</option>
+						<option>남은 수량 적은 순으로 보기</option>
 					</select>
 				</div>
 				<div id="content-top2">
@@ -80,6 +96,7 @@
 			</div>
 			<div id="contents" class="row">
 				<c:forEach var="cp" items="${cplist}">
+					
 					<div class="col-12 col-sm-6 col-md-6 col-lg-3">
 	               		<article class="article">
 	                 		<div class="article-header">
@@ -91,9 +108,9 @@
 	                			<hr>
 	                   			<p class="productContent">${cp.productContent}</p>
 	                   			<div class="article-cta">                           
-	                    			<div class="amount">수량 : ${cp.amount}개</div>
+	                    			<div>수량 : ${cp.amount}개</div>
 	                    			<c:if test="${loginUser.memberType eq 'S'}">
-	                    				<button class="btn btn-primary" onclick="buy();">교환하기</button>
+	                    				<button class="btn btn-primary" onclick="buy();" data-toggle="modal" data-target="#buyModal">교환하기</button>
 	                    			</c:if>
 	                   			</div>
 	                 		</div>
@@ -104,6 +121,52 @@
              	
              	
 			</div>
+			
+			
+			<div class="modal fade" id="buyModal">
+					<div class="modal-dialog modal-custom">
+						<div class="modal-content">
+							
+							<form class="form-schedule" action="insertSchedule" method="POST">
+								<!-- Modal Header -->
+								<div class="modal-header">
+									<h4 class="modal-title">쿠폰으로 상품 교환하기</h4>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+								<hr>
+								
+								<!-- Modal body -->
+								<div class="modal-body">
+									<div class="form-group row">
+										<div class="col-form-label col-md-3" >교환할 수량</div>
+										<input type="number" class="form-control inputWidth" min="" max=""/>
+									</div>
+									<div>
+										<p>현재 보유 쿠폰은 100장입니다.<br>
+										선풍기 1개를 구매하시겠습니까?</p>
+									</div>
+								</div>
+								
+								<!-- Modal footer -->
+								<div class="modal-footer">
+								
+									<button type="button" class="btn btn-warning" data-dismiss="modal">취소</button>
+									<button type="submit" id="" class="btn btn-success" >교환</button>
+								</div>
+							</form>
+						
+						</div>
+					</div>
+				</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			<div id="paging">
 				<form id="form-movePage" action="couponStore" method="post" >
 					<div class="card-body text-center">
@@ -127,7 +190,7 @@
 		                        			<li class="page-item active"><a class="page-link page-number" href="#">${p}</a></li>
 		                        		</c:when>
 		                        		<c:otherwise>
-		                        			<li class="page-item"><a class="page-link page-number" href="#">${p}</a></li>
+		                        			<li class="page-item disabled"><a class="page-link page-number" href="#">${p}</a></li>
 		                        		</c:otherwise>
 		                        	</c:choose>
 		                        </c:forEach>
@@ -139,13 +202,13 @@
 		                        -->
 		                        
 		                        <c:choose>
-			                        <c:when test="${pi.currentPage eq pi.maxPage}">
-				                        <li class="page-item disabled">
+			                        <c:when test="${pi.currentPage ne pi.maxPage}">
+				                        <li class="page-item active">
 				                        	<a class="page-link">Next</a>
 				                        </li>
 			                        </c:when>
 			                        <c:otherwise>
-		                        	    <li class="page-item">
+		                        	    <li class="page-item disabled">
 				                        	<a class="page-link page-nt">Next</a>
 				                        </li>
 			                        </c:otherwise>
@@ -191,6 +254,19 @@
 	function buy(){
 		
 	}
+	
+	$(function(){
+		console.log(pi);
+		console.log(pi.currentPage);
+		
+		for(i in ${cplist}){
+			console.log(i);
+		}
+		if(${cplist}.length == 0){
+			console.log('야호');
+			$('#contents').html('<div id="noneCp" class="text-center"><h6>구매 가능한 상품이 존재하지 않습니다.</h6></div>');
+		}
+	})
 	
 
 
