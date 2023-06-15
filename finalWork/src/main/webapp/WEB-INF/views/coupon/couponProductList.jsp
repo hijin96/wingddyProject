@@ -71,7 +71,10 @@
 				</div>
 				<div id="content-top2">
 					<c:if test="${loginUser.memberType eq  'T'}">
-							<button class="btn btn-warning" onclick='location.href="enrollForm.cp"'>상품 등록하기</button>
+							<form action="enrollForm.cp" method="post">
+								<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
+								<button type="submit" class="btn btn-warning" >상품 등록하기</button>
+							</form>
 					</c:if>
 				</div>
 			</div>
@@ -102,9 +105,9 @@
              	
 			</div>
 			<div id="paging">
-				<form id="form-movePage" action="couponStore" method="post" class="text-center">
-					<div class="card-body">
-	                	<nav aria-label="...">
+				<form id="form-movePage" action="couponStore" method="post" >
+					<div class="card-body text-center">
+	                	<nav class="d-inline-block">
 	                    	<ul class="pagination">
                     			<c:choose>
 	                    			<c:when test="${pi.currentPage eq 1}">
