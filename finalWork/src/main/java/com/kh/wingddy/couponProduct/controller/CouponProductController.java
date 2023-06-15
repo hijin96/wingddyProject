@@ -31,8 +31,11 @@ public class CouponProductController {
 		return "coupon/couponProductList";
 	}
 	
-	@RequestMapping(value="enroll.cp")
-	public String 
+	@RequestMapping("enrollForm.cp")
+	public String enrollCpForm() {
+		System.out.println("확인");
+		return "coupon/enrollCouponProductForm"; 
+	}
 	
 	
 	

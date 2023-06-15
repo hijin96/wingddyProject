@@ -60,7 +60,7 @@
 		
 		<div class="main-content">
 			<div id="header">
-				<h1>Coupon Store</h1>
+				<h3>Coupon Store</h3>
 			</div>
 			<div id="content-top">
 				<div id="content-top1">
@@ -71,7 +71,7 @@
 				</div>
 				<div id="content-top2">
 					<c:if test="${loginUser.memberType eq  'T'}">
-							<button class="btn btn-warning" onclick='location.href="enroll.cp"'>상품 등록하기</button>
+							<button class="btn btn-warning" onclick='location.href="enrollForm.cp"'>상품 등록하기</button>
 					</c:if>
 				</div>
 			</div>
