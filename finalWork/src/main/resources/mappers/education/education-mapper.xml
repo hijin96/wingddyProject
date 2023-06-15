@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kh.wingddy.education.model.dao.EduMapper">
 	
-	<resultMap type="edu" id="eduResultSet">
+	<resultMap type="eduPro" id="eduProResultSet">
 		<result column="EDU_NO" property="eduNo"/>
 		<result column="CLASS_NO" property="classNo"/>
 		<result column="EDU_NAME" property="eduName"/>
@@ -15,7 +15,20 @@
 		<result column="PROGRESS_RATE" property="progressRate"/>
 	</resultMap>
 	
-	<select id="selectEduList" resultMap="eduResultSet">
+	<resultMap type="edu" id="eduResultSet">
+		<result column="EDU_NO" property="eduNo"/>
+		<result column="CLASS_NO" property="classNo"/>
+		<result column="EDU_NAME" property="eduName"/>
+		<result column="EDU_TYPE" property="eduType"/>
+		<result column="END_TIME" property="endTime"/>
+		<result column="QUIZ_NO" property="quizNo"/>
+		<result column="QUIZ_CONTENT" property="quizContent"/>
+		<result column="CORRECT_CONTENT" property="correctContent"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="INCORRECT_CONTENT" property="incorrectContent"/>
+	</resultMap>
+	
+	<select id="selectEduList" resultMap="eduProResultSet">
 		SELECT 
 		       EDU_NO
 		      ,EDU_NAME

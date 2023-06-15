@@ -2,7 +2,7 @@ package com.kh.wingddy.education.model.vo;
 
 import lombok.Data;
 
-@Data
+@Data 
 public class Edu {
 	
 	private int eduNo;		//EDU_NO	NUMBER
