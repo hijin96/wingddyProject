@@ -53,7 +53,7 @@
 		display : inline-block;
 		margin : 5px;
 	}
-	.alert-endDate{
+	.alert-endDate, #re-alert-endDate{
 		color : red;
 		font-size : small;
 		display : none;
@@ -218,10 +218,20 @@
 							
 							<!-- Modal body -->
 							<div id="updateSchedule-info" class="modal-body">
-								일정명 <input type="text" name="schedule" required/><br>
-								시작일 <input class="startDate" type="date" name="startDate" onchange="checkDate();" required/><br>
-								종료일 <input class="endDate" type="date" name="endDate" onchange="checkDate();" required/><br>
-								<p class="alert-endDate">종료일은 시작일보다 빠를 수 없어요!</p>
+								일정명 <input id="re-schedule" type="text" name="schedule" required/><br>
+								시작일 <input id="re-startDate" type="date" name="startDate" onchange="checkDate();" required/><br>
+								종료일 <input id="re-endDate" type="date" name="endDate" onchange="checkDate();" required/><br>
+								<p id="re-alert-endDate">종료일은 시작일보다 빠를 수 없어요!</p>
+								<input id="re-scheduleNo" type="hidden" name="scheduleNo"/>
+		   		   				<input id="re-memberNo" type="hidden" name="memberNo" value="${loginUser.memberNo}"/>
+		   		   				<c:choose>
+			   		   				<c:when test='${loginUser.memberType eq "S"}'>
+			   		   					배경색 <input id="re-color" type="color" name="color" />
+			   		   				</c:when>
+			   		   				<c:otherwise>
+			   		   					<input type="color" name="color" value="#ffeecc" style="display:none"/>
+			   		   				</c:otherwise>
+		   		   				</c:choose>
 							</div>
 							
 							<!-- Modal footer -->
@@ -430,20 +440,31 @@
     	
     	// 일정 모달에서 시작일과 종료일 비교
     	function checkDate(){
-    		console.log('비교');
     		var endDate = $('.endDate').val();
     		var startDate = $('.startDate').val();
     		
     		if(endDate < startDate){
     			$('.alert-endDate').attr('style', 'display:block');
     			$('.form-schedule').attr('onsubmit', 'return false');
-    			console.log('맞다');
     			
     		} else{
-    			console.log('아니다');
     			$('.alert-endDate').attr('style', 'display:none');
     			$('.form-schedule').attr('onsubmit', 'return true');
     		}
+    		
+    		var reEndDate = $('#re-endDate').val();
+    		var reStartDate = $('#re-startDate').val();
+    		
+    		if(reEndDate < reStartDate){
+    			$('#re-alert-endDate').attr('style', 'display:block');
+    			$('.re-form-schedule').attr('onsubmit', 'return false');
+    			
+    		} else{
+    			$('#re-alert-endDate').attr('style', 'display:none');
+    			$('.re-form-schedule').remove('type', 'submit');
+    		}
+    		
+    		
 			
     	};
     	
@@ -510,29 +531,17 @@
 			
  			let s = arr[i];
  			
- 			let value = '';
  			endDate = new Date(s.endDate);
  			endDate.setDate(endDate.getDate() -1);
- 			
- 			
- 			let inputEndDate = endDate.toISOString().substring(0, 10);
- 
-			//var re_schedule = s.schedule;
+ 			let updateEndDate = endDate.getFullYear() + "-" + ('0'+ (endDate.getMonth() + 1)).slice(-2) + "-" + ('0' + endDate.getDate()).slice(-2);
 			 
-			$('.re-schedule').attr('value', s.schedule);				   
-			$('.re-startDate').attr('value', s.startDate);
-			$('.re-endDate').attr('vaule', inputEndDate);
-				   
-			if(memberType == "S"){	   
-				value += "배경색 <input type='color' name='color' value='" + s.color + "'/>";
-			} else{
-				value += "<input type='color' name='color' value='#ffeecc' style='display : none' />";
-			}
+			$('#re-schedule').attr('value', s.schedule);				   
+			$('#re-startDate').attr('value', s.startDate);
+			$('#re-endDate').attr('value', updateEndDate);
+			$('#re-scheduleNo').attr('value', s.scheduleNo);
+			$('#re-memberNo').attr('value', memberNo);
+			$('#re-color').attr('value', s.color);
 			
-			value += "<input type='hidden' name='scheduleNo' value='" + s.scheduleNo + "'/>";
-		   		   + "<input type='hidden' name='memberNo' value='" + memberType + "' />";
-	
-				   
 			$('#updateModal').modal();	   
  		}
     	
