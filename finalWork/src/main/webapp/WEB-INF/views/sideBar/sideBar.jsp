@@ -59,6 +59,25 @@
   .submit:hover{
   	cursor: pointer;
   }
+
+  .moveToLetter{
+    cursor: pointer;
+    color : #6777ef !important;
+  }
+
+  .footer{
+    height: 150px !important;
+    position: relative !important;
+
+  }
+
+  .letterClass{
+    z-index: 99999999  !important;
+    position: relative !important;
+  }
+
+
+
 </style>
 </head>
 
@@ -86,17 +105,7 @@
                 </div>
               </div>
               <div class="dropdown-list-content dropdown-list-message">
-                <a href="#" class="dropdown-item dropdown-item-unread">
-                  <div class="dropdown-item-avatar">
-                    <img alt="image" src="resources/assets/img/avatar/avatar-1.png" class="rounded-circle">
-                    <div class="is-online"></div>
-                  </div>
-                  <div class="dropdown-item-desc">
-                    <b>Kusnaedi</b>
-                    <p>Hello, Bro!</p>
-                    <div class="time">10 Hours Ago</div>
-                  </div>
-                </a>
+                
                 <a href="#" class="dropdown-item dropdown-item-unread">
                   <div class="dropdown-item-avatar">
                     <img alt="image" src="resources/assets/img/avatar/avatar-2.png" class="rounded-circle">
@@ -107,41 +116,64 @@
                     <div class="time">12 Hours Ago</div>
                   </div>
                 </a>
+
                 <a href="#" class="dropdown-item dropdown-item-unread">
                   <div class="dropdown-item-avatar">
-                    <img alt="image" src="resources/assets/img/avatar/avatar-3.png" class="rounded-circle">
-                    <div class="is-online"></div>
+                    <img alt="image" src="resources/assets/img/avatar/avatar-2.png" class="rounded-circle">
                   </div>
                   <div class="dropdown-item-desc">
-                    <b>Agung Ardiansyah</b>
-                    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <b>Dedik Sugiharto</b>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
                     <div class="time">12 Hours Ago</div>
                   </div>
                 </a>
-                <a href="#" class="dropdown-item">
+
+                <a href="#" class="dropdown-item dropdown-item-unread">
                   <div class="dropdown-item-avatar">
-                    <!-- <img alt="image" src="resources/resources/assets/img/avatar/avatar-4.png" class="rounded-circle"> -->
+                    <img alt="image" src="resources/assets/img/avatar/avatar-2.png" class="rounded-circle">
                   </div>
                   <div class="dropdown-item-desc">
-                    <b>Ardian Rahardiansyah</b>
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit ess</p>
-                    <div class="time">16 Hours Ago</div>
-                  </div>
-                </a>
-                <a href="#" class="dropdown-item">
-                  <div class="dropdown-item-avatar">
-                    <img alt="image" src="resources/assets/img/avatar/avatar-5.png" class="rounded-circle">
-                  </div>
-                  <div class="dropdown-item-desc">
-                    <b>Alfa Zulkarnain</b>
-                    <p>Exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-                    <div class="time">Yesterday</div>
+                    <b>Dedik Sugiharto</b>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                    <div class="time">12 Hours Ago</div>
                   </div>
                 </a>
               </div>
-              <div class="dropdown-footer text-center">
-                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+
+              
+              <div class="dropdown-list-content dropdown-list-message footer">
+
+                <div class="text-center letterClass">
+                 <br>
+                </div>
+
+                <form action="letterBox" method="post"  id="postLetterSender">
+                  <input type="hidden" name="cno" value="" id="form-cno"/>
+                </form>
+
+
+                <c:forEach var="cList" items="${classList}">
+                  <div class="text-center letterClass">
+                    <a class="moveToLetter">${cList.className}<i class="fas fa-chevron-right"></i></a>
+                    <input type="hidden" name="cno" value="${cList.classNo}" /> 
+                  </div>
+                </c:forEach>
+                
               </div>
+              
+
+              <script>
+                $('.moveToLetter').click(function(){
+                  let cno = $(this).next().val();
+
+                  $('#form-cno').val(cno);
+                  $('#postLetterSender').submit();
+                });
+              </script>
+
+         
+
+
             </div>
           </li>
           <c:choose>
@@ -273,6 +305,7 @@
 				</li>	
 				<script>
 					$('.submit').click(function(){
+
 						let url = $(this).next().val();
 						$('#postSender').prop('action', url);
 						$('#postSender').submit();
