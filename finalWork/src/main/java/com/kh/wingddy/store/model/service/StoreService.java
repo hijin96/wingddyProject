@@ -30,6 +30,7 @@ public interface StoreService {
 	Store selectStoreBoard(int spNo);
 	//장바구니추가
 	int insertStoreCart(Store s,Cart cart);
+
 	//장바구니 목록보기
 	ArrayList<Cart> selectStoreCart(Store s,Cart cart);
 	//장바구니 삭제
