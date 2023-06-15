@@ -127,6 +127,7 @@ public class ClassroomController {
 			cm.setStudentNo(studentNoArr[i]);
 			cm.setClassNo(classNo);
 			
+			
 			cmList.add(cm);
 		}
 		

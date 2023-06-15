@@ -14,8 +14,8 @@
 		<typeAlias type="com.kh.wingddy.classroom.model.vo.Classroom" alias="class"/>
 		<typeAlias type="com.kh.wingddy.voca.model.vo.Voca" alias="voca"/>
 		<typeAlias type="com.kh.wingddy.voca.model.vo.ClassVocaBook" alias="vocaBook"/>
-		<typeAlias type="com.kh.wingddy.education.model.vo.Edu" alias="edu" />
-		<typeAlias type="com.kh.wingddy.education.model.vo.Quiz" alias="quiz" />
+		<typeAlias type="com.kh.wingddy.education.model.vo.EduProgress" alias="eduPro" />
+		<typeAlias type="com.kh.wingddy.education.model.vo.Incorrect" alias="edu" />
 		
 		<typeAlias type="com.kh.wingddy.calendar.model.vo.Calendar" alias="calendar" />
 		<typeAlias type="com.kh.wingddy.couponProduct.model.vo.CouponProduct" alias="couponProduct" />
