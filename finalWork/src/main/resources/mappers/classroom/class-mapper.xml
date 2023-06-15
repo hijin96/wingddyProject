@@ -19,6 +19,9 @@
 		<result column="MEMBER_NO" property="memberNo"/>
 		<result column="MEMBER_NAME" property="memberName"/>
 		<result column="PHONE" property="phone"/>
+		<result column="TOTAL_COUNT" property="totalCount"/>
+		<result column="COMPLETE_COUNT" property="completeCount"/>
+		<result column="PROGRESS_RATE" property="progressRate"/>
 	</resultMap>
 
 	<resultMap type="myCount" id="myCountResultSet">
@@ -186,14 +189,59 @@
 		       )
 	</insert>
 	
+	<select id="selectProgressRate" parameterType="_int" resultMap="classMemberResultSet">
+		SELECT
+		       MEMBER_NO
+		      ,MEMBER_ID
+		      ,MEMBER_NAME
+		      ,PHONE
+		      ,CLASS_NO
+		      ,CC TOTAL_COUNT
+		      ,NVL(CM,0) COMPLETE_COUNT
+		      ,ROUND(NVL(CM,0)/CC*100, 1) PROGRESS_RATE
+		  FROM 
+		  	   CLASS_MEMBER
+		  JOIN 
+		       MEMBER ON (STUDENT_NO = MEMBER_NO)
+		  JOIN 
+		       (SELECT 
+		               CLASS_NO
+		              ,COUNT(*) CC
+		          FROM 
+		               EDUCATION
+		         GROUP 
+		            BY 
+		               CLASS_NO) USING(CLASS_NO)
+     LEFT JOIN (SELECT 
+         			   MEMBER_NO
+         			  ,COUNT(*) CM
+		          FROM 
+		               EDUCATION
+		          JOIN 
+		               QUIZ USING(EDU_NO)
+		          JOIN 
+		               INCORRECT USING(QUIZ_NO)
+		         GROUP 
+		            BY CLASS_NO, MEMBER_NO) USING(MEMBER_NO)
+		 WHERE 
+		       CLASS_NO = #{cno}
+		   AND 
+		       ENTER_STATUS = 'Y'
+		   AND 
+		       STATUS_YN = 'N'
+		 ORDER 
+		    BY PROGRESS_RATE DESC
+	</select>
+	
 	<update id="kickoutStudent" parameterType="classMember">
 		UPDATE
 			   CLASS_MEMBER
 		   SET
 		       ENTER_STATUS = 'N'
 		 WHERE
-		       STUDENT_NO = #{memberNo}
+		       STUDENT_NO = #{studentNo}
 		   AND
 		       CLASS_NO = #{classNo}         
 	</update>
+	
 </mapper>

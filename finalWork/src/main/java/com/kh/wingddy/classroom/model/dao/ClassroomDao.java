@@ -50,4 +50,8 @@ public class ClassroomDao {
 	public int kickoutStudent(SqlSessionTemplate sqlSession, ClassMember cm) {
 		return sqlSession.update("classMapper.kickoutStudent", cm);
 	}
+	
+	public ArrayList<ClassMember> selectProgressRate(SqlSessionTemplate sqlSession, int cno){
+		return (ArrayList)sqlSession.selectList("classMapper.selectProgressRate", cno);
+	}
 }

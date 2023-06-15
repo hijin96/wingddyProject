@@ -38,18 +38,20 @@
                                         <th>학생아이디</th>
                                         <th>전화번호</th>
                                         <th>학습 참여율</th>
+                                        <th>학습 참여율</th>
                                         <th>선택</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="cm" items="${classMember}">
+                                    <c:forEach var="cm" items="${classProgress}">
                                     <tr>
-                                        <td>${cm.studentNo}</td>
-                                        <td>user07</td>
-                                        <td>010-1234-1234</td>
-                                        <td>11 / 12</td>
+                                        <td>${cm.memberName}</td>
+                                        <td>${cm.memberId}</td>
+                                        <td>${cm.phone}</td>
+                                        <td>${cm.completeCount} / ${cm.totalCount}</td>
+                                        <td>${cm.progressRate} %</td>
                                         <td>
-                                            <input type="checkbox" class="student" name="studentNo" value="${cm.studentNo}">
+                                            <input type="checkbox" class="student" name="studentNo" value="${cm.memberNo}">
                                             <input type="hidden" name="classNo" value="${cm.classNo}">
                                         </td>
                                     </tr>
@@ -100,7 +102,14 @@
                     classNo : $('input[name=classNo]').val()
                 },
                 success : function(result){
-                    location.href=location.href;
+                    if(result > 0){
+                        console.log(result);
+                        alert('추방성공');
+                        location.reload();
+                    }
+                    else{
+                        alert('추방실패');
+                    }
                 },
                 error : function(){
                     console.log('asdasd');

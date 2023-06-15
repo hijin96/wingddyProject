@@ -37,6 +37,7 @@ import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.member.model.vo.Member;
 import com.kh.wingddy.store.model.service.StoreService;
 import com.kh.wingddy.store.model.vo.Cart;
+import com.kh.wingddy.store.model.vo.Order;
 import com.kh.wingddy.store.model.vo.Store;
 import com.sun.media.jfxmedia.events.NewFrameEvent;
 
@@ -85,18 +86,21 @@ public class StoreController {
 	public String storeCart(Cart cart,Store s,HttpSession session,Model model) {
 		// 장바구니 페이지 들어오면 구매하기 넘어가기 전에 구매번호랑 장바구니 번호 가지고 들어가야함!
 		// 장바구니 페이지 들어올때 detail에서 (구매수량, 상품번호,주문완료여부, 장바구니번호 )필요한 정보들 받아오기
+		//장바구니 넘어오면서 담은 모든 장바구니 정보를 가져와야 하는데 그러지 못함
 		Member m = ((Member) session.getAttribute("loginUser"));
 		cart.setMemberNo(m.getMemberNo());
 		int memberNo=m.getMemberNo();
 
 	
-		if(storeService.insertStoreCart(s,cart)<1) {
+		if(storeService.insertStoreCart(s,cart) >0) {
+			//장바구니 목록
 			storeService.selectStoreCart(s,cart);
 			model.addAttribute("cart",cart);
 			model.addAttribute("s", s);
 			model.addAttribute("memberNo",memberNo);
 			model.addAttribute("cartsum",s.getSpPrice()*cart.getBuyCount());
-		//	System.out.println(cart);
+			System.out.println(cart);
+			System.out.println(s);
 			return "store/storecart";
 		}else {
 			model.addAttribute("errorMsg", "구매실패");
@@ -124,11 +128,15 @@ public class StoreController {
 		return new Gson().toJson(storeService. deleteCart(cart));
 	}
 
-	// 구매하기-> 주문하기 번호 미리 만들기
-	@RequestMapping("storebuy")
-	public String storebuy() {
-		// 주문번호 inputhidden으로 가지고있다가 주문이 완료되면 update해주기
-		return "store/storebuy";
+	//구매하기페이지 이동
+	@RequestMapping("storebuy.do")
+	public String storebuy(Order order) {
+		if(storeService.insertOrder(order)>0) {
+			System.out.println("주문번호 생성");
+			return "store/storebuy";
+			//storeService.selectOrder()
+		}
+		return "store/stormain";
 	}
 
 	// 위시리스트
@@ -226,4 +234,9 @@ public class StoreController {
 		return new Gson().toJson(map);
 
 	}
+	
+	
+	
+	
+	
 }
