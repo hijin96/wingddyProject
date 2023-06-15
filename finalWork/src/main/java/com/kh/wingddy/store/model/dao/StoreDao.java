@@ -11,6 +11,7 @@ import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.store.model.vo.Cart;
+import com.kh.wingddy.store.model.vo.Order;
 import com.kh.wingddy.store.model.vo.Store;
 @Repository
 public class StoreDao {
@@ -44,21 +45,24 @@ public class StoreDao {
 	public Store selectStoreBoard(SqlSessionTemplate sqlSession, int spNo) {
 		return sqlSession.selectOne("storeMapper.selectStoreBoard", spNo);	
 	}
+	public int checkStoreCart(SqlSessionTemplate sqlSession,Store s, Cart cart) {
+		return sqlSession.selectOne("storeMapper.checkStoreCart", cart);
+	}
 	public int insertStoreCart(SqlSessionTemplate sqlSession, Store s, Cart cart) {
 		return sqlSession.insert("storeMapper.insertStoreCart",cart);
 	}
-	public ArrayList<Cart> selectStoreCart(SqlSessionTemplate sqlSession, Store s, Cart cart) {
-		return (ArrayList)sqlSession.selectList( "storeMapper.selectStoreCart",cart);
-	}
-	public int checkStoreCart(SqlSessionTemplate sqlSession,Store s, Cart cart) {
-		return sqlSession.selectOne("storeMapper.checkStoreCart", cart);
+	public int updateStoreCart(SqlSessionTemplate sqlSession, Cart cart) {
+		
+		return sqlSession.update("storeMapper.updateStoreCart",cart);
 	}
 	public int deleteStoreCart(SqlSessionTemplate sqlSession, Cart cart) {
 		
 		return sqlSession.delete("storeMapper.deleteStoreCart",cart);
 	}
-	public int updateStoreCart(SqlSessionTemplate sqlSession, Cart cart) {
-		
-		return sqlSession.update("storeMapper.updateStoreCart",cart);
+	public ArrayList<Cart> selectStoreCart(SqlSessionTemplate sqlSession, Store s, Cart cart) {
+		return (ArrayList)sqlSession.selectList( "storeMapper.selectStoreCart",cart);
+	}
+	public int createOrderNo (SqlSessionTemplate sqlSession, Order order) {
+		return	sqlSession.insert("storeMapper.createOrderNo",order);
 	}
 }
