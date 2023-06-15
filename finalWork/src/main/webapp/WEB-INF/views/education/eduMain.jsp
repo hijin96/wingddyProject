@@ -29,30 +29,42 @@
             		<h2 class="section-title">등록된 과제</h2>
             	</div>
 	            <div class="row sortable-card">
-	            	<div class="col-12 col-md-6 col-lg-3">
-	            		<div class="card card-primary">
-	            			<div class="card-header">
-	            			</div>
-	            			<div class="card-body">
-	            			</div>
-	            		</div>
-	            	</div>
-	            	<div class="col-12 col-md-6 col-lg-3">
-	            		<div class="card card-warning">
-	            			<div class="card-header">
-	            			</div>
-	            			<div class="card-body">
-	            			</div>
-	            		</div>
-	            	</div>
-	            	<div class="col-12 col-md-6 col-lg-3">
-	            		<div class="card card-danger">
-	            			<div class="card-header">
-	            			</div>
-	            			<div class="card-body">
-	            			</div>
-	            		</div>
-	            	</div>
+            	<c:forEach var="edu" items="${eList}">
+            		<c:if>
+	            		<c:choose>
+	            			<c:when test="${edu.eduType eq 'W'}">
+		            			<div class="col-12 col-md-6 col-lg-3">
+				            		<div class="card card-primary">
+				            			<div class="card-header">
+				            			</div>
+				            			<div class="card-body">
+				            			</div>
+				            		</div>
+				            	</div>
+	            			</c:when>
+	            			<c:when test="${edu.eduType eq 'S'}">
+	            				<div class="col-12 col-md-6 col-lg-3">
+				            		<div class="card card-warning">
+				            			<div class="card-header">
+				            			</div>
+				            			<div class="card-body">
+				            			</div>
+				            		</div>
+				            	</div>
+	            			</c:when>
+	            			<c:otherwise>
+	            				<div class="col-12 col-md-6 col-lg-3">
+				            		<div class="card card-danger">
+				            			<div class="card-header">
+				            			</div>
+				            			<div class="card-body">
+				            			</div>
+				            		</div>
+				            	</div>
+	            			</c:otherwise>
+	            		</c:choose>
+            		</c:if>
+            	</c:forEach>
 	            	<div class="col-12">
 	            		<h2 class="section-title">완료된 과제</h2>
 	            	</div>

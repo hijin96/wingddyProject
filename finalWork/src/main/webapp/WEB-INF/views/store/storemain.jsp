@@ -58,10 +58,10 @@
 								<c:forEach items="${goodsList}" var="s">
 									<!--------------------------------------------------  -->
 									<div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-										<div class="products-single">${s.spNo }
+										<div class="products-single">
 											<div class="box-img-hover">
 												<div class="type-lb">
-													<input type="hidden" value="${s.spNo }">
+													<%-- <input type="hidden" value="${s.spNo }"> --%>
 													<p class="spNo">${s.spNo }</p>
 												</div>
 												<img src="./${s.filePath}${s.changeName}" class="img-fluid"
@@ -103,7 +103,7 @@
 					$(function() {
 						$('.mask-icon').click(
 								function() {
-									location.href = 'storedetail?='
+									location.href = 'storedetail?spNo='
 											+ $(this).find('.spNo').text();
 								})
 					})
