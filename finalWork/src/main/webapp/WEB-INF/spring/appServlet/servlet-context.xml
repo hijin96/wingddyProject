@@ -37,6 +37,7 @@
 
 			<mapping path="/main.mani"/>
 			<mapping path="/classManagement.cl"/>
+			<mapping path="/letterBox"/>
 
 
 			<mapping path="/couponStore" />
