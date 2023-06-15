@@ -23,7 +23,7 @@ public class CouponProductController {
 										int cno, 
 										Model model){
 
-		PageInfo pi = Pageination.getPageInfo(cpService.selectListCount(cno), currentPage, 12, 5);
+		PageInfo pi = Pageination.getPageInfo(cpService.selectListCount(cno), currentPage, 8, 5);
 		model.addAttribute("pi", pi);
 		model.addAttribute("cplist", cpService.selectCouponProductList(pi, cno));
 		System.out.println("controller, pi : " + pi);
@@ -31,7 +31,8 @@ public class CouponProductController {
 		return "coupon/couponProductList";
 	}
 	
-	
+	@RequestMapping(value="enroll.cp")
+	public String 
 	
 	
 	

@@ -47,6 +47,9 @@
 	.text-center{
 		margin : auto !important;
 	}
+	.amount{
+		
+	}
 	
 </style>
 </head>
@@ -68,7 +71,7 @@
 				</div>
 				<div id="content-top2">
 					<c:if test="${loginUser.memberType eq  'T'}">
-						<button class="btn btn-warning">상품 등록하기</button>
+							<button class="btn btn-warning" onclick='location.href="enroll.cp"'>상품 등록하기</button>
 					</c:if>
 				</div>
 			</div>
@@ -85,8 +88,10 @@
 	                			<hr>
 	                   			<p class="productContent">${cp.productContent}</p>
 	                   			<div class="article-cta">                           
-	                    			<div>수량 : ${cp.amount}개</div>
-	                    			<button class="btn btn-primary">교환하기</button>
+	                    			<div class="amount">수량 : ${cp.amount}개</div>
+	                    			<c:if test="${loginUser.memberType eq 'S'}">
+	                    				<button class="btn btn-primary" onclick="buy();">교환하기</button>
+	                    			</c:if>
 	                   			</div>
 	                 		</div>
 	               		</article>
@@ -145,10 +150,12 @@
 	                      	</ul>
 	                    </nav>
 	                 </div>
-                 <</form>
+                 </form>
 			</div>
-		
-		
+
+
+
+
 		
 		</div>
 	</div>
@@ -177,6 +184,10 @@
 		$('#form-movePage').submit();
 	})
 	
+	// 학생이 상품 구매버튼 눌렀을 때 (학생 보유 상품 insert, 상품 목록 수량 update, 학생 보유 쿠폰 update)
+	function buy(){
+		
+	}
 	
 
 
