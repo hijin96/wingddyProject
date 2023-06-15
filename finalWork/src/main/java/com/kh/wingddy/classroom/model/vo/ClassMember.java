@@ -13,5 +13,7 @@ public class ClassMember extends Member {
 	private int classNo; //CLASS_NO	NUMBER
 	private int studentNo; //STUDENT_NO	NUMBER
 	private String enterStatus; //ENTER_STATUS	VARCHAR2(1 BYTE)
-	
+	private int totalCount;
+	private int completeCount;
+	private int progressRate;
 }
