@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
     <head>
@@ -55,6 +56,12 @@
           </section>
         </div>
       
+        <c:if test="${ not empty alertMsg }">
+          <script>
+            alert('${alertMsg}');
+          </script>
+          <c:remove var="alertMsg" scope="session" />
+        </c:if>
         <!-- General JS Scripts -->
        <!--  <script src="assets/modules/jquery.min.js"></script>
         <script src="assets/modules/popper.js"></script>

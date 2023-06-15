@@ -3,4 +3,65 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kh.wingddy.education.model.dao.EduMapper">
+	
+	<resultMap type="eduPro" id="eduProResultSet">
+		<result column="EDU_NO" property="eduNo"/>
+		<result column="CLASS_NO" property="classNo"/>
+		<result column="EDU_NAME" property="eduName"/>
+		<result column="EDU_TYPE" property="eduType"/>
+		<result column="END_TIME" property="endTime"/>
+		<result column="TOTAL_COUNT" property="totalCount"/>
+		<result column="COMPLETE_COUNT" property="completeCount"/>
+		<result column="PROGRESS_RATE" property="progressRate"/>
+	</resultMap>
+	
+	<resultMap type="edu" id="eduResultSet">
+		<result column="EDU_NO" property="eduNo"/>
+		<result column="CLASS_NO" property="classNo"/>
+		<result column="EDU_NAME" property="eduName"/>
+		<result column="EDU_TYPE" property="eduType"/>
+		<result column="END_TIME" property="endTime"/>
+		<result column="QUIZ_NO" property="quizNo"/>
+		<result column="QUIZ_CONTENT" property="quizContent"/>
+		<result column="CORRECT_CONTENT" property="correctContent"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="INCORRECT_CONTENT" property="incorrectContent"/>
+	</resultMap>
+	
+	<select id="selectEduList" resultMap="eduProResultSet">
+		SELECT 
+		       EDU_NO
+		      ,EDU_NAME
+		      ,EDU_TYPE
+		      ,CASE WHEN (END_TIME - SYSDATE) > 0 
+		            THEN TO_CHAR(END_TIME - SYSDATE)
+		            ELSE TO_CHAR(END_TIME, 'YY"년" MM"월" DD"일"') END END_TIME
+		      ,TOTAL_COUNT
+		      ,NVL(CC, 0) COMPLETE_COUNT
+		      ,ROUND(NVL(CC, 0) / TOTAL_COUNT, 3) PROGRESS_RATE
+		  FROM EDUCATION
+		  JOIN (SELECT 
+		               CLASS_NO
+		              ,COUNT(*) TOTAL_COUNT
+		          FROM
+		               CLASS_MEMBER
+		         GROUP
+		            BY
+		               CLASS_NO) USING (CLASS_NO)
+		  LEFT
+		  JOIN (SELECT
+		               EDU_NO
+		              ,COUNT(*) CC
+		          FROM
+		               QUIZ
+		          JOIN
+		               INCORRECT USING (QUIZ_NO)
+		         GROUP
+		            BY
+		               MEMBER_NO, EDU_NO) USING (EDU_NO)
+		 WHERE 
+		       CLASS_NO = #{classNo}
+		 ORDER
+		    BY EDU_NO
+	</select>
 </mapper>
