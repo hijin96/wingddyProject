@@ -52,8 +52,6 @@ public class ManittoController {
 	@ResponseBody
 	@RequestMapping(value="myManitti.mani",  produces="html/text; charset=UTF-8")
 	private String selectMyManitti(Manitto mt) {
-		
-		
 
 		return ManittoService.selectMyManitti(mt);
 	}
