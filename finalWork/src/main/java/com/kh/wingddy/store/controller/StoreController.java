@@ -96,6 +96,7 @@ public class StoreController {
 			model.addAttribute("s", s);
 			model.addAttribute("memberNo",memberNo);
 			model.addAttribute("cartsum",s.getSpPrice()*cart.getBuyCount());
+		//	System.out.println(cart);
 			return "store/storecart";
 		}else {
 			model.addAttribute("errorMsg", "구매실패");
@@ -111,6 +112,16 @@ public class StoreController {
 		cart.setMemberNo(m.getMemberNo());
 		
 		return new Gson().toJson(storeService.insertStoreCart(s,cart));
+	}
+	// 장바구니 삭제ajax
+	@ResponseBody
+	@RequestMapping(value = "deletestorecart.do", produces = "application/json;charset-8")
+	public String ajaxDeleteStoreCart(Store s,Cart cart, HttpSession session) {
+		
+		Member m = ((Member) session.getAttribute("loginUser"));
+		cart.setMemberNo(m.getMemberNo());
+		System.out.println("삭제");
+		return new Gson().toJson(storeService. deleteCart(cart));
 	}
 
 	// 구매하기-> 주문하기 번호 미리 만들기
