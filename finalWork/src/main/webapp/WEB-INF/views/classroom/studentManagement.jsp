@@ -100,7 +100,7 @@
                         //console.log($(this).find('input[name=studentNo]').val());
                         //console.log($(this).find('input[name=classNo]').val());
                         let memberName = $(this).children().first().text();
-                        console.log(memberName);
+                        //console.log(memberName);
                         let memberId = $(this).children().first().next().text();
                         $.ajax({
                             url : 'progressStudent.cl',
@@ -139,12 +139,16 @@
                     }
                     else{
                         $(this).find('input[name=studentNo]').prop('checked', false);
+                        $('#progress tbody').html('');
+                        $('.card-header>h6').text('');
                     }
                 })
         })
 
         function kickout(){
 
+            alert('해당 학생을 추방하시겠습니까?');
+            
             var chkArr = new Array();
 
             var chkArr = $('input[name=studentNo]:checked');
