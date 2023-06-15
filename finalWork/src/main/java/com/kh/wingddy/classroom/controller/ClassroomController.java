@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -106,34 +107,33 @@ public class ClassroomController {
 	public ModelAndView studentManagement(ModelAndView mv, int cno) {
 		
 		// 관리페이지 내 select문에서 가져올 데이터
-		System.out.println(cno);
+		//System.out.println(cno);
 		mv.addObject("classMember", classroomService.selectPassStudent(cno));
 		mv.setViewName("classroom/studentManagement");
 		return mv;
 	}
 	
+	@ResponseBody
 	@RequestMapping("kickoutStudent.cl")
-	public int kickoutStudent(int[] memberNoArr, int classNo) {
+	public int kickoutStudent(@RequestParam(value="studentArr[]")int[] studentNoArr, int classNo) {
 		
-		int result = 0;
+		System.out.println("asdasd");   
+		System.out.println(studentNoArr.length);
 		
-		//System.out.println(memberNoArr);
         
 		ArrayList<ClassMember> cmList = new ArrayList();
-		for(int i = 0; i < memberNoArr.length; i++) {
-			ClassMember cm = new ClassMember();
-			cm.setStudentNo(memberNoArr[i]);
-			classNo=20;
+		for(int i = 0; i < studentNoArr.length; i++) {
+			ClassMember cm = new ClassMember();     
+			cm.setStudentNo(studentNoArr[i]);
 			cm.setClassNo(classNo);
 			
 			cmList.add(cm);
-			while(true) {System.out.println("안뇽하세요~");}
 		}
 		
 		//System.out.println(memberNoList.get(0));
 		
-		result = classroomService.kickoutStudent(cmList);
+		int result = classroomService.kickoutStudent(cmList);
 		
-		return result;
+		return 0;
 	}
 }

@@ -78,6 +78,20 @@ public class ManittoServiceImpl implements ManittoService{
 		
 		return manittoDao.selectManittoList(sqlSession, classNo);
 	}
+
+	
+	
+	
+	@Override
+	public int deleteManitto(int classNo) {
+		
+		return manittoDao.deleteManitto(sqlSession, classNo);
+	}
+
+	@Override
+	public String selectMyManitti(Manitto mt) {
+		return manittoDao.selectMyManitti(sqlSession, mt);
+	}
 	
 	
 	

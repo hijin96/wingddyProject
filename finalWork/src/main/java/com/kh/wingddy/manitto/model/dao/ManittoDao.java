@@ -26,6 +26,15 @@ public class ManittoDao {
 		
 		return (ArrayList)session.selectList("manittoMapper.selectManittoList", classNo);
 	}
-
+	
+	public int deleteManitto(SqlSession session, int classNo) {
+		
+		return session.delete("manittoMapper.deleteManitto", classNo);
+	}
+	
+	public String selectMyManitti(SqlSession session, Manitto mt) {
+		
+		return session.selectOne("manittoMapper.selectMyManitti", mt);
+	}
 
 }

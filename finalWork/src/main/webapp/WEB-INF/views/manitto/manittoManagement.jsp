@@ -72,6 +72,24 @@
 			}
 			
 		})
+	});
+
+	
+	$(document).on('click', '#delete', function(){
+
+		if(confirm('마니또를 종료하시겠습니까??')){
+
+			$.ajax({
+				url : 'delete.mani',
+				data : {
+					classNo : '${requestScope.classroom.classNo}'
+				},
+				success : function(result){
+					setManittoList();
+				}
+				
+			})
+		}
 
 	});
 
@@ -106,7 +124,7 @@
 					$('#createBtn').html('<button type="button" class="btn btn-primary" id="matching">마니또 매칭</button>')
 				}
 				else{
-					$('#createBtn').html('<button type="button" class="btn btn-primary">마니또 종료</button>');
+					$('#createBtn').html('<button type="button" class="btn btn-primary" id="delete">마니또 종료</button>');
 				}
 			}
 		})

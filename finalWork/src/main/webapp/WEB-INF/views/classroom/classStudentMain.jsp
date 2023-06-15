@@ -35,8 +35,8 @@
                 <div class="section-header-breadcrumb">
                   <div class="card-body">
                     <p>
-                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        My Manitto
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="manittiBtn">
+                        My Manitti
                       </button>
                     </p>
                     <div class="collapse" id="collapseExample">
@@ -157,6 +157,30 @@
         </section>
     </div>
     <script>
+
+      $('#manittiBtn').click(function(){
+
+        $.ajax({
+          url : 'myManitti.mani',
+          data : {
+            classNo : '${requestScope.classroom.classNo}',
+            manittoNo : '${sessionScope.loginUser.memberNo}'
+          },
+          success : function(manitti){
+            if(manitti == ''){
+              $('#collapseExample').html('지금은 마니또게임을 하고 있지 않아요!');
+              
+            }
+            else{
+              $('#collapseExample').html(manitti);
+            }
+
+            
+          }
+
+        })
+
+      })
      
      
     </script>

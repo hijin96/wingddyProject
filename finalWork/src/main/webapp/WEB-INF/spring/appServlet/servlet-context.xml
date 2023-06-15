@@ -28,6 +28,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/classMain.cl*"/>
+			<mapping path="/*.edu*"/>
 			
 			<mapping path="/main.aph"/>
 			<mapping path="/enroll.aph"/>
@@ -35,10 +36,6 @@
 			<mapping path="/makeWords.aph"/>
 
 			<mapping path="/main.mani"/>
-			
-			
-
-			<mapping path="/matching.mani"/>
 			<mapping path="/classManagement.cl"/>
 
 
