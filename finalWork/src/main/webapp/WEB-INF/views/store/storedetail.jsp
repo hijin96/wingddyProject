@@ -95,7 +95,7 @@
 											<div class="cart-and-bay-btn">
 												<input type="hidden" name="fileNo" value="${s.fileNo }">
 							
-												<button class="btn btn-info" type="submit" id="buy" >구매하기</button>
+												<button onclick="buycount();" class="btn btn-info" id="buyCart" disabled>구매하기</button>
 									
 												<button class="btn btn-primary trigger--fire-modal-6" id="cart" type="button">장바구니!!</button>
 													<div class="add-to-btn">
@@ -113,36 +113,61 @@
 										var buyCount = $('#buyCount').val();
 										var spNo = ${s.spNo};
 										var spPrice = ${s.spPrice};
-										var memberNo =${ loginUser.memberNo};
-										console.log(spNo);
-										console.log(buyCount);
-										console.log(memberNo);
 										
-										$("#cart").fireModal({
-										  title: '장바구니',
-										  body: '<p>장바구니담기성공.</p>',
-										  created: function(modal) {
-										  modal.find('.modal-footer').prepend('<div class="mr-auto"><a href="#">장바구니페이지로 이동</a></div>');
-										  },
-										 type: 'POST',
-									
-										});
-										
-										
-										
+										var emptyloginUser = ${not empty loginUser}
 										$('#cart').click(function(){
-										  $.ajax({
-										    url: 'storecart.do',
-										    data: { spNo: spNo,
-										    	buyCount:buyCount,
-										    	spPrice: spPrice
-										    	
-										    },
-										    type: 'POST'
-										  });
+											if(${not empty loginUser}){
+												$.ajax({
+													url: 'storecart.do',
+													data: { spNo: spNo,
+														buyCount:buyCount,
+														spPrice: spPrice
+														
+													},
+													type: 'POST'
+												});
+												$("#cart").fireModal({
+													  title: '장바구니',
+													  body: '<p>장바구니담기성공.</p>',
+													  created: function(modal) {
+													  modal.find('.modal-footer').prepend('<div class="mr-auto"><a href="#">장바구니페이지로 이동</a></div>');
+													  },
+													 type: 'POST', buttons: [
+														    {
+														        text: '장바구니 삭제',
+														        class: 'btn btn-primary btn-shadow',
+														        submit: true,
+														        handler: function(modal) {
+														        	$.ajax({
+														        		url: 'deletestorecart.do',
+																		data: { spNo: spNo,
+																				buyCount:buyCount,
+																				spPrice: spPrice
+																		},
+																		type: 'POST'
+														        	})
+														        }
+														      }
+														    ]
+													});
+											}else{
+												alert("로그인 후 이용해주세요");
+											
+											}
+
 										});
-										
-								 		
+										function buycount(){
+											if(emptyloginUser== true){
+												
+												const buycartbtn = document.getElementById('buycart');
+												buycartbtn.disabled=false;
+											}else{
+												alert("구매는 로그인후 이용하세요");
+												const buycartbtn = document.getElementById('buycart');
+												buycartbtn.disabled=true;
+												
+											}
+										}
 										
 								     </script>
 									<div class="add-to-btn"></div>

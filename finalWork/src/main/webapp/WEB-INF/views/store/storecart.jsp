@@ -72,7 +72,7 @@
 	                                                    <td class="price-pr">
 	                                                        <p>${s.spPrice }</p>
 	                                                    </td>
-	                                                    <td class="quantity-box"><input type="number" size="4" value="1" min="0" step="1" class="c-input-text qty text"></td>
+	                                                    <td class="quantity-box"><input type="number" size="4" value="${cart.buyCount }" min="0" step="1" class="c-input-text qty text"></td>
 	                                                    <td class="total-pr">
 	                                                        <p>${cartsum}</p>
 	                                                    </td>

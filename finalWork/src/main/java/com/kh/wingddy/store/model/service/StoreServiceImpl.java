@@ -50,6 +50,7 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		return storeDao.insertStoreBoard(sqlSession,at,s);
 	}
+	
 
 
 	@Override
@@ -79,14 +80,17 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
+	public int deleteCart(Cart cart) {
+		return storeDao.deleteStoreCart(sqlSession,cart);
+	}
+
+
+	@Override
 	public ArrayList<Cart> selectStoreCart (Store s,Cart cart) {
 		return storeDao.selectStoreCart(sqlSession,s,cart);
 	}
 
-	@Override
-	public int deleteCart(Cart cart) {
-		return storeDao.deleteStoreCart(sqlSession,cart);
-	}
+	
 
 
 
