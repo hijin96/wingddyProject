@@ -108,7 +108,7 @@ public class ClassroomController {
 		
 		// 관리페이지 내 select문에서 가져올 데이터
 		//System.out.println(cno);
-		mv.addObject("classMember", classroomService.selectPassStudent(cno));
+		mv.addObject("classProgress", classroomService.selectProgressRate(cno));
 		mv.setViewName("classroom/studentManagement");
 		return mv;
 	}
@@ -117,8 +117,8 @@ public class ClassroomController {
 	@RequestMapping("kickoutStudent.cl")
 	public int kickoutStudent(@RequestParam(value="studentArr[]")int[] studentNoArr, int classNo) {
 		
-		System.out.println("asdasd");   
-		System.out.println(studentNoArr.length);
+		//System.out.println("asdasd");   
+		//System.out.println(studentNoArr.length);
 		
         
 		ArrayList<ClassMember> cmList = new ArrayList();
@@ -131,9 +131,9 @@ public class ClassroomController {
 		}
 		
 		//System.out.println(memberNoList.get(0));
-		
+		System.out.println(cmList);
 		int result = classroomService.kickoutStudent(cmList);
-		
-		return 0;
+		System.out.println(result);
+		return result;
 	}
 }

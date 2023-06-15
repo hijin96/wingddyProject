@@ -38,18 +38,20 @@
                                         <th>학생아이디</th>
                                         <th>전화번호</th>
                                         <th>학습 참여율</th>
+                                        <th>학습 참여율</th>
                                         <th>선택</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="cm" items="${classMember}">
+                                    <c:forEach var="cm" items="${classProgress}">
                                     <tr>
-                                        <td>${cm.studentNo}</td>
-                                        <td>user07</td>
-                                        <td>010-1234-1234</td>
-                                        <td>11 / 12</td>
+                                        <td>${cm.memberName}</td>
+                                        <td>${cm.memberId}</td>
+                                        <td>${cm.phone}</td>
+                                        <td>${cm.completeCount} / ${cm.totalCount}</td>
+                                        <td>${cm.progressRate} %</td>
                                         <td>
-                                            <input type="checkbox" class="student" name="studentNo" value="${cm.studentNo}">
+                                            <input type="checkbox" class="student" name="studentNo" value="${cm.memberNo}">
                                             <input type="hidden" name="classNo" value="${cm.classNo}">
                                         </td>
                                     </tr>
@@ -60,6 +62,39 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4>학생 오답 조회</h4>
+                            <h6>학생이름 / 학생아이디</h6>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped table-md management">
+                                <thead>
+                                    <tr>
+                                        <th>학습 명</th>
+                                        <th>학습 유형</th>
+                                        <th>퀴즈 내용</th>
+                                        <th>오답 내용</th>
+                                        <th>퀴즈 정답</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>더미 단어퀴즈</td>
+                                        <td>W = 단어, S = 문장배치, O = OX퀴즈</td>
+                                        <td>apple = ???</td>
+                                        <td>바나나나나</td>
+                                        <td>사과</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </section>
     </div>
 
@@ -81,7 +116,7 @@
 
             var chkArr = $('input[name=studentNo]:checked');
 
-            console.log(chkArr.length);
+            //console.log(chkArr.length);
             
             var studentNoArr = [];  
             for(var i = 0; i <= chkArr.length; i++){
@@ -90,25 +125,33 @@
                     studentNoArr.push(chkArr[i].value);
                 }
             }
-            console.log(studentNoArr);
-            
-            $.ajax({
-                url : 'kickoutStudent.cl',
-                type : 'POST',
-                data : {
-                    studentArr : studentNoArr,
-                    classNo : $('input[name=classNo]').val()
-                },
-                success : function(result){
-                    location.href=location.href;
-                },
-                error : function(){
-                    console.log('asdasd');
-                }
-            });
-            
-
-
+            //console.log(studentNoArr);
+            if(studentNoArr == null){
+                $.ajax({
+                    url : 'kickoutStudent.cl',
+                    type : 'POST',
+                    data : {
+                        studentArr : studentNoArr,
+                        classNo : $('input[name=classNo]').val()
+                    },
+                    success : function(result){
+                        if(result > 0){
+                            console.log(result);
+                            alert('추방성공');
+                            location.reload();
+                        }
+                        else{
+                            alert('추방실패');
+                        }
+                    },
+                    error : function(){
+                        console.log('asdasd');
+                    }
+                });
+            }
+            else{
+                alert('선택된 학생이 없습니다!');
+            }
         }
     </script>
     <script src="resources/assets/js/page/features-posts.js"></script>
