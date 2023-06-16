@@ -3,6 +3,7 @@ package com.kh.wingddy.education.model.service;
 import java.util.ArrayList;
 
 import com.kh.wingddy.education.model.vo.EduProgress;
+import com.kh.wingddy.education.model.vo.Quiz;
 
 public interface EducationService {
 
@@ -10,10 +11,16 @@ public interface EducationService {
 	// 학습 메인 페이지
 	// 내 클래스 학습 리스트 조회 
 	ArrayList<EduProgress> selectEduList(int cno);
+
+	
 	
 	/* 선생님 */
 	// 조기 마감 (Time 컬럼을 현재 시간으로 UPDATE)
 	// (진행율이 100% 일때만 가능?)
+	int updateEndTime(int eduNo);
+	
+	// 학습 조회
+	ArrayList<Quiz> selectQuizList(int eduNo);
 	
 	// 학습 등록
 	// case 1.단어 문제 등록 
@@ -27,11 +34,6 @@ public interface EducationService {
 	
 	// case 3.OX퀴즈 등록 (INSERT)
 	// 뽑기횟수 등록(UPDATE) (내껀가?)
-	
-	// 학습 수정 (하게 되면 이미 실행한 학생의 정보값도 같이 바뀌어야함 or 오답을 나중에 체크해야함)
-	// case 1.단어 문제 수정(UPDATE)
-	// case 2.배치 문제 수정(UPDATE)
-	// case 3.OX퀴즈 수정(UPDATE)
 	
 	/* 학생  */
 	// 학습 조회 및 풀기(퀴즈의 순번을 랜덤으로 조회, 모든 작업 완료 후 한번에 INSERT)

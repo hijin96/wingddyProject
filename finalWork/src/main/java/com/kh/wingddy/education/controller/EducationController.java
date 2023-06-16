@@ -30,14 +30,22 @@ public class EducationController {
 	}
 	
 	@RequestMapping("detail.edu")
-	public String eduDetailPage(HttpServletRequest request, int eduNo) {
-		
-		return "education/eduDetail";
+	public ModelAndView eduDetailPage(HttpServletRequest request, ModelAndView mv, int eduNo) {
+		mv.addObject("qList", educationService.selectQuizList(eduNo)).setViewName("education/eduDetail");
+		return mv;
 	}
 	
 	@RequestMapping("exam.edu")
 	public ModelAndView eduExamPage(HttpServletRequest request, ModelAndView mv, int eduNo, String eduType) {
 		
+		String view = "";
+		switch(eduType) {
+		case "W" : view = "education/eduWord"; break;
+		case "S" : view = "education/eduSentence"; break;
+		case "O" : view = "education/eduOX"; break;
+		default : view = "redirect:main.edu";
+		}
+		mv.setViewName(view);
 		return mv;
 	}
 	
@@ -52,4 +60,10 @@ public class EducationController {
 		return "education/insertEduForm";
 	}
 	
+	@RequestMapping("deadLine.edu")
+	public String updateEndTime(int cno, int eduNo) {
+		
+		educationService.updateEndTime(eduNo);
+		return "redirect:main.edu";
+	}
 }
