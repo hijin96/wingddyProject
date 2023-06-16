@@ -100,7 +100,7 @@
 					<div class="col-12 col-sm-6 col-md-6 col-lg-3">
 	               		<article class="article">
 	                 		<div class="article-header">
-	                   			<div class="article-image" data-background="assets/img/news/img04.jpg" style="background-image: url(&quot;assets/img/news/img04.jpg&quot;);"></div>
+                   				<img alt="img" src="${contextPath}/${cp.filePath}" class="article-image">
 	                 		</div>
 	                		<div class="article-details">
 	                			<h5>${cp.productName}</h5>
@@ -179,7 +179,7 @@
 		                        		</li>
 	                          		</c:when>
 	                          		<c:otherwise>
-		                          		<li class="page-item">
+		                          		<li class="page-item active">
 			                          		<a class="page-link page-pv" >Previous</a>
 		                        		</li>
 	                          		</c:otherwise>
@@ -187,10 +187,10 @@
                           		<c:forEach begin="${pi.startPage}" end="${pi.endPage}" var="p">
                           			<c:choose>
                           				<c:when test="${pi.currentPage eq p}">
-		                        			<li class="page-item active"><a class="page-link page-number" href="#">${p}</a></li>
+		                        			<li class="page-item disabled"><a class="page-link page-number" href="#">${p}</a></li>
 		                        		</c:when>
 		                        		<c:otherwise>
-		                        			<li class="page-item disabled"><a class="page-link page-number" href="#">${p}</a></li>
+		                        			<li class="page-item active"><a class="page-link page-number" href="#">${p}</a></li>
 		                        		</c:otherwise>
 		                        	</c:choose>
 		                        </c:forEach>
@@ -202,13 +202,13 @@
 		                        -->
 		                        
 		                        <c:choose>
-			                        <c:when test="${pi.currentPage ne pi.maxPage}">
-				                        <li class="page-item active">
+			                        <c:when test="${pi.currentPage eq pi.maxPage}">
+				                        <li class="page-item disabled">
 				                        	<a class="page-link">Next</a>
 				                        </li>
 			                        </c:when>
 			                        <c:otherwise>
-		                        	    <li class="page-item disabled">
+		                        	    <li class="page-item active">
 				                        	<a class="page-link page-nt">Next</a>
 				                        </li>
 			                        </c:otherwise>
@@ -235,6 +235,7 @@
 	console.log(memberNo, memberType, cno);
 	
 	$('.page-number').on('click', function(){
+		console.log($(this).text());
 		$(this).append('<input type="hidden" name="cno" value="' + cno + '" /><input type="hidden" name="cPage" value="' + $(this).text() + '"/>')
 		$('#form-movePage').submit();
 		
@@ -246,6 +247,7 @@
 	})
 		
 	$('.page-nt').on('click', function(){
+		console.log(${pi.currentPage}+1);
 		$(this).append('<input type="hidden" name="cno" value="' + cno + '" /><input type="hidden" name="cPage" value="' + (${pi.currentPage} + 1) + '"/>');
 		$('#form-movePage').submit();
 	})
@@ -256,16 +258,16 @@
 	}
 	
 	$(function(){
+		/*
 		console.log(pi);
 		console.log(pi.currentPage);
-		
 		for(i in ${cplist}){
 			console.log(i);
 		}
 		if(${cplist}.length == 0){
 			console.log('야호');
 			$('#contents').html('<div id="noneCp" class="text-center"><h6>구매 가능한 상품이 존재하지 않습니다.</h6></div>');
-		}
+		}*/
 	})
 	
 
