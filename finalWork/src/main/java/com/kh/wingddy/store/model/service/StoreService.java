@@ -37,7 +37,10 @@ public interface StoreService {
 	//장바구니 삭제
 	int deleteCart(Cart cart);
 	//구매하기페이지 
-	int insertOrder(Order order);
+	int insertOrderNo(Order order);
+	//구매정보등록
+	int OrderInformation(Order order,Store s);
+	
 	
 	//위시리스트 추가 및 삭제
 	//댓글리스트 조회

@@ -17,10 +17,11 @@
 		      ,product_content productContent
 		      ,coupon_price CouponPrice
 		      ,amount
-		      ,re_name as "reName"
 		      ,class_no classNo
+		      ,file_no fileNo
+		      ,file_path || file_name filePath
 		  from 
-		       coupon_product_shop
+		       vw_cp
 		 where 
 		       class_no = #{classNo}
 	</select>
