@@ -2,6 +2,8 @@ package com.kh.wingddy.education.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,29 @@ public class EducationController {
 		addObject("eList", eList).
 		setViewName("education/eduMain");
 		return mv;
+	}
+	
+	@RequestMapping("detail.edu")
+	public String eduDetailPage(HttpServletRequest request, int eduNo) {
+		
+		return "education/eduDetail";
+	}
+	
+	@RequestMapping("exam.edu")
+	public ModelAndView eduExamPage(HttpServletRequest request, ModelAndView mv, int eduNo, String eduType) {
+		
+		return mv;
+	}
+	
+	@RequestMapping("result.edu")
+	public String eduResultPage(HttpServletRequest request, int eduNo) {
+		
+		return "education/eduResult";
+	}
+	
+	@RequestMapping("insert.edu")
+	public String insertEduForm() {
+		return "education/insertEduForm";
 	}
 	
 }

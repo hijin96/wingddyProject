@@ -117,7 +117,7 @@ public class ClassroomController {
 	
 	@ResponseBody
 	@RequestMapping("kickoutStudent.cl")
-	public int kickoutStudent(@RequestParam(value="studentArr[]")int[] studentNoArr, int classNo) {
+	public int kickoutStudent(@RequestParam(value="studentNoArr[]")int[] studentNoArr, int classNo) {
 		
 		//System.out.println("asdasd");   
 		//System.out.println(studentNoArr.length);
@@ -126,14 +126,14 @@ public class ClassroomController {
 		ArrayList<ClassMember> cmList = new ArrayList();
 		for(int i = 0; i < studentNoArr.length; i++) {
 			ClassMember cm = new ClassMember();     
-			cm.setStudentNo(studentNoArr[i]);
+			cm.setMemberNo(studentNoArr[i]);
 			cm.setClassNo(classNo);
 			
 			cmList.add(cm);
 		}
 		
 		//System.out.println(memberNoList.get(0));
-		System.out.println(cmList);
+		System.out.println("cmList" + cmList);
 		int result = classroomService.kickoutStudent(cmList);
 		System.out.println(result);
 		return result;
@@ -142,9 +142,9 @@ public class ClassroomController {
 	@ResponseBody
 	@RequestMapping(value="progressStudent.cl", produces="application/json; charset=UTF-8")
 	public String progressStudent(ClassMember cm) {
-		System.out.println(cm);
+		//System.out.println(cm);
 		ArrayList<Incorrect> icList = classroomService.selectProgressStudent(cm);
-		System.out.println(icList);
+		//System.out.println(icList);
 		return new Gson().toJson(classroomService.selectProgressStudent(cm));
 	}
 }
