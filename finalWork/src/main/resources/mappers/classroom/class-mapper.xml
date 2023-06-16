@@ -138,26 +138,30 @@
 	</select>
 	
 	<select id="selectClassRanking" parameterType="_int" resultMap="myCountResultSet">
-		select
-		       class_no,
-		       member_no,
-		       total_coupon_count,
-		       member_name,
-		       member_id,
-		       phone
-		 from
-		       class_mycount
-		  join
-		       classroom using(class_no)
-		  join 
-		       member using(member_no)       
-		where
-		        class_no = #{cno}
-		  and
-		       member_type = 'S'
-		 order
-		    by
-		       total_coupon_count desc
+		SELECT
+		       CLASS_NO,
+		       MEMBER_NO,
+		       TOTAL_COUPON_COUNT,
+		       MEMBER_NAME,
+		       MEMBER_ID,
+		       PHONE
+		  FROM
+		       CLASS_MYCOUNT 
+		  JOIN
+		       CLASS_MEMBER  USING(CLASS_NO)
+		  JOIN 
+		       MEMBER USING(MEMBER_NO)       
+		 WHERE
+		       CLASS_NO = #{cno}
+           AND 
+               MEMBER_NO = STUDENT_NO 
+		   AND
+		       MEMBER_TYPE = 'S'
+		   AND
+		       ENTER_STATUS = 'Y'     
+		 ORDER
+		    BY
+		       TOTAL_COUPON_COUNT DESC
 	</select>
 	
 	<select id="joinClass" parameterType="string" resultMap="classResultSet">
@@ -233,15 +237,14 @@
 		    BY PROGRESS_RATE DESC
 	</select>
 	
-	<update id="kickoutStudent" parameterType="classMember">
-		UPDATE
+	<delete id="kickoutStudent" parameterType="classMember">
+		DELETE
+		  FROM
 			   CLASS_MEMBER
-		   SET
-		       ENTER_STATUS = 'N'
 		 WHERE
-		       STUDENT_NO = #{studentNo}
+		       STUDENT_NO = #{memberNo}
 		   AND
 		       CLASS_NO = #{classNo}         
-	</update>
+	</delete>
 	
 </mapper>
