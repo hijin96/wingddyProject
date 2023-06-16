@@ -8,7 +8,7 @@ public class Letter {
 	private int letterNo;
 	private int classNo;
 	private String sender;
-	private String resipient;
+	private String recipient;
 	private String letterContent;
 	private String sendDate;
 	private String anonymous;

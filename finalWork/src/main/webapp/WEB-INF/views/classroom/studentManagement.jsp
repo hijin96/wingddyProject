@@ -45,8 +45,8 @@
                                 <tbody>
                                     <c:forEach var="cm" items="${classProgress}">
                                     <tr>
-                                        <td>${cm.memberName}</td>
-                                        <td>${cm.memberId}</td>
+                                        <td class="memeberName">${cm.memberName}</td>
+                                        <td class="memberId">${cm.memberId}</td>
                                         <td>${cm.phone}</td>
                                         <td>${cm.completeCount} / ${cm.totalCount}</td>
                                         <td>${cm.progressRate} %</td>
@@ -67,10 +67,10 @@
                     <div class="card card-primary">
                         <div class="card-header">
                             <h4>학생 오답 조회</h4>
-                            <h6>학생이름 / 학생아이디</h6>
+                            <h6></h6>
                         </div>
                         <div class="card-body">
-                            <table class="table table-striped table-md management">
+                            <table class="table table-striped table-md" id="progress">
                                 <thead>
                                     <tr>
                                         <th>학습 명</th>
@@ -81,13 +81,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>더미 단어퀴즈</td>
-                                        <td>W = 단어, S = 문장배치, O = OX퀴즈</td>
-                                        <td>apple = ???</td>
-                                        <td>바나나나나</td>
-                                        <td>사과</td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -103,15 +97,58 @@
                 $('.management').find('tbody>tr').click(function(){
                     if($(this).find('input[name=studentNo]').is(':checked') == false){
                         $(this).find('input[name=studentNo]').prop('checked', true);
+                        //console.log($(this).find('input[name=studentNo]').val());
+                        //console.log($(this).find('input[name=classNo]').val());
+                        let memberName = $(this).children().first().text();
+                        //console.log(memberName);
+                        let memberId = $(this).children().first().next().text();
+                        $.ajax({
+                            url : 'progressStudent.cl',
+                            type : 'POST',
+                            data : {
+                                memberNo : $(this).find('input[name=studentNo]').val(),
+                                classNo : $(this).find('input[name=classNo]').val()
+                            },
+                            success : function(list){
+                                //console.log('푸하하하하하하');
+                                let progress = '';
+                                let eduType = '';
+                                for(let i in list){
+                                    switch(list[i].eduType){
+                                        case 'W' : eduType = '단어풀이'; break;
+                                        case 'S' : eduType = '단어배치풀이'; break;
+                                        case 'O' : eduType = 'OX퀴즈풀이'; break;
+                                    }
+                                    progress += '<tr>'
+                                           + '<td>' + list[i].eduName + '</td>'                                        
+                                           + '<td>' + eduType + '</td>'                                        
+                                           + '<td>' + list[i].quizContent + '</td>'                                        
+                                           + '<td>' + list[i].incorrectContent + '</td>'                                        
+                                           + '<td>' + list[i].correctContent + '</td>'                                        
+                                           + '</tr>'
+                                }
+                                //console.log(progress);
+                                $('#progress tbody').html(progress);
+                                $('.card-header>h6').text(memberName + ' / ' + memberId);
+                            },
+                            error : function(){
+                                console.log('ononononononoon');
+                            }
+                        });
+                        
                     }
                     else{
                         $(this).find('input[name=studentNo]').prop('checked', false);
+                        $('#progress tbody').html('');
+                        $('.card-header>h6').text('');
                     }
                 })
         })
 
         function kickout(){
 
+            alert('해당 학생을 추방하시겠습니까?');
+            
             var chkArr = new Array();
 
             var chkArr = $('input[name=studentNo]:checked');
