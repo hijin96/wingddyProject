@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.wingddy.classroom.model.service.ClassroomService;
 import com.kh.wingddy.classroom.model.vo.ClassMember;
 import com.kh.wingddy.classroom.model.vo.Classroom;
 import com.kh.wingddy.common.template.GenerateSecret;
+import com.kh.wingddy.education.model.vo.Incorrect;
 import com.kh.wingddy.member.model.vo.Member;
 
 @Controller
@@ -127,7 +129,6 @@ public class ClassroomController {
 			cm.setStudentNo(studentNoArr[i]);
 			cm.setClassNo(classNo);
 			
-			
 			cmList.add(cm);
 		}
 		
@@ -136,5 +137,14 @@ public class ClassroomController {
 		int result = classroomService.kickoutStudent(cmList);
 		System.out.println(result);
 		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="progressStudent.cl", produces="application/json; charset=UTF-8")
+	public String progressStudent(ClassMember cm) {
+		System.out.println(cm);
+		ArrayList<Incorrect> icList = classroomService.selectProgressStudent(cm);
+		System.out.println(icList);
+		return new Gson().toJson(classroomService.selectProgressStudent(cm));
 	}
 }

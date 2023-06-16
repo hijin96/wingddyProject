@@ -63,6 +63,7 @@
   .moveToLetter{
     cursor: pointer;
     color : #6777ef !important;
+    font-weight: bold !important;
   }
 
   .footer{

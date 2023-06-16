@@ -51,7 +51,7 @@
 									data-ride="carousel">
 									<div class="carousel-inner" role="listbox">
 										<div class="carousel-item active">
-											<img class="d-block w-100"
+										<img class="d-block w-100"
 												src="${contextPath}/${s.filePath}/${s.changeName}"
 												alt="상품썸네일">
 										</div>
@@ -78,7 +78,7 @@
 											<span><input type="hidden" value="${s.spPrice}" name="spPrice">${s.spPrice}원<span>
 										</h5>
 										<p class="available-stock">
-											<span><input type="hidden"  id="spNo" name="spNo" value= "${s.spNo }">상품번호 ${s.spNo }</span>
+											<span><input type="hidden"  id="spNo" name="spNo" value= "${s.spNo }"> ${s.spNo }</span>
 											<span> 남은수량 ${s.amount }개</span>
 										<p>
 										<h6>한줄 소개</h6>
@@ -94,9 +94,9 @@
 										<div class="price-box-bar">
 											<div class="cart-and-bay-btn">
 												<input type="hidden" name="fileNo" value="${s.fileNo }">
-							
+												
 												<button onclick="buycount();" class="btn btn-info" id="buyCart" >구매하기</button>
-									
+												<%-- <input type="hidden" name="cartNo" value="${cart.cartNo }"> --%>
 												<button class="btn btn-primary trigger--fire-modal-6" id="cart" type="button">장바구니!!</button>
 													<div class="add-to-btn">
 														<div class="add-comp">
@@ -113,8 +113,8 @@
 										var buyCount = $('#buyCount').val();
 										var spNo = ${s.spNo};
 										var spPrice = ${s.spPrice};
-										
-										var emptyloginUser = ${not empty loginUser}
+										var emptyloginUser = ${not empty loginUser};
+										console.log(emptyloginUser);
 										$('#cart').click(function(){
 											if(emptyloginUser== true){
 												$.ajax({
