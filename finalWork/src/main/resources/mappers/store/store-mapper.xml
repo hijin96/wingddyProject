@@ -44,7 +44,7 @@
 		<result column="RES_PHONE" property="resPhone"/>	
 		<result column="SUMPRICE" property="sumprice"/>
 		<result column="ORDER_DAY" property="orderDay"/>
-		<result column="OR_ADDRESS" property="orderAddress"/>
+		<result column="ORDER_ADDRESS" property="orderAddress"/>
 	</resultMap>
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM S_STORE WHERE AMOUNT > 0
@@ -212,5 +212,18 @@
 						(SEQ_ORDER_NO.NEXTVAL
 						,#{memberNo})
 	</insert>
+	<update id="orderInfomation">
+		UPDATE
+			    S_ORDER
+			SET
+			    RES_NAME=#{resName}
+			    ,SEND_NAME=#{sendName}
+			    ,RES_PHONE=#{resPhone}
+			    ,SUMPRICE=#{total_amount}
+			    ,ORDER_DAY=SYSDATE
+			    ,ORDER_ADDRESS={address}
+			WHERE
+			    ORDER_NO=#{orderNo}
+	</update>
 
 </mapper>

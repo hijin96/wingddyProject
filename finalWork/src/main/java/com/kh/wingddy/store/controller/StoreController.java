@@ -1,8 +1,13 @@
 package com.kh.wingddy.store.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +23,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,8 +59,9 @@ public class StoreController {
 
 	private RenameFile rename = new RenameFile();
 
-	// private Attachment at = new Attachment();
-
+	//카카오api서비스키
+	public static final String Authorization="580c0648b175b72fe78aeff8d208161e";
+	
 	// 메인페이지
 	@RequestMapping("storemain")
 	public String storeMain(@RequestParam(value = "cPage", defaultValue = "1") int currentPage, Model m,
@@ -86,7 +94,7 @@ public class StoreController {
 	public String storeCart(Cart cart,Store s,HttpSession session,Model model) {
 		// 장바구니 페이지 들어오면 구매하기 넘어가기 전에 구매번호랑 장바구니 번호 가지고 들어가야함!
 		// 장바구니 페이지 들어올때 detail에서 (구매수량, 상품번호,주문완료여부, 장바구니번호 )필요한 정보들 받아오기
-		//장바구니 넘어오면서 담은 모든 장바구니 정보를 가져와야 하는데 그러지 못함
+		//장바구니 넘어오면서 담은 모든 장바구니 정보를 가져와야 하는데 그러지 못함->cartNo먼저 insert하고 정보 가져오기 
 		Member m = ((Member) session.getAttribute("loginUser"));
 		cart.setMemberNo(m.getMemberNo());
 		int memberNo=m.getMemberNo();
@@ -110,7 +118,7 @@ public class StoreController {
 
 	// 장바구니 ajax
 	@ResponseBody
-	@RequestMapping(value = "storecart.do", produces = "application/json;charset-8")
+	@RequestMapping(value = "storecart.do", produces = "application/json;charset=UTF-8")
 	public String ajaxStoreCart(Store s,Cart cart, HttpSession session) {
 		Member m = ((Member) session.getAttribute("loginUser"));
 		cart.setMemberNo(m.getMemberNo());
@@ -119,7 +127,7 @@ public class StoreController {
 	}
 	// 장바구니 삭제ajax
 	@ResponseBody
-	@RequestMapping(value = "deletestorecart.do", produces = "application/json;charset-8")
+	@RequestMapping(value = "deletestorecart.do", produces = "application/json;charset=UTF-8")
 	public String ajaxDeleteStoreCart(Store s,Cart cart, HttpSession session) {
 		
 		Member m = ((Member) session.getAttribute("loginUser"));
@@ -130,14 +138,84 @@ public class StoreController {
 
 	//구매하기페이지 이동
 	@RequestMapping("storebuy.do")
-	public String storebuy(Order order) {
-		if(storeService.insertOrder(order)>0) {
-			System.out.println("주문번호 생성");
+	public String storebuy(Order order, HttpSession session,Store s) {
+		Member m = ((Member) session.getAttribute("loginUser"));
+		if(storeService.insertOrderNo(order)>0) {
+			//정보를 다 보내면-> 결제하기 버튼 눌러서 insert하면서 결제 완료하기!
+			
+			//storeService.OrderInformation(order,s);
+			System.out.println(order);
 			return "store/storebuy";
 			//storeService.selectOrder()
 		}
 		return "store/stormain";
 	}
+	
+	@RequestMapping("address.do")
+	public String address() {
+		
+		return "store/address";
+	}
+	
+//	@ResponseBody
+//	@RequestMapping(value = "checkAddress", produces = "application/json;charset=UTF-8")
+//	public void ajaxAddress(HttpServletRequest request, ModelMap model, HttpServletResponse response) throws Exception {
+//		String currentPage = request.getParameter("currentPage");
+//		String countPerPage = request.getParameter("countPerPage");  //요청 변수 설정 (페이지당 출력 개수. countPerPage 범위 : 0 < n <= 100)
+//		String resultType = request.getParameter("resultType");      //요청 변수 설정 (검색결과형식 설정, json)
+//		String confmKey = request.getParameter("confmKey");          //요청 변수 설정 (승인키)
+//		String keyword = request.getParameter("keyword");  
+//		String apiUrl = "https://business.juso.go.kr/addrlink/addrLinkApiJsonp.do"+currentPage+
+//														"&countPerPage="+countPerPage+
+//														"&keyword="+URLEncoder.encode(keyword,"UTF-8")+
+//														"&confmKey="+confmKey+"&resultType="+resultType;
+//		URL url = new URL(apiUrl);
+//    	BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
+//    	StringBuffer sb = new StringBuffer();
+//    	String tempStr = null;
+//
+//    	while(true){
+//    		tempStr = br.readLine();
+//    		if(tempStr == null) break;
+//    		sb.append(tempStr);								// 응답결과 JSON 저장
+//    	}
+//    	br.close();
+//    	response.setCharacterEncoding("UTF-8");
+//		response.setContentType("text/xml");
+//		
+//		response.getWriter().write(sb.toString());			// 응답결과 반환
+//	
+//		//return new Gson().toJson(response);	
+//	}
+	@ResponseBody
+	@RequestMapping(value = "checkAddress.do", produces = "application/json;charset=UTF-8")
+    public void getAddrApi(HttpServletRequest request, ModelMap model, HttpServletResponse response) throws Exception {
+		// 요청변수 설정
+		String currentPage = request.getParameter("currentPage");    //요청 변수 설정 (현재 페이지. currentPage : n > 0)
+		String countPerPage = request.getParameter("countPerPage");  //요청 변수 설정 (페이지당 출력 개수. countPerPage 범위 : 0 < n <= 100)
+		String resultType = request.getParameter("resultType");      //요청 변수 설정 (검색결과형식 설정, json)
+		String confmKey = request.getParameter("confmKey");          //요청 변수 설정 (승인키)
+		String keyword = request.getParameter("keyword");            //요청 변수 설정 (키워드)
+		// OPEN API 호출 URL 정보 설정
+		String apiUrl = "https://business.juso.go.kr/addrlink/addrLinkApi.do?currentPage="+currentPage+"&countPerPage="+countPerPage+"&keyword="+URLEncoder.encode(keyword,"UTF-8")+"&confmKey="+confmKey+"&resultType="+resultType;
+		URL url = new URL(apiUrl);
+    	BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
+    	StringBuffer sb = new StringBuffer();
+    	String tempStr = null;
+
+    	while(true){
+    		tempStr = br.readLine();
+    		if(tempStr == null) break;
+    		sb.append(tempStr);								// 응답결과 JSON 저장
+    	}
+    	br.close();
+    	response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/xml");
+		System.out.println("결고반환"+ sb.toString());
+		response.getWriter().write(sb.toString());			// 응답결과 반환
+    }
+
+
 
 	// 위시리스트
 	@RequestMapping("storewish")
@@ -196,7 +274,7 @@ public class StoreController {
 	// JSP에 담긴 값들이 Object타입이라 controller에서 받아오는 타입에 어려움 느낌
 
 	@ResponseBody
-	@PostMapping(value = "/resources/uploadFiles", produces = "application/json;charset=UTF-8")
+	@PostMapping(value = "/resources/uploadFiles", produces = "application/json;charset=UTF-8" )
 	public String storeWriterInsert(HttpServletRequest request, MultipartHttpServletRequest multirequest,
 			ModelAndView mv) throws Exception {
 
@@ -234,8 +312,7 @@ public class StoreController {
 		return new Gson().toJson(map);
 
 	}
-	
-	
+
 	
 	
 	
