@@ -11,6 +11,8 @@ public class CouponProduct {
 	private String productContent;
 	private int couponPrice;
 	private int amount;
-	private String reName;
+	private String fileName;
+	private int fileNo;
+	private String filePath;
 	
 }

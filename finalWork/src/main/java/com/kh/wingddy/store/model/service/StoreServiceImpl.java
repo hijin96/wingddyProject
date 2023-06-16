@@ -83,7 +83,7 @@ public class StoreServiceImpl implements StoreService {
 	}
 	}
 	@Override
-	public int insertOrder(Order order) {
+	public int insertOrderNo(Order order) {
 		//주문번호만들기 성고하면 주문페이지로 이동
 		return	storeDao.createOrderNo(sqlSession,order);
 	}
@@ -96,6 +96,12 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public ArrayList<Cart> selectStoreCart (Store s,Cart cart) {
 		return storeDao.selectStoreCart(sqlSession,s,cart);
+	}
+
+	@Override
+	public int OrderInformation(Order order, Store s) {
+		
+		return storeDao.OrderInformation(sqlSession,order,s);
 	}
 
 	
