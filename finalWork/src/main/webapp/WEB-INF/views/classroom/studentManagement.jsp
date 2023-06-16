@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${contextPath}/resources/assets/modules/jquery-selectric/selectric.css">
+
 </head>
 <body>
 
@@ -20,10 +21,11 @@
                 <div class="section-header-breadcrumb">
                     <div class="card-body">
                         <button type="button" style="margin-bottom:5px;" class="btn btn-block btn-success" onclick="kickout();">&nbsp;학생추방</button>
-                        <button type="button" style="margin-bottom:5px;" class="btn btn-block btn-warning">&nbsp;뽑기횟수</button>
+                        <button type="button" style="margin-bottom:5px;" class="btn btn-block btn-warning" data-toggle="modal" data-target="#giftGacha">&nbsp;뽑기횟수</button>
                     </div>
                 </div>
             </div>
+            
             <div class="row">
                 <div class="col-12">
                     <div class="card card-primary">
@@ -90,6 +92,32 @@
             </div>
 
         </section>
+        <!-- 모달 -->
+        <div id="giftGacha" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-md modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">뽑기 부여 모달창</h5>
+                    </div>
+                    <!-- 클래스 뽑기 횟수 부여 -->
+                    <form action="#" method="POST" id="giftGacha-form">
+                        <div class="modal-body">
+                            <div class="form-group" id="">
+                                <label>학생 선택</label>
+                                <input type="number" name="" value="">
+                            </div>
+                            <div class="form-group" id="" >
+                                <label>뽑기횟수 선택</label>
+                                <input type="number" name="" value="">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">부~~~~~~~여</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -143,12 +171,14 @@
                         $('.card-header>h6').text('');
                     }
                 })
+
+            
         })
 
         function kickout(){
 
             alert('해당 학생을 추방하시겠습니까?');
-            
+            console.log('asd');
             var chkArr = new Array();
 
             var chkArr = $('input[name=studentNo]:checked');
@@ -162,13 +192,13 @@
                     studentNoArr.push(chkArr[i].value);
                 }
             }
-            //console.log(studentNoArr);
-            if(studentNoArr == null){
+            console.log(studentNoArr);
+            if(studentNoArr != null){
                 $.ajax({
                     url : 'kickoutStudent.cl',
                     type : 'POST',
                     data : {
-                        studentArr : studentNoArr,
+                        studentNoArr : studentNoArr,
                         classNo : $('input[name=classNo]').val()
                     },
                     success : function(result){
