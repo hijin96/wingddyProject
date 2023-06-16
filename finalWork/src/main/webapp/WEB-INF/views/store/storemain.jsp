@@ -30,6 +30,18 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/custom.css">
 <meta charset="UTF-8">
 <title>스토어 메인페이지</title>
+				<script>
+					const loginUser ="${ empty loginUser or (loginUser.memberType eq ('S'))}";
+					console.log(loginUser);
+					
+					 	if(loginUser == true){
+					 		alert("선생님만 이용할 수 있는 페이지 입니다. 로그인 후 이용해주세요");
+					 		window.location.href='http://localhost:8007/wingddy/';
+					 	};
+					 
+				
+				
+				</script>
 </head>
 <body>
 	<div id="app">
@@ -50,6 +62,7 @@
 						</form>
 					</div>
 				</c:if>
+				<c:if test="${not empty loginUser&& (loginUser.memberType eq ('T')or loginUser.memberType eq ('A'))}">
 				<div class="product-categorie-box">
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane fade show active"
@@ -99,6 +112,7 @@
 
 					</div>
 				</div>
+				
 				<script>
 					$(function() {
 						$('.mask-icon').click(
@@ -157,6 +171,9 @@
 
 					</ul>
 				</div>
+
+				</c:if>
+
 			</div>
 		</div>
 

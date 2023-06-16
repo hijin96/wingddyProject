@@ -57,8 +57,8 @@
 										
 											<div class="mb-3">
 												<label for="address">주소*</label>
-												<button type="button" onclick="popup();">주소검색</button>
-												<br>도로명주소 전체(포맷)<input type="text" id="roadFullAddr" name="roadFullAddr" /><br>
+												<button type="button" onclick="goPopup();">주소검색</button>
+												<br>도로명주소<input type="text" id="roadFullAddr" name="roadFullAddr" /><br>
 												<input type="text" class="form-control" id="roadAddrPart1" placeholder="" name="roadAddrPart1"  required>
 												<div class="invalid-feedback"> 주소를 입력해주세요</div>
 											</div>
@@ -162,10 +162,10 @@
 					</div>
 					<!-- End Cart -->
 					<script>
-					 function popup(){
+					 function goPopup(){
 				            var url = "address.do";
-				            var name = "popup address";
-				            var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+				            var name = "pop";
+				            var option = "width=570,height=420, scrollbars=yes, resizable=yes"
 				            window.open(url, name, option);
 				        }
 					
@@ -173,114 +173,23 @@
 					</script>
 					  <a href = "javascript:popup()" target = "_blank">팝업</a>
 					<script>
+					/* function goPopup(){
+						// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://business.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+					    var pop = window.open("store/popupAddress","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+					    
+						// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://business.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+					    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+					} 
+					/** API 서비스 제공항목 확대 (2017.02) **/
+					function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn
+											, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
+						// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+						document.form.roadAddrPart1.value = roadAddrPart1;
+						document.form.roadAddrPart2.value = roadAddrPart2;
+						document.form.addrDetail.value = addrDetail;
+						document.form.zipNo.value = zipNo;
+					}
 					
-					
-					
-						function getAddr(){
-							if (!checkSearchedWord(document.form.keyword)) {
-								return ;
-							}
-							
-						}
-						
-						$.ajax({
-							 url : 'checkAddress'  //인터넷망
-							,type:"post"
-							,data:$("#form").serialize()
-							,dataType:"jsonp"
-							,crossDomain:true
-							,success:function(jsonStr){
-								$("#list").html("");
-								var errCode = jsonStr.results.common.errorCode;
-								var errDesc = jsonStr.results.common.errorMessage;
-								if(errCode != "0"){
-									alert(errCode+"="+errDesc);
-								}else{
-									if(jsonStr != null){
-										makeListJson(jsonStr);
-									}
-								}
-							}
-						    ,error: function(xhr,status, error){
-						    	alert("에러발생");
-						    }
-						});
-					}
-					function makeListJson(jsonStr){
-						var htmlStr = "";
-						htmlStr += "<table>";
-						$(jsonStr.results.juso).each(function(){
-							htmlStr += "<tr>";
-							htmlStr += "<td>"+this.roadAddr+"</td>";
-							htmlStr += "<td>"+this.roadAddrPart1+"</td>";
-							htmlStr += "<td>"+this.roadAddrPart2+"</td>";
-							htmlStr += "<td>"+this.jibunAddr+"</td>";
-							htmlStr += "<td>"+this.engAddr+"</td>";
-							htmlStr += "<td>"+this.zipNo+"</td>";
-							htmlStr += "<td>"+this.admCd+"</td>";
-							htmlStr += "<td>"+this.rnMgtSn+"</td>";
-							htmlStr += "<td>"+this.bdMgtSn+"</td>";
-							htmlStr += "<td>"+this.detBdNmList+"</td>";
-							/** API 서비스 제공항목 확대 (2017.02) **/
-							htmlStr += "<td>"+this.bdNm+"</td>";
-							htmlStr += "<td>"+this.bdKdcd+"</td>";
-							htmlStr += "<td>"+this.siNm+"</td>";
-							htmlStr += "<td>"+this.sggNm+"</td>";
-							htmlStr += "<td>"+this.emdNm+"</td>";
-							htmlStr += "<td>"+this.liNm+"</td>";
-							htmlStr += "<td>"+this.rn+"</td>";
-							htmlStr += "<td>"+this.udrtYn+"</td>";
-							htmlStr += "<td>"+this.buldMnnm+"</td>";
-							htmlStr += "<td>"+this.buldSlno+"</td>";
-							htmlStr += "<td>"+this.mtYn+"</td>";
-							htmlStr += "<td>"+this.lnbrMnnm+"</td>";
-							htmlStr += "<td>"+this.lnbrSlno+"</td>";
-							htmlStr += "<td>"+this.emdNo+"</td>";
-							htmlStr += "</tr>";
-						});
-						htmlStr += "</table>";
-						$("#list").html(htmlStr);
-					}
-						
-					//특수문자, 특정문자열(sql예약어의 앞뒤공백포함) 제거
-					function checkSearchedWord(obj){
-						if(obj.value.length >0){
-							//특수문자 제거
-							var expText = /[%=><]/ ;
-							if(expText.test(obj.value) == true){
-								alert("특수문자를 입력 할수 없습니다.") ;
-								obj.value = obj.value.split(expText).join(""); 
-								return false;
-							}
-							
-							//특정문자열(sql예약어의 앞뒤공백포함) 제거
-							var sqlArray = new Array(
-								//sql 예약어
-								"OR", "SELECT", "INSERT", "DELETE", "UPDATE", "CREATE", "DROP", "EXEC",
-					             		 "UNION",  "FETCH", "DECLARE", "TRUNCATE" 
-							);
-							
-							var regex;
-							for(var i=0; i<sqlArray.length; i++){
-								regex = new RegExp( sqlArray[i] ,"gi") ;
-								
-								if (regex.test(obj.value) ) {
-								    alert("\"" + sqlArray[i]+"\"와(과) 같은 특정문자로 검색할 수 없습니다.");
-									obj.value =obj.value.replace(regex, "");
-									return false;
-								}
-							}
-						}
-						return true ;
-					}
-
-					function enterSearch() {
-						var evt_code = (window.netscape) ? ev.which : event.keyCode;
-						if (evt_code == 13) {    
-							event.keyCode = 0;  
-							getAddrLoc(); 
-						} 
-					}
 					</script>
 					
 				</div>	

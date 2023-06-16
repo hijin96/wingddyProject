@@ -36,14 +36,14 @@
  		<div class="ck-body-wrapper">
 			<form action="insertstore.do" method="POST" enctype="multipart/form-data">
 				<div id="header">
-					<label for="spName">상품명</label><input type="text" class="form-control" name="spName">
-					<span><label for="amount">수량</label><input type="number"  class="form-control" value="0" name="amount"></span>
-					<span><label for="spPrice">가격</label><input type="number"  class="form-control" value="0" name="spPrice"></span>
+					<label for="spName">상품명</label><input type="text" class="form-control" name="spName" required>
+					<span><label for="amount">수량</label><input type="number"  class="form-control" value="0" name="amount" required></span>
+					<span><label for="spPrice">가격</label><input type="number"  class="form-control" value="0" name="spPrice" required></span>
 				</div>
-				<span><input type="text"  class="form-control" value="한줄소개" name="spOnecom"> </span>
-				<input type="hidden" value="${fileNo }" name="fileNo">
+				<span><input type="text"  class="form-control" value="한줄소개" name="spOnecom" required> </span>
+				<input type="hidden" value="${fileNo }" name="fileNo"/>
 				<textarea name="spContent" id="editor"></textarea>
-				<input class="note-image-input note-form-control note-input" type="file" name="upfile" accept="image/*" multiple="multiple">
+				<input class="note-image-input note-form-control note-input" type="file" name="upfile" accept="image/*" multiple="multiple" required>
 					<input type="button" class="btn btn-secondary mt-3 mx-2" value="작성취소" /> 
 					<input type="submit" class="btn btn-primary mt-3 mx-2" value="작성완료" />
 			</form> 
