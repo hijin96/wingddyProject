@@ -41,6 +41,8 @@
 
 
 			<mapping path="/couponStore" />
+			<mapping path="/enrollForm.cp" />
+			
 
 			
 

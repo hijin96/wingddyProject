@@ -68,21 +68,26 @@
 									<th>삭제</th>
 		                   </tr>
 		                   <tr>
-		                   		<c:forEach var="cart" items="${cart }">
-			                          <td class="p-0 text-center">
-			                            <div class="custom-checkbox custom-control">
-			                              <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-			                              <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-			                            </div>
-			                          </td>
-			                          <td class="align-middle"> ${s.spName }</td>
-			                          <td class="align-middle">${s.spPrice} </td>
-			                          <td>${cart.buyCount } </td>
-			                          <td><input type="number" size="4" value="${cart.buyCount }" min="0" step="1" class="c-input-text qty text"></td>
-			                          <td>${cartsum}</td>
-			                          <td><a href="#" class="btn btn-secondary">삭제</td>
-		                          </c:forEach>
-		                    </tr>
+												
+													<td class="p-0 text-center">
+														<div class="custom-checkbox custom-control">
+															<input type="checkbox" data-checkboxes="mygroup"
+																class="custom-control-input" id="checkbox-1"> <label
+																for="checkbox-1" class="custom-control-label">&nbsp;</label>
+														</div>
+													</td>
+													<c:forEach var="cart" items="${cart }">
+													<td class="align-middle">${s.spName }</td>
+													<td class="align-middle">${s.spPrice}</td>
+													<td>${cart.buyCount }</td>
+													<td><input type="number" size="4"
+														value="${cart.buyCount }" min="0" step="1"
+														class="c-input-text qty text"></td>
+													<td>${cartsum}</td>
+													<input type="hidden" value="{cart.cartNo}"/>
+													<td><a href="#" class="btn btn-secondary">삭제</td>
+												</c:forEach>
+											</tr>
 	                      </tbody>
 	                     </table>
                     </div>

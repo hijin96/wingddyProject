@@ -32,47 +32,7 @@
 					<div class="cart-box-main">
 						<div class="container">
 							<div class="row new-account-login">
-								<div class="col-sm-6 col-lg-6 mb-3">
-									주문번호 input hidden으로 가져오기~~~~~~~~~~!!!!!!!!!!!!!!!!!!
-									<!-- <div class="title-left">
-										<h3>Account Login</h3>
-									</div> -->
-									<!-- <h5><a data-toggle="collapse" href="#formLogin" role="button" aria-expanded="false">Click here to Login</a></h5> -->
-									<!-- <form class="mt-3 collapse review-form-box" id="formLogin">
-										<div class="form-row">
-											<div class="form-group col-md-6">
-												<label for="InputEmail" class="mb-0">Email Address</label>
-												<input type="email" class="form-control" id="InputEmail" placeholder="Enter Email"> </div>
-											<div class="form-group col-md-6">
-												<label for="InputPassword" class="mb-0">Password</label>
-												<input type="password" class="form-control" id="InputPassword" placeholder="Password"> </div>
-										</div>
-										<button type="submit" class="btn hvr-hover">Login</button>
-									</form> -->
-								</div>
-								<div class="col-sm-6 col-lg-6 mb-3">
-									<!-- <div class="title-left">
-										<h3>Create New Account</h3>
-									</div> -->
-									<!-- <h5><a data-toggle="collapse" href="#formRegister" role="button" aria-expanded="false">Click here to Register</a></h5>
-									<form class="mt-3 collapse review-form-box" id="formRegister">
-										<div class="form-row">
-											<div class="form-group col-md-6">
-												<label for="sendName" class="mb-0">보내는이</label>
-												<input type="text" class="form-control" id="sendName" placeholder="보내는이"> </div>
-											<div class="form-group col-md-6">
-												<label for="resName" class="mb-0">받는이</label>
-												<input type="text" class="form-control" id="resName" placeholder="받는이"> </div>
-											<div class="form-group col-md-6">
-												<label for="InputEmail1" class="mb-0">Email Address</label>
-												<input type="email" class="form-control" id="InputEmail1" placeholder="Enter Email"> </div>
-											<div class="form-group col-md-6">
-												<label for="InputPassword1" class="mb-0">Password</label>
-												<input type="password" class="form-control" id="InputPassword1" placeholder="Password"> </div>
-										</div>
-										<button type="submit" class="btn hvr-hover">Register</button>
-									</form> -->
-								</div>
+								
 							</div>
 							<div class="row">
 								<div class="col-sm-6 col-lg-6 mb-3">
@@ -84,83 +44,30 @@
 											<div class="row">
 												<div class="col-md-6 mb-3">
 													<label for="sendName">보내는이 *</label>
-													<input type="text" class="form-control" id="sendName" placeholder="" value="" required>
-													<div class="invalid-feedback"> Valid first name is required. </div>
+													
+													<input type="text" class="form-control" id="sendName" placeholder="" name="sendName" required>
+													<div class="invalid-feedback"> 보내는이를 작성해주세요</div>
 												</div>
 												<div class="col-md-6 mb-3">
 													<label for="resName">받는이 *</label>
-													<input type="text" class="form-control" id="resName" placeholder="" value="" required>
-													<div class="invalid-feedback"> Valid last name is required. </div>
+													<input type="text" class="form-control" id="resName" placeholder="" name="resName" required>
+													<div class="invalid-feedback">받는이를 작성해주세요</div>
 												</div>
 											</div>
-											<!-- <div class="mb-3">
-												<label for="username">Username *</label>
-												<div class="input-group">
-													<input type="text" class="form-control" id="username" placeholder="" required>
-													<div class="invalid-feedback" style="width: 100%;"> Your username is required. </div>
-												</div>
-											</div> -->
-											<div class="mb-3">
-												<label for="email">이메일*</label>
-												<input type="email" class="form-control" id="email" placeholder="">
-												<div class="invalid-feedback"> Please enter a valid email address for shipping updates. </div>
-											</div>
+										
 											<div class="mb-3">
 												<label for="address">주소*</label>
-												<input type="text" class="form-control" id="address" placeholder="" required>
-												<div class="invalid-feedback"> Please enter your shipping address. </div>
+												<button type="button" onclick="goPopup();">주소검색</button>
+												<br>도로명주소<input type="text" id="roadFullAddr" name="roadFullAddr" /><br>
+												<input type="text" class="form-control" id="roadAddrPart1" placeholder="" name="roadAddrPart1"  required>
+												<div class="invalid-feedback"> 주소를 입력해주세요</div>
 											</div>
 											<div class="mb-3">
 												<label for="address2">상세주소 2 *</label>
-												<input type="text" class="form-control" id="address2" placeholder=""> </div>
-											<!-- <div class="row">
-												<div class="col-md-5 mb-3">
-													<label for="country">Country *</label>
-													<select class="wide w-100" id="country">
-													<option value="Choose..." data-display="Select">Choose...</option>
-													<option value="United States">United States</option>
-												</select>
-													<div class="invalid-feedback"> Please select a valid country. </div>
-												</div>
-												<div class="col-md-4 mb-3">
-													<label for="state">State *</label>
-													<select class="wide w-100" id="state">
-													<option data-display="Select">Choose...</option>
-													<option>California</option>
-												</select>
-													<div class="invalid-feedback"> Please provide a valid state. </div>
-												</div>
-												<div class="col-md-3 mb-3">
-													<label for="zip">Zip *</label>
-													<input type="text" class="form-control" id="zip" placeholder="" required>
-													<div class="invalid-feedback"> Zip code required. </div>
-												</div>
-											</div>
-											<hr class="mb-4">
-											<div class="custom-control custom-checkbox">
-												<input type="checkbox" class="custom-control-input" id="same-address">
-												<label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
-											</div>
-											<div class="custom-control custom-checkbox">
-												<input type="checkbox" class="custom-control-input" id="save-info">
-												<label class="custom-control-label" for="save-info">Save this information for next time</label>
-											</div>
-											<hr class="mb-4">
-											<div class="title"> <span>Payment</span> </div>
-											<div class="d-block my-3">
-												<div class="custom-control custom-radio">
-													<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-													<label class="custom-control-label" for="credit">Credit card</label>
-												</div>
-												<div class="custom-control custom-radio">
-													<input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-													<label class="custom-control-label" for="debit">Debit card</label>
-												</div>
-												<div class="custom-control custom-radio">
-													<input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-													<label class="custom-control-label" for="paypal">Paypal</label>
-												</div>
-											</div> -->
+												<input type="text" class="form-control" id="addrDetail"  name="addrDetail" placeholder=""> </div>
+											
+
+											
 											<div class="row">
 												<div class="col-md-6 mb-3">
 													<label for="cc-name">Name on card</label>
@@ -184,17 +91,6 @@
 													<input type="text" class="form-control" id="cc-cvv" placeholder="" required>
 													<div class="invalid-feedback"> Security code required </div>
 												</div>
-												<div class="col-md-6 mb-3">
-													<div class="payment-icon">
-														<ul>
-															<li><img class="img-fluid" src="images/payment-icon/1.png" alt=""></li>
-															<li><img class="img-fluid" src="images/payment-icon/2.png" alt=""></li>
-															<li><img class="img-fluid" src="images/payment-icon/3.png" alt=""></li>
-															<li><img class="img-fluid" src="images/payment-icon/5.png" alt=""></li>
-															<li><img class="img-fluid" src="images/payment-icon/7.png" alt=""></li>
-														</ul>
-													</div>
-												</div>
 											</div>
 											<hr class="mb-1"> </form>
 									</div>
@@ -202,24 +98,7 @@
 								<div class="col-sm-6 col-lg-6 mb-3">
 									<div class="row">
 										<div class="col-md-12 col-lg-12">
-											<!-- <div class="shipping-method-box">
-												<div class="title-left">
-													<h3>주문상품</h3>
-												</div>
-												 <div class="mb-4">
-													<div class="custom-control custom-radio">
-														<input id="shippingOption1" name="shipping-option" class="custom-control-input" checked="checked" type="radio">
-														<label class="custom-control-label" for="shippingOption1">Standard Delivery</label> <span class="float-right font-weight-bold">FREE</span> </div>
-													<div class="ml-4 mb-2 small">(3-7 business days)</div>
-													<div class="custom-control custom-radio">
-														<input id="shippingOption2" name="shipping-option" class="custom-control-input" type="radio">
-														<label class="custom-control-label" for="shippingOption2">Express Delivery</label> <span class="float-right font-weight-bold">$10.00</span> </div>
-													<div class="ml-4 mb-2 small">(2-4 business days)</div>
-													<div class="custom-control custom-radio">
-														<input id="shippingOption3" name="shipping-option" class="custom-control-input" type="radio">
-														<label class="custom-control-label" for="shippingOption3">Next Business day</label> <span class="float-right font-weight-bold">$20.00</span> </div>
-												</div> 
-											</div> -->
+											
 										</div>
 										<div class="col-md-12 col-lg-12">
 											<div class="odr-box">
@@ -274,7 +153,7 @@
 												</div>
 												<hr> </div>
 										</div>
-										<div class="col-12 d-flex shopping-box"> <a href="checkout.html" class="ml-auto btn hvr-hover">Place Order</a> </div>
+										<div class="col-12 d-flex shopping-box"> <a href="" class="ml-auto btn hvr-hover">결제하기</a> </div>
 									</div>
 								</div>
 							</div>
@@ -282,6 +161,37 @@
 						</div>
 					</div>
 					<!-- End Cart -->
+					<script>
+					 function goPopup(){
+				            var url = "address.do";
+				            var name = "pop";
+				            var option = "width=570,height=420, scrollbars=yes, resizable=yes"
+				            window.open(url, name, option);
+				        }
+					
+					
+					</script>
+					  <a href = "javascript:popup()" target = "_blank">팝업</a>
+					<script>
+					/* function goPopup(){
+						// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://business.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+					    var pop = window.open("store/popupAddress","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+					    
+						// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://business.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+					    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+					} 
+					/** API 서비스 제공항목 확대 (2017.02) **/
+					function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn
+											, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
+						// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+						document.form.roadAddrPart1.value = roadAddrPart1;
+						document.form.roadAddrPart2.value = roadAddrPart2;
+						document.form.addrDetail.value = addrDetail;
+						document.form.zipNo.value = zipNo;
+					}
+					
+					</script>
+					
 				</div>	
 			       	 	
 			       	 	
@@ -292,4 +202,7 @@
 
 
 </body>
+	
+
+
 </html>

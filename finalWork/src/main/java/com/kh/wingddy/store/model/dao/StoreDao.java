@@ -65,4 +65,8 @@ public class StoreDao {
 	public int createOrderNo (SqlSessionTemplate sqlSession, Order order) {
 		return	sqlSession.insert("storeMapper.createOrderNo",order);
 	}
+	public int OrderInformation(SqlSessionTemplate sqlSession, Order order, Store s) {
+		
+		return sqlSession.update("storeMapper.orderInfomation",order);
+	}
 }

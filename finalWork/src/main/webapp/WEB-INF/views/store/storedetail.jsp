@@ -164,6 +164,7 @@
 											}else{
 												alert("구매는 로그인후 이용하세요");
 												const buycartbtn = document.getElementById('buycart');
+												window.location.href='http://localhost:8007/wingddy/'
 												buycartbtn.disabled=true;
 												
 											}

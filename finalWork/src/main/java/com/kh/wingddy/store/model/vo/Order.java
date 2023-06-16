@@ -10,7 +10,7 @@ public class Order {
 	private String resName; //받는사람이름
 	private String sendName; //보내는사람이름
 	private String resPhone;//받는사람전화번호
-	private int sumprice; //총가격
+	private int total_amount; //총가격
 	private Date orderDay; //주문날짜
 	private String orderAddress; //배송지
 }
