@@ -12,6 +12,7 @@ public class Letter {
 	private String letterContent;
 	private String sendDate;
 	private String anonymous;
+	private String toManitto;
 	private String gift; 
 	private String readCheck;
 }

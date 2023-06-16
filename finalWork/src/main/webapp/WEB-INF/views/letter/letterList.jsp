@@ -281,6 +281,9 @@
 				},
 				success : function(list){
 
+					console.log('rec');
+					console.log(list);
+
 					var value = '<tr align="left"><td colspan="5"><button class="btn btn-primary">삭제</button></td></tr>'
 							  + '<tr><th class="p-0 text-center"><div class="form-check">'
 							  + '<input type="checkbox" class="form-check-input" id="receivedCheckboxAll" onClick="receivedCheckboxAll();"></div></th>'
@@ -330,8 +333,8 @@
 				},
 				success : function(list){
 
-					console.log("sent페이징");
-					console.log(list);
+					//console.log("sent페이징");
+					//console.log(list);
 
 					let btnValue = '';
 
@@ -385,6 +388,10 @@
 				},
 				success : function(list){
 
+					console.log('sent');
+					console.log(list);
+					
+
 					var value = '<tr align="left"><td colspan="5"><button class="btn btn-primary">삭제</button></td></tr>'
 							  + '<tr><th class="p-0 text-center"><div class="form-check">'
 							  + '<input type="checkbox" class="form-check-input" id="sentCheckboxAll" onClick="sentCheckboxAll();"></div></th>'
@@ -397,11 +404,11 @@
 							   + '<input type="hidden" value="' + list[i].letterNo +'"></div></td>';
 
 
-						if(list[i].anonymous == 'Y'){
+						if(list[i].toManitto == 'Y'){
 							value += '<td>'+ '<b>Manitto</b>' +'</td>';
 						}
 						else{
-							value += '<td>'+ list[i].sender +'</td>';
+							value += '<td>'+ list[i].recipient +'</td>';
 						}
 
 						value += '<td>' + list[i].letterContent + '</td>'
