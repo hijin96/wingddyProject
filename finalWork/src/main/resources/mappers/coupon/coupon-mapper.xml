@@ -24,13 +24,9 @@
 		       vw_cp
 		 where 
 		       class_no = #{classNo}
-		 <choose>
-		 	<when test="#{orderBy eq 'coupon_price asc'}">
-			 	 order by coupon_price asc
-		 	</when>
-		 	<when test="#{orderBy eq ''}">
-		 	
-		 	</when>
-		 </choose>      
+		 order by (case when #{orderBy} = 'coupon_price' then coupon_price asc
+		 				when #{orderBy} = 'coupon_price desc then coupon_price desc
+		 				when #{orderBy} = 'amount' then amount end)
+
 	</select>
 </mapper>

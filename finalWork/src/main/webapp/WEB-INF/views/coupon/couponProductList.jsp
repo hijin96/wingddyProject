@@ -254,12 +254,23 @@
 		$('#form-movePage').submit();
 	})
 	
+	$('select[name=orderBy]').on("change", function(){
+		$('#submit_option').submit();
+		
+	})
+	
 	// 학생이 상품 구매버튼 눌렀을 때 (학생 보유 상품 insert, 상품 목록 수량 update, 학생 보유 쿠폰 update)
 	function buy(){
 		
 	}
 	
 	$(function(){
+		var ob = "${orderBy}";
+		console.log(ob);
+		$('#orderBy').val(ob).prop("selected", true);
+		
+		
+		
 		/*
 		console.log(pi);
 		console.log(pi.currentPage);

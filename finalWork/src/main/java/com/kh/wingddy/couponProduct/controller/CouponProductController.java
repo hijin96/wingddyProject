@@ -28,10 +28,11 @@ public class CouponProductController {
 		CouponProduct cp = new CouponProduct();
 		cp.setClassNo(cno);
 		cp.setOrderBy(orderBy);
-		System.out.println(cp);
+		//System.out.println(cp);
 		
 		model.addAttribute("cplist", cpService.selectCouponProductList(pi, cp));
-		System.out.println(model.getAttribute("cplist"));
+		//System.out.println(model.getAttribute("cplist"));
+		model.addAttribute("orderBy", orderBy);
 		//System.out.println("controller, pi : " + pi);
 		//System.out.println(cpService.selectCouponProductList(pi, cno).size());
 		return "coupon/couponProductList";
