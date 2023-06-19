@@ -31,6 +31,8 @@ public interface StoreService {
 	int insertStoreCart(Cart cart);
 	//장바구니 목록보기
 	ArrayList<Cart> selectStoreCart(int MemberNo);
+
+	
 	//장바구니 삭제
 	int deleteCart(Cart cart);
 	//구매하기페이지 
