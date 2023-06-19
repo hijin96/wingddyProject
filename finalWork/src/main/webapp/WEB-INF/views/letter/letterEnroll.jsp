@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,50 +22,78 @@
 		        <div class="section-body">
 					<div class="card">
 						<div class="card-body">
-							<form action="enroll.aph">
-
-								<div class="form-group row mb-4">
-									<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>
-									<div class="col-sm-12 col-md-7">
-										<input type="text" class="form-control">
+							<form action="insert.le">
+								<input type="hidden" name="classNo" value="${requestScope.classroom.classNo}">
+								<input type="hidden" name="sender" value="${sessionScope.loginUser.memberNo}">
+								
+								
+									<div align="center">
+										<p style="font-size: larger; font-weight: bolder;">'마니띠에게' 클릭 시 익명으로 보낼 수 있어요!</p>
+										<input type="radio" name="recipient" value="${myManitto}">마니또에게
+										<input type="hidden" name="toManitto">
+										<input type="radio" name="recipient" value="${myManitti}">마니띠에게
+										<input type="hidden" name="anonymous">
+										<button type="button" onclick="noneCheck();" class="btn btn-primary">선택취소</button>
 									</div>
-								</div>
-
-								<div align="center">
-									<p>'마니띠에게' 클릭 시 익명으로 보낼 수 있어요!</p>
-									<input type="radio" name="to">마니또에게
-									<input type="radio" name="to">마니띠에게
-									<button type="button" onclick="noneCheck();" class="btn btn-outline-primary">선택취소</button>
-								</div>
+								
 
 								<script>
 
+									$("input:radio[name='recipient']").change(function() {
+										if ($(this).val() === "manitto") {
+											$("input[name='toManitto']").val("Y");
+											$("input[name='anonymous']").val("N");
+										} else {
+											$("input[name='toManitto']").val("N");
+											$("input[name='anonymous']").val("Y");
+										}
+									})
+									
 									function noneCheck(){
-										$("input:radio[name='to']").prop('checked', false);
+										$("input:radio[name='recipient']").prop('checked', false);
+										$("#recipientSelect").prop("disabled", false);
+										
+										$("input[name='anonymous']").val("N");
+										$("input[name='toManitto']").val("N");
 									}
 
-								</script>
-								
+									$("input:radio[name='recipient']").click(function(){
+										
+										$("#recipientSelect").prop("disabled", true);
+										$("#recipientSelect").val('none');
+							
+									})
+							
+									$(document).ready(function() {
+										$("#recipientSelect").on("change", function() {
+										if ($(this).val() !== "none") {
+											noneCheck();
+										} 
+
+									});
+									})
 									
 
-									
+								</script>
+
+
 
 
 									<div class="form-group row mb-4">
 									<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">To</label>
 									<div class="col-sm-12 col-md-7">
-										<select class="form-control selectric">
-											<option value="none" id="toNone">-</option>
-											<option>wprije5</option>
-											<option>spmtl323</option>
-											<option>pdptgml88</option>
+										<select class="form-control selectric" id="recipientSelect" name="recipient">
+											<option value="none">-</option>
+											<c:forEach items="${requestScope.recipientList}" var="r">
+												<option value="${r.memberNo}">${r.recipient}</option>
+											</c:forEach>
 										</select>
 									</div>
 									</div>
 									<div class="form-group row mb-4">
 									<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Content</label>
 									<div class="col-sm-12 col-md-7">
-										<textarea class="summernote-simple"></textarea>
+										<textarea class="summernote-simple" name="letterContent"></textarea>
 									</div>
 									</div>
 
@@ -73,9 +102,9 @@
 										<div class="col-sm-12 col-md-7">
 											<select class="form-control selectric">
 												<option value="none">-</option>
-												<option>A</option>
-												<option>E</option>
-												<option>F</option>
+												<c:forEach items="${requestScope.myAlphabet}" var="a">
+													<option value="${a.alphabet}">${a.alphabet} (${a.count})</option>
+												</c:forEach>
 											</select>
 										</div>
 										</div>

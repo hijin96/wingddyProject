@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +33,13 @@
 	
 				<div class="card-body">
 					<div align="right">
-						<a href="#" class="btn btn-primary">write</a>
+						<form action="enroll.le" method="post">
+							<input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
+							<input type="hidden" name="classNo" value="${requestScope.classroom.classNo}">
+							<input type="hidden" name="sender" value="${sessionScope.loginUser.memberNo}">
+							<button class="btn btn-primary">write</button>
+						</form>
+						
 					</div>
 				</div>
 

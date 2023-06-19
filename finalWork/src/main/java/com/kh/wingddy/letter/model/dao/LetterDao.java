@@ -43,6 +43,44 @@ public class LetterDao {
 		
 		return (ArrayList)session.selectList("letterMapper.ajaxSentLetter", letter, rowBounds);
 	}
+	
+	public ArrayList<Letter> selectRecipient(SqlSessionTemplate session, int cno){
+		
+		return (ArrayList)session.selectList("letterMapper.selectRecipient", cno);
+	}
 
 
+	public int insertLetter(SqlSessionTemplate session, Letter letter) {
+		
+		return session.insert("letterMapper.insertLetter", letter);
+	}
+	
+	
+	public Integer selectMymanitto(SqlSessionTemplate session, Letter letter) {
+		
+		
+		return session.selectOne("letterMapper.selectMymanitto", letter);
+
+	}
+	
+	public Integer selectMymanitti(SqlSessionTemplate session, Letter letter) {
+		
+		return session.selectOne("letterMapper.selectMymanitti", letter);
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
