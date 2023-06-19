@@ -377,9 +377,9 @@
 	</c:if>
 
 
-  <c:if test="${ not empty cno }">
+  <c:if test="${ not empty alphabetCno }">
     <form action="makeWords.aph" method="post" id="moveToinsertWords">
-      <input type="hidden" name="cno" value="${requestScope.cno}">
+      <input type="hidden" name="cno" value="${requestScope.alphabetCno}">
       <input type="hidden" name="mno" value="${sessionScope.loginUser.memberNo}">
     </form>
     
@@ -390,9 +390,39 @@
         document.getElementById('moveToinsertWords').submit();
       }
     </script>
-    <c:remove var="cno" scope="request" />
+    <c:remove var="alphabetCno" scope="request" />
+  </c:if>
+  
+   <c:if test="${ not empty letterCno }">
+    <form action="letterBox" method="post" id="moveToLetterBox">
+      <input type="hidden" name="cno" value="${requestScope.letterCno}">
+      <input type="hidden" name="mno" value="${sessionScope.loginUser.memberNo}">
+    </form>
+    
+    <script>
+      window.onload(movePage());
+      
+      function movePage (){
+        document.getElementById('moveToLetterBox').submit();
+      }
+    </script>
+    <c:remove var="letterCno" scope="request" />
   </c:if>
 
+   <c:if test="${ not empty alphabetBno }">
+    <form action="detail.aph" method="post" id="moveToWrtiersDetail">
+      <input type="hidden" name="bno" value="${requestScope.alphabetBno}">
+    </form>
+    
+    <script>
+      window.onload(movePage());
+      
+      function movePage (){
+        document.getElementById('moveToWrtiersDetail').submit();
+      }
+    </script>
+    <c:remove var="alphabetBno" scope="request" />
+  </c:if>
 
   
   

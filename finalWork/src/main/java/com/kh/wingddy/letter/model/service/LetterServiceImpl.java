@@ -52,8 +52,6 @@ public class LetterServiceImpl implements LetterService{
 	
 	}
 
-
-
 	@Override
 	public Integer selectMymanitto(Letter letter) {
 		return letterDao.selectMymanitto(sqlSession, letter);
@@ -63,7 +61,6 @@ public class LetterServiceImpl implements LetterService{
 	public Integer selectMymanitti(Letter letter) {
 		return letterDao.selectMymanitti(sqlSession, letter);
 	}
-
 
 	
 	@Override

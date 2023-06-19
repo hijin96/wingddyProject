@@ -196,7 +196,56 @@
 			sentPaging(currentPage);
 		})
 
+
+		$(document).on('click', '.receivedPagingBtn', function(){
+
+			currentPage = $(this).text().charAt(0);
+
+			receivedPaging(currentPage);
+		});
+
+		$(document).on('click', '.sentPagingBtn', function(){
+
+			currentPage = $(this).text().charAt(0);
+
+			sentPaging(currentPage);
+		});
+
+		$(document).on('click', '.receivedPreBtn', function(){
+
+			currentPage--;
+
+			receivedPaging(currentPage);
+		});
+
+		$(document).on('click', '.receivedNextBtn', function(){
+
+			currentPage++;
+
+			receivedPaging(currentPage);
+		});
+
+		$(document).on('click', '.sentPreBtn', function(){
+
+			currentPage--;
+
+			sentPaging(currentPage);
+		});
+
+		$(document).on('click', '.sentNextBtn', function(){
+
+			currentPage++;
+
+			sentPaging(currentPage);
+		});
 		
+
+
+
+
+
+
+
 		function receivedCheckboxAll(){
 			if($('#receivedCheckboxAll').is(":checked")){
 				$('.receivedCheckbox').prop("checked", true);
@@ -212,6 +261,7 @@
 			var total = $(".receivedCheckbox").length;
 			var checkNum = $(".receivedCheckbox:checked").length;
 
+
 			if(total == checkNum){
 				$('#receivedCheckboxAll').prop("checked", true);
 			}
@@ -222,6 +272,32 @@
 			
 		})
 
+
+		function sentCheckboxAll(){
+			if($('#sentCheckboxAll').is(":checked")){
+				$('.sentCheckbox').prop("checked", true);
+			}
+			else{
+				$('.sentCheckbox').prop("checked", false);
+			}
+		}
+
+
+		$(document).on('click', '.sentCheckbox', function(){
+
+			var total = $(".sentCheckbox").length;
+			var checkNum = $(".sentCheckbox:checked").length;
+
+
+			if(total == checkNum){
+				$('#sentCheckboxAll').prop("checked", true);
+			}
+			else{
+				$('#sentCheckboxAll').prop("checked", false);
+			}
+			
+			
+		})
 
 
 
@@ -235,15 +311,15 @@
 					recipient : '${sessionScope.loginUser.memberNo}'
 				},
 				success : function(list){
-					console.log("received페이징");
-					console.log(list);
+					//console.log("received페이징");
+					//console.log(list);
 
 
 					let btnValue = '';
 
 					if(currentPage > 1){
 					btnValue += '<li class="page-item">'
-							  + '<a class="page-link preBtn" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>'
+							  + '<a class="page-link reveivedPreBtn" tabindex="-1"><i class="fas fa-chevron-left"></i></a>'
 						      + '</li>';
 					}
 			
@@ -251,12 +327,12 @@
 					for(var i = list.startPage; i <= list.endPage; i++){
 						if(i == list.currentPage){
 							btnValue += '<li class="page-item active">'
-									  + '<a class="page-link pagingBtn" href="#" >' + i + '<span class="sr-only">(current)</span></a>'
+									  + '<a class="page-link receivedPagingBtn">' + i + '<span class="sr-only">(current)</span></a>'
 									  +'</li>';
 						}	   
 						else{
 							btnValue += '<li class="page-item">'
-									+ '<a class="page-link pagingBtn" href="#">'+ i +'</a>'
+									+ '<a class="page-link receivedPagingBtn">'+ i +'</a>'
 									+ '</li>';
 						}
 					}
@@ -264,7 +340,7 @@
 			
 					if(currentPage < list.maxPage){
 						btnValue += '<li class="page-item">'
-								+ '<a class="page-link nextBtn " href="#"><i class="fas fa-chevron-right"></i></a>'
+								+ '<a class="page-link receivedNextBtn"><i class="fas fa-chevron-right"></i></a>'
 								+ '</li>';
 					}
 
@@ -347,7 +423,7 @@
 
 					if(currentPage > 1){
 					btnValue += '<li class="page-item">'
-							  + '<a class="page-link preBtn" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>'
+							  + '<a class="page-link sentPreBtn" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>'
 						      + '</li>';
 					}
 			
@@ -355,12 +431,12 @@
 					for(var i = list.startPage; i <= list.endPage; i++){
 						if(i == list.currentPage){
 							btnValue += '<li class="page-item active">'
-									  + '<a class="page-link pagingBtn" href="#" >' + i + '<span class="sr-only">(current)</span></a>'
+									  + '<a class="page-link sentPagingBtn" href="#" >' + i + '<span class="sr-only">(current)</span></a>'
 									  +'</li>';
 						}	   
 						else{
 							btnValue += '<li class="page-item">'
-									+ '<a class="page-link pagingBtn" href="#">'+ i +'</a>'
+									+ '<a class="page-link sentPagingBtn" href="#">'+ i +'</a>'
 									+ '</li>';
 						}
 					}
@@ -368,7 +444,7 @@
 			
 					if(currentPage < list.maxPage){
 						btnValue += '<li class="page-item">'
-								+ '<a class="page-link nextBtn " href="#"><i class="fas fa-chevron-right"></i></a>'
+								+ '<a class="page-link sentNextBtn " href="#"><i class="fas fa-chevron-right"></i></a>'
 								+ '</li>';
 					}
 
@@ -431,7 +507,7 @@
 
 					$('#sentLetterArea').html(value);
 
-					//console.log(list);
+					
 				}
 			})
 		}

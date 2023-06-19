@@ -46,7 +46,7 @@ SELECT LETTER_NO, MEMBER_ID||'('||MEMBER_NAME||')' AS "SENDER", SUBSTR(LETTER_CO
   JOIN MEMBER USING ON (SENDER = MEMBER_NO)
  WHERE CLASS_NO = #{classNo}
    AND RECIPIENT = #{recipient}
- ORDER BY SEND_DATE DESC
+ ORDER BY LETTER_NO DESC
 </select>
 
 <select id="ajaxSentLetter" parameterType="letter" resultMap="letterResultSet">
@@ -55,7 +55,7 @@ SELECT LETTER_NO, MEMBER_ID||'('||MEMBER_NAME||')' AS "SENDER", SUBSTR(LETTER_CO
    JOIN MEMBER USING ON (RECIPIENT = MEMBER_NO)
   WHERE CLASS_NO = #{classNo}
     AND SENDER = #{sender}
-  ORDER BY SEND_DATE DESC
+  ORDER BY LETTER_NO DESC
 </select>
 
 
@@ -85,8 +85,8 @@ SELECT MANITTI
 
 
 <insert id="insertLetter" parameterType="letter">
-INSERT INTO LETTER
-VALUES(SEQ_LETTER_NO.NEXTVAL, #{classNo}, #{sender}, #{recipient}, #{content}, default, #{anonymous}, #{toManitto}, #{gift}, default)
+INSERT INTO LETTER(LETTER_NO, CLASS_NO, SENDER, RECIPIENT, LETTER_CONTENT, SEND_DATE, ANONYMOUS, TO_MANITTO, GIFT, READ_CHECK)
+VALUES(SEQ_LETTER_NO.NEXTVAL, #{classNo}, #{sender}, #{recipient}, #{letterContent}, default, #{anonymous, jdbcType=VARCHAR}, #{toManitto, jdbcType=VARCHAR}, #{gift, jdbcType=VARCHAR}, default)
 </insert>
 
 

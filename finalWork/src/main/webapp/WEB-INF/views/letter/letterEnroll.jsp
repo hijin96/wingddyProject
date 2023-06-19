@@ -25,22 +25,27 @@
 							<form action="insert.le">
 								<input type="hidden" name="classNo" value="${requestScope.classroom.classNo}">
 								<input type="hidden" name="sender" value="${sessionScope.loginUser.memberNo}">
-								
-								
-									<div align="center">
-										<p style="font-size: larger; font-weight: bolder;">'마니띠에게' 클릭 시 익명으로 보낼 수 있어요!</p>
-										<input type="radio" name="recipient" value="${myManitto}">마니또에게
-										<input type="hidden" name="toManitto">
-										<input type="radio" name="recipient" value="${myManitti}">마니띠에게
-										<input type="hidden" name="anonymous">
-										<button type="button" onclick="noneCheck();" class="btn btn-primary">선택취소</button>
-									</div>
-								
-
+								<div align="center">
+									<c:choose>
+										<c:when test="${not empty myManitti}">
+											
+											<p style="font-size: larger; font-weight: bolder;">'마니띠에게' 클릭 시 익명으로 보낼 수 있어요!</p>
+											<input type="radio" name="recipient" value="${myManitto}">마니또에게
+											<input type="hidden" name="toManitto">
+											<input type="radio" name="recipient" value="${myManitti}">마니띠에게
+											<input type="hidden" name="anonymous">
+											<button type="button" onclick="noneCheck();" class="btn btn-primary">선택취소</button>
+											
+										</c:when>
+										<c:otherwise>
+											<p style="font-size: larger; font-weight: bolder;">마니또게임을 하고 있지 않아요!</p>
+										</c:otherwise>
+									</c:choose>
+								</div>
 								<script>
 
 									$("input:radio[name='recipient']").change(function() {
-										if ($(this).val() === "manitto") {
+										if ($(this).val() === "${myManitto}") {
 											$("input[name='toManitto']").val("Y");
 											$("input[name='anonymous']").val("N");
 										} else {
@@ -76,16 +81,15 @@
 
 								</script>
 
-
-
-
 									<div class="form-group row mb-4">
 									<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">To</label>
 									<div class="col-sm-12 col-md-7">
-										<select class="form-control selectric" id="recipientSelect" name="recipient">
+										<select class="form-control selectric" id="recipientSelect" name="recipient" required>
 											<option value="none">-</option>
 											<c:forEach items="${requestScope.recipientList}" var="r">
-												<option value="${r.memberNo}">${r.recipient}</option>
+												<c:if test="${r.memberNo ne sessionScope.loginUser.memberNo}">
+													<option value="${r.memberNo}">${r.recipient}</option>
+												</c:if>
 											</c:forEach>
 										</select>
 									</div>
@@ -93,7 +97,7 @@
 									<div class="form-group row mb-4">
 									<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Content</label>
 									<div class="col-sm-12 col-md-7">
-										<textarea class="summernote-simple" name="letterContent"></textarea>
+										<textarea class="summernote-simple" name="letterContent" required></textarea>
 									</div>
 									</div>
 
