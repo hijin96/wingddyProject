@@ -72,11 +72,11 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public int insertStoreCart(Store s, Cart cart) {
-		if(storeDao.checkStoreCart(sqlSession,s,cart)==0) {
+	public int insertStoreCart(Cart cart) {
+		if(storeDao.checkStoreCart(sqlSession,cart)==0) {
 			
 			//System.out.println("서비스 데이터 값 INSERT :"+storeDao.insertStoreCart(sqlSession,s,cart));
-			return storeDao.insertStoreCart(sqlSession,s,cart);
+			return storeDao.insertStoreCart(sqlSession,cart);
 		}else {
 			//System.out.println("UPDATE: "+storeDao.updateStoreCart(sqlSession,cart) );
 			return storeDao.updateStoreCart(sqlSession,cart);
@@ -94,8 +94,11 @@ public class StoreServiceImpl implements StoreService {
 
 
 	@Override
-	public ArrayList<Cart> selectStoreCart (Store s,Cart cart) {
-		return storeDao.selectStoreCart(sqlSession,s,cart);
+	public ArrayList<Cart> selectStoreCart (int MemberNo) {
+		System.out.println("서비스 memberNo : " + MemberNo);
+		ArrayList<Cart> list = storeDao.selectStoreCart(sqlSession,MemberNo);
+		System.out.println("서비스 result : " + list);
+		return list;
 	}
 
 	@Override

@@ -89,7 +89,7 @@ public class StoreController {
 		return mv;
 	}
 
-	// 장바구니페이지이동
+	//구매하기 클릭시 -> 장바구니페이지이동
 	@PostMapping("storebuybasket")
 	public String storeCart(Cart cart,Store s,HttpSession session,Model model) {
 		// 장바구니 페이지 들어오면 구매하기 넘어가기 전에 구매번호랑 장바구니 번호 가지고 들어가야함!
@@ -97,18 +97,13 @@ public class StoreController {
 		//장바구니 넘어오면서 담은 모든 장바구니 정보를 가져와야 하는데 그러지 못함->cartNo먼저 insert하고 정보 가져오기 
 		Member m = ((Member) session.getAttribute("loginUser"));
 		cart.setMemberNo(m.getMemberNo());
-		int memberNo=m.getMemberNo();
-
-	
-		if(storeService.insertStoreCart(s,cart) >0) {
-			//장바구니 목록
-			storeService.selectStoreCart(s,cart);
-			model.addAttribute("cart",cart);
-			model.addAttribute("s", s);
-			model.addAttribute("memberNo",memberNo);
-			model.addAttribute("cartsum",s.getSpPrice()*cart.getBuyCount());
-			System.out.println(cart);
-			System.out.println(s);
+		
+		if(storeService.insertStoreCart(cart) >0) {
+			
+			ArrayList<Cart> cartList = storeService.selectStoreCart(m.getMemberNo());
+			System.out.println("cartList : " + cartList);
+			
+			model.addAttribute("cartList",cartList);
 			return "store/storecart";
 		}else {
 			model.addAttribute("errorMsg", "구매실패");
@@ -123,7 +118,7 @@ public class StoreController {
 		Member m = ((Member) session.getAttribute("loginUser"));
 		cart.setMemberNo(m.getMemberNo());
 		
-		return new Gson().toJson(storeService.insertStoreCart(s,cart));
+		return new Gson().toJson(storeService.insertStoreCart(cart));
 	}
 	// 장바구니 삭제ajax
 	@ResponseBody
@@ -132,7 +127,6 @@ public class StoreController {
 		
 		Member m = ((Member) session.getAttribute("loginUser"));
 		cart.setMemberNo(m.getMemberNo());
-		System.out.println("삭제");
 		return new Gson().toJson(storeService. deleteCart(cart));
 	}
 
@@ -143,8 +137,7 @@ public class StoreController {
 		if(storeService.insertOrderNo(order)>0) {
 			//정보를 다 보내면-> 결제하기 버튼 눌러서 insert하면서 결제 완료하기!
 			
-			//storeService.OrderInformation(order,s);
-			System.out.println(order);
+			//살리기storeService.OrderInformation(order,s); 
 			return "store/storebuy";
 			//storeService.selectOrder()
 		}
@@ -152,7 +145,7 @@ public class StoreController {
 	}
 	
 	
-	@RequestMapping
+	@RequestMapping("address.do")
 	public String address() {
 		
 		return "store/popupAddress";
@@ -224,18 +217,22 @@ public class StoreController {
 		return mv;
 	}
 
-
+	//게시판 글 등록
 	@RequestMapping("insertstore.do")
 	public String insertStoreBoard(Store s, MultipartFile upfile, HttpSession session, Model model) {
 		// HashMap<String, Object> map = new HashMap<String, Object>();
 		Member m = ((Member) session.getAttribute("loginUser"));
 		Attachment at = new Attachment();
+		//String savePath =  session.getServletContext().getRealPath("/resources/uploadFiles/");
+		String changeName = rename.fileName(upfile, session);
 		at.setOriginName(upfile.getOriginalFilename());
-		at.setChangeName(rename.fileName(upfile, session));
+		at.setChangeName(changeName);
 		at.setFilePath("resources/uploadFiles/");
 		
 		at.setFileNo(s.getFileNo());
 		at.setMemberNo(m.getMemberNo());
+
+		  
 		if (storeService.insertStoreBoard(s, at) > 0) {
 			
 			return "redirect:storemain";
@@ -247,6 +244,8 @@ public class StoreController {
 
 //ATTACHMENT 랑 STORE를 MAP에 담아서 mapper에서 한번에 insert하는것에 어려움 느낌
 	// JSP에 담긴 값들이 Object타입이라 controller에서 받아오는 타입에 어려움 느낌
+
+
 
 	@ResponseBody
 	@PostMapping(value = "/resources/uploadFiles", produces = "application/json;charset=UTF-8" )

@@ -17,12 +17,10 @@ public interface StoreService {
 	ArrayList<Store> selectList(PageInfo pageInfo);
 	//조회수 증가하면 글보기 성공
 	int inceraseCount(int spNo);
-	//게시글 작성하기-1 글정보만
-	//게시글 작성하기-2
+	//게시글 작성하기
 	int insertStoreBoard(Store s,Attachment at);
 	//썸네일 번호 생성
 	int createFileNo();
-	
 	//게시글 수정하기
 	int updateStoreBoard(int spNo);
 	//게시글 삭제하기
@@ -30,17 +28,15 @@ public interface StoreService {
 	//게시글 상세보기
 	Store selectStoreBoard(int spNo);
 	//장바구니추가
-	int insertStoreCart(Store s,Cart cart);
-
+	int insertStoreCart(Cart cart);
 	//장바구니 목록보기
-	ArrayList<Cart> selectStoreCart(Store s,Cart cart);
+	ArrayList<Cart> selectStoreCart(int MemberNo);
 	//장바구니 삭제
 	int deleteCart(Cart cart);
 	//구매하기페이지 
 	int insertOrderNo(Order order);
 	//구매정보등록
 	int OrderInformation(Order order,Store s);
-	
 	
 	//위시리스트 추가 및 삭제
 	//댓글리스트 조회

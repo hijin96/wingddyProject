@@ -87,7 +87,7 @@
 											<li>
 												<div class="form-group quantity-box">
 													<label for="buyCount" class="control-label">수량</label>
-													<input class="form-control"  min="1" max="100" type="number" name="buyCount" id="buyCount" value="1">
+													<input class="form-control"  min="1" max="100" type="number" name="buyCount" id="buyCount">
 												</div>
 											</li>
 										</ul>
@@ -110,12 +110,19 @@
 										<!--장바구니 모달창 -->
 									<script>
 										
-										var buyCount = $('#buyCount').val();
+										
 										var spNo = ${s.spNo};
 										var spPrice = ${s.spPrice};
 										var emptyloginUser = ${not empty loginUser};
 										console.log(emptyloginUser);
 										$('#cart').click(function(){
+											var buyCount = $('#buyCount').val();
+											console.log(buyCount);
+											if( buyCount=='0' || buyCount==''){
+												
+												alert("수량을체크해주세요");
+												return;
+											}
 											if(emptyloginUser== true){
 												$.ajax({
 													url: 'storecart.do',
@@ -157,15 +164,9 @@
 
 										});
 										function buycount(){
-											if(emptyloginUser== true){
-												
-												const buycartbtn = document.getElementById('buycart');
-												buycartbtn.disabled=false;
-											}else{
+											if( !emptyloginUser){
 												alert("구매는 로그인후 이용하세요");
-												const buycartbtn = document.getElementById('buycart');
 												window.location.href='http://localhost:8007/wingddy/'
-												buycartbtn.disabled=true;
 												
 											}
 										}
