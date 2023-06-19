@@ -101,7 +101,7 @@ public class StoreController {
 		if(storeService.insertStoreCart(cart) >0) {
 			
 			ArrayList<Cart> cartList = storeService.selectStoreCart(m.getMemberNo());
-			//System.out.println("cartList : " + cartList);
+			
 			
 			model.addAttribute("cartList",cartList);
 			return "store/storecart";
@@ -110,7 +110,7 @@ public class StoreController {
 			return "common/errorPage";
 		}
 	}
-	//장바구니 페이지 바로가기
+	//사이드바에서 장바구니 페이지 바로가기
 	@RequestMapping("cartDirect")
 	public String storeCartDirect(HttpSession session,Model model,Cart cart) {
 		Member m = ((Member) session.getAttribute("loginUser"));
@@ -153,7 +153,7 @@ public class StoreController {
 		return "store/stormain";
 	}
 	
-	
+	//주소 팝업창
 	@RequestMapping("address.do")
 	public String address() {
 		
