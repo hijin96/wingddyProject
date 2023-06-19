@@ -25,16 +25,23 @@
 		<result column="CHANGE_NAME" property="changeName"/>
 		<result column="FILE_LEVEL" property="fileLevel"/>
 		<result column="FILE_PATH" property="filePath"/>
-	
+		
 	</resultMap>
 	<resultMap type="Cart" id="CartResultSet">
 		<result column="CART_NO" property="cartNo"/>
 		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="SP_NAME" property="spName"/>
 		<result column="SP_NO" property="spNo"/>
+		<result column="SP_PRICE" property="spPrice"/>
 		<result column="BUY_COUNT" property="buyCount"/>
 		<result column="ORDER_YN" property="orderYn"/>
 		<result column="CART_DAY" property="cartDay"/>
 		<result column="ORDER_NO" property="orderNo"/>
+		<result column="TOTPRICE" property="totPrice"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="FILE_LEVEL" property="fileLevel"/>
+		<result column="FILE_PATH" property="filePath"/>
+	
 	</resultMap>
 	<resultMap type="order" id="OrderResultSet">
 		<result column="ORDER_NO" property="orderNo"/>	
@@ -126,7 +133,7 @@
 		
 	</update>
 	<select id="selectStoreBoard"  resultMap="storeResultSet,AttachmentResultSet">
-		        	SELECT 
+		   SELECT 
 				S.SP_NO
 				,S.FILE_NO
 				,S.SP_NAME
@@ -161,7 +168,7 @@
 		,null)
 	
 	</insert>
-	<select id="selectStoreCart"  resultMap="storeResultSet,AttachmentResultSet,CartResultSet">
+	<select id="selectStoreCart"  resultMap="CartResultSet">
 		SELECT
 		  	 CHANGE_NAME
  			 ,FILE_PATH
@@ -172,6 +179,7 @@
 		    ,BUY_COUNT
 		    ,CART_DAY
 		    ,S_CART.MEMBER_NO
+		    ,(SP_PRICE * BUY_COUNT) AS TOTPRICE
 		FROM S_STORE S
 		JOIN S_CART  ON(S_CART.SP_NO = S.SP_NO)
 		JOIN ATTACHMENT ON(ATTACHMENT.FILE_NO= S.FILE_NO)

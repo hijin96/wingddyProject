@@ -89,7 +89,7 @@ public class StoreController {
 		return mv;
 	}
 
-	// 장바구니페이지이동
+	//구매하기 클릭시 -> 장바구니페이지이동
 	@PostMapping("storebuybasket")
 	public String storeCart(Cart cart,Store s,HttpSession session,Model model) {
 		// 장바구니 페이지 들어오면 구매하기 넘어가기 전에 구매번호랑 장바구니 번호 가지고 들어가야함!
@@ -97,23 +97,27 @@ public class StoreController {
 		//장바구니 넘어오면서 담은 모든 장바구니 정보를 가져와야 하는데 그러지 못함->cartNo먼저 insert하고 정보 가져오기 
 		Member m = ((Member) session.getAttribute("loginUser"));
 		cart.setMemberNo(m.getMemberNo());
-		int memberNo=m.getMemberNo();
-
-	
-		if(storeService.insertStoreCart(s,cart) >0) {
-			//장바구니 목록
-			storeService.selectStoreCart(s,cart);
-			model.addAttribute("cart",cart);
-			model.addAttribute("s", s);
-			model.addAttribute("memberNo",memberNo);
-			model.addAttribute("cartsum",s.getSpPrice()*cart.getBuyCount());
-			System.out.println(cart);
-			System.out.println(s);
+		
+		if(storeService.insertStoreCart(cart) >0) {
+			
+			ArrayList<Cart> cartList = storeService.selectStoreCart(m.getMemberNo());
+			
+			
+			model.addAttribute("cartList",cartList);
 			return "store/storecart";
 		}else {
 			model.addAttribute("errorMsg", "구매실패");
 			return "common/errorPage";
 		}
+	}
+	//사이드바에서 장바구니 페이지 바로가기
+	@RequestMapping("cartDirect")
+	public String storeCartDirect(HttpSession session,Model model,Cart cart) {
+		Member m = ((Member) session.getAttribute("loginUser"));
+		cart.setMemberNo(m.getMemberNo());
+		ArrayList<Cart> cartList = storeService.selectStoreCart(m.getMemberNo());
+		model.addAttribute("cartList",cartList);
+		return "store/storecart";
 	}
 
 	// 장바구니 ajax
@@ -123,7 +127,7 @@ public class StoreController {
 		Member m = ((Member) session.getAttribute("loginUser"));
 		cart.setMemberNo(m.getMemberNo());
 		
-		return new Gson().toJson(storeService.insertStoreCart(s,cart));
+		return new Gson().toJson(storeService.insertStoreCart(cart));
 	}
 	// 장바구니 삭제ajax
 	@ResponseBody
@@ -132,7 +136,6 @@ public class StoreController {
 		
 		Member m = ((Member) session.getAttribute("loginUser"));
 		cart.setMemberNo(m.getMemberNo());
-		System.out.println("삭제");
 		return new Gson().toJson(storeService. deleteCart(cart));
 	}
 
@@ -143,53 +146,21 @@ public class StoreController {
 		if(storeService.insertOrderNo(order)>0) {
 			//정보를 다 보내면-> 결제하기 버튼 눌러서 insert하면서 결제 완료하기!
 			
-			//storeService.OrderInformation(order,s);
-			System.out.println(order);
+			//살리기storeService.OrderInformation(order,s); 
 			return "store/storebuy";
 			//storeService.selectOrder()
 		}
 		return "store/stormain";
 	}
 	
-	
-	@RequestMapping
+	//주소 팝업창
+	@RequestMapping("address.do")
 	public String address() {
 		
 		return "store/popupAddress";
 	}
 	
-//	@ResponseBody
-//	@RequestMapping(value = "store/popupAddress", produces = "application/json;charset=UTF-8")
-//    public void getAddrApi(HttpServletRequest request, ModelMap model, HttpServletResponse response) throws Exception {
-//		// 요청변수 설정
-////		String currentPage = request.getParameter("currentPage");    //요청 변수 설정 (현재 페이지. currentPage : n > 0)
-////		String countPerPage = request.getParameter("countPerPage");  //요청 변수 설정 (페이지당 출력 개수. countPerPage 범위 : 0 < n <= 100)
-////		String resultType = request.getParameter("resultType");      //요청 변수 설정 (검색결과형식 설정, json)
-////		String confmKey = request.getParameter("confmKey");          //요청 변수 설정 (승인키)
-////		String keyword = request.getParameter("keyword");            //요청 변수 설정 (키워드)
-//		// OPEN API 호출 URL 정보 설정
-//		String apiUrl = "https://business.juso.go.kr/addrlink/addrLinkApi.do?currentPage="+currentPage+"&countPerPage="+countPerPage+"&keyword="+URLEncoder.encode(keyword,"UTF-8")+"&confmKey="+confmKey+"&resultType="+resultType;
-//		URL url = new URL(apiUrl);
-//    	BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
-//    	StringBuffer sb = new StringBuffer();
-//    	String tempStr = null;
-//
-//    	while(true){
-//    		tempStr = br.readLine();
-//    		if(tempStr == null) break;
-//    		sb.append(tempStr);								// 응답결과 JSON 저장
-//    	}
-//    	br.close();
-//    	response.setCharacterEncoding("UTF-8");
-//		response.setContentType("text/xml");
-//		
-//		response.getWriter().write(sb.toString());			// 응답결과 반환
-//    }
 
-//////////////////////////
-	
-	
-	
 	
 
 	// 위시리스트
@@ -224,18 +195,22 @@ public class StoreController {
 		return mv;
 	}
 
-
+	//게시판 글 등록
 	@RequestMapping("insertstore.do")
 	public String insertStoreBoard(Store s, MultipartFile upfile, HttpSession session, Model model) {
 		// HashMap<String, Object> map = new HashMap<String, Object>();
 		Member m = ((Member) session.getAttribute("loginUser"));
 		Attachment at = new Attachment();
+		//String savePath =  session.getServletContext().getRealPath("/resources/uploadFiles/");
+		String changeName = rename.fileName(upfile, session);
 		at.setOriginName(upfile.getOriginalFilename());
-		at.setChangeName(rename.fileName(upfile, session));
+		at.setChangeName(changeName);
 		at.setFilePath("resources/uploadFiles/");
 		
 		at.setFileNo(s.getFileNo());
 		at.setMemberNo(m.getMemberNo());
+
+		  
 		if (storeService.insertStoreBoard(s, at) > 0) {
 			
 			return "redirect:storemain";
@@ -247,6 +222,8 @@ public class StoreController {
 
 //ATTACHMENT 랑 STORE를 MAP에 담아서 mapper에서 한번에 insert하는것에 어려움 느낌
 	// JSP에 담긴 값들이 Object타입이라 controller에서 받아오는 타입에 어려움 느낌
+
+
 
 	@ResponseBody
 	@PostMapping(value = "/resources/uploadFiles", produces = "application/json;charset=UTF-8" )

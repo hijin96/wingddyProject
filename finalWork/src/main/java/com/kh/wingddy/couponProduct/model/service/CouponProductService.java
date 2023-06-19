@@ -9,7 +9,7 @@ public interface CouponProductService {
 	
 	int selectListCount(int classNo);
 
-	ArrayList<CouponProduct> selectCouponProductList(PageInfo pi, int classNo);
+	ArrayList<CouponProduct> selectCouponProductList(PageInfo pi, CouponProduct cp);
 	
 	int insertCouponProduct(CouponProduct cp);
 	

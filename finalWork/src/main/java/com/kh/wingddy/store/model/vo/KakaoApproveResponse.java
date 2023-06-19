@@ -1,7 +1,10 @@
 package com.kh.wingddy.store.model.vo;
 
-public class KakaoPay {
-	//Request 보내기 
+import lombok.Data;
+
+@Data
+public class KakaoApproveResponse {
+//결제 승인요청
 	private String cid; //가맹점 코드, 10자
 	private String partner_order_id; //가맹점 주문번호, 최대 100자
 	private String partner_user_id;//가맹점 회원 id, 최대 100자
@@ -12,13 +15,13 @@ public class KakaoPay {
 	private String approval_url;// 결제 성공 시 redirect url, 최대 255자
 	private String cancel_url; //결제 취소 시 redirect url, 최대 255자
 	private String fail_url	;// 결제 실패 시 redirect url, 최대 255자
-
-	//Response 응답
-	private String aid;
-	private String tid;
-	private String sid;
 	private String payment_method_type;
+	//Response 응답
+	
+	private String aid;//	요청 고유 번호
+	private String tid;// 결제 고유 번호, 20자
+	private String sid; //정기 결제용 ID, 정기 결제 CID로 단건 결제 요청 시 발급
 	
 	
-
+	
 }

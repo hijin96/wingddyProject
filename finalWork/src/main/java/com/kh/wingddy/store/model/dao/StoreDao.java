@@ -13,6 +13,7 @@ import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.store.model.vo.Cart;
 import com.kh.wingddy.store.model.vo.Order;
 import com.kh.wingddy.store.model.vo.Store;
+
 @Repository
 public class StoreDao {
 
@@ -20,16 +21,18 @@ public class StoreDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("storeMapper.selectListCount");
 	}
+
 	public ArrayList<Store> selectList(SqlSessionTemplate sqlSession, PageInfo pageInfo) {
-		int offset = (pageInfo.getCurrentPage()-1)*pageInfo.getBoardLimit();
-			RowBounds rowBounds = new RowBounds(offset,pageInfo.getBoardLimit());
-		//System.out.println( (ArrayList)sqlSession.selectList("storeMapper.selectList",null, rowBounds));
-		return (ArrayList)sqlSession.selectList("storeMapper.selectList",null, rowBounds);
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getBoardLimit());
+		// System.out.println(
+		// (ArrayList)sqlSession.selectList("storeMapper.selectList",null, rowBounds));
+		return (ArrayList) sqlSession.selectList("storeMapper.selectList", null, rowBounds);
 	}
 
-	public int insertStoreBoard(SqlSessionTemplate sqlSession,Attachment at, Store s) {
-		  if(sqlSession.insert("storeMapper.insertStoreAttachment",at)>0) {
-		return	sqlSession.insert("storeMapper.insertStore",s);
+	public int insertStoreBoard(SqlSessionTemplate sqlSession, Attachment at, Store s) {
+		if (sqlSession.insert("storeMapper.insertStoreAttachment", at) > 0) {
+			return sqlSession.insert("storeMapper.insertStore", s);
 		}
 		return 0;
 	}
@@ -37,36 +40,46 @@ public class StoreDao {
 	public int createFileNo(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("storeMapper.createFileNo");
 	}
+
 	public int inceraseCount(SqlSessionTemplate sqlSession, int spNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("storeMapper.inceraseCount", spNo);
 	}
 
 	public Store selectStoreBoard(SqlSessionTemplate sqlSession, int spNo) {
-		return sqlSession.selectOne("storeMapper.selectStoreBoard", spNo);	
+		return sqlSession.selectOne("storeMapper.selectStoreBoard", spNo);
 	}
-	public int checkStoreCart(SqlSessionTemplate sqlSession,Store s, Cart cart) {
+
+	public int checkStoreCart(SqlSessionTemplate sqlSession, Cart cart) {
 		return sqlSession.selectOne("storeMapper.checkStoreCart", cart);
 	}
-	public int insertStoreCart(SqlSessionTemplate sqlSession, Store s, Cart cart) {
-		return sqlSession.insert("storeMapper.insertStoreCart",cart);
+
+	public int insertStoreCart(SqlSessionTemplate sqlSession, Cart cart) {
+		return sqlSession.insert("storeMapper.insertStoreCart", cart);
 	}
+
 	public int updateStoreCart(SqlSessionTemplate sqlSession, Cart cart) {
-		
-		return sqlSession.update("storeMapper.updateStoreCart",cart);
+
+		return sqlSession.update("storeMapper.updateStoreCart", cart);
 	}
+
 	public int deleteStoreCart(SqlSessionTemplate sqlSession, Cart cart) {
-		
-		return sqlSession.delete("storeMapper.deleteStoreCart",cart);
+
+		return sqlSession.delete("storeMapper.deleteStoreCart", cart);
 	}
-	public ArrayList<Cart> selectStoreCart(SqlSessionTemplate sqlSession, Store s, Cart cart) {
-		return (ArrayList)sqlSession.selectList( "storeMapper.selectStoreCart",cart);
+
+	public ArrayList<Cart> selectStoreCart(SqlSessionTemplate sqlSession, int MemberNo) {
+		ArrayList<Cart> list = (ArrayList)sqlSession.selectList("storeMapper.selectStoreCart", MemberNo);
+		System.out.println("dao result : " + list);
+		return  list;
 	}
-	public int createOrderNo (SqlSessionTemplate sqlSession, Order order) {
-		return	sqlSession.insert("storeMapper.createOrderNo",order);
+
+	public int createOrderNo(SqlSessionTemplate sqlSession, Order order) {
+		return sqlSession.insert("storeMapper.createOrderNo", order);
 	}
+
 	public int OrderInformation(SqlSessionTemplate sqlSession, Order order, Store s) {
-		
-		return sqlSession.update("storeMapper.orderInfomation",order);
+
+		return sqlSession.update("storeMapper.orderInfomation", order);
 	}
 }
