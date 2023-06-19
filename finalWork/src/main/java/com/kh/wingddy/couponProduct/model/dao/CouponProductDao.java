@@ -16,10 +16,10 @@ public class CouponProductDao {
 		return sqlSession.selectOne("coupon-mapper.selectListCount", classNo);
 	}
 	
-	public ArrayList<CouponProduct> selectCouponProductList(SqlSessionTemplate sqlSession, PageInfo pi, int classNo){
+	public ArrayList<CouponProduct> selectCouponProductList(SqlSessionTemplate sqlSession, PageInfo pi, CouponProduct cp){
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowbounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("coupon-mapper.selectCouponProductList", classNo, rowbounds);
+		return (ArrayList)sqlSession.selectList("coupon-mapper.selectCouponProductList", cp, rowbounds);
 	}
 	
 	

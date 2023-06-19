@@ -79,18 +79,22 @@
 			</div>
 			<div id="content-top">
 				<div id="content-top1">
-					<select class="selectric">
-						<option>낮은 가격 순으로 보기</option>
-						<option>높은 가격 순으로 보기</option>
-						<option>남은 수량 적은 순으로 보기</option>
-					</select>
+					<form action="couponStore" method="post" id="submit_option">
+						<select class="selectric" name="orderBy">
+							<option value="coupon_price">낮은 가격 순으로 보기</option>
+							<option value="coupon_price desc">높은 가격 순으로 보기</option>
+							<option value="amount">남은 수량 적은 순으로 보기</option>
+							<input type="hidden" name="cPage" value="${pi.currentPage}"/>
+							<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
+						</select>
+					</form>	
 				</div>
 				<div id="content-top2">
 					<c:if test="${loginUser.memberType eq  'T'}">
-							<form action="enrollForm.cp" method="post">
-								<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
-								<button type="submit" class="btn btn-warning" >상품 등록하기</button>
-							</form>
+						<form action="enrollForm.cp" method="post">
+							<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
+							<button type="submit" class="btn btn-warning" >상품 등록하기</button>
+						</form>
 					</c:if>
 				</div>
 			</div>
@@ -121,8 +125,6 @@
              	
              	
 			</div>
-			
-			
 			<div class="modal fade" id="buyModal">
 					<div class="modal-dialog modal-custom">
 						<div class="modal-content">
@@ -187,7 +189,7 @@
                           		<c:forEach begin="${pi.startPage}" end="${pi.endPage}" var="p">
                           			<c:choose>
                           				<c:when test="${pi.currentPage eq p}">
-		                        			<li class="page-item disabled"><a class="page-link page-number" href="#">${p}</a></li>
+		                        			<li class="page-item active"><a class="page-link">${p}</a></li>
 		                        		</c:when>
 		                        		<c:otherwise>
 		                        			<li class="page-item active"><a class="page-link page-number" href="#">${p}</a></li>
