@@ -23,7 +23,7 @@
 				<h1>과제 리스트</h1>
 				<c:if test="${loginUser.memberType eq 'T'}">
 					<div class="section-header-breadcrumb">
-						<form action="insert.edu" method="POST">
+						<form action="insertForm.edu" method="POST">
 							<input type="hidden" name="cno" value="${ classroom.classNo }"/>
 							<button class="btn btn-primary">과제 등록</button>
 						</form>

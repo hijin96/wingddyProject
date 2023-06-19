@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString(callSuper = true) 
 public class Quiz extends Edu{
 	
-	private int quizNo;//QUIZ_NO	NUMBER
-	private String quizContent;//QUIZ_CONTENT	VARCHAR2(500 BYTE)
-	private String correctContent;//CORRECT_CONTENT	VARCHAR2(500 BYTE)
+	private int quizNo;				//QUIZ_NO	NUMBER
+	private String quizContent;		//QUIZ_CONTENT	VARCHAR2(500 BYTE)
+	private String correctContent;	//CORRECT_CONTENT	VARCHAR2(500 BYTE)
 }
