@@ -22,7 +22,7 @@
 	<!-- Responsive CSS -->
 	<link rel="stylesheet" href="resources/css/responsive.css">
 	<!-- Custom CSS -->
-	<link rel="stylesheet" href="resources/css/custom.css">
+<!-- 	<link rel="stylesheet" href="resources/css/custom.css"> -->
 </head>
 <body>
 	<div id="app">
@@ -56,17 +56,19 @@
 											</div>
 										
 											<div class="mb-3">
+												 <input type="hidden" id="confmKey" name="confmKey" value=""  >
 												<label for="address">주소*</label>
-												<button type="button" onclick="goPopup();">주소검색</button>
-												<br>도로명주소<input type="text" id="roadFullAddr" name="roadFullAddr" /><br>
-												<input type="text" class="form-control" id="roadAddrPart1" placeholder="" name="roadAddrPart1"  required>
 												<div class="invalid-feedback"> 주소를 입력해주세요</div>
+												<button type="button" onclick="goPopup();">주소검색</button>
+												<br><label for="zipNo"> 우편번호 *</label> <input name="zipNo" id="zipNo" class="form-control" type="text" placeholder="우편번호" />
+												<br>도로명주소<br><br>
+												<input type="text" class="form-control" id="roadAddrPart1"  placeholder="도로명주소" name="roadAddrPart1"  required><br>
+												<input type="text" class="form-control" id="roadAddrPart2"  placeholder="" name="roadAddrPart2"  required>
 											</div>
 											<div class="mb-3">
-												<label for="address2">상세주소 2 *</label>
-												<input type="text" class="form-control" id="addrDetail"  name="addrDetail" placeholder=""> </div>
-											
-
+												<label for="addrDetail">상세주소 2 *</label>
+												<input type="text" class="form-control" id="addrDetail"  name="addrDetail" placeholder="고객입력 상세주소"> </div>
+												
 											
 											<div class="row">
 												<div class="col-md-6 mb-3">
@@ -162,6 +164,7 @@
 					</div>
 					<!-- End Cart -->
 					<script>
+					//document.domain =  "http://localhost:8007/wingddy/address.do";
 					 function goPopup(){
 				            var url = "address.do";
 				            var name = "pop";
@@ -171,23 +174,17 @@
 					
 					
 					</script>
-					  <a href = "javascript:popup()" target = "_blank">팝업</a>
+					 
 					<script>
-					/* function goPopup(){
-						// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://business.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-					    var pop = window.open("store/popupAddress","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
-					    
-						// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://business.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-					    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
-					} 
-					/** API 서비스 제공항목 확대 (2017.02) **/
+					
 					function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn
 											, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
 						// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-						document.form.roadAddrPart1.value = roadAddrPart1;
-						document.form.roadAddrPart2.value = roadAddrPart2;
-						document.form.addrDetail.value = addrDetail;
-						document.form.zipNo.value = zipNo;
+						
+						document.getElementById("roadAddrPart1").value = roadAddrPart1;
+						document.getElementById("roadAddrPart2").value = roadAddrPart2;
+						document.getElementById("addrDetail").value = addrDetail;
+						document.getElementById("zipNo").value = zipNo;
 					}
 					
 					</script>
