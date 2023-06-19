@@ -21,7 +21,6 @@ public class RenameFile {
 		String changeName = currentTime + ranNum + ext;
 		
 		String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
-		
 		try {
 			upfile.transferTo(new File(savePath + changeName));
 		} catch (IllegalStateException e) {

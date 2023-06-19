@@ -19,28 +19,22 @@
 	href="${contextPath}/resources/images/apple-touch-icon.png">
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="${contextPath}/resources/css/bootstrap.min.css">
+<%-- <link rel="stylesheet"
+	href="${contextPath}/resources/css/bootstrap.min.css"> --%>
 <!-- Site CSS -->
 <link rel="stylesheet" href="${contextPath}/resources/css/style.css">
 <!-- Responsive CSS -->
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/responsive.css">
-<!-- Custom CSS -->
-<link rel="stylesheet" href="${contextPath}/resources/css/custom.css">
+
 <meta charset="UTF-8">
 <title>스토어 메인페이지</title>
 				<script>
-					const loginUser ="${ empty loginUser or (loginUser.memberType eq ('S'))}";
-					console.log(loginUser);
-					
-					 	if(loginUser == true){
+					var checkLogin =${empty loginUser || (loginUser.memberType eq ('S'))}
+					 	if(checkLogin){
 					 		alert("선생님만 이용할 수 있는 페이지 입니다. 로그인 후 이용해주세요");
 					 		window.location.href='http://localhost:8007/wingddy/';
-					 	};
-					 
-				
-				
+					 	}
 				</script>
 </head>
 <body>
@@ -77,7 +71,7 @@
 													<%-- <input type="hidden" value="${s.spNo }"> --%>
 													<p class="spNo">${s.spNo }</p>
 												</div>
-												<img src="./${s.filePath}${s.changeName}" class="img-fluid"
+												<img src="./${s.filePath}/${s.changeName}" class="img-fluid"
 													alt="Image">
 												<div class="mask-icon">
 													<ul>
