@@ -84,4 +84,19 @@
 	       AND
 	           CLASS_NO = #{classNo}
 	</select>
+	
+	<select id="selectQuizList" resultMap="eduResultSet">
+		SELECT
+			   EDU_NO
+			  ,EDU_NAME
+			  ,QUIZ_NO
+			  ,QUIZ_CONTENT
+			  ,CORRECT_CONTENT
+		  FROM
+		  	   EDUCATION
+		  JOIN
+		  	   QUIZ USING(EDU_NO)
+		 WHERE
+		 	   EDU_NO = #{eduNo}
+	</select>
 </mapper>
