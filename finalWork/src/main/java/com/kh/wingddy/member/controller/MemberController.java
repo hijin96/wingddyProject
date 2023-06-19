@@ -250,4 +250,12 @@ public class MemberController {
 		return memberService.idCheck(memberId);
 	}
 	
+	@ResponseBody
+	@RequestMapping("forgetPwd.me")
+	public String forgetPwdForm(String email) {
+		
+		Member forgetUser = memberService.searchId(email);
+		
+		return (forgetUser.getMemberId() != null) ? "true" : "flase";
+	}
 }

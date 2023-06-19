@@ -335,7 +335,7 @@
                     <li><a href="loginForm.me">로그인</a></li> 
                     <li><a href="#enrollModal" data-toggle="modal">회원가입</a></li> 
                     <li><a href="forgetId.me">아이디 찾기</a></li> 
-                    <li><a href="errorPage.me">비밀번호 찾기</a></li> 
+                    <li><a href="#forgetPwd" data-toggle="modal">비밀번호 찾기</a></li> 
                   </ul>
                 </li>
               </c:otherwise>
@@ -369,6 +369,37 @@
     </div>
   </div>
 
+  <div id="forgetPwd" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">비밀번호 찾기 모달창</h5>
+            </div>
+            <!-- 클래스 뽑기 횟수 부여 -->
+                <div class="modal-body">
+                    <div class="form-group" id="">
+                        <label>이메일 입력</label>
+                        <div>
+                          <input type="text" name="frontEmail" id="frontEmail">
+                        </div>
+                    </div>
+                    <div class="form-group" id="" >
+                      <label for="emailBack">Select Email</label>
+                      <select class="form-control selectric" id="backEmail">
+                          <option selected>@wingddy.com</option>
+                          <option>@naver.com</option>
+                          <option>@gmail.com</option>
+                          <option>@daum.net</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="forgetPwdBtn">인증코드 받~기</button>
+                </div>
+        </div>
+    </div>
+</div>
+
   <c:if test="${ not empty alertMsg }">
 		<script>
 			alert('${alertMsg}');
@@ -393,7 +424,32 @@
     <c:remove var="cno" scope="request" />
   </c:if>
 
+  <script>
+    $(function(){
 
+
+      $('#forgetPwdBtn').click(function(){
+        $.ajax({
+          url : 'forgetPwd.me',
+          type : 'POST',
+          data : {
+            email : $('#frontEmail').val() + $('#backEmail option:selected').val()
+          },
+          success : function(result){
+            if(result == 'true'){
+              console.log('있어');
+            }
+            else{
+              alert('조회결과 없는 이메일 입니다!!!!!!!!!!!!!!!!!!!!!!!!!!');
+            }
+          },
+          error : function(){
+            console.log('asd');
+          }
+        });
+      })
+    })
+  </script>
   
   
 
