@@ -68,7 +68,7 @@
 											<tr>
 												<th class="p-0 text-center">
 													<div class="form-check">
-														<input type="checkbox" id="test" class="form-check-input" id="receivedCheckbox-all" onclick="test(this)">
+														<input type="checkbox" class="form-check-input" id="receivedCheckboxAll" onClick="receivedCheckboxAll();">
 													</div>
 												</th>
 												<th>From</th>
@@ -134,7 +134,7 @@
 								<div class="col-12">
 								  <div class="card">
 									<div class="card-header">
-									  <h4>받은 쪽지</h4>
+									  <h4>보낸 쪽지</h4>
 									  <div class="card-header-form">
 										<form>
 										  <div class="input-group">
@@ -148,70 +148,8 @@
 									</div>
 									<div class="card-body p-0">
 									  <div class="table-responsive">
-										<table class="table table-striped">
-											<tr>
-												<td colspan="5">
-													<button class="btn btn-primary">삭제123</button>
-												</td>
-											</tr>
-											<tr>
-												<th class="p-0 text-center">
-												<div class="form-check">
-													<input type="checkbox" data-checkboxes="mygroup2" data-checkbox-role="dad" class="form-check-input" id="checkbox-all">
-												</div>
-												</th>
-												<th>From</th>
-												<th>Detail</th>
-												<th>Date</th>
-												<th>Status</th>
-											</tr>
-										</table>
+										<table class="table table-striped text-center" id="sentLetterArea">
 
-										<table class="table table-striped">	
-											<tr>
-												<td class="p-0 text-center">
-													<div class="form-check">
-														<input type="checkbox" data-checkboxes="mygroup2" class="form-check-input" id="checkbox-1">
-													</div>
-												</td>
-												<td>
-													<img alt="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG-vsvOvF2g5-8PhbDK8pbcX8neO2lWMTm0MZYt7tHmw&s" class="rounded-circle" width="35" data-toggle="tooltip" title="Wildan Ahdian">
-													김길동123
-												</td>
-												<td>내용sfsdfsdfsdfsdfsf!</td>
-												<td>2018-01-20</td>
-												<td><div class="badge badge-info">확인완료</div></td>
-											</tr>
-											<tr>
-												<td class="p-0 text-center">
-													<div class="form-check">
-														<input type="checkbox" data-checkboxes="mygroup2" class="form-check-input" id="checkbox-1">
-													</div>
-												</td>
-												<td>
-													<img alt="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG-vsvOvF2g5-8PhbDK8pbcX8neO2lWMTm0MZYt7tHmw&s" class="rounded-circle" width="35" data-toggle="tooltip" title="Wildan Ahdian">
-													김길동
-												</td>
-												<td>내용sfsdfsdfsdfsdfsf!</td>
-												<td>2018-01-20</td>
-												<td><div class="badge badge-info">확인완료</div></td>
-											</tr>
-											<tr>
-												<td class="p-0 text-center">
-													<div class="form-check">
-														<input type="checkbox" data-checkboxes="mygroup2" class="form-check-input" id="checkbox-1">
-													</div>
-												</td>
-												<td>
-													<img alt="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG-vsvOvF2g5-8PhbDK8pbcX8neO2lWMTm0MZYt7tHmw&s" class="rounded-circle" width="35" data-toggle="tooltip" title="Wildan Ahdian">
-													김길동
-												</td>
-												<td>내용sfsdfsdfsdfsdfsf!</td>
-												<td>2018-01-20</td>
-												<td><div class="badge badge-info">확인완료</div></td>
-											</tr>
-											
-											
 										</table>
 
 										<div class="card-footer text-center">
@@ -243,31 +181,6 @@
 
 	<script>
 
-		function test(btn){
-			console.log(btn);
-		}
-
-
-		
-		$('#receivedCheckbox-all').click(function(){
-			console.log('fsjhdfldskjfl')
-			console.log($(this).is(':checked'));
-		})
-
-
-
-		
-		/*
-		$(document).on('click', '#receivedCheckbox-all', function(){
-
-			console.log('fsjhdfldskjfl')
-			console.log($(this).is(':checked'));
-
-		});
-		*/AnimationEffect
-
-	
-
 		var currentPage = 1;
 
 
@@ -275,6 +188,34 @@
 			receivedPaging(currentPage);
 			sentPaging(currentPage);
 		})
+
+		
+		function receivedCheckboxAll(){
+			if($('#receivedCheckboxAll').is(":checked")){
+				$('.receivedCheckbox').prop("checked", true);
+			}
+			else{
+				$('.receivedCheckbox').prop("checked", false);
+			}
+		}
+
+
+		$(document).on('click', '.receivedCheckbox', function(){
+
+			var total = $(".receivedCheckbox").length;
+			var checkNum = $(".receivedCheckbox:checked").length;
+
+			if(total == checkNum){
+				$('#receivedCheckboxAll').prop("checked", true);
+			}
+			else{
+				$('#receivedCheckboxAll').prop("checked", false);
+			}
+			
+			
+		})
+
+
 
 
 		function receivedPaging(currentPage){
@@ -287,7 +228,7 @@
 					recipient : '${sessionScope.loginUser.memberNo}'
 				},
 				success : function(list){
-					console.log('받은 쪽지 페이징 버튼')
+					console.log("received페이징");
 					console.log(list);
 
 
@@ -340,15 +281,18 @@
 				},
 				success : function(list){
 
+					console.log('rec');
+					console.log(list);
+
 					var value = '<tr align="left"><td colspan="5"><button class="btn btn-primary">삭제</button></td></tr>'
 							  + '<tr><th class="p-0 text-center"><div class="form-check">'
-							  + '<input type="checkbox" id="test" data-checkboxes="mygroup" data-checkbox-role="dad" class="form-check-input" id="checkbox-all"></div></th>'
+							  + '<input type="checkbox" class="form-check-input" id="receivedCheckboxAll" onClick="receivedCheckboxAll();"></div></th>'
 							  + '<th>From</th><th>Detail</th><th>Date</th><th>Status</th></tr>';
 
 
 					for(let i in list){
 						value += '<tr><td class="p-0 text-center"><div class="form-check">'
-							   + '<input type="checkbox" data-checkboxes="mygroup" class="form-check-input">'
+							   + '<input type="checkbox" class="form-check-input receivedCheckbox">'
 							   + '<input type="hidden" value="' + list[i].letterNo +'"></div></td>';
 
 
@@ -370,7 +314,7 @@
 						}
 					}
 
-					//$('#receivedLetterArea').html(value);
+					$('#receivedLetterArea').html(value);
 
 				}
 			})
@@ -389,9 +333,43 @@
 				},
 				success : function(list){
 
+					//console.log("sent페이징");
+					//console.log(list);
 
-					console.log(list);
+					let btnValue = '';
 
+					if(currentPage > 1){
+					btnValue += '<li class="page-item">'
+							  + '<a class="page-link preBtn" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>'
+						      + '</li>';
+					}
+			
+			
+					for(var i = list.startPage; i <= list.endPage; i++){
+						if(i == list.currentPage){
+							btnValue += '<li class="page-item active">'
+									  + '<a class="page-link pagingBtn" href="#" >' + i + '<span class="sr-only">(current)</span></a>'
+									  +'</li>';
+						}	   
+						else{
+							btnValue += '<li class="page-item">'
+									+ '<a class="page-link pagingBtn" href="#">'+ i +'</a>'
+									+ '</li>';
+						}
+					}
+				
+			
+					if(currentPage < list.maxPage){
+						btnValue += '<li class="page-item">'
+								+ '<a class="page-link nextBtn " href="#"><i class="fas fa-chevron-right"></i></a>'
+								+ '</li>';
+					}
+
+
+
+					
+					
+					$('#sentPagingArea').html(btnValue);
 					sentLetter(currentPage);
 
 				}
@@ -410,7 +388,43 @@
 				},
 				success : function(list){
 
+					console.log('sent');
 					console.log(list);
+					
+
+					var value = '<tr align="left"><td colspan="5"><button class="btn btn-primary">삭제</button></td></tr>'
+							  + '<tr><th class="p-0 text-center"><div class="form-check">'
+							  + '<input type="checkbox" class="form-check-input" id="sentCheckboxAll" onClick="sentCheckboxAll();"></div></th>'
+							  + '<th>To</th><th>Detail</th><th>Date</th><th>Status</th></tr>';
+
+
+					for(let i in list){
+						value += '<tr><td class="p-0 text-center"><div class="form-check">'
+							   + '<input type="checkbox" class="form-check-input sentCheckbox">'
+							   + '<input type="hidden" value="' + list[i].letterNo +'"></div></td>';
+
+
+						if(list[i].toManitto == 'Y'){
+							value += '<td>'+ '<b>Manitto</b>' +'</td>';
+						}
+						else{
+							value += '<td>'+ list[i].recipient +'</td>';
+						}
+
+						value += '<td>' + list[i].letterContent + '</td>'
+							   + '<td>' + list[i].sendDate +'</td>';
+
+						if(list[i].readCheck == 'Y'){
+							value += '<td><div class="badge badge-info">확인완료</div></td></tr>'
+						}
+						else{
+							value += '<td><div class="badge badge-info"></div></td></tr>'
+						}
+					}
+
+					$('#sentLetterArea').html(value);
+
+					//console.log(list);
 				}
 			})
 		}

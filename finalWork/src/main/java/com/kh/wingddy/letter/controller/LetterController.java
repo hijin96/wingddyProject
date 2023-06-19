@@ -29,6 +29,7 @@ public class LetterController {
 	@ResponseBody
 	@RequestMapping(value="receivedPaging.le", produces="application/json; charset=UTF-8")
 	public String ajaxReceivedPaging(Letter letter, int rPage) {
+
 	
 		PageInfo pi = Pageination.getPageInfo(letterService.receviedCount(letter), rPage, 5, 5); 
 
@@ -41,6 +42,8 @@ public class LetterController {
 	@RequestMapping(value="recevied.le",  produces="application/json; charset=UTF-8")
 	public String ajaxReceivedLetter(Letter letter, int rPage) {
 		
+		
+		
 		PageInfo pi = Pageination.getPageInfo(letterService.receviedCount(letter), rPage, 5, 5); 
 		
 		
@@ -52,8 +55,10 @@ public class LetterController {
 	@ResponseBody
 	@RequestMapping(value="sentPaging.le", produces="application/json; charset=UTF-8")
 	public String ajaxSentPaging(Letter letter, int rPage) {
+		
+
 	
-		PageInfo pi = Pageination.getPageInfo(letterService.receviedCount(letter), rPage, 5, 5); 
+		PageInfo pi = Pageination.getPageInfo(letterService.sentCount(letter), rPage, 5, 5); 
 
 		return new Gson().toJson(pi);
 	}
@@ -62,6 +67,7 @@ public class LetterController {
 	@ResponseBody
 	@RequestMapping(value="sent.le", produces="application/json; charset=UTF-8")
 	public String ajaxSentLetter(Letter letter, int rPage) {
+		
 		
 		PageInfo pi = Pageination.getPageInfo(letterService.sentCount(letter), rPage, 5, 5); 
 		
