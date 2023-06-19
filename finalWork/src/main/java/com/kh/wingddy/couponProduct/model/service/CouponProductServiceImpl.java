@@ -25,8 +25,8 @@ public class CouponProductServiceImpl implements CouponProductService {
 	}
 
 	@Override
-	public ArrayList<CouponProduct> selectCouponProductList(PageInfo pi, int classNo) {
-		return cpDao.selectCouponProductList(sqlSession, pi, classNo);
+	public ArrayList<CouponProduct> selectCouponProductList(PageInfo pi, CouponProduct cp) {
+		return cpDao.selectCouponProductList(sqlSession, pi, cp);
 	}
 	
 	@Override
