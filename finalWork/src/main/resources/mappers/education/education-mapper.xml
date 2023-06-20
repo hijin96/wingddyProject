@@ -99,4 +99,15 @@
 		 WHERE
 		 	   EDU_NO = #{eduNo}
 	</select>
+	
+	<update id="updateEndTime">
+		UPDATE
+			   EDUCATION
+		   SET
+		   	   END_TIME = SYSDATE
+		 WHERE
+		 	   EDU_NO = #{eduNo}
+	</update>
+	
+	
 </mapper>

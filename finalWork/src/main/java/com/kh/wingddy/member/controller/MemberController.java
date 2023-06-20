@@ -65,6 +65,7 @@ public class MemberController {
 			mv.setViewName("common/loginForm");
 		}
 		return mv;
+		
 	}
 	  
 	@RequestMapping("loginForm.me")
@@ -250,4 +251,20 @@ public class MemberController {
 		return memberService.idCheck(memberId);
 	}
 	
+	@ResponseBody
+	@RequestMapping("forgetPwd.me")
+	public ModelAndView forgetPwdForm(String email, ModelAndView mv) {
+		
+		Member forgetUser = memberService.searchId(email);
+		
+		if(forgetUser.getMemberId() != null) {
+			mv.addObject("forgetUser", forgetUser);
+			mv.setViewName("member/certCode");
+		} else {
+			mv.setViewName("sideBar/sideBar");
+		}
+		
+		
+		return mv;
+	}
 }

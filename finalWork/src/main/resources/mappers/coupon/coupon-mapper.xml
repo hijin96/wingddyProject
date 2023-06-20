@@ -9,7 +9,7 @@
 		 where class_no = #{classNo}
 	</select>
 	
-	<select id="selectCouponProductList" parameterType="_int" resultType="couponProduct" >
+	<select id="selectCouponProductList" parameterType="couponProduct" resultType="couponProduct" >
 		select 
 		       product_no pNo
 		      ,cart_no cartNo
@@ -24,5 +24,9 @@
 		       vw_cp
 		 where 
 		       class_no = #{classNo}
+		 order by (case when #{orderBy} = 'coupon_price' then coupon_price asc
+		 				when #{orderBy} = 'coupon_price desc then coupon_price desc
+		 				when #{orderBy} = 'amount' then amount end)
+
 	</select>
 </mapper>

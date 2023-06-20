@@ -181,6 +181,11 @@
 					
 					)
 					
+					//체크박스 개별로 전체 선택
+					var CheckBoxAllCheck = document.getElementsByName('buyCheckBox').length;
+					//전체선택을 클릭했을때
+					//체크박스 개별로 전체 선택했을 때
+					//전체선택 체크박스를 해제할 때
 					
 				</script>
 				
