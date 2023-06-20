@@ -369,7 +369,7 @@
     </div>
   </div>
 
-  <c:if test="${ not empty alertMsg }">
+  	<c:if test="${ not empty alertMsg }">
 		<script>
 			alert('${alertMsg}');
 		</script>
@@ -402,7 +402,7 @@
     <script>
       window.onload(movePage());
       
-      function movePage (){
+      function moveToLetterBox (){
         document.getElementById('moveToLetterBox').submit();
       }
     </script>
@@ -417,7 +417,7 @@
     <script>
       window.onload(movePage());
       
-      function movePage (){
+      function moveToWrtiersDetail (){
         document.getElementById('moveToWrtiersDetail').submit();
       }
     </script>
