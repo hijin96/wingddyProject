@@ -22,7 +22,7 @@ public class EducationServiceImpl implements EducationService {
 
 	@Override
 	public int updateEndTime(int eduNo) {
-		return 0;
+		return eduMapper.updateEndTime(eduNo);
 	}
 
 	@Override
