@@ -15,6 +15,9 @@
 	<result column="TO_MANITTO" 		 property="toManitto" />
 	<result column="GIFT"				 property="gift" />
 	<result column="READ_CHECK" 		 property="readCheck" />
+	
+	<result column="MEMBER_NO" 		 property="memberNo" />
+	
 </resultMap>
 
 
@@ -43,7 +46,7 @@ SELECT LETTER_NO, MEMBER_ID||'('||MEMBER_NAME||')' AS "SENDER", SUBSTR(LETTER_CO
   JOIN MEMBER USING ON (SENDER = MEMBER_NO)
  WHERE CLASS_NO = #{classNo}
    AND RECIPIENT = #{recipient}
- ORDER BY SEND_DATE DESC
+ ORDER BY LETTER_NO DESC
 </select>
 
 <select id="ajaxSentLetter" parameterType="letter" resultMap="letterResultSet">
@@ -52,10 +55,39 @@ SELECT LETTER_NO, MEMBER_ID||'('||MEMBER_NAME||')' AS "SENDER", SUBSTR(LETTER_CO
    JOIN MEMBER USING ON (RECIPIENT = MEMBER_NO)
   WHERE CLASS_NO = #{classNo}
     AND SENDER = #{sender}
-  ORDER BY SEND_DATE DESC
+  ORDER BY LETTER_NO DESC
 </select>
 
 
+<select id="selectRecipient" resultMap="letterResultSet">
+SELECT MEMBER_ID||'('||MEMBER_NAME||')' as "RECIPIENT", MEMBER_NO
+  FROM CLASS_MEMBER
+  JOIN MEMBER ON(STUDENT_NO = MEMBER_NO)
+ WHERE CLASS_NO = #{cno}
+   AND ENTER_STATUS = 'Y'
+</select>
+
+
+<select id="selectMymanitto" parameterType="letter" resultType="Integer">
+SELECT MANITTO
+  FROM MANITTO
+ WHERE CLASS_NO = #{classNo}
+   AND MANITTI = #{sender}
+</select>
+
+
+<select id="selectMymanitti" parameterType="letter" resultType="Integer">
+SELECT MANITTI
+  FROM MANITTO
+ WHERE CLASS_NO =  #{classNo}
+   AND MANITTO = #{sender}
+</select>
+
+
+<insert id="insertLetter" parameterType="letter">
+INSERT INTO LETTER(LETTER_NO, CLASS_NO, SENDER, RECIPIENT, LETTER_CONTENT, SEND_DATE, ANONYMOUS, TO_MANITTO, GIFT, READ_CHECK)
+VALUES(SEQ_LETTER_NO.NEXTVAL, #{classNo}, #{sender}, #{recipient}, #{letterContent}, default, #{anonymous, jdbcType=VARCHAR}, #{toManitto, jdbcType=VARCHAR}, #{gift, jdbcType=VARCHAR}, default)
+</insert>
 
 
 

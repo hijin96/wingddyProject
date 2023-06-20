@@ -80,6 +80,9 @@
 
 </div>
 
+<form action="detail.aph" method="post" id="moveToDetail">
+	<input type="hidden" name="bno" id="marketBno">
+</form>
 
 
 
@@ -125,12 +128,14 @@
 		});
 
 
+
 		$(document).on('click', '.boardDetail', function(){
 
+			let bno = $(this).find('input[type="hidden"]').val();
 
-			//goPost($(this).find('input[type="hidden"]').val());
+			$('#marketBno').val(bno)
 
-			window.location.href="detail.aph?bno="+ $(this).find('input[type="hidden"]').val();
+			$('#moveToDetail').submit();
 
 		});
 

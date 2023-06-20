@@ -1,6 +1,7 @@
 package com.kh.wingddy.letter.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +46,26 @@ public class LetterServiceImpl implements LetterService{
 		return letterDao.ajaxSentLetter(sqlSession, letter, pi);
 	}
 
+	@Override
+	public ArrayList<Letter> selectRecipient(int cno) {
+		return letterDao.selectRecipient(sqlSession, cno);
+	
+	}
+
+	@Override
+	public Integer selectMymanitto(Letter letter) {
+		return letterDao.selectMymanitto(sqlSession, letter);
+	}
+
+	@Override
+	public Integer selectMymanitti(Letter letter) {
+		return letterDao.selectMymanitti(sqlSession, letter);
+	}
+
+	
+	@Override
+	public int insertLetter(Letter letter) {
+		return letterDao.insertLetter(sqlSession, letter);
+	}
 	
 }
