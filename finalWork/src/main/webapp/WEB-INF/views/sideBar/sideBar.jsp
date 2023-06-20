@@ -426,14 +426,13 @@
     <c:remove var="alphabetCno" scope="request" />
   </c:if>
   
-   <c:if test="${ not empty letterCno }">
+  <c:if test="${ not empty letterCno }">
     <form action="letterBox" method="post" id="moveToLetterBox">
       <input type="hidden" name="cno" value="${requestScope.letterCno}">
-      <input type="hidden" name="mno" value="${sessionScope.loginUser.memberNo}">
     </form>
     
     <script>
-      window.onload(movePage());
+      window.onload(moveToLetterBox());
       
       function moveToLetterBox (){
         document.getElementById('moveToLetterBox').submit();
@@ -442,13 +441,13 @@
     <c:remove var="letterCno" scope="request" />
   </c:if>
 
-   <c:if test="${ not empty alphabetBno }">
+  <c:if test="${ not empty alphabetBno }">
     <form action="detail.aph" method="post" id="moveToWrtiersDetail">
       <input type="hidden" name="bno" value="${requestScope.alphabetBno}">
     </form>
     
     <script>
-      window.onload(movePage());
+      window.onload(moveToWrtiersDetail());
       
       function moveToWrtiersDetail (){
         document.getElementById('moveToWrtiersDetail').submit();

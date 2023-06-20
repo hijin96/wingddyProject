@@ -82,7 +82,6 @@
 
 <form action="detail.aph" method="post" id="moveToDetail">
 	<input type="hidden" name="bno" id="marketBno">
-
 </form>
 
 
@@ -134,7 +133,7 @@
 
 			let bno = $(this).find('input[type="hidden"]').val();
 
-			$('#markeyBno').val(bno)
+			$('#marketBno').val(bno)
 
 			$('#moveToDetail').submit();
 
