@@ -1,6 +1,7 @@
 package com.kh.wingddy.member.model.service;
 
 import com.kh.wingddy.common.model.vo.Attachment;
+import com.kh.wingddy.member.model.vo.Cert;
 import com.kh.wingddy.member.model.vo.Member;
 
 public interface MemberService {
@@ -28,7 +29,7 @@ public interface MemberService {
 	 
 	// 회원 비밀번호 찾기 (이메일 인증) select -> update(비밀번호 재설정)
 	// 이메일 인증 성공시 비밀번호 변경을 위한 form제공 이후 변경된 비밀번호 암호화해 DB저장
-	
+	public int insertCert(Cert cert);
 	// 회원 정보 수정(이메일인증) (update member, attachment)
 	// memberType = W 인 멤버한에서 프로필사진, 비밀번호수정, 이름, 전화번호, 이메일인증시  
 	

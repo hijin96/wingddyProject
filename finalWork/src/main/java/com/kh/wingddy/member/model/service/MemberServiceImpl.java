@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.member.model.dao.MemberDao;
+import com.kh.wingddy.member.model.vo.Cert;
 import com.kh.wingddy.member.model.vo.Member;
 
 @Service
@@ -70,6 +71,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int idCheck(String memberId) {
 		return memberDao.idCheck(sqlSession, memberId);
+	}
+
+	@Override
+	public int insertCert(Cert cert) {
+		return memberDao.insertCert(sqlSession, cert);
 	}
 	
 }
