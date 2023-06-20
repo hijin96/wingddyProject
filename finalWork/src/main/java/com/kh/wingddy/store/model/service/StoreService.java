@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.store.model.vo.Cart;
+import com.kh.wingddy.store.model.vo.KakaopayReadyResponse;
 import com.kh.wingddy.store.model.vo.Order;
 import com.kh.wingddy.store.model.vo.Store;
 
@@ -48,7 +49,9 @@ public interface StoreService {
 	
 	//위시리스트 목록보기
 	//결제(insert)
+	KakaopayReadyResponse kakaoPayReady();
 	
+	KakaopayReadyResponse approveResponse();
 	
 	
 

@@ -315,8 +315,7 @@
 					});
 				</script>
 	            
-	            
-            </c:if>
+      </c:if>
             <c:choose>
               <c:when test="${not empty loginUser}">
                 <li class="menu-header">PROFILE</li>
@@ -369,6 +368,8 @@
     </div>
   </div>
 
+  	<c:if test="${ not empty alertMsg }">
+
   <div id="forgetPwd" class="modal fade" role="dialog">
     <div class="modal-dialog modal-md modal-dialog-centered">
         <div class="modal-content">
@@ -399,6 +400,7 @@
         </div>
     </div>
 </div>
+</c:if>
 
   <c:if test="${ not empty alertMsg }">
 		<script>
@@ -408,9 +410,9 @@
 	</c:if>
 
 
-  <c:if test="${ not empty cno }">
+  <c:if test="${ not empty alphabetCno }">
     <form action="makeWords.aph" method="post" id="moveToinsertWords">
-      <input type="hidden" name="cno" value="${requestScope.cno}">
+      <input type="hidden" name="cno" value="${requestScope.alphabetCno}">
       <input type="hidden" name="mno" value="${sessionScope.loginUser.memberNo}">
     </form>
     
@@ -421,8 +423,39 @@
         document.getElementById('moveToinsertWords').submit();
       }
     </script>
-    <c:remove var="cno" scope="request" />
+    <c:remove var="alphabetCno" scope="request" />
   </c:if>
+  
+  <c:if test="${ not empty letterCno }">
+    <form action="letterBox" method="post" id="moveToLetterBox">
+      <input type="hidden" name="cno" value="${requestScope.letterCno}">
+    </form>
+    
+    <script>
+      window.onload(moveToLetterBox());
+      
+      function moveToLetterBox (){
+        document.getElementById('moveToLetterBox').submit();
+      }
+    </script>
+    <c:remove var="letterCno" scope="request" />
+  </c:if>
+
+  <c:if test="${ not empty alphabetBno }">
+    <form action="detail.aph" method="post" id="moveToWrtiersDetail">
+      <input type="hidden" name="bno" value="${requestScope.alphabetBno}">
+    </form>
+    
+    <script>
+      window.onload(moveToWrtiersDetail());
+      
+      function moveToWrtiersDetail (){
+        document.getElementById('moveToWrtiersDetail').submit();
+      }
+    </script>
+    <c:remove var="alphabetBno" scope="request" />
+  </c:if>
+
 
   <script>
     $(function(){
@@ -434,7 +467,13 @@
             email : $('#frontEmail').val() + $('#backEmail option:selected').val()
           },
           success : function(result){
-            console.log(result);
+            if(result === 'exist'){
+              alert('인증번호 보내드립니다!ㅋ');
+              location.href = 'checkCert.me';
+            }
+            else {
+              alert('가입되어있지 않은 이메일입니다!');
+            }
           },
           error : function(){
             console.log('asd');

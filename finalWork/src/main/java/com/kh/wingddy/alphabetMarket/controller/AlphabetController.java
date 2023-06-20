@@ -37,7 +37,6 @@ public class AlphabetController {
 	@RequestMapping("main.aph")
 	public String main(HttpServletResponse response) {
 
-		
 		return "alphabetMarket/alphabetMarketMain";
 
 	}
@@ -131,15 +130,18 @@ public class AlphabetController {
 	
 	// 마켓 글 등록!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 	@RequestMapping("post.aph")
-	public void insertMarket(AlphabetMarket am, Model model, HttpSession session) {
+	public String insertMarket(AlphabetMarket am, Model model, HttpSession session) {
 		
 		
 		
 		if(AlphabetService.insertMarket(am) == 1) {
-			marketDetail(AlphabetService.writerLastMarket(am), model, session);// 해당 글 상세보기로 되돌려주긴
-
+			
+			model.addAttribute("alphabetBno", AlphabetService.writerLastMarket(am)); // 해당 글 상세보기로 되돌려주긴
+			
+			
 		}
 		
+		return "sideBar/sideBar";
 	}
 	
 	
@@ -240,7 +242,7 @@ public class AlphabetController {
 			session.setAttribute("alertMsg", "에러 발생! 다시 시도해 보세요!");
 		}
 		
-		request.setAttribute("cno", wd.getClassNo());
+		request.setAttribute("alphabetCno", wd.getClassNo());
 		
 		
 		return "sideBar/sideBar";
