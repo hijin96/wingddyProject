@@ -253,18 +253,11 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping("forgetPwd.me")
-	public ModelAndView forgetPwdForm(String email, ModelAndView mv) {
+	public String forgetPwdForm(String email) {
 		
-		Member forgetUser = memberService.searchId(email);
-		
-		if(forgetUser.getMemberId() != null) {
-			mv.addObject("forgetUser", forgetUser);
-			mv.setViewName("member/certCode");
-		} else {
-			mv.setViewName("sideBar/sideBar");
-		}
-		
-		
-		return mv;
+		return memberService.searchId(email) != null ?  "exist" : "notExist";
 	}
+	
+	@RequestMapping("certEmail.me")
+	
 }
