@@ -37,5 +37,7 @@ public interface VocaMapper {
 
 	public ArrayList<Voca> searchVoca(String text);
 
+	public int checkClassBook(ClassVocaBook cv);
+
 	
 }
