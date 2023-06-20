@@ -20,7 +20,7 @@
 	<div class="main-content">
 		<section class="section">
 	        <div class="section-header">
-				<h1>과제 리스트</h1>
+				<h1>${classroom.className} 과제 리스트</h1>
 				<c:if test="${loginUser.memberType eq 'T'}">
 					<div class="section-header-breadcrumb">
 						<form action="insertForm.edu" method="POST">

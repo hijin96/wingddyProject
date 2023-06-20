@@ -16,8 +16,9 @@
 		border: 0px !important;
 	}
 
-	table tr:hover{
+	.letterDetailView:hover{
 		cursor: pointer;
+		background-color: rgb(240, 240, 240) !important;
 	}
 
 </style>
@@ -139,9 +140,9 @@
 	    </div>
 </div>
 <form action="detail.le" method="post" id="moveToLetterDatail">
-<input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
-<input type="hidden" name="letterNo" >
-<input type="hidden" name="memberNo" value="${sessionScope.loginUser.memberNo}">
+	<input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
+	<input type="hidden" name="letterNo">
+	<input type="hidden" name="memberNo" value="${sessionScope.loginUser.memberNo}">
 </form>
 
 
@@ -331,14 +332,14 @@
 					//console.log('rec');
 					//console.log(list);
 
-					var value = '<tr align="left"><td colspan="5"><button class="btn btn-primary">삭제</button></td></tr>'
+					var value = '<tr align="left"><td colspan="5"><button class="btn btn-primary" id="deleteLetter">삭제</button></td></tr>'
 							  + '<tr><th class="p-0 text-center"><div class="form-check">'
 							  + '<input type="checkbox" class="form-check-input" id="receivedCheckboxAll" onClick="receivedCheckboxAll();"></div></th>'
 							  + '<th>From</th><th>Detail</th><th>Date</th><th>Status</th></tr>';
 
 
 					for(let i in list){
-						value += '<tr><td class="p-0 text-center"><div class="form-check">'
+						value += '<tr class="letterDetailView"><td class="p-0 text-center"><div class="form-check">'
 							   + '<input type="checkbox" class="form-check-input receivedCheckbox">'
 							   + '<input type="hidden" value="' + list[i].letterNo +'"></div></td>';
 
@@ -442,14 +443,14 @@
 					//console.log(list);
 					
 
-					var value = '<tr align="left"><td colspan="5"><button class="btn btn-primary">삭제</button></td></tr>'
+					var value = '<tr align="left"><td colspan="5"><button class="btn btn-primary" id="deleteLetter">삭제</button></td></tr>'
 							  + '<tr><th class="p-0 text-center"><div class="form-check">'
 							  + '<input type="checkbox" class="form-check-input" id="sentCheckboxAll" onClick="sentCheckboxAll();"></div></th>'
 							  + '<th>To</th><th>Detail</th><th>Date</th><th>Status</th></tr>';
 
 
 					for(let i in list){
-						value += '<tr><td class="p-0 text-center"><div class="form-check">'
+						value += '<tr class="letterDetailView"><td class="p-0 text-center"><div class="form-check">'
 							   + '<input type="checkbox" class="form-check-input sentCheckbox">'
 							   + '<input type="hidden" value="' + list[i].letterNo +'"></div></td>';
 
@@ -487,7 +488,7 @@
 
 
 
-		$(document).on('click', 'table tr', function(){
+		$(document).on('click', '.letterDetailView', function(){
 
 			let lno = $(this).find('input[type="hidden"]').val();
 
@@ -495,6 +496,18 @@
 	
 			$("#moveToLetterDatail").submit();
 		});
+
+
+		$(document).on('click', '#deleteLetter', function(){
+	
+			console.log('123');
+			
+
+			//console.log($(this).find('input[type="checkbox"]').is(":checked"));
+			
+		})
+
+		
 	</script>
 
 

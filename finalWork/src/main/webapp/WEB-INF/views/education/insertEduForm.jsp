@@ -13,22 +13,27 @@
 		<div class="row">
 			<div class="col-12 col-md-6 col-lg-6">
 				<div class="card">
-					<form action="insert.edu" method="POST">
+					<form action="insert.edu" method="POST" id="insertEduForm">
 						<div class="card-header">
 							<h2>학습 등록</h2>
 						</div>
 						<div class="card-body">
 							<div class="form-group">
 								<label>학습 이름</label>
-								<input type="text" class="form-control" required>
+								<input type="text" class="form-control" name="eduName" required>
 							</div>
 							<div class="form-group">
 								<label>마감일</label>
-								<input type="date" class="form-control" required>
+								<input type="date" class="form-control" name="endTime" required>
 							</div>
 							<div class="form-group">
 								<label>부여할 뽑기 횟수</label>
-								<input type="number" class="form-control" value="0" min="0">
+								<input type="number" class="form-control" value="0" min="0" name="gachaCount">
+							</div>
+							<div class="form-group">
+								<input type="hidden" name="cno" value="${classroom.classNo}"/>
+								<input type="hidden" name="eduType"/>
+								<input type="hidden" name="content"/>
 							</div>
 							<div class="form-group">
 								<label>유형</label>
@@ -47,8 +52,7 @@
 									<div class="tab-pane fade show active" id="word" role="tabpanel" aria-labelledby="word-tab">
 										<div class="form-group">
 											<label>단어장 이름</label>
-											<select class="form-control selectric" id="select-book">
-												<option value="" disabled selected></option>
+											<select class="form-control selectric" id="select-book" required>
 												<c:forEach var="voca" items="${ vcList }">
 													<option value="${voca.bookNo}">${voca.bookName}</option>
 												</c:forEach>
@@ -60,11 +64,15 @@
 											<c:forEach var="i" begin="1" end="5">
 												<div class="form-group col-md-6">
 													<label for="sentence-${i}">${i}번 문장</label>
-													<input type="text" class="form-control" id="sentence-${i}" placeholder="영어문장 입력(띄어쓰기 포함)">
+													<input type="text" class="form-control" 
+														   id="sentence-${i}" placeholder="영어문장 입력(띄어쓰기 포함)"  
+														   disabled <c:if test="${i eq 1}">required</c:if>>
 												</div>
 												<div class="form-group col-md-6">
 													<label for="sentence-kr-${i}">해석</label>
-													<input type="text" class="form-control" id="sentence-kr-${i}" placeholder="해석 내용 입력">
+													<input type="text" class="form-control" 
+														   id="sentence-kr-${i}" placeholder="해석 내용 입력"  
+														   disabled <c:if test="${i eq 1}">required</c:if>>
 												</div>
 											</c:forEach>
 										</div>
@@ -82,9 +90,12 @@
 												<c:forEach var="i" begin="1" end="10">
 													<tr>
 														<th scope="row">${i}</th>
-														<td><input type="text" name="OX-content-${i}" placeholder="질문 입력"></td>
+														<td><input type="text" name="OX-content" 
+																   placeholder="질문 입력"  disabled
+																   <c:if test="${i eq 1}">required</c:if>></td>
 														<td>
-															<select class="form-control selectric" name="OX-correct-${i}">
+															<select class="form-control selectric" name="OX-correct"  
+																	disabled <c:if test="${i eq 1}">required</c:if>>
 																<option value="O">O</option>
 																<option value="X">X</option>
 															</select>
@@ -98,7 +109,7 @@
 							</div>
 						 </div>
 						<div class="card-footer text-right">
-							<button class="btn btn-primary">등록</button>
+							<button id="submit-btn" type="button" class="btn btn-primary" >등록</button>
 						</div>
 					</form>
 				</div>
@@ -106,11 +117,63 @@
 		</div>
 	</div>
 	<script>
-		// 유형 클릭하면 타입 히든에 들어가고 각 유형 값들 required하고
-		$('#eduTypeTab>li').click(e => {
-			console.log($(e.target));
+		
+		$('#eduTypeTab a').click(e => {
+			let target = $(e.target).attr('href');
+			
+			// 타겟의 하위 요소 disabled삭제
+			$(target+' :disabled').each((i, e) => {
+				$(e).removeAttr('disabled');
+			});
+			// 타겟 뺀 나머지 애들 하위 요소 disabled추가
+			$(target).siblings().each((i, e) => {
+				$(e).find('input').attr('disabled',true);
+				$(e).find('select').attr('disabled',true);
+			});
 		});
 		
+		
+		$('#submit-btn').click(() => {
+			injectQuiz();
+			$('#insertEduForm').submit();
+		});
+		
+		function injectQuiz(){
+			let target = $('#eduTypeTab .active').attr('href');
+			let eduType;
+			let quiz = [];
+			if(target == '#word'){
+				eduType = 'W';
+				quiz.push({'bookNo':$('#select-book').val()});
+			}
+			else if(target == '#sentence'){
+				eduType = 'S';
+				
+				for(let i = 1; i <= 5; i++){
+					let content = $('#sentence-'+ i).val().trim(' ');
+					let correct = $('#sentence-kr-'+ i).val().trim(' ');
+					
+					if((content != '') && (correct != '')){
+						quiz.push({'content':content, 'correct':correct});
+					}
+				}
+			}
+			else{
+				eduType = 'O';
+				
+				for(let i = 0; i < 10; i++){
+					let content = $('input[name=OX-content]')[i].value.trim(' ');
+					let correct = $('select[name=OX-correct]')[i].value;
+					
+					if(content != ''){
+						quiz.push({'content': content, 'correct':correct});
+					}
+				}
+			}
+			$('input[name=eduType]').val(eduType);
+			$('input[name=content]').val(JSON.stringify(quiz));
+			console.log($('input[name=content]').val());
+		}
 		
 	</script>
 </body>
