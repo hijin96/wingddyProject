@@ -368,7 +368,6 @@
     </div>
   </div>
 
-  	<c:if test="${ not empty alertMsg }">
 
   <div id="forgetPwd" class="modal fade" role="dialog">
     <div class="modal-dialog modal-md modal-dialog-centered">
@@ -376,7 +375,6 @@
             <div class="modal-header">
                 <h5 class="modal-title">비밀번호 찾기 모달창</h5>
             </div>
-            <!-- 클래스 뽑기 횟수 부여 -->
                 <div class="modal-body">
                     <div class="form-group" id="">
                         <label>이메일 입력</label>
@@ -400,7 +398,6 @@
         </div>
     </div>
 </div>
-</c:if>
 
   <c:if test="${ not empty alertMsg }">
 		<script>
@@ -467,12 +464,11 @@
             email : $('#frontEmail').val() + $('#backEmail option:selected').val()
           },
           success : function(result){
-            if(result === 'exist'){
-              alert('인증번호 보내드립니다!ㅋ');
-              location.href = 'checkCert.me';
+            if(result === 'notExist'){
+              alert('가입되어있지 않은 이메일입니다!');
             }
             else {
-              alert('가입되어있지 않은 이메일입니다!');
+              alert('인증번호 보내드립니다!ㅋ');
             }
           },
           error : function(){
