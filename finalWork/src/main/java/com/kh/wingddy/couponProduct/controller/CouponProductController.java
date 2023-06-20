@@ -5,7 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.kh.wingddy.alphabetMarket.model.service.AlphabetService;
+import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.Pageination;
 import com.kh.wingddy.couponProduct.model.service.CouponProductServiceImpl;
@@ -17,6 +21,9 @@ public class CouponProductController {
 	@Autowired
 	private CouponProductServiceImpl cpService;
 	
+	@Autowired
+	private AlphabetService alphabetService;
+	
 	@RequestMapping(value="couponStore")
 	public String selectCouponProductList(@RequestParam(value = "cPage", defaultValue = "1") int currentPage, 
 										  @RequestParam(value = "orderBy", defaultValue ="coupon_price asc") String orderBy, 
@@ -24,17 +31,17 @@ public class CouponProductController {
 										  Model model){
 
 		PageInfo pi = Pageination.getPageInfo(cpService.selectListCount(cno), currentPage, 8, 5);
+		model.addAttribute("pi", pi);
+		//System.out.println(pi);
 		
 		CouponProduct cp = new CouponProduct();
 		cp.setClassNo(cno);
 		cp.setOrderBy(orderBy);
-		//System.out.println(cp);
 		
 		model.addAttribute("cplist", cpService.selectCouponProductList(pi, cp));
 		//System.out.println(model.getAttribute("cplist"));
+		
 		model.addAttribute("orderBy", orderBy);
-		//System.out.println("controller, pi : " + pi);
-		//System.out.println(cpService.selectCouponProductList(pi, cno).size());
 		return "coupon/couponProductList";
 	}
 	
@@ -44,7 +51,18 @@ public class CouponProductController {
 		return "coupon/enrollCouponProductForm"; 
 	}
 	
+	@RequestMapping("myList.cp")
+	public String myCouponProductList() {
+		return "coupon/myCouponProduct";
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="couponCount.cp", produces="application/json; charset=UTF-8")
+	public String myCount(MyCount mc) {
+		System.out.println(mc);
+		System.out.println(alphabetService.ajaxMyCount(mc));
+		return new Gson().toJson(alphabetService.ajaxMyCount(mc));
+	}
 	
 	
 }

@@ -64,6 +64,10 @@
 	#noneCp{
 		padding : 100px;
 	}
+	#warningMsg{
+		color : red;
+		font-size : 12px !important;
+	}
 	
 	
 </style>
@@ -80,8 +84,8 @@
 			<div id="content-top">
 				<div id="content-top1">
 					<form action="couponStore" method="post" id="submit_option">
-						<select class="selectric" name="orderBy">
-							<option value="coupon_price">낮은 가격 순으로 보기</option>
+						<select id="orderBy" class="selectric" name="orderBy">
+							<option value="coupon_price asc">낮은 가격 순으로 보기</option>
 							<option value="coupon_price desc">높은 가격 순으로 보기</option>
 							<option value="amount">남은 수량 적은 순으로 보기</option>
 							<input type="hidden" name="cPage" value="${pi.currentPage}"/>
@@ -90,14 +94,23 @@
 					</form>	
 				</div>
 				<div id="content-top2">
-					<c:if test="${loginUser.memberType eq  'T'}">
-						<form action="enrollForm.cp" method="post">
-							<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
-							<button type="submit" class="btn btn-warning" >상품 등록하기</button>
-						</form>
-					</c:if>
+					<c:choose>
+						<c:when test="${loginUser.memberType eq  'T'}">
+							<form action="enrollForm.cp" method="post">
+								<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
+								<button type="submit" class="btn btn-warning" >상품 등록하기</button>
+							</form>
+						</c:when>
+						<c:when test="${loginUser.memberType eq 'S' }">
+							<form action="myList.cp" method="post">
+								<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
+								<button type="submit" class="btn btn-warning" >내 보유 쿠폰 확인하기</button>
+							</form>
+						</c:when>
+					</c:choose>
 				</div>
 			</div>
+			
 			<div id="contents" class="row">
 				<c:forEach var="cp" items="${cplist}">
 					
@@ -114,52 +127,64 @@
 	                   			<div class="article-cta">                           
 	                    			<div>수량 : ${cp.amount}개</div>
 	                    			<c:if test="${loginUser.memberType eq 'S'}">
-	                    				<button class="btn btn-primary" onclick="buy();" data-toggle="modal" data-target="#buyModal">교환하기</button>
+	                    				<button class="btn btn-primary" onclick="buyCp('${cp.productName}', ${cp.amount}, ${cp.couponPrice })" data-toggle="modal" data-target="#buyModal">교환하기</button>
 	                    			</c:if>
 	                   			</div>
 	                 		</div>
 	               		</article>
+	               		
+	               		
+	               		
+	               		
+	               		
 	             	</div>
+	             	
+	             	
+		             	
+		            
+	             	
+	             	
              	</c:forEach>
              	
-             	
-             	
 			</div>
+			
 			<div class="modal fade" id="buyModal">
-					<div class="modal-dialog modal-custom">
-						<div class="modal-content">
-							
-							<form class="form-schedule" action="insertSchedule" method="POST">
-								<!-- Modal Header -->
-								<div class="modal-header">
-									<h4 class="modal-title">쿠폰으로 상품 교환하기</h4>
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-								</div>
-								<hr>
-								
-								<!-- Modal body -->
-								<div class="modal-body">
-									<div class="form-group row">
-										<div class="col-form-label col-md-3" >교환할 수량</div>
-										<input type="number" class="form-control inputWidth" min="" max=""/>
-									</div>
-									<div>
-										<p>현재 보유 쿠폰은 100장입니다.<br>
-										선풍기 1개를 구매하시겠습니까?</p>
-									</div>
-								</div>
-								
-								<!-- Modal footer -->
-								<div class="modal-footer">
-								
-									<button type="button" class="btn btn-warning" data-dismiss="modal">취소</button>
-									<button type="submit" id="" class="btn btn-success" >교환</button>
-								</div>
-							</form>
+				<div class="modal-dialog modal-custom">
+					<div class="modal-content">
 						
-						</div>
+						<form class="form-schedule" action="insertSchedule" method="POST">
+							<!-- Modal Header -->
+							<div class="modal-header">
+								<h4 class="modal-title">쿠폰으로 상품 교환하기</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							<hr>
+							
+							<!-- Modal body -->
+							<div class="modal-body">
+								<div class="form-group row">
+									<div class="col-form-label col-md-3" >교환할 수량</div>
+									<input id="buyAmount" type="number" class="form-control inputWidth" min="0" />
+								</div>
+								<div>
+									<p id="myCount">현재 보유 쿠폰은 100장입니다.</p>
+									<p id="productInfo"></p>
+									<p id="warningMsg">경고메시지</p>
+								</div>
+							</div>
+							
+							<!-- Modal footer -->
+							<div class="modal-footer">
+							
+								<button type="button" class="btn btn-warning" data-dismiss="modal">취소</button>
+								<button type="submit" id="btn-buyCp" class="btn btn-success" >교환</button>
+							</div>
+						</form>
+					
 					</div>
 				</div>
+			</div>
+
 			
 			
 			
@@ -187,21 +212,17 @@
 	                          		</c:otherwise>
                           		</c:choose>
                           		<c:forEach begin="${pi.startPage}" end="${pi.endPage}" var="p">
+                          			
                           			<c:choose>
-                          				<c:when test="${pi.currentPage eq p}">
-		                        			<li class="page-item active"><a class="page-link">${p}</a></li>
+                          				<c:when test="${pi.currentPage eq p}"> 
+		                        			<li class="page-item disabled"><a class="page-link page-number" href="#">${p}</a></li>
 		                        		</c:when>
 		                        		<c:otherwise>
 		                        			<li class="page-item active"><a class="page-link page-number" href="#">${p}</a></li>
 		                        		</c:otherwise>
 		                        	</c:choose>
 		                        </c:forEach>
-		                        <!-- 
-		                        <li class="page-item active">
-		                        	<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-		                        </li>
-		                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-		                        -->
+		                       
 		                        
 		                        <c:choose>
 			                        <c:when test="${pi.currentPage eq pi.maxPage}">
@@ -234,13 +255,12 @@
 	var memberType = '${loginUser.memberType}';
 	var cno = ${requestScope.classroom.classNo};
 	var cPage = null;
-	console.log(memberNo, memberType, cno);
+	//console.log(memberNo, memberType, cno);
 	
 	$('.page-number').on('click', function(){
 		console.log($(this).text());
 		$(this).append('<input type="hidden" name="cno" value="' + cno + '" /><input type="hidden" name="cPage" value="' + $(this).text() + '"/>')
 		$('#form-movePage').submit();
-		
 	})
 		
 	$('.page-pv').on('click', function(){
@@ -256,18 +276,47 @@
 	
 	$('select[name=orderBy]').on("change", function(){
 		$('#submit_option').submit();
-		
 	})
 	
-	// 학생이 상품 구매버튼 눌렀을 때 (학생 보유 상품 insert, 상품 목록 수량 update, 학생 보유 쿠폰 update)
-	function buy(){
+	// 학생이 상품 구매버튼 눌렀을 때 정보출력 (학생 보유 상품 insert, 상품 목록 수량 update, 학생 보유 쿠폰 update)
+	function buyCp(cpName, amount, price){
+		//console.log(cpName);
+		$.ajax({
+			url : 'couponCount.cp',
+			data : {'memberNo' : memberNo, 'classNo' : cno},
+			success : function(result){
+				//console.log(result.couponCount);
+				$('#myCount').html('현재 보유 쿠폰은 ' + result.couponCount + '개입니다.');
+			}
+		})
+		
+		// input type=number 최대값 설정
+		$('#buyAmount').attr('max', amount);
+		
+		// input 값 바뀔 때마다 '~상품 몇 개 구입할 거냐' 문구 변경
+		$('#buyAmount').on('input', function(){
+			$('#productInfo').html('[' + cpName + ']' + ' ' + $(this).val() + '개를 구입하시겠습니까?');
+		})
+		
+		$('#btn-buyCp').on('click', function(){
+			
+		})
+		
 		
 	}
 	
+	
+	
+	
+	
 	$(function(){
 		var ob = "${orderBy}";
-		console.log(ob);
-		$('#orderBy').val(ob).prop("selected", true);
+		//console.log(ob);
+		//console.log($('#orderBy').val(ob));
+		$('#orderBy').val("${orderBy}").prop("selected", true);
+		
+		
+		
 		
 		
 		
@@ -282,6 +331,8 @@
 			$('#contents').html('<div id="noneCp" class="text-center"><h6>구매 가능한 상품이 존재하지 않습니다.</h6></div>');
 		}*/
 	})
+	
+	
 	
 
 

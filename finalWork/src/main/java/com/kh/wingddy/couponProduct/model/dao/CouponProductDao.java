@@ -21,8 +21,13 @@ public class CouponProductDao {
 		RowBounds rowbounds = new RowBounds(offset, pi.getBoardLimit());
 		
 		System.out.println(cp);
-		System.out.println((ArrayList)sqlSession.selectList("coupon-mapper.selectCouponProductList", cp, rowbounds));
-			return (ArrayList)sqlSession.selectList("coupon-mapper.selectCouponProductList", cp, rowbounds);
+		if(cp.getOrderBy().equals("coupon_price asc")) {
+			return (ArrayList)sqlSession.selectList("coupon-mapper.selectCpList", cp, rowbounds);
+		} else if(cp.getOrderBy().equals("coupon_price desc")) {
+			return (ArrayList)sqlSession.selectList("coupon-mapper.selectCpList_desc", cp, rowbounds);
+		} else {
+			return (ArrayList)sqlSession.selectList("coupon-mapper.selectCpList_amount", cp, rowbounds);
+		}
 	}
 	
 	

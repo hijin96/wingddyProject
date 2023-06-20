@@ -9,13 +9,13 @@
 		 where class_no = #{classNo}
 	</select>
 	
-	<select id="selectCouponProductList" parameterType="couponProduct" resultType="couponProduct" >
+	<select id="selectCpList" parameterType="couponProduct" resultType="couponProduct" >
 		select 
 		       product_no pNo
 		      ,cart_no cartNo
 		      ,product_name productName
 		      ,product_content productContent
-		      ,coupon_price CouponPrice
+		      ,coupon_price couponPrice
 		      ,amount
 		      ,class_no classNo
 		      ,file_no fileNo
@@ -24,9 +24,58 @@
 		       vw_cp
 		 where 
 		       class_no = #{classNo}
-		 order by (case when #{orderBy} = 'coupon_price' then coupon_price asc
-		 				when #{orderBy} = 'coupon_price desc then coupon_price desc
-		 				when #{orderBy} = 'amount' then amount end)
-
+		   and 
+		   	   amount ^= 0    
+		 order 
+		    by 
+		 	   coupon_price asc
 	</select>
+	
+	<select id="selectCpList_desc" parameterType="couponProduct" resultType="couponProduct" >
+		select 
+		       product_no pNo
+		      ,cart_no cartNo
+		      ,product_name productName
+		      ,product_content productContent
+		      ,coupon_price couponPrice
+		      ,amount
+		      ,class_no classNo
+		      ,file_no fileNo
+		      ,file_path || file_name filePath
+		  from 
+		       vw_cp
+		 where 
+		       class_no = #{classNo}
+		   and 
+		   	   amount ^= 0       
+		 order 
+		 	by 
+		 	   coupon_price desc
+	</select>
+	
+	<select id="selectCpList_amount" parameterType="couponProduct" resultType="couponProduct" >
+		select 
+		       product_no pNo
+		      ,cart_no cartNo
+		      ,product_name productName
+		      ,product_content productContent
+		      ,coupon_price couponPrice
+		      ,amount
+		      ,class_no classNo
+		      ,file_no fileNo
+		      ,file_path || file_name filePath
+		  from 
+		       vw_cp
+		 where 
+		       class_no = #{classNo}
+		   and 
+		   	   amount ^= 0       
+		 order 
+		 	by 
+		 	   amount asc
+	</select>
+	
+	
+	
+	
 </mapper>
