@@ -93,4 +93,23 @@
 		 WHERE
 		       MEMBER_ID = #{memberId}           
 	</select>
+	
+	<insert id="insertCert" parameterType="cert">
+		INSERT
+		  INTO
+		      CERT
+		      (
+		      MEMBER_WHO,
+		      SECRET,
+		      CERT_NO,
+		      CERT_WHEN
+		      )
+		VALUES
+		      (
+		      #{memberWho},
+		      #{secret},
+		      SEQ_CERT_CNO.NEXTVAL,
+		      SYSDATE
+		      )      
+	</insert>
 </mapper>

@@ -467,7 +467,13 @@
             email : $('#frontEmail').val() + $('#backEmail option:selected').val()
           },
           success : function(result){
-            console.log(result);
+            if(result === 'exist'){
+              alert('인증번호 보내드립니다!ㅋ');
+              location.href = 'checkCert.me';
+            }
+            else {
+              alert('가입되어있지 않은 이메일입니다!');
+            }
           },
           error : function(){
             console.log('asd');

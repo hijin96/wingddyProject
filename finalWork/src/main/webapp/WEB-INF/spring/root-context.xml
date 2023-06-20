@@ -10,10 +10,10 @@
 
 		
 	
-	<!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+<!-- 	 <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 	 	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
 		<property name="username" value="WINGDDY_LOCAL"/>
-		<property name="password" value="WINGDDY_LOCAL"/>	 -->
+		<property name="password" value="WINGDDY_LOCAL"/>	 --> 
 		 
 		 
 		
