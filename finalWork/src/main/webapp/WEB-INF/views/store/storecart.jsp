@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,8 +27,8 @@
 <!-- Responsive CSS -->
 <link rel="stylesheet" href="resources/css/responsive.css">
 <!-- Custom CSS -->
-<!--     
-      <link rel="stylesheet" href="resources/assets/modules/bootstrap/css/bootstrap.min.css"> -->
+<    
+      <link rel="stylesheet" href=" /resources/assets/modules/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="resources/assets/modules/fontawesome/css/all.min.css">
 
@@ -56,8 +57,8 @@
 	                        <tr>
 		                          <th>
 		                            <div class="custom-checkbox custom-control">
-		                              <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-		                              <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+		                              <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="buycheckbox-all" name="buycheckbox-all" >
+		                              <label for="buycheckbox-all" class="custom-control-label" name="buycheckbox-all">&nbsp;</label>
 		                            </div>
 		                          </th>
 		                         	<th>상품명</th>
@@ -67,27 +68,29 @@
 									<th>소계</th>
 									<th>삭제</th>
 		                   </tr>
+		                   <c:forEach var="cart" items="${cartList }" varStatus="status">
 		                   <tr>
 												
 													<td class="p-0 text-center">
 														<div class="custom-checkbox custom-control">
 															<input type="checkbox" data-checkboxes="mygroup"
-																class="custom-control-input" id="checkbox-1"> <label
-																for="checkbox-1" class="custom-control-label">&nbsp;</label>
+																class="custom-control-input" name="buyCheckBox" id="checkbox${status.index}"> <label
+																for="checkbox${status.index}" class="custom-control-label">&nbsp;</label>
 														</div>
 													</td>
-													<c:forEach var="cart" items="${cart }">
-													<td class="align-middle">${s.spName }</td>
-													<td class="align-middle">${s.spPrice}</td>
+													
+													<td class="align-middle">${cart.spName }</td>
+													<td class="align-middle">${cart.spPrice}</td>
 													<td>${cart.buyCount }</td>
 													<td><input type="number" size="4"
 														value="${cart.buyCount }" min="0" step="1"
 														class="c-input-text qty text"></td>
-													<td>${cartsum}</td>
-													<input type="hidden" value="{cart.cartNo}"/>
+													<td>${cart.totPrice}</td>
+													<input type="hidden" value="${cart.cartNo}"/>
 													<td><a href="#" class="btn btn-secondary">삭제</td>
-												</c:forEach>
+											
 											</tr>
+	                     	</c:forEach>
 	                      </tbody>
 	                     </table>
                     </div>
@@ -151,8 +154,46 @@
 					<!-- End Cart -->
 
 				<script>
+				 	var buyCheckBoxAll = document.getElementsByName('buyCheckBox');
+				 	var chckAll=0;
+				 	$('input[name=buycheckbox-all]').click(function(){
+							$('input[name=buyCheckBox]').prop("checked", true);
+						
+						for(var i=0;i<buyCheckBoxAll.length; i++){
+							var cbox= buyCheckBoxAll[i];
+							
+							if(cbox.checked){
+								chckAll++; 
+								console.log("buyCheckBoxAll:"+buyCheckBoxAll.length);
+								console.log("chckAll:"+chckAll);
+							}
+						}
+						
+						if(buyCheckBoxAll.length == chckAll){
+							console.log('길이 같으면여기로');
+							$('input[name=buycheckbox-all]').prop("checked", true);
+						}else{
+							console.log('달라달라여기로');
+							$('input[name=buyCheckBox]').prop("checked",false);
+						}
+						
+					}
+					
+					)
+					
+					//체크박스 개별로 전체 선택
+					var CheckBoxAllCheck = document.getElementsByName('buyCheckBox').length;
+					//전체선택을 클릭했을때
+					//체크박스 개별로 전체 선택했을 때
+					//전체선택 체크박스를 해제할 때
 					
 				</script>
+				
+				<script>
+				//클릭펑션 참고해서 다르게 만들어보기 ->https://ivory-room.tistory.com/67
+				
+				</script>
+				
 			</div>
 
 		</div>
