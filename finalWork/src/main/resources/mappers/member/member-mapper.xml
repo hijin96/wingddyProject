@@ -73,6 +73,7 @@
 	<select id="searchId" parameterType="string" resultMap="memberResultSet">
 		SELECT
 		       MEMBER_ID,
+		       MEMBER_NO,
 		       EMAIL,
 		       PHONE,
 		       MEMBER_NAME
