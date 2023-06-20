@@ -59,5 +59,4 @@ public interface VocaService {
 	// 단어장 단어 리스트 조회(있음)
 	// 학생번호로 클래스단어장 리스트 조회(SELECT)
 	
-	
 }

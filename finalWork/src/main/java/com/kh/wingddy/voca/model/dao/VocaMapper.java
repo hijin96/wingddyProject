@@ -36,6 +36,6 @@ public interface VocaMapper {
 	public int insertClassBook(ArrayList<ClassVocaBook> cvList);
 
 	public ArrayList<Voca> searchVoca(String text);
-	
+
 	
 }

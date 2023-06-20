@@ -426,8 +426,6 @@
 
   <script>
     $(function(){
-
-
       $('#forgetPwdBtn').click(function(){
         $.ajax({
           url : 'forgetPwd.me',
@@ -436,12 +434,7 @@
             email : $('#frontEmail').val() + $('#backEmail option:selected').val()
           },
           success : function(result){
-            if(result == 'true'){
-              console.log('있어');
-            }
-            else{
-              alert('조회결과 없는 이메일 입니다!!!!!!!!!!!!!!!!!!!!!!!!!!');
-            }
+            console.log(result);
           },
           error : function(){
             console.log('asd');

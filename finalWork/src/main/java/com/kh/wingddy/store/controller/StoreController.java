@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -44,6 +45,7 @@ import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.member.model.vo.Member;
 import com.kh.wingddy.store.model.service.StoreService;
 import com.kh.wingddy.store.model.vo.Cart;
+import com.kh.wingddy.store.model.vo.KakaopayReadyResponse;
 import com.kh.wingddy.store.model.vo.Order;
 import com.kh.wingddy.store.model.vo.Store;
 import com.sun.media.jfxmedia.events.NewFrameEvent;
@@ -60,7 +62,7 @@ public class StoreController {
 	private RenameFile rename = new RenameFile();
 
 	//카카오api서비스키
-	public static final String Authorization="580c0648b175b72fe78aeff8d208161e";
+	//public static final String Authorization="580c0648b175b72fe78aeff8d208161e";
 	
 	// 메인페이지
 	@RequestMapping("storemain")
@@ -144,13 +146,15 @@ public class StoreController {
 	public String storebuy(Order order, HttpSession session,Store s) {
 		Member m = ((Member) session.getAttribute("loginUser"));
 		if(storeService.insertOrderNo(order)>0) {
-			//정보를 다 보내면-> 결제하기 버튼 눌러서 insert하면서 결제 완료하기!
+			//결제하기를 눌렀을떄 카카오로 이동 성공하면 정보들 update 
+			//실패하면 장바구니로 돌려보내기 
+			//-> 성공요청이들어오면 장바구니 update, s_pay insert
 			
 			//살리기storeService.OrderInformation(order,s); 
 			return "store/storebuy";
 			//storeService.selectOrder()
 		}
-		return "store/stormain";
+		return "store/cartDirect";
 	}
 	
 	//주소 팝업창
@@ -209,7 +213,7 @@ public class StoreController {
 		
 		at.setFileNo(s.getFileNo());
 		at.setMemberNo(m.getMemberNo());
-
+	
 		  
 		if (storeService.insertStoreBoard(s, at) > 0) {
 			
@@ -264,7 +268,15 @@ public class StoreController {
 		return new Gson().toJson(map);
 
 	}
-	
-	
-	
+	//카카오페이 결제-  요청하기
+	@PostMapping("/payment/ready")
+	public KakaopayReadyResponse readyToKakaoPay() {
+		return storeService.kakaoPayReady();
+		
+	}
+	//카카오페이 결제-  성공
+	//@GetMapping("/payment/success")
+	//public ResponseEntity afterPay(@RequestParam("pg_token") String pgToken) {
+//		KakaopayReadyResponse kakaoApprove = StoreService.approveResponse(pgToken);
+	//}
 }

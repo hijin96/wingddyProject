@@ -76,6 +76,4 @@ public class VocaServiceImpl implements VocaService {
 		return vocaMapper.selectBookClassList(bookNo);
 	}
 
-
-
 }

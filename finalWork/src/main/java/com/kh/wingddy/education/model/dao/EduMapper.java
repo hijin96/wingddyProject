@@ -14,5 +14,7 @@ public interface EduMapper {
 
 	ArrayList<Quiz> selectQuizList(int eduNo);
 
+	int updateEndTime(int eduNo);
+
 
 }
