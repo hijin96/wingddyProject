@@ -93,13 +93,20 @@ public class LetterDao {
 	
 	
 	public int deleteAlphabet(SqlSessionTemplate session, Letter letter) {
-		
-		System.out.println("++++++++++++++++");
-		System.out.println(letter);
+
 		return session.delete("letterMapper.deleteAlphabet", letter);
 		
 	}
 	
+	public ArrayList<Letter> unReadLetter(SqlSessionTemplate session, int memberNo){
+		
+		return (ArrayList)session.selectList("letterMapper.unReadLetter", memberNo);
+	}
+	
+	public int markAll(SqlSessionTemplate session, int memberNo){
+		
+		return session.update("letterMapper.markAll", memberNo);
+	}
 	
 	
 	

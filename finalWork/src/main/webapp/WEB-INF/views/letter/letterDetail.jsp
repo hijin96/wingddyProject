@@ -32,10 +32,10 @@
 							<div align="left">
 								<c:choose>
 									<c:when test="${letter.toManitto eq 'Y'}">
-										<h6>To.Manitto</h6>
+										<h6>To.Manitti</h6>
 									</c:when>
 									<c:when test="${letter.anonymous eq 'Y'}">
-										<h6>To.Manitti</h6>
+										<h6>To.Manitto</h6>
 									</c:when>
 									<c:otherwise>
 										<h6>To.${letter.recipient}</h6>
@@ -94,7 +94,7 @@
 				classNo : '${requestScope.classroom.classNo}'
 			},
 			success : function(result){
-				if(result === 'success'){
+				if(result > 0){
 					window.location.reload();
 					alert('선물로 ${letter.gift}을 받았어요.');
 				}

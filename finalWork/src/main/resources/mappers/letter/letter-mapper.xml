@@ -16,6 +16,7 @@
 	<result column="GIFT"				 property="gift" />
 	<result column="GET_GIFT" 			 property="getGift" />
 	<result column="READ_CHECK" 		 property="readCheck" />
+	<result column="CLASS_NAME" 		 property="className" />
 	
 	<result column="MEMBER_NO" 			 property="memberNo" />
 </resultMap>
@@ -130,9 +131,22 @@ DELETE FROM ALPHABET
    AND ALPHABET = #{gift}
 </delete>
 
+<select id="unReadLetter" resultMap="letterResultSet">
+SELECT CLASS_NO, CLASS_NAME, LETTER_NO, A.MEMBER_ID||'('||A.MEMBER_NAME||')' as "SENDER", B.MEMBER_ID||'('||B.MEMBER_NAME||')' as "RECIPIENT", LETTER_CONTENT, SEND_DATE, ANONYMOUS, TO_MANITTO
+  FROM LETTER
+  JOIN MEMBER A ON(SENDER = A.MEMBER_NO)
+  JOIN MEMBER B ON(RECIPIENT = B.MEMBER_NO)
+  JOIN CLASSROOM USING(CLASS_NO)
+ WHERE RECIPIENT = #{memberNo}
+   AND READ_CHECK = 'N'
+ ORDER BY LETTER_NO DESC
+</select>
 
-
-
+<update id="markAll">
+UPDATE LETTER
+   SET READ_CHECK = 'Y'
+ WHERE RECIPIENT = #{memberNo}
+</update>
 
 
 

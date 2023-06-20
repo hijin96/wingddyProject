@@ -149,15 +149,50 @@ public class LetterController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value="getGift.le", produces="html/text; charset=UTF-8")
-	private String getGift(Letter letter) {
+	@RequestMapping(value="getGift.le")
+	private int getGift(Letter letter) {
 		
-		if(letterService.getGift(letter) > 0) {
-			return "success";
-		}else{ 
-			return "fail";
-		} 
+		
+		return letterService.getGift(letter);
+		
 	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="unRead.le", produces="application/json; charset=UTF-8")
+	private String unReadLetter(int memberNo) {
+		
+		return new Gson().toJson(letterService.unReadLetter(memberNo));
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="markAll.le")
+	private int markAll(int memberNo) {
+		
+		
+		return letterService.markAll(memberNo);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

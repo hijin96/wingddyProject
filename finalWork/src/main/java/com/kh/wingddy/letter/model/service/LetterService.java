@@ -40,4 +40,19 @@ public interface LetterService {
 	
 	// 쪽지 선물 받기
 	int getGift (Letter letter);
+	
+	// 안읽은 쪽지
+	ArrayList<Letter> unReadLetter(int memberNo);
+	
+	
+	// 모두 읽은 걸로
+	int markAll(int memberNo);
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -88,6 +88,17 @@ public class LetterServiceImpl implements LetterService{
 		return letterDao.updateGetGift(sqlSession, letter) * letterDao.insertAlphabet(sqlSession, letter);
 	}
 
+	@Override
+	public ArrayList<Letter> unReadLetter(int memberNo) {
+		
+		return letterDao.unReadLetter(sqlSession, memberNo);
+	}
+
+	@Override
+	public int markAll(int memberNo) {
+		return letterDao.markAll(sqlSession, memberNo);
+	}
+
 	
 	
 }

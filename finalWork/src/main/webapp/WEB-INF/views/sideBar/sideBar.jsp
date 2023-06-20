@@ -77,6 +77,16 @@
     position: relative !important;
   }
 
+  .unReadMessages:hover{
+    cursor: pointer;
+    background-color: rgb(208, 208, 208) !important;
+  }
+
+  #markAll:hover{
+    cursor: pointer;
+    color : #6777ef !important;
+  }
+
 
 
 </style>
@@ -98,47 +108,16 @@
           </div>
         </form>
         <ul class="navbar-nav navbar-right">
-          <li class="dropdown dropdown-list-toggle"><a href="" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
+          <li class="dropdown dropdown-list-toggle"><a href="" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep" onclick="messageIcon();"><i class="far fa-envelope"></i></a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
               <div class="dropdown-header">Messages
                 <div class="float-right">
-                  <a href="#">Mark All As Read</a>
+                  <a id="markAll" onclick="markAll();">Mark All As Read</a>
                 </div>
               </div>
-              <div class="dropdown-list-content dropdown-list-message">
+              <div class="dropdown-list-content dropdown-list-message" id="messageArea">
                 
-                <a href="#" class="dropdown-item dropdown-item-unread">
-                  <div class="dropdown-item-avatar">
-                    <img alt="image" src="resources/assets/img/avatar/avatar-2.png" class="rounded-circle">
-                  </div>
-                  <div class="dropdown-item-desc">
-                    <b>Dedik Sugiharto</b>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                    <div class="time">12 Hours Ago</div>
-                  </div>
-                </a>
-
-                <a href="#" class="dropdown-item dropdown-item-unread">
-                  <div class="dropdown-item-avatar">
-                    <img alt="image" src="resources/assets/img/avatar/avatar-2.png" class="rounded-circle">
-                  </div>
-                  <div class="dropdown-item-desc">
-                    <b>Dedik Sugiharto</b>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                    <div class="time">12 Hours Ago</div>
-                  </div>
-                </a>
-
-                <a href="#" class="dropdown-item dropdown-item-unread">
-                  <div class="dropdown-item-avatar">
-                    <img alt="image" src="resources/assets/img/avatar/avatar-2.png" class="rounded-circle">
-                  </div>
-                  <div class="dropdown-item-desc">
-                    <b>Dedik Sugiharto</b>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                    <div class="time">12 Hours Ago</div>
-                  </div>
-                </a>
+                
               </div>
 
               
@@ -161,15 +140,90 @@
                 </c:forEach>
                 
               </div>
-              
+
+              <form action="detail.le" method="post" id="moveToLetterDatail">
+                <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
+                <input type="hidden" name="letterNo" >
+                <input type="hidden" name="memberNo" value="${sessionScope.loginUser.memberNo}">
+              </form>
 
               <script>
+
+                $(document).on('click', '.unReadMessages', function(){
+
+                  let cno =  $(this).find('input[name="cno"]').val();
+
+                  let lno = $(this).find('input[name="lno"]').val();
+                  
+                  $("input[name='letterNo']").val(lno);
+                  $("input[name='cno']").val(cno);
+            
+                  $("#moveToLetterDatail").submit();
+                })
+
+
+                function messageIcon(){
+                  $.ajax({
+                    url : 'unRead.le',
+                    data : {
+                      memberNo : '${sessionScope.loginUser.memberNo}'
+                    },
+                    success : function(list){
+
+                      console.log(list);
+
+                      let value = '';
+                      for(let i in list){
+                        value += '<a class="dropdown-item dropdown-item-unread unReadMessages"><div>'
+                               + '<input type="hidden" name="cno" value="'+ list[i].classNo +'">'
+                               + '<input type="hidden" name="lno" value="'+ list[i].letterNo +'">'
+
+                        if(list[i].anonymous == 'Y'){
+                          value += '<h6 align="center">Manitto</h6>'
+                        }
+                        else if(list[i].toManitto == 'Y'){
+                          value += '<h6 align="center">Manitti</h6>'
+                        }
+                        else{
+                          value += '<h6 align="center">' + list[i].sender + '</h6>'
+                        }
+                            
+                        value += '<b>' + list[i].className + '</b>'
+                               + '<p>' + list[i].letterContent + '</p>'
+                               + '<div class="time">' + list[i].sendDate + '</div>'
+                               + '</div> </a>'
+                      }
+
+
+
+                      $('#messageArea').html(value);
+                    }
+                  })
+                  
+                }
+
+                function markAll(){
+                  
+                  $.ajax({
+                    url : 'markAll.le',
+                    data : {memberNo : '${sessionScope.loginUser.memberNo}'},
+                    success : function(){
+                      messageIcon();
+                    }
+                  })
+                }
+
+
+
+
+
                 $('.moveToLetter').click(function(){
                   let cno = $(this).next().val();
 
                   $('#form-cno').val(cno);
                   $('#postLetterSender').submit();
                 });
+
               </script>
 
          
@@ -450,7 +504,7 @@
       window.onload(moveToWrtiersDetail());
       
       function moveToWrtiersDetail (){
-        document.getElementById('moveToWrtiersDetail').submit();
+        document.getElementById('moveToWrtiersDtail').submit();
       }
     </script>
     <c:remove var="alphabetBno" scope="request" />
@@ -459,7 +513,7 @@
 
   <script>
     $(function(){
-      $('#forgetPwdBtn').click(function(){
+      $('#forgetPwdBtn').click(function(){e
         $.ajax({
           url : 'forgetPwd.me',
           type : 'POST',

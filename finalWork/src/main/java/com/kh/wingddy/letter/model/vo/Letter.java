@@ -16,6 +16,7 @@ public class Letter {
 	private String gift; 
 	private String getGift;
 	private String readCheck;
+	private String className;
 	
 	private int memberNo;
 }
