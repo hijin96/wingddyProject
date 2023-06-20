@@ -77,5 +77,21 @@ public class MemberServiceImpl implements MemberService {
 	public int insertCert(Cert cert) {
 		return memberDao.insertCert(sqlSession, cert);
 	}
+
+	@Override
+	public Cert checkCode(Cert cert) {
+		return memberDao.checkCode(sqlSession, cert);
+	}
+
+	@Override
+	public int certifyCode(Cert cert) {
+		return memberDao.certifyCode(sqlSession, cert);
+	}
+
+	@Override
+	public int updatePwd(Member m) {
+		return memberDao.updatePwd(sqlSession, m);
+	}
+	
 	
 }

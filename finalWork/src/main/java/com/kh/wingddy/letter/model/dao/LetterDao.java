@@ -69,14 +69,44 @@ public class LetterDao {
 
 	}
 	
+	public int changeReadStatus(SqlSessionTemplate session, Letter letter) {
+		return session.update("letterMapper.changeReadStatus", letter);
+	}
 	
 	
+	public Letter letterDetail(SqlSessionTemplate session, Letter letter) {
+		
+		return session.selectOne("letterMapper.letterDetail", letter);
+	}
 	
 	
+	public int updateGetGift(SqlSessionTemplate session, Letter letter) {
+		
+		return session.update("letterMapper.updateGetGift", letter);
+	}
 	
 	
+	public int insertAlphabet(SqlSessionTemplate session, Letter letter) {
+		
+		return session.insert("letterMapper.insertAlphabet", letter);
+	}
 	
 	
+	public int deleteAlphabet(SqlSessionTemplate session, Letter letter) {
+
+		return session.delete("letterMapper.deleteAlphabet", letter);
+		
+	}
+	
+	public ArrayList<Letter> unReadLetter(SqlSessionTemplate session, int memberNo){
+		
+		return (ArrayList)session.selectList("letterMapper.unReadLetter", memberNo);
+	}
+	
+	public int markAll(SqlSessionTemplate session, int memberNo){
+		
+		return session.update("letterMapper.markAll", memberNo);
+	}
 	
 	
 	

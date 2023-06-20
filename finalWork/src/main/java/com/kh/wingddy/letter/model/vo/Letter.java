@@ -14,7 +14,9 @@ public class Letter {
 	private String anonymous;
 	private String toManitto; // 마니띠가 마니또에게 
 	private String gift; 
+	private String getGift;
 	private String readCheck;
+	private String className;
 	
 	private int memberNo;
 }

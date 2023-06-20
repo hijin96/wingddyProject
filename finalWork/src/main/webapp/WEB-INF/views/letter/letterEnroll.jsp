@@ -65,13 +65,13 @@
 									$("input:radio[name='recipient']").click(function(){
 										
 										$("#recipientSelect").prop("disabled", true);
-										$("#recipientSelect").val('none');
+										$("#recipientSelect").val('');
 							
 									})
 							
 									$(document).ready(function() {
 										$("#recipientSelect").on("change", function() {
-										if ($(this).val() !== "none") {
+										if ($(this).val() !== "") {
 											noneCheck();
 										} 
 
@@ -85,7 +85,7 @@
 									<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">To</label>
 									<div class="col-sm-12 col-md-7">
 										<select class="form-control selectric" id="recipientSelect" name="recipient" required>
-											<option value="none">-</option>
+											<option value="">-</option>
 											<c:forEach items="${requestScope.recipientList}" var="r">
 												<c:if test="${r.memberNo ne sessionScope.loginUser.memberNo}">
 													<option value="${r.memberNo}">${r.recipient}</option>
@@ -104,8 +104,8 @@
 									<div class="form-group row mb-4">
 										<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Present</label>
 										<div class="col-sm-12 col-md-7">
-											<select class="form-control selectric">
-												<option value="none">-</option>
+											<select class="form-control selectric" name="gift">
+												<option value="">-</option>
 												<c:forEach items="${requestScope.myAlphabet}" var="a">
 													<option value="${a.alphabet}">${a.alphabet} (${a.count})</option>
 												</c:forEach>

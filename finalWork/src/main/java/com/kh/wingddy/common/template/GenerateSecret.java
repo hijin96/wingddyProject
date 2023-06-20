@@ -13,9 +13,10 @@ public class GenerateSecret {
 
 	public String generateSecret() {
 		Random r = new Random();
-		int i = r.nextInt(100000);
+		int i = r.nextInt(100000000);
 		Format f = new DecimalFormat("00000000");
 		String secret = f.format(i);
+		
 		
 		return secret;
 	}
