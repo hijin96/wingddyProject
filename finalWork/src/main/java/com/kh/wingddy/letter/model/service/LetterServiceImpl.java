@@ -65,7 +65,29 @@ public class LetterServiceImpl implements LetterService{
 	
 	@Override
 	public int insertLetter(Letter letter) {
-		return letterDao.insertLetter(sqlSession, letter);
+		return letterDao.insertLetter(sqlSession, letter) * letterDao.deleteAlphabet(sqlSession, letter);
 	}
+
+	@Override
+	public int changeReadStatus(Letter letter) {
+
+		return letterDao.changeReadStatus(sqlSession, letter);
+	}
+	
+	@Override
+	public Letter letterDetail(Letter letter) {
+		return letterDao.letterDetail(sqlSession, letter);
+	}
+
+	@Override
+	public int getGift(Letter letter) {
+		
+		// 쪽지 상태 선물 받음으로 변경		
+		// 알파벳 인서트
+		
+		return letterDao.updateGetGift(sqlSession, letter) * letterDao.insertAlphabet(sqlSession, letter);
+	}
+
+	
 	
 }

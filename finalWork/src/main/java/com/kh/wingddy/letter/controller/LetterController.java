@@ -122,6 +122,7 @@ public class LetterController {
 	private String insertLetter(Letter letter, HttpSession session, HttpServletRequest request) {
 		
 		
+		
 		if(letterService.insertLetter(letter) > 0) {
 			session.setAttribute("alertMsg", "쪽지가 전송되었어요!");
 		}else {
@@ -131,10 +132,32 @@ public class LetterController {
 		request.setAttribute("letterCno",letter.getClassNo());
 		
 		return "sideBar/sideBar";
-		
-
 	}
 	
+	@RequestMapping("detail.le")
+	private String letterDetail(Letter letter, Model model) {
+		
+		// 내가 받은 메일만 읽음표시
+		letterService.changeReadStatus(letter);
+		
+		
+		//디테일이동
+		model.addAttribute("letter", letterService.letterDetail(letter));
+		
+		return "letter/letterDetail";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="getGift.le", produces="html/text; charset=UTF-8")
+	private String getGift(Letter letter) {
+		
+		if(letterService.getGift(letter) > 0) {
+			return "success";
+		}else{ 
+			return "fail";
+		} 
+	}
 	
 	
 }
