@@ -15,4 +15,5 @@ public class CouponProduct {
 	private int fileNo;
 	private String filePath;
 	private String orderBy;
+	private int memberNo;
 }

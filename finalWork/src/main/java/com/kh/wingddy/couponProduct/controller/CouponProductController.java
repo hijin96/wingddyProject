@@ -1,5 +1,8 @@
 package com.kh.wingddy.couponProduct.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +42,7 @@ public class CouponProductController {
 		cp.setOrderBy(orderBy);
 		
 		model.addAttribute("cplist", cpService.selectCouponProductList(pi, cp));
-		//System.out.println(model.getAttribute("cplist"));
+		System.out.println(cpService.selectCouponProductList(pi, cp));
 		
 		model.addAttribute("orderBy", orderBy);
 		return "coupon/couponProductList";
@@ -59,10 +62,35 @@ public class CouponProductController {
 	@ResponseBody
 	@RequestMapping(value="couponCount.cp", produces="application/json; charset=UTF-8")
 	public String myCount(MyCount mc) {
-		System.out.println(mc);
-		System.out.println(alphabetService.ajaxMyCount(mc));
 		return new Gson().toJson(alphabetService.ajaxMyCount(mc));
 	}
+	
+	@ResponseBody
+	@RequestMapping("buy.cp")
+	public String buyCouponProduct(CouponProduct cp) {
+		System.out.println(cp);
+		
+		List<CouponProduct> cpList = new ArrayList(); 
+		for(int i = 0; i < cp.getAmount(); i++) {
+			cpList.add(cp);
+		}
+		
+		System.out.println(cpList.size());
+		
+		System.out.println(cpService.buyCouponProduct(cpList, cp));
+		
+		return "";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

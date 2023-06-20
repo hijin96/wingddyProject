@@ -127,7 +127,7 @@
 	                   			<div class="article-cta">                           
 	                    			<div>수량 : ${cp.amount}개</div>
 	                    			<c:if test="${loginUser.memberType eq 'S'}">
-	                    				<button class="btn btn-primary" onclick="buyCp('${cp.productName}', ${cp.amount}, ${cp.couponPrice })" data-toggle="modal" data-target="#buyModal">교환하기</button>
+	                    				<button class="btn btn-primary" onclick="buyCp(${cp.pNo}, '${cp.productName}', ${cp.amount}, ${cp.couponPrice })" data-toggle="modal" data-target="#buyModal">교환하기</button>
 	                    			</c:if>
 	                   			</div>
 	                 		</div>
@@ -152,7 +152,7 @@
 				<div class="modal-dialog modal-custom">
 					<div class="modal-content">
 						
-						<form class="form-schedule" action="insertSchedule" method="POST">
+						<form action="buy.cp" method="POST">
 							<!-- Modal Header -->
 							<div class="modal-header">
 								<h4 class="modal-title">쿠폰으로 상품 교환하기</h4>
@@ -164,20 +164,21 @@
 							<div class="modal-body">
 								<div class="form-group row">
 									<div class="col-form-label col-md-3" >교환할 수량</div>
-									<input id="buyAmount" type="number" class="form-control inputWidth" min="0" />
+									<input id="buyAmount" type="number" name="amount" class="form-control inputWidth" min="0" />
+									<input type="hidden" name="memberNo" value="${loginUser.memberNo}" />
+									<input type="hidden" name="pNo" />
 								</div>
 								<div>
 									<p id="myCount">현재 보유 쿠폰은 100장입니다.</p>
 									<p id="productInfo"></p>
-									<p id="warningMsg">경고메시지</p>
+									<p id="warningMsg"></p>
 								</div>
 							</div>
 							
 							<!-- Modal footer -->
 							<div class="modal-footer">
-							
 								<button type="button" class="btn btn-warning" data-dismiss="modal">취소</button>
-								<button type="submit" id="btn-buyCp" class="btn btn-success" >교환</button>
+								<button type="submit" id="btn-buyCp" class="btn btn-success" disabled="true">교환</button>
 							</div>
 						</form>
 					
@@ -280,32 +281,44 @@
 	
 	// 학생이 상품 구매버튼 눌렀을 때 정보출력 (학생 보유 상품 insert, 상품 목록 수량 update, 학생 보유 쿠폰 update)
 	function buyCp(cpName, amount, price){
-		//console.log(cpName);
+		let myCoupon = 0;
 		$.ajax({
 			url : 'couponCount.cp',
 			data : {'memberNo' : memberNo, 'classNo' : cno},
 			success : function(result){
-				//console.log(result.couponCount);
-				$('#myCount').html('현재 보유 쿠폰은 ' + result.couponCount + '개입니다.');
+
+				myCoupon = result.couponCount;
+				$('#myCount').html('현재 보유 쿠폰은 ' + myCoupon + '개입니다.');
 			}
 		})
 		
 		// input type=number 최대값 설정
 		$('#buyAmount').attr('max', amount);
 		
+		//$('input[name=pNo]').attr('value', pNo);
+		
 		// input 값 바뀔 때마다 '~상품 몇 개 구입할 거냐' 문구 변경
 		$('#buyAmount').on('input', function(){
 			$('#productInfo').html('[' + cpName + ']' + ' ' + $(this).val() + '개를 구입하시겠습니까?');
-		})
-		
-		$('#btn-buyCp').on('click', function(){
+			
+			if(myCoupon < $(this).val() * price){
+				//console.log('못 사');
+				$('#warningMsg').html('보유한 쿠폰보다 많은 상품은 교환할 수 없습니다!');
+			} else {
+				$('#warningMsg').html('');
+				// 조건 불만족이면 submit 버튼 활성화
+				$('#btn-buyCp').prop('disabled', false);
+			}
 			
 		})
-		
-		
 	}
 	
-	
+	$('.modal').on('hidden.bs.modal', function (e) {
+	    console.log('modal close');
+	  	$(this).find('form')[0].reset();
+	  	$('#productInfo').html('');
+	  	$('#warningMsg').html('');
+	});
 	
 	
 	

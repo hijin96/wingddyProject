@@ -202,7 +202,6 @@
 	<insert id="insertAlphabet" parameterType="alphabet">
 	INSERT INTO ALPHABET
 	VALUES(#{mno}, #{cno}, #{alphabet})
-	
 	</insert>
 	
 	<update id="updateMyCount" parameterType="alphabet">

@@ -1,6 +1,7 @@
 package com.kh.wingddy.couponProduct.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.couponProduct.model.vo.CouponProduct;
@@ -21,7 +22,7 @@ public interface CouponProductService {
 	
 	int useCoupon(int memberNo, int cpNo);
 	
-	
+	int buyCouponProduct(List<CouponProduct> cpList, CouponProduct cp);
 	
 	
 }

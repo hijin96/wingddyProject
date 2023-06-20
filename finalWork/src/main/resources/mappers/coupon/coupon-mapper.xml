@@ -3,6 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="coupon-mapper">
+
+
+
+
 	<select id="selectListCount" parameterType="_int" resultType="_int">
 		select NVL(count(*), 0)
 		  from coupon_product_shop
@@ -75,7 +79,18 @@
 		 	   amount asc
 	</select>
 	
-	
+	<insert id="insertMyCp" parameterType="list">
+		insert 
+		  into 
+		  	   coupon_product 
+  	    values
+			<foreach collection="list" item="couponProduct" index="i" separator=",">
+			   (
+			   #{couponProduct.pNo}
+			  ,#{couponProduct.memberNo}
+			   )
+			</foreach>
+	</insert>
 	
 	
 </mapper>

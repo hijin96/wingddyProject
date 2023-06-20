@@ -1,6 +1,7 @@
 package com.kh.wingddy.couponProduct.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -30,7 +31,17 @@ public class CouponProductDao {
 		}
 	}
 	
+	public int insertMyCp(SqlSessionTemplate sqlSession, List<CouponProduct> cpList) {
+		return sqlSession.insert("coupon-mapper.insertMyCp", cpList);
+	}
+
+	/*
+	public int updateCp(SqlSessionTemplate sqlSession, CouponProduct cp) {
+		
+	}
 	
-	
-	
+	public int updateCoupon(SqlSessionTemplate sqlSession, CouponProduct cp) {
+		
+	}
+	*/
 }
