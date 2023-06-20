@@ -56,7 +56,7 @@ public class StoreController {
 
 	@Autowired
 	private StoreService storeService;
-
+	
 	private RenameFile rename = new RenameFile();
 
 	//카카오api서비스키
