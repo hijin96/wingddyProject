@@ -186,13 +186,21 @@
 					//전체선택을 클릭했을때
 					//체크박스 개별로 전체 선택했을 때
 					//전체선택 체크박스를 해제할 때
+				
+					$('input[name=buycheckbox-all]').click(function(){
+						if($('input[name=buycheckbox-all]').prop("checked", true)){
+							$('input[name=buyCheckBox]').prop("checked",false);
+						}else{
+							$('input[name=buycheckbox-all]').prop("checked", true);
+						}
+						
+					})
+					
+						
 					
 				</script>
 				
-				<script>
-				//클릭펑션 참고해서 다르게 만들어보기 ->https://ivory-room.tistory.com/67
-				
-				</script>
+		
 				
 			</div>
 
