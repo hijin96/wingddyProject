@@ -393,7 +393,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="forgetPwdBtn">인증코드 받~기</button>
+                    <button type="button" class="btn btn-primary forgetPwdBtn">인증코드 받~기</button>
                 </div>
         </div>
     </div>
@@ -456,7 +456,7 @@
 
   <script>
     $(function(){
-      $('#forgetPwdBtn').click(function(){
+      $('.forgetPwdBtn').click(function(){
         $.ajax({
           url : 'forgetPwd.me',
           type : 'POST',
