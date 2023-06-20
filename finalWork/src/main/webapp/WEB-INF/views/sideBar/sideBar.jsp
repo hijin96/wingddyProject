@@ -315,8 +315,7 @@
 					});
 				</script>
 	            
-	            
-            </c:if>
+      </c:if>
             <c:choose>
               <c:when test="${not empty loginUser}">
                 <li class="menu-header">PROFILE</li>
@@ -401,6 +400,7 @@
         </div>
     </div>
 </div>
+</c:if>
 
   <c:if test="${ not empty alertMsg }">
 		<script>
