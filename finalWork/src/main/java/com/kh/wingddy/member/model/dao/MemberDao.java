@@ -1,5 +1,6 @@
 package com.kh.wingddy.member.model.dao;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -63,5 +64,20 @@ public class MemberDao {
 	public int insertCert(SqlSessionTemplate sqlSession, Cert cert) {
 		
 		return sqlSession.insert("memberMapper.insertCert", cert);
+	}
+	
+	public Cert checkCode(SqlSessionTemplate sqlSession, Cert cert) {
+		
+		return sqlSession.selectOne("memberMapper.checkCode", cert);
+	}
+	
+	public int certifyCode(SqlSessionTemplate sqlSession, Cert cert) {
+		
+		return sqlSession.delete("memberMapper.certifyCode", cert);
+	}
+	
+	public int updatePwd(SqlSessionTemplate sqlSession, Member m) {
+		
+		return sqlSession.update("memberMapper.updatePwd", m);
 	}
 }

@@ -18,6 +18,13 @@
 		<result column="LOGIN_TYPE" property="loginType"/>
 	</resultMap>
 	
+	<resultMap id="certResultSet" type="cert">
+		<result column="MEMBER_WHO" property="memberWho"/>
+		<result column="SECRET" property="secret"/>
+		<result column="CERT_NO" property="certNo"/>
+		<result column="CERT_WHEN" property="certWhen"/>
+	</resultMap>
+	
 	
 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
 		SELECT MEMBER_NO,
@@ -112,4 +119,38 @@
 		      SYSDATE
 		      )      
 	</insert>
+	
+	<select id="checkCode" parameterType="cert" resultMap="certResultSet">
+		SELECT
+		       CERT_NO,
+		       SECRET,
+		       MEMBER_WHO,
+		       CERT_WHEN
+		  FROM
+		       CERT
+		 WHERE
+		       SECRET = #{secret}
+		   AND
+		       MEMBER_WHO = #{memberWho}    
+		   AND
+		       CERT_WHEN BETWEEN SYSDATE - 3/24/60 AND SYSDATE      
+	</select>
+	
+	<delete id="certifyCode" parameterType="cert">
+		DELETE
+		       CERT
+		 WHERE
+		       MEMBER_WHO = #{memberWho}
+		   AND
+		       SECRET = #{secret}         
+	</delete>
+	
+	<update id="updatePwd" parameterType="member">
+		UPDATE
+		       MEMBER
+		   SET
+		       MEMBER_PWD = #{memberPwd}
+		 WHERE
+		       EMAIL = #{email}    
+	</update>
 </mapper>

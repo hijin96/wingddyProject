@@ -263,7 +263,7 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping("forgetPwd.me")
-	public String forgetPwdForm(String email, HttpServletRequest request) throws MessagingException {
+	public String forgetPwdForm(String email, HttpServletRequest request, Model model) throws MessagingException {
 		
 		Member forgetUser = memberService.searchId(email);
 		if(forgetUser.getMemberId() != null) {
@@ -283,19 +283,58 @@ public class MemberController {
 			
 			helper.setTo(email);
 			helper.setSubject("WINGDDY 이메일 인증 번호 보내드립니다!");
-			helper.setText("인증번호 : " + secret);
+			helper.setText("<div>"
+						 + "<img src=\"https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Ft0B9e%2Fbtsh9BI8zya%2FUifPbFfhfWwk7NzrRCW6J0%2Fimg.png\" alt=\"메인페이지로고\" width=\"250px\" height=\"50px\"/>"
+						 + "<br/><br/>"
+						 + "인증번호 : " + secret
+						 + "<br/><br/>"
+						 + "<form action='http://localhost:8007/wingddy/checkCert.me' method='post'>"
+						 + "<input type='hidden' name='email' value='" + email + "'/>"
+						 + "<button type='submit'>인증코드 입력하러가기 </button>"
+						 + "</form>"
+						 + "</div>"
+						 ,true);
 			
 			sender.send(message);
+			return email;
 			
-			return "exist";
 		}
-		
 		return "notExist";
 	}
 	
-	@RequestMapping("certEmail.me")
-	public String certEmail() {
+	@RequestMapping("checkCert.me")
+	public ModelAndView certEmail(String email, ModelAndView mv) {
 		
+		mv.addObject("email", email);
+		mv.setViewName("member/certEmail");
+		
+		return mv;
 	}
 	
+	@ResponseBody
+	@RequestMapping("checkCode.me")
+	public String checkCode(String certCode, HttpServletRequest request) {
+		
+		Cert cert = new Cert();
+		cert.setMemberWho(request.getRemoteAddr());
+		cert.setSecret(certCode);
+		
+		Cert result = memberService.checkCode(cert);
+		if(result.getMemberWho() != null) {
+			memberService.certifyCode(cert);
+		}
+		return result.getMemberWho() != null ? "success" : "fail";
+	}
+	
+	@ResponseBody
+	@RequestMapping("updatePwd.me")
+	public int updatePwd(String memberPwd, String email) {
+		
+		Member m = new Member();
+		m.setEmail(email);
+		String encPwd = bcryptPasswordEncoder.encode(memberPwd);
+		m.setMemberPwd(encPwd);
+		
+		return memberService.updatePwd(m);
+	}
 }
