@@ -129,9 +129,9 @@
   <script src="resources/assets/js/custom.js"></script>
 
   <script>
-    $("#swal-7").click(function() {
+    $("#swal-7").click(() => {
             swal({
-              title: 'What is your Password?',
+              title: '너의 비밀번호는 뭐니?',
               content: {
               element: 'input',
               attributes: {
@@ -139,12 +139,12 @@
                 type: 'text',
               },
               },
-            }).then((data) => {
+            }).then(data => {
               $.ajax({
                 url : 'confirmPass.me',
                 data : {memberPwd : data},
                 type : 'post',
-                success : function(result){
+                success : result => {
                     //console.log(result);
                     if(result === '1'){
                       swal('Correct password!', 'update profile?', 'success');
@@ -163,14 +163,14 @@
                       swal('incorrect password!', 'enter agian', 'error');
                     }
                 },
-                error : function(){
+                error : () => {
                   swal('incorrect password!', 'enter agian', 'error');
                 }
               });
             });
           });
 
-  $("#swal-9").click(function() {
+  $("#swal-9").click(() => {
     swal({
       title: 'What is your Password?',
       content: {
@@ -180,12 +180,12 @@
         type: 'text',
       },
       },
-    }).then((data) => {
+    }).then(data => {
       $.ajax({
         url : 'confirmPass.me',
         data : {memberPwd : data},
         type : 'post',
-        success : function(result){
+        success : result => {
             //console.log(result);
             if(result === '1'){
               swal('Correct Password!', 'Update Proof Of Employment?', 'success');
@@ -201,22 +201,22 @@
               swal('incorrect password!', 'enter agian', 'error');
             }
         },
-        error : function(){
+        error : () => {
           swal('incorrect password!', 'enter agian', 'error');
         }
       });
     });
   });     
   
-  $(function(){
-      $('.forgetPwdBtn').click(function(){
+  $(() => {
+      $('.forgetPwdBtn').click(() => {
         $.ajax({
           url : 'forgetPwd.me',
           type : 'POST',
           data : {
             email : $('#frontEmail2').val() + $('#backEmail2 option:selected').val()
           },
-          success : function(result){
+          success : result => {
             if(result === 'notExist'){
               alert('가입되어있지 않은 이메일입니다!');
             }
@@ -224,7 +224,7 @@
               alert('인증번호 보내드립니다!ㅋ');
             }
           },
-          error : function(){
+          error : () => {
             console.log('asd');
           }
         });
