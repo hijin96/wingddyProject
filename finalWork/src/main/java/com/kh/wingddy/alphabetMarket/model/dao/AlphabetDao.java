@@ -78,6 +78,7 @@ public class AlphabetDao {
 	
 	public ArrayList<AlphabetMarket> selectCategory(SqlSessionTemplate sqlSession, Alphabet ap){
 		
+		
 		return (ArrayList)sqlSession.selectList("alphabetMapper.selectMyAlphabet", ap);
 	}
 	
