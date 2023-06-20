@@ -181,4 +181,15 @@
 		       VOCA_KR LIKE '%'||#{text}||'%'
 	</select>
 	
+	<select id="checkClassBook" parameterType="vocaBook">
+		SELECT
+			   COUNT(BOOK_NO)
+		  FROM
+		  	   CLASS_VOCABOOK
+		 WHERE
+		 	   BOOK_NO = #{bookNo}
+		   AND
+		   	   CLASS_NO = #{classNo}
+	</select>
+	
 </mapper>

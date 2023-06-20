@@ -89,6 +89,8 @@
 		SELECT
 			   EDU_NO
 			  ,EDU_NAME
+			  ,CASE EDU_TYPE WHEN 'W' THEN '단어퀴즈' WHEN 'S' THEN '문장배치' ELSE 'OX퀴즈' END EDU_TYPE
+			  ,TO_CHAR(END_TIME, 'YY"년" MM"월" DD"일"') END_TIME
 			  ,QUIZ_NO
 			  ,QUIZ_CONTENT
 			  ,CORRECT_CONTENT
@@ -109,5 +111,52 @@
 		 	   EDU_NO = #{eduNo}
 	</update>
 	
+	<select id="selectCompleteStudent" resultType="Member">
+		SELECT
+		       MEMBER_NO memberNo
+		      ,MEMBER_ID memberId
+		      ,MEMBER_NAME memberName
+		  FROM
+		       MEMBER
+		 WHERE 
+		       MEMBER_NO IN (SELECT
+		                            MEMBER_NO
+		                       FROM
+		                            INCORRECT 
+		                       JOIN
+		                            QUIZ USING (QUIZ_NO)
+		                      WHERE
+		                            EDU_NO = #{eduNo}
+		                      GROUP 
+		                         BY MEMBER_NO)
+	</select>
+	
+	<insert id="insertEducation" parameterType="Edu">
+		INSERT
+		  INTO
+		  	   EDUCATION
+		VALUES
+		 	  (
+		 	   SEQ_EDU_NO.NEXTVAL
+		 	  ,#{classNo}
+		 	  ,#{eduName}
+		 	  ,#{eduType}
+		 	  ,#{endTime}
+		 	  ,#{gachaCount}
+		 	  )
+	</insert>
+	
+	<insert id="insertQuiz" parameterType="Edu">
+		INSERT
+		  INTO
+		       QUIZ
+		VALUES
+			  (
+			   SEQ_QUIZ_NO.NEXTVAL
+			  ,SEQ_EDU_NO.CURRVAL
+			  ,#{quizContent}
+			  ,#{correctContent}
+			  )
+	</insert>
 	
 </mapper>

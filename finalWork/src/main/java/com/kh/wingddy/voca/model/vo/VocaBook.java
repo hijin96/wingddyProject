@@ -1,8 +1,13 @@
 package com.kh.wingddy.voca.model.vo;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
-@Data
+@Getter @Setter @ToString @SuperBuilder @NoArgsConstructor @AllArgsConstructor
 public class VocaBook {
 	
 	private int bookNo;

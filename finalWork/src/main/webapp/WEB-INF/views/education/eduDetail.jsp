@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,7 @@
 		<div class="main-content">
 		<section class="section">
 	        <div class="section-header">
-				<h1>과제 상세</h1>
+				<h1>${classroom.className} 과제</h1>
 				<div class="section-header-breadcrumb">
 					<form action="deadLine.edu" method="POST">
 						<input type="hidden" name="cno" value="${classroom.classNo}"/>
@@ -21,8 +22,10 @@
 				</div>
 	        </div>
 	        <div class="section-body">
-           		<h2 class="section-title">${qList[0].eduName}과제이름</h2>
+           		<h2 class="section-title">${qList[0].eduName}</h2>
            		<p class="section-lead">
+           			유형 : ${qList[0].eduType} <br>
+           			마감일 : ${qList[0].endTime}
            		</p>
 	            <div class="row">
 					<div class="col-12 col-md-8 col-lg-8">
@@ -35,18 +38,18 @@
 									<thead>
 										<tr>
 											<th scope="col">#</th>
+											<th>문제</th>
+											<th>정답</th>
 										</tr>
 									</thead>
 									<tbody>
+										<c:forEach var="quiz" items="${qList}" varStatus="i">
 										<tr>
-											<th scope="row">1</th>
+											<th scope="row">${i.count}</th>
+											<td>${quiz.quizContent}</td>
+											<td>${quiz.correctContent}</td>
 										</tr>
-										<tr>
-											<th scope="row">2</th>
-										</tr>
-										<tr>
-											<th scope="row">3</th>
-										</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 	            			</div>
@@ -62,18 +65,18 @@
 									<thead>
 										<tr>
 											<th scope="col">#</th>
+											<th>학생 ID</th>
+											<th>학생 이름</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<th scope="row">1</th>
-										</tr>
-										<tr>
-											<th scope="row">2</th>
-										</tr>
-										<tr>
-											<th scope="row">3</th>
-										</tr>
+										<c:forEach var="member" items="${mList}" varStatus="i">
+											<tr>
+												<th scope="row">${i.count}</th>
+												<td>${member.memberId}</td>
+												<td>${member.memberName}</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 	            			</div>

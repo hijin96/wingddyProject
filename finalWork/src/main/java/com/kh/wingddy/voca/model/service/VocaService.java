@@ -53,6 +53,11 @@ public interface VocaService {
 	// - 선택 단어장의 소속 클래스 리스트 조회(SELECT)
 	ArrayList<ClassVocaBook> selectBookClassList(int bookNo);
 	
+	// 클래스 단어장 체크
+	int checkClassBook(ClassVocaBook cv);
+	// 없을때 insert
+	int insertClassBookOne(ArrayList<ClassVocaBook> cvList);
+	
 	/* 학생 */
 	
 	// 단어장 등록 페이지
