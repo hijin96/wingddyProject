@@ -14,7 +14,11 @@
 	<result column="ANONYMOUS" 			 property="anonymous" />
 	<result column="TO_MANITTO" 		 property="toManitto" />
 	<result column="GIFT"				 property="gift" />
+	<result column="GET_GIFT" 			 property="getGift" />
 	<result column="READ_CHECK" 		 property="readCheck" />
+	<result column="CLASS_NAME" 		 property="className" />
+	
+	<result column="MEMBER_NO" 			 property="memberNo" />
 </resultMap>
 
 
@@ -24,6 +28,7 @@ SELECT COUNT(*)
   JOIN MEMBER USING ON (SENDER = MEMBER_NO)
  WHERE CLASS_NO = #{classNo}
    AND RECIPIENT = #{recipient}
+   AND STATUS = 'Y'
  ORDER BY SEND_DATE DESC
 </select>
 
@@ -33,6 +38,7 @@ SELECT COUNT(*)
    JOIN MEMBER USING ON (RECIPIENT = MEMBER_NO)
   WHERE CLASS_NO = #{classNo}
     AND SENDER = #{sender}
+    AND STATUS = 'Y'
   ORDER BY SEND_DATE DESC
 </select>
 
@@ -43,7 +49,8 @@ SELECT LETTER_NO, MEMBER_ID||'('||MEMBER_NAME||')' AS "SENDER", SUBSTR(LETTER_CO
   JOIN MEMBER USING ON (SENDER = MEMBER_NO)
  WHERE CLASS_NO = #{classNo}
    AND RECIPIENT = #{recipient}
- ORDER BY SEND_DATE DESC
+   AND STATUS = 'Y'
+ ORDER BY LETTER_NO DESC
 </select>
 
 <select id="ajaxSentLetter" parameterType="letter" resultMap="letterResultSet">
@@ -52,8 +59,95 @@ SELECT LETTER_NO, MEMBER_ID||'('||MEMBER_NAME||')' AS "SENDER", SUBSTR(LETTER_CO
    JOIN MEMBER USING ON (RECIPIENT = MEMBER_NO)
   WHERE CLASS_NO = #{classNo}
     AND SENDER = #{sender}
-  ORDER BY SEND_DATE DESC
+    AND STATUS = 'Y'
+  ORDER BY LETTER_NO DESC
 </select>
+
+
+<select id="selectRecipient" resultMap="letterResultSet">
+SELECT MEMBER_ID||'('||MEMBER_NAME||')' as "RECIPIENT", MEMBER_NO
+  FROM CLASS_MEMBER
+  JOIN MEMBER ON(STUDENT_NO = MEMBER_NO)
+ WHERE CLASS_NO = #{cno}
+   AND ENTER_STATUS = 'Y'
+</select>
+
+
+<select id="selectMymanitto" parameterType="letter" resultType="Integer">
+SELECT MANITTO
+  FROM MANITTO
+ WHERE CLASS_NO = #{classNo}
+   AND MANITTI = #{sender}
+</select>
+
+
+<select id="selectMymanitti" parameterType="letter" resultType="Integer">
+SELECT MANITTI
+  FROM MANITTO
+ WHERE CLASS_NO =  #{classNo}
+   AND MANITTO = #{sender}
+</select>
+
+
+<insert id="insertLetter" parameterType="letter">
+INSERT INTO LETTER(LETTER_NO, CLASS_NO, SENDER, RECIPIENT, LETTER_CONTENT, SEND_DATE, ANONYMOUS, TO_MANITTO, GIFT, READ_CHECK)
+VALUES(SEQ_LETTER_NO.NEXTVAL, #{classNo}, #{sender}, #{recipient}, #{letterContent}, default, #{anonymous, jdbcType=VARCHAR}, #{toManitto, jdbcType=VARCHAR}, #{gift}, default)
+</insert>
+
+<update id="changeReadStatus" parameterType="letter">
+UPDATE LETTER
+   SET READ_CHECK = 'Y'
+ WHERE LETTER_NO = #{letterNo}
+    AND RECIPIENT = #{memberNo}
+</update>
+
+
+<select id="letterDetail" resultMap="letterResultSet" parameterType="letter">
+SELECT LETTER_NO, A.MEMBER_ID||'('||A.MEMBER_NAME||')' as "SENDER", B.MEMBER_ID||'('||B.MEMBER_NAME||')' as "RECIPIENT", LETTER_CONTENT, SEND_DATE, ANONYMOUS, TO_MANITTO, GIFT, READ_CHECK, STATUS, A.MEMBER_NO AS "MEMBER_NO", GET_GIFT
+  FROM LETTER
+  JOIN MEMBER A ON(SENDER = A.MEMBER_NO)
+  JOIN MEMBER B ON(RECIPIENT = B.MEMBER_NO)
+ WHERE LETTER_NO = #{letterNo}
+   AND STATUS = 'Y'
+</select>
+
+
+<update id="updateGetGift" parameterType="letter">
+UPDATE LETTER
+   SET GET_GIFT = 'Y'
+ WHERE LETTER_NO = #{letterNo}
+</update>
+
+<insert id="insertAlphabet" parameterType="letter">
+INSERT INTO ALPHABET
+VALUES(#{memberNo}, #{classNo}, #{gift})
+</insert>
+
+
+<delete id="deleteAlphabet" parameterType="letter">
+DELETE FROM ALPHABET
+ WHERE CLASS_NO = #{classNo}
+   AND MEMBER_NO = #{sender}
+   AND ALPHABET = #{gift}
+</delete>
+
+<select id="unReadLetter" resultMap="letterResultSet">
+SELECT CLASS_NO, CLASS_NAME, LETTER_NO, A.MEMBER_ID||'('||A.MEMBER_NAME||')' as "SENDER", B.MEMBER_ID||'('||B.MEMBER_NAME||')' as "RECIPIENT", LETTER_CONTENT, SEND_DATE, ANONYMOUS, TO_MANITTO
+  FROM LETTER
+  JOIN MEMBER A ON(SENDER = A.MEMBER_NO)
+  JOIN MEMBER B ON(RECIPIENT = B.MEMBER_NO)
+  JOIN CLASSROOM USING(CLASS_NO)
+ WHERE RECIPIENT = #{memberNo}
+   AND READ_CHECK = 'N'
+ ORDER BY LETTER_NO DESC
+</select>
+
+<update id="markAll">
+UPDATE LETTER
+   SET READ_CHECK = 'Y'
+ WHERE RECIPIENT = #{memberNo}
+</update>
+
 
 
 

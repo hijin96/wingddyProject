@@ -2,11 +2,16 @@ package com.kh.wingddy.member.controller;
 
 import java.io.File;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +24,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.kh.wingddy.classroom.model.service.ClassroomService;
 import com.kh.wingddy.common.model.vo.Attachment;
+import com.kh.wingddy.common.template.GenerateSecret;
 import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.member.model.service.MemberService;
+import com.kh.wingddy.member.model.vo.Cert;
 import com.kh.wingddy.member.model.vo.Member;
 
 @Controller
@@ -34,6 +41,9 @@ public class MemberController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	@Autowired
+	private JavaMailSenderImpl sender;
 	
 	
 	private RenameFile renameFile = new RenameFile();
@@ -253,18 +263,78 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping("forgetPwd.me")
-	public ModelAndView forgetPwdForm(String email, ModelAndView mv) {
+	public String forgetPwdForm(String email, HttpServletRequest request, Model model) throws MessagingException {
 		
 		Member forgetUser = memberService.searchId(email);
-		
 		if(forgetUser.getMemberId() != null) {
-			mv.addObject("forgetUser", forgetUser);
-			mv.setViewName("member/certCode");
-		} else {
-			mv.setViewName("sideBar/sideBar");
+			
+			MimeMessage message = sender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+			
+			GenerateSecret gs = new GenerateSecret();
+			String secret = gs.generateSecret();
+			String ip = request.getRemoteAddr();
+			
+			Cert cert = new Cert();
+			cert.setMemberWho(ip);
+			cert.setSecret(secret);
+			
+			memberService.insertCert(cert);
+			
+			helper.setTo(email);
+			helper.setSubject("WINGDDY 이메일 인증 번호 보내드립니다!");
+			helper.setText("<div>"
+						 + "<img src=\"https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Ft0B9e%2Fbtsh9BI8zya%2FUifPbFfhfWwk7NzrRCW6J0%2Fimg.png\" alt=\"메인페이지로고\" width=\"250px\" height=\"50px\"/>"
+						 + "<br/><br/>"
+						 + "인증번호 : " + secret
+						 + "<br/><br/>"
+						 + "<form action='http://localhost:8007/wingddy/checkCert.me' method='post'>"
+						 + "<input type='hidden' name='email' value='" + email + "'/>"
+						 + "<button type='submit'>인증코드 입력하러가기 </button>"
+						 + "</form>"
+						 + "</div>"
+						 ,true);
+			
+			sender.send(message);
+			return email;
+			
 		}
+		return "notExist";
+	}
+	
+	@RequestMapping("checkCert.me")
+	public ModelAndView certEmail(String email, ModelAndView mv) {
 		
+		mv.addObject("email", email);
+		mv.setViewName("member/certEmail");
 		
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("checkCode.me")
+	public String checkCode(String certCode, HttpServletRequest request) {
+		
+		Cert cert = new Cert();
+		cert.setMemberWho(request.getRemoteAddr());
+		cert.setSecret(certCode);
+		
+		Cert result = memberService.checkCode(cert);
+		if(result.getMemberWho() != null) {
+			memberService.certifyCode(cert);
+		}
+		return result.getMemberWho() != null ? "success" : "fail";
+	}
+	
+	@ResponseBody
+	@RequestMapping("updatePwd.me")
+	public int updatePwd(String memberPwd, String email) {
+		
+		Member m = new Member();
+		m.setEmail(email);
+		String encPwd = bcryptPasswordEncoder.encode(memberPwd);
+		m.setMemberPwd(encPwd);
+		
+		return memberService.updatePwd(m);
 	}
 }

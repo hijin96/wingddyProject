@@ -43,6 +43,74 @@ public class LetterDao {
 		
 		return (ArrayList)session.selectList("letterMapper.ajaxSentLetter", letter, rowBounds);
 	}
+	
+	public ArrayList<Letter> selectRecipient(SqlSessionTemplate session, int cno){
+		
+		return (ArrayList)session.selectList("letterMapper.selectRecipient", cno);
+	}
 
 
+	public int insertLetter(SqlSessionTemplate session, Letter letter) {
+		
+		return session.insert("letterMapper.insertLetter", letter);
+	}
+	
+	
+	public Integer selectMymanitto(SqlSessionTemplate session, Letter letter) {
+		
+		
+		return session.selectOne("letterMapper.selectMymanitto", letter);
+
+	}
+	
+	public Integer selectMymanitti(SqlSessionTemplate session, Letter letter) {
+		
+		return session.selectOne("letterMapper.selectMymanitti", letter);
+
+	}
+	
+	public int changeReadStatus(SqlSessionTemplate session, Letter letter) {
+		return session.update("letterMapper.changeReadStatus", letter);
+	}
+	
+	
+	public Letter letterDetail(SqlSessionTemplate session, Letter letter) {
+		
+		return session.selectOne("letterMapper.letterDetail", letter);
+	}
+	
+	
+	public int updateGetGift(SqlSessionTemplate session, Letter letter) {
+		
+		return session.update("letterMapper.updateGetGift", letter);
+	}
+	
+	
+	public int insertAlphabet(SqlSessionTemplate session, Letter letter) {
+		
+		return session.insert("letterMapper.insertAlphabet", letter);
+	}
+	
+	
+	public int deleteAlphabet(SqlSessionTemplate session, Letter letter) {
+
+		return session.delete("letterMapper.deleteAlphabet", letter);
+		
+	}
+	
+	public ArrayList<Letter> unReadLetter(SqlSessionTemplate session, int memberNo){
+		
+		return (ArrayList)session.selectList("letterMapper.unReadLetter", memberNo);
+	}
+	
+	public int markAll(SqlSessionTemplate session, int memberNo){
+		
+		return session.update("letterMapper.markAll", memberNo);
+	}
+	
+	
+	
+	
+	
+	
 }
