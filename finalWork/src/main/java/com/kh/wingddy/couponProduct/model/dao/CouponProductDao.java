@@ -31,17 +31,16 @@ public class CouponProductDao {
 		}
 	}
 	
-	public int insertMyCp(SqlSessionTemplate sqlSession, List<CouponProduct> cpList) {
+	public int insertMyCp(SqlSessionTemplate sqlSession, ArrayList<CouponProduct> cpList) {
 		return sqlSession.insert("coupon-mapper.insertMyCp", cpList);
 	}
 
-	/*
+	
 	public int updateCp(SqlSessionTemplate sqlSession, CouponProduct cp) {
-		
+		return sqlSession.update("coupon-mapper.updateCp", cp);
 	}
 	
 	public int updateCoupon(SqlSessionTemplate sqlSession, CouponProduct cp) {
-		
+		return sqlSession.update("coupon-mapper.updateCoupon", cp);
 	}
-	*/
 }

@@ -22,7 +22,7 @@ public interface CouponProductService {
 	
 	int useCoupon(int memberNo, int cpNo);
 	
-	int buyCouponProduct(List<CouponProduct> cpList, CouponProduct cp);
+	int buyCouponProduct(ArrayList<CouponProduct> cpList, CouponProduct cp);
 	
 	
 }

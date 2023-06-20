@@ -42,7 +42,7 @@ public class CouponProductController {
 		cp.setOrderBy(orderBy);
 		
 		model.addAttribute("cplist", cpService.selectCouponProductList(pi, cp));
-		System.out.println(cpService.selectCouponProductList(pi, cp));
+		//System.out.println(cpService.selectCouponProductList(pi, cp));
 		
 		model.addAttribute("orderBy", orderBy);
 		return "coupon/couponProductList";
@@ -70,12 +70,12 @@ public class CouponProductController {
 	public String buyCouponProduct(CouponProduct cp) {
 		System.out.println(cp);
 		
-		List<CouponProduct> cpList = new ArrayList(); 
+		ArrayList<CouponProduct> cpList = new ArrayList(); 
 		for(int i = 0; i < cp.getAmount(); i++) {
 			cpList.add(cp);
 		}
 		
-		System.out.println(cpList.size());
+		System.out.println(cpList);
 		
 		System.out.println(cpService.buyCouponProduct(cpList, cp));
 		

@@ -127,7 +127,7 @@
 	                   			<div class="article-cta">                           
 	                    			<div>수량 : ${cp.amount}개</div>
 	                    			<c:if test="${loginUser.memberType eq 'S'}">
-	                    				<button class="btn btn-primary" onclick="buyCp(${cp.pNo}, '${cp.productName}', ${cp.amount}, ${cp.couponPrice })" data-toggle="modal" data-target="#buyModal">교환하기</button>
+	                    				<button class="btn btn-primary" onclick="buyCp(${cp.cpNo}, '${cp.productName}', ${cp.amount}, ${cp.couponPrice })" data-toggle="modal" data-target="#buyModal">교환하기</button>
 	                    			</c:if>
 	                   			</div>
 	                 		</div>
@@ -166,7 +166,7 @@
 									<div class="col-form-label col-md-3" >교환할 수량</div>
 									<input id="buyAmount" type="number" name="amount" class="form-control inputWidth" min="0" />
 									<input type="hidden" name="memberNo" value="${loginUser.memberNo}" />
-									<input type="hidden" name="pNo" />
+									<input type="hidden" name="cpNo" />
 								</div>
 								<div>
 									<p id="myCount">현재 보유 쿠폰은 100장입니다.</p>
@@ -280,7 +280,8 @@
 	})
 	
 	// 학생이 상품 구매버튼 눌렀을 때 정보출력 (학생 보유 상품 insert, 상품 목록 수량 update, 학생 보유 쿠폰 update)
-	function buyCp(cpName, amount, price){
+	function buyCp(cpNo, cpName, amount, price){
+		console.log(cpNo);
 		let myCoupon = 0;
 		$.ajax({
 			url : 'couponCount.cp',
@@ -295,7 +296,7 @@
 		// input type=number 최대값 설정
 		$('#buyAmount').attr('max', amount);
 		
-		//$('input[name=pNo]').attr('value', pNo);
+		$('input[name=cpNo]').attr('value', cpNo);
 		
 		// input 값 바뀔 때마다 '~상품 몇 개 구입할 거냐' 문구 변경
 		$('#buyAmount').on('input', function(){

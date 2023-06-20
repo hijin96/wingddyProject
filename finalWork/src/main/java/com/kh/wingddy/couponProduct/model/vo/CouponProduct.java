@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CouponProduct {
-	private int pNo;
+	private int cpNo;
 	private int classNo;
 	private int cartNo;
 	private String productName;

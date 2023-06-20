@@ -15,7 +15,7 @@
 	
 	<select id="selectCpList" parameterType="couponProduct" resultType="couponProduct" >
 		select 
-		       product_no pNo
+		       product_no cpNo
 		      ,cart_no cartNo
 		      ,product_name productName
 		      ,product_content productContent
@@ -37,7 +37,7 @@
 	
 	<select id="selectCpList_desc" parameterType="couponProduct" resultType="couponProduct" >
 		select 
-		       product_no pNo
+		       product_no cpNo
 		      ,cart_no cartNo
 		      ,product_name productName
 		      ,product_content productContent
@@ -59,7 +59,7 @@
 	
 	<select id="selectCpList_amount" parameterType="couponProduct" resultType="couponProduct" >
 		select 
-		       product_no pNo
+		       product_no cpNo
 		      ,cart_no cartNo
 		      ,product_name productName
 		      ,product_content productContent
@@ -81,16 +81,44 @@
 	
 	<insert id="insertMyCp" parameterType="list">
 		insert 
-		  into 
-		  	   coupon_product 
-  	    values
-			<foreach collection="list" item="couponProduct" index="i" separator=",">
-			   (
-			   #{couponProduct.pNo}
-			  ,#{couponProduct.memberNo}
-			   )
+		   all
+		   	<foreach collection="list" index="index" item="couponProduct">
+		   		into 
+			  	     coupon_product 
+			  	    (
+			  	     product_no
+			  	    ,member_no
+			  	    )
+	  	      values
+			  		(
+			  		 #{couponProduct.cpNo}
+			  	    ,#{couponProduct.memberNo}
+			  	    )
 			</foreach>
+		select * from dual						
 	</insert>
+	
+	<update id="updateCp" parameterType="couponProduct">
+		update 
+			   coupon_product_shop
+		   set
+		   	   amount = amount - #{amount}
+		 where
+		 	   product_no = #{cpNo}
+	</update>
+	
+	<update id="updateCoupon" parameterType="couponProduct">
+		update
+			   class_mycount
+		   set
+		   	   coupon_count = coupon_count - (select 
+		   	   										 coupon_price
+		   	   								    from
+		   	   								    	 coupon_product_shop
+	   	   								       where
+	   	   								       	     product_no = #{cpNo}) * #{amount}
+	</update>
+	
 	
 	
 </mapper>
