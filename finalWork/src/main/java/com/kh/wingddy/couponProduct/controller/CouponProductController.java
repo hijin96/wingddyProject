@@ -2,7 +2,7 @@ package com.kh.wingddy.couponProduct.controller;
 
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,12 +10,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.kh.wingddy.alphabetMarket.model.service.AlphabetService;
 import com.kh.wingddy.alphabetMarket.model.vo.MyCount;
+import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.Pageination;
+import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.couponProduct.model.service.CouponProductServiceImpl;
 import com.kh.wingddy.couponProduct.model.vo.CouponProduct;
 
@@ -27,6 +30,8 @@ public class CouponProductController {
 	
 	@Autowired
 	private AlphabetService alphabetService;
+	
+	private RenameFile rename = new RenameFile();
 	
 	@RequestMapping(value="couponStore")
 	public String selectCouponProductList(@RequestParam(value = "cPage", defaultValue = "1") int currentPage, 
@@ -43,7 +48,7 @@ public class CouponProductController {
 		cp.setOrderBy(orderBy);
 		
 		model.addAttribute("cplist", cpService.selectCouponProductList(pi, cp));
-		//System.out.println(cpService.selectCouponProductList(pi, cp));
+		System.out.println(cpService.selectCouponProductList(pi, cp));
 		
 		model.addAttribute("orderBy", orderBy);
 		return "coupon/couponProductList";
@@ -94,13 +99,26 @@ public class CouponProductController {
 	 * @return
 	 */
 	@RequestMapping("enroll.cp")
-	public String insertCouponProduct(CouponProduct cp, HttpServletRequest request){
-		if(cpService.insertCouponProduct(cp) > 0) {
-			request.setAttribute("cno", cp.getClassNo());
-			//			model.addAttribute("cno", cp.getClassNo());
+	public String insertCouponProduct(CouponProduct cp
+									 ,@RequestParam(value="file", required=false)MultipartFile upfile, HttpSession session, Model model){
+		
+		Attachment at = new Attachment();
+		
+		String changeName = rename.fileName(upfile, session);
+		
+		at.setOriginName(upfile.getOriginalFilename());
+		at.setChangeName(changeName);
+		at.setFilePath("resources/uploadFiles/");
+		
+		at.setFileNo(cp.getFileNo());
+		at.setMemberNo(cp.getMemberNo());
+		System.out.println(at);
+		
+		if(cpService.insertCouponProduct(cp, at) > 0) {
+			model.addAttribute("cno", cp.getClassNo());
 			return "redirect:/couponStore";
 		} else {
-			//model.addAttribute("errorMsg", "상품 등록 실패");
+			model.addAttribute("errorMsg", "상품 등록 실패");
 			return "common/errorPage";
 		}
 		

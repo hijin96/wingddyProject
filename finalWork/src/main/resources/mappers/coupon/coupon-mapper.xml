@@ -23,7 +23,7 @@
 		      ,amount
 		      ,class_no classNo
 		      ,file_no fileNo
-		      ,file_path || file_name filePath
+		      ,filePath
 		  from 
 		       vw_cp
 		 where 
@@ -123,14 +123,18 @@
 		select 
 		       sp_no cpNo
 		      ,name productName
-		      ,cart_no cartNo
+		      ,A.cart_no cartNo
 		      ,content productContent
 		      ,file_path filePath
-		      ,amount
+		      ,A.amount
 		  from
-		       vw_teacher_own_product   
+		       vw_teacher_own_product A, coupon_product_shop B
 		 where
-		 	   member_no = #{mno}      
+		 	   A.cart_no = B.cart_no(+)
+		   and	   
+		 	   member_no = #{mno}    
+		   and
+		   	   class_no is null
 	</select>
 	
 	<insert id="insertCouponProduct" parameterType="couponProduct" >
@@ -146,7 +150,7 @@
 			  ,#{couponPrice}
 			  ,#{amount}
 			  ,#{classNo}
-			   )  	   
+			   )
 	</insert>
 	
 	

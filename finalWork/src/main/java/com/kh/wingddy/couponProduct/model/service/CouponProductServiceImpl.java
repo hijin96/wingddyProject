@@ -1,12 +1,12 @@
 package com.kh.wingddy.couponProduct.model.service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.couponProduct.model.dao.CouponProductDao;
 import com.kh.wingddy.couponProduct.model.vo.CouponProduct;
@@ -31,8 +31,12 @@ public class CouponProductServiceImpl implements CouponProductService {
 	}
 	
 	@Override
-	public int insertCouponProduct(CouponProduct cp) {
-		return cpDao.insertCouponProduct(sqlSession, cp);
+	public int insertCouponProduct(CouponProduct cp, Attachment at) {
+		if(cpDao.insertCouponProduct(sqlSession, cp) * cpDao.insertAttachment(sqlSession, at) > 0){
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 	@Override
