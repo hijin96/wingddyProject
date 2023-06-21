@@ -73,7 +73,7 @@
 		 where 
 		       class_no = #{classNo}
 		   and 
-		   	   amount ^= 0       
+		   	   amount > 0       
 		 order 
 		 	by 
 		 	   amount asc
@@ -118,6 +118,36 @@
 	   	   								       where
 	   	   								       	     product_no = #{cpNo}) * #{amount}
 	</update>
+	
+	<select id="selectClassCplist" parameterType="_int" resultType="couponProduct">
+		select 
+		       sp_no cpNo
+		      ,name productName
+		      ,cart_no cartNo
+		      ,content productContent
+		      ,file_path filePath
+		      ,amount
+		  from
+		       vw_teacher_own_product   
+		 where
+		 	   member_no = #{mno}      
+	</select>
+	
+	<insert id="insertCouponProduct" parameterType="couponProduct" >
+		insert
+		  into
+		  	   coupon_product_shop
+		values
+			   (
+			   seq_cp_no.nextval
+			  ,#{cartNo}
+			  ,#{productName}
+			  ,#{productContent}
+			  ,#{couponPrice}
+			  ,#{amount}
+			  ,#{classNo}
+			   )  	   
+	</insert>
 	
 	
 	

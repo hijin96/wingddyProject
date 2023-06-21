@@ -98,6 +98,7 @@
 						<c:when test="${loginUser.memberType eq  'T'}">
 							<form action="enrollForm.cp" method="post">
 								<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
+								<input type="hidden" name="mno" value="${loginUser.memberNo}" />
 								<button type="submit" class="btn btn-warning" >상품 등록하기</button>
 							</form>
 						</c:when>

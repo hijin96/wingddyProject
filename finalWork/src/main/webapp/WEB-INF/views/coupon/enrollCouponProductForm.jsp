@@ -59,50 +59,72 @@
 				                          <th>수량</th>
 			                        	</tr>
 				                        
-				                        <tr>
-				                          <td>1</td>
-				                          <td>Irwansyah Saputra</td>
-				                          <td>2017-01-09</td>
-				                        </tr>
+				                        <c:forEach var="cp" varStatus="status" items="${cplist}" >
+					                        <tr class="click-cp">
+						                        <input type="hidden" name="cpNo" value="${cp.cpNo}" />
+						                        <input type="hidden" name="productContent" value="${cp.productContent}">
+						                        <input type="hidden" name="filePath" value="${cp.filePath}" />
+						                        <input type="hidden" name="cartNo" value="${cp.cartNo}" />
+												<td><c:out value="${status.count}"></c:out></td>
+												<td>${cp.productName}</td>
+												<td>${cp.amount}</td>
+					                        </tr>
+				                        </c:forEach>
 				                        
 			                      	</tbody>
 	                      		</table>
                    			</div>	
                    		</div>
 						
-						<form id="form-enrollCp" action="" method="post">
+						<form id="form-enrollCp" action="enroll.cp" method="post">
 							<div class="form-group row mb-4">
 	                    		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">상품명</label>
 	                    		<div class="col-sm-12 col-md-7">
-	                        		<input type="text" class="form-control">
+	                        		<input type="text" class="form-control readonly" id="updateCpName" name="productName" required>
+	                        		<input name="classNo" type="hidden" value="${requestScope.classroom.classNo}" />
+	                        		<input name="cartNo" type="hidden" id="updateCartNo" />
 	                      		</div>
                     		</div>
                     		
                     		<div class="form-group row mb-4">
 	                    		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">상품설명</label>
 	                    		<div class="col-sm-12 col-md-7">
-	                        		<input type="text" class="form-control">
+	                        		<input type="text" class="form-control readonly" id="updateCpContent" name="productContent" required>
 	                      		</div>
                     		</div>
                     		
                     		<div class="form-group row mb-4">
                     			<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">수량</label>
                     			<div class="col-sm-12 col-md-7">
-	                        		<input type="number" class="form-control number" min="" max="" />
+	                        		<input type="number" class="form-control number readonly" name="amount" id="updateCpAmount" min="0" required/>
 	                      		</div>
                     		</div>
                     		
                     		<div class="form-group row mb-4">
-	                    		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">이미지 첨부</label>
+                    			<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">쿠폰가격</label>
+                    			<div class="col-sm-12 col-md-7">
+	                        		<input type="number" class="form-control number" name="couponPrice" id="updatePrice" min="0" required/>
+	                      		</div>
+                    		</div>
+                    		
+                    		<div class="form-group row mb-4">
+	                    		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">현재 썸네일</label>
 	                    		<div class="col-sm-12 col-md-7">
-	                        		<input name="imgFile" type="file" class="form-control">
+	                        		<img alt="img">
+	                      		</div>
+                    		</div>
+                    		
+                    		<div class="form-group row mb-4">
+	                    		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">썸네일 변경</label>
+	                    		<div class="col-sm-12 col-md-7">
+	                        		<input name="filePath" type="file" class="form-control">
 	                      		</div>
                     		</div>
                     		
                     		<div class="text-center">
 	                    		<div class="d-inline-block">
 		                    		<button type="submit" class="btn btn-primary">등록하기</button>
-		                    		<button type="reset" class="btn btn-warning">초기화</button>
+		                    		<button type="reset" class="btn btn-warning" id="btn-reset">초기화</button>
 	                    		</div>
                     		</div>
                   		</form>
@@ -110,6 +132,37 @@
 				</div>
 			</div>
 		</div>
+		
+		<script>
+			// 등록가능 상품 목록 누르면 해당 상품 정보 input value값에 들어감
+			$('.click-cp').on('click', function(){
+				let cpInfo = $(this).children();
+				
+				$('#updateCpName').attr('value', cpInfo.eq(4).text());
+				$('#updateCpContent').attr('value', cpInfo.eq(1).val());
+				$('#updateCpAmount').attr('value', cpInfo.eq(6).text());
+				$('#updateCartNo').attr('value', cpInfo.eq(3).val());
+				console.log(cpInfo.eq(3).val());
+				$('.readonly').attr('readonly', true);
+				
+				console.log(${requestScope.classroom.classNo});
+				
+				console.log($('#updateCartNo').val());
+			})
+			
+			$('#btn-reset').on('click', function(){
+				$('.readonly').attr('readonly', false);
+				$('updateCartNo').remove();
+				$('#form-enrollCp').find('input').attr('value', '');
+			})
+		
+		</script>
+		
+		
+		
+		
+		
+		
 	</div>
 </div>
 </body>

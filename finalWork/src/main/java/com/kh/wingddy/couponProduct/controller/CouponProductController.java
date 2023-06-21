@@ -1,7 +1,8 @@
 package com.kh.wingddy.couponProduct.controller;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,9 +49,14 @@ public class CouponProductController {
 		return "coupon/couponProductList";
 	}
 	
+	/**
+	 * 교사가 구매한 상품 목록 조회해서 클래스 상품 등록하는 페이지로 이동
+	 * @param cno
+	 */
 	@RequestMapping("enrollForm.cp")
-	public String enrollCpForm() {
-		//System.out.println("확인");
+	public String enrollCpForm(Model model, int cno, int mno) {
+		model.addAttribute("cplist", cpService.selectClassCplist(mno));
+		//System.out.println(model.getAttribute("cplist"));
 		return "coupon/enrollCouponProductForm"; 
 	}
 	
@@ -68,22 +74,37 @@ public class CouponProductController {
 	@ResponseBody
 	@RequestMapping("buy.cp")
 	public String buyCouponProduct(CouponProduct cp) {
-		System.out.println(cp);
+		//System.out.println(cp);
 		
 		ArrayList<CouponProduct> cpList = new ArrayList(); 
 		for(int i = 0; i < cp.getAmount(); i++) {
 			cpList.add(cp);
 		}
 		
-		System.out.println(cpList);
+		//System.out.println(cpList);
 		
-		System.out.println(cpService.buyCouponProduct(cpList, cp));
+		//System.out.println(cpService.buyCouponProduct(cpList, cp));
 		
 		return "";
 	}
 	
 	
-	
+	/** 클래스 쿠폰 상품 등록
+	 * @param cp
+	 * @return
+	 */
+	@RequestMapping("enroll.cp")
+	public String insertCouponProduct(CouponProduct cp, HttpServletRequest request){
+		if(cpService.insertCouponProduct(cp) > 0) {
+			request.setAttribute("cno", cp.getClassNo());
+			//			model.addAttribute("cno", cp.getClassNo());
+			return "redirect:/couponStore";
+		} else {
+			//model.addAttribute("errorMsg", "상품 등록 실패");
+			return "common/errorPage";
+		}
+		
+	}
 	
 	
 	

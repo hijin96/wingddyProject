@@ -64,7 +64,7 @@
 
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="enrollFrontEmail" type="text" class="form-control" name="email" required placeholder="@를 제외한 앞 이메일주소를 입력해주세요">
+                    <input id="enrollFrontEmail" type="text" class="form-control" name="email" required placeholder="@를 제외한 앞 이메일주소를 입력해주세요" value="asasdads">
                     <select class="form-control selectric" id="enrollBackEmail">
                       <option>naver.com</option>
                       <option>gmail.com</option>
