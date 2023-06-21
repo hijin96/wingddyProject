@@ -43,6 +43,8 @@ public interface EducationService {
 	/* 학생  */
 	// 학습 조회 및 풀기(퀴즈의 순번을 랜덤으로 조회, 모든 작업 완료 후 한번에 INSERT)
 	// (화면단에서 시간 체크를 할것인가)
+	// 조회
+	Edu selectEduOne(int eduNo);
 	// case 1.단어 문제 
 	// 조회 (SELECT)
 	// 풀기 (INSERT)
