@@ -490,13 +490,11 @@
 
 		$(document).on('click', '.letterDetailView', function(){
 			
-			
 
 			let lno = $(this).find('input[type="hidden"]').val();
 
 			$("input[name='letterNo']").val(lno);
 	
-			
 			$("#moveToLetterDatail").submit();
 		});
 
