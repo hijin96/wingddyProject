@@ -21,7 +21,7 @@ public class CouponProductDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowbounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		System.out.println(cp);
+		//System.out.println(cp);
 		if(cp.getOrderBy().equals("coupon_price asc")) {
 			return (ArrayList)sqlSession.selectList("coupon-mapper.selectCpList", cp, rowbounds);
 		} else if(cp.getOrderBy().equals("coupon_price desc")) {
@@ -43,4 +43,16 @@ public class CouponProductDao {
 	public int updateCoupon(SqlSessionTemplate sqlSession, CouponProduct cp) {
 		return sqlSession.update("coupon-mapper.updateCoupon", cp);
 	}
+	
+	public ArrayList<CouponProduct> selectClassCplist(SqlSessionTemplate sqlSession, int mno) {
+		return (ArrayList)sqlSession.selectList("coupon-mapper.selectClassCplist", mno);
+	}
+	
+	public int insertCouponProduct(SqlSessionTemplate sqlSession, CouponProduct cp) {
+		//System.out.println("결과 : " + sqlSession.insert("coupon-mapper.insertCouponProduct", cp));
+		return sqlSession.insert("coupon-mapper.insertCouponProduct", cp);
+	}
+	
+	
+	
 }

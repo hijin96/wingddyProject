@@ -32,7 +32,7 @@ public class CouponProductServiceImpl implements CouponProductService {
 	
 	@Override
 	public int insertCouponProduct(CouponProduct cp) {
-		return 0;
+		return cpDao.insertCouponProduct(sqlSession, cp);
 	}
 
 	@Override
@@ -67,8 +67,11 @@ public class CouponProductServiceImpl implements CouponProductService {
 			System.out.println("실패");
 			return 0;
 		}
-	
-	
+	}
+
+	@Override
+	public ArrayList<CouponProduct> selectClassCplist(int cno) {
+		return cpDao.selectClassCplist(sqlSession, cno);
 	}
 
 	

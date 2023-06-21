@@ -24,5 +24,7 @@ public interface CouponProductService {
 	
 	int buyCouponProduct(ArrayList<CouponProduct> cpList, CouponProduct cp);
 	
+	ArrayList<CouponProduct> selectClassCplist(int cno);
+	
 	
 }
