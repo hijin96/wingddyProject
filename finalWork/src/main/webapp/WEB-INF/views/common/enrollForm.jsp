@@ -43,7 +43,7 @@
               <div class="card-header"><h4>Enroll</h4></div>
 
               <div class="card-body">
-                <form method="POST" action="enrollMember.me" enctype="multipart/form-data">
+                <form method="POST" action="enrollMember.me" enctype="multipart/form-data" id="enrollWingddy">
                   <div class="row">
                     <div class="form-group col-6">
                       <label for="frist_name">Your ID</label><button type="button" id="checkBtn" class="btn btn-icon btn-success" style="margin-left:195px; height:30px;" disabled="true">check ID</button>
@@ -64,17 +64,13 @@
 
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email" required placeholder="@를 붙혀주세요">
-                    <div class="invalid-feedback">
-                      인증되었습니다.
-                    </div>
-                    <select class="form-control selectric">
-                      <option>Enter It YourSelf</option>
+                    <input id="enrollFrontEmail" type="text" class="form-control" name="email" required placeholder="@를 제외한 앞 이메일주소를 입력해주세요" value="asasdads">
+                    <select class="form-control selectric" id="enrollBackEmail">
                       <option>naver.com</option>
                       <option>gmail.com</option>
                       <option>daum.net</option>
-                      <option>wingddy.com</option>
                     </select>
+                    <input type="hidden" name="email">
                   </div>
 
                   <div class="row">
@@ -133,7 +129,7 @@
                   </div>
 
                   <div class="form-group">
-                    <button type="submit" id="enrollBtn" class="btn btn-primary btn-lg btn-block" disabled>
+                    <button type="button" id="enrollBtn" class="btn btn-primary btn-lg btn-block" disabled>
                       Join Wingddy
                     </button>
                   </div>
@@ -274,6 +270,20 @@
         $('#enrollBtn').attr('disabled', true);
       }
     }
+
+    $(function(){
+
+      $('#enrollBtn').click(function(){
+
+        let enrollEmail = $('#enrollFrontEmail').val() + $('#enrollBackEmail option:selected').val();
+
+        $('input[name=email]').val(enrollEmail);
+        console.log(enrollEmail);
+        $('form').submit();
+
+      })
+
+    })
   </script>
 
   <!-- General JS Scripts -->

@@ -10,5 +10,6 @@ public class Edu {
 	private String eduName;	//EDU_NAME	VARCHAR2(100 BYTE)
 	private String eduType;	//EDU_TYPE	VARCHAR2(1 BYTE)
 	private String endTime;	//END_TIME	DATE
-	private Double limitTime;  
+	private Double limitTime; 
+	private int gachaCount;
 }
