@@ -172,7 +172,6 @@
 			}
 			$('input[name=eduType]').val(eduType);
 			$('input[name=content]').val(JSON.stringify(quiz));
-			console.log($('input[name=content]').val());
 		}
 		
 	</script>

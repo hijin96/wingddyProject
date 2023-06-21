@@ -68,6 +68,7 @@
 			            					</c:choose>
 			            				</div>
 			            				<div>현재 진행율 : ${Math.round(edu.progressRate*100)}%</div>
+			            				<div>뽑기 횟수 : ${edu.gachaCount}</div>
 			            			</div>
 			            		</div>
 			            	</div>

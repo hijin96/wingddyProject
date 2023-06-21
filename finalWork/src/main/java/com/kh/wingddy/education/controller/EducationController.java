@@ -131,12 +131,12 @@ public class EducationController {
 		
 		String view = "";
 		switch(eduType) {
-		case "W" : view = "education/eduWord"; break;
-		case "S" : view = "education/eduSentence"; break;
-		case "O" : view = "education/eduOX"; break;
-		default : mv.addObject("cno", cno); view = "redirect:main.edu";
+		case "W" : view = "education/examWord"; break;
+		case "S" : view = "education/examSentence"; break;
+		case "O" : view = "education/examOX"; break;
+		default :  view = "redirect:main.edu";
 		}
-		mv.setViewName(view);
+		mv.addObject("cno", cno).setViewName(view);
 		return mv;
 	}
 	
