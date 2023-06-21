@@ -122,7 +122,6 @@ public class LetterController {
 	private String insertLetter(Letter letter, HttpSession session, HttpServletRequest request) {
 		
 		
-		
 		if(letterService.insertLetter(letter) > 0) {
 			session.setAttribute("alertMsg", "쪽지가 전송되었어요!");
 		}else {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -144,6 +145,9 @@ public class ClassroomController {
 	public String progressStudent(ClassMember cm) {
 		//System.out.println(cm);
 		ArrayList<Incorrect> icList = classroomService.selectProgressStudent(cm);
+		Incorrect incorrect = icList.get(0);
+		System.out.println(incorrect);
+		
 		//System.out.println(icList);
 		return new Gson().toJson(classroomService.selectProgressStudent(cm));
 	}

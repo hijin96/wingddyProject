@@ -65,7 +65,14 @@ public class LetterServiceImpl implements LetterService{
 	
 	@Override
 	public int insertLetter(Letter letter) {
-		return letterDao.insertLetter(sqlSession, letter) * letterDao.deleteAlphabet(sqlSession, letter);
+		
+		int result = letterDao.insertLetter(sqlSession, letter);
+		
+		if(!letter.getGift().equals("")) {
+			result += letterDao.deleteAlphabet(sqlSession, letter);
+		}
+				
+		return result;
 	}
 
 	@Override
