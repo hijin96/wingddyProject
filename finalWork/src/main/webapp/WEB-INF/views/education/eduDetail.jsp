@@ -25,7 +25,8 @@
            		<h2 class="section-title">${qList[0].eduName}</h2>
            		<p class="section-lead">
            			유형 : ${qList[0].eduType} <br>
-           			마감일 : ${qList[0].endTime}
+           			마감일 : ${qList[0].endTime} <br>
+           			뽑기 횟수 : ${qList[0].gachaCount}
            		</p>
 	            <div class="row">
 					<div class="col-12 col-md-8 col-lg-8">
