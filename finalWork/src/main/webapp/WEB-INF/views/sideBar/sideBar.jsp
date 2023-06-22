@@ -495,16 +495,18 @@
   <c:if test="${ not empty alphabetBno }">
     <form action="detail.aph" method="post" id="moveToWrtiersDetail">
       <input type="hidden" name="bno" value="${requestScope.alphabetBno}">
+      <input type="hidden" name="cno" value="${requestScope.alphabetDetailCno}">
     </form>
     
     <script>
       window.onload(moveToWrtiersDetail());
       
       function moveToWrtiersDetail (){
-        document.getElementById('moveToWrtiersDtail').submit();
+        document.getElementById('moveToWrtiersDetail').submit();
       }
     </script>
     <c:remove var="alphabetBno" scope="request" />
+    <c:remove var="alphabetDetailCno" scope="request" />
   </c:if>
 
 
