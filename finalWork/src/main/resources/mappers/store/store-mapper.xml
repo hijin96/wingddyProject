@@ -49,7 +49,7 @@
 		<result column="RES_NAME" property="resName"/>	
 		<result column="SEND_NAME" property="sendName"/>	
 		<result column="RES_PHONE" property="resPhone"/>	
-		<result column="SUMPRICE" property="sumprice"/>
+		<result column="SUMPRICE" property="sumPrice"/>
 		<result column="ORDER_DAY" property="orderDay"/>
 		<result column="ORDER_ADDRESS" property="orderAddress"/>
 	</resultMap>
@@ -224,14 +224,23 @@
 						(SEQ_ORDER_NO.NEXTVAL
 						,#{memberNo})
 	</insert>
-	<update id="orderInfomation">
+	<select id="checkedOrderNo" resultType="_int">
+		SELECT 
+       		 LAST_NUMBER 
+		FROM 
+      	    USER_SEQUENCES 
+		WHERE 
+        	SEQUENCE_NAME = 'SEQ_ORDER_NO'
+	
+	</select>
+	<update id="orderInfomation" parameterType="order">
 		UPDATE
 			    S_ORDER
 			SET
 			    RES_NAME=#{resName}
 			    ,SEND_NAME=#{sendName}
 			    ,RES_PHONE=#{resPhone}
-			    ,SUMPRICE=#{total_amount}
+			    ,SUMPRICE=#{sumPrice}
 			    ,ORDER_DAY=SYSDATE
 			    ,ORDER_ADDRESS=#{address}
 			WHERE
@@ -249,6 +258,7 @@
 		    ,BUY_COUNT
 		    ,CART_DAY
 		    ,S_CART.MEMBER_NO
+		    ,(SP_PRICE * BUY_COUNT) AS TOTPRICE
 		FROM S_STORE S
 		JOIN S_CART  ON(S_CART.SP_NO = S.SP_NO)
 		JOIN ATTACHMENT ON(ATTACHMENT.FILE_NO= S.FILE_NO)
@@ -259,5 +269,30 @@
 		</foreach>
 	
 	</select>
+	<update id="storeBuySuccess" parameterType="order">
+		UPDATE
+   				 S_ORDER
+			SET
+   			     MEMBER_NO=#{memberNo}
+   			    ,RES_NAME=#{resName}
+                ,SEND_NAME=#{sendName}
+    			,RES_PHONE=#{resPhone}
+    			,SUMPRICE=#{sumPrice}
+    			,ORDER_ADDRESS=#{orderAddress}
+    			
+		WHERE
+    			ORDER_NO=#{orderNo}
+	</update>
+	<update id="orderSuccess" parameterType="cart">
+		UPDATE S_CART 
+			SET ORDER_YN='Y', 
+		ORDER_NO=#{orderNo} 
+		WHERE
+		MEMBER_NO={memberNo}
+		AND CART_NO IN 
+		<foreach collection="array" item="cartNo"  index="i" separator="," open="(" close=")">
+		#{cartNo}
+		</foreach>
+	</update>
 
 </mapper>

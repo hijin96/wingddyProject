@@ -58,9 +58,12 @@ public interface StoreService {
 	KakaoApproveResponse ApproveResponse(String pgToken); 
 	
 	KakaoPayAmount PayAmount();
+	//결제완료
+	int storeBuySuccess(Order order);
+	
+	ArrayList<Cart> orderSuccessUpdateCart(String[] cartNo,Order order);
 
-	
-	
+	int checkedOrderNo();
 	
 	
 	

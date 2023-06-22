@@ -60,6 +60,7 @@
 							</div>
 							<div class="card-body p-0">
 								<div class="table-responsive">
+								
 									<table class="table table-striped">
 										<tbody>
 											<tr>
@@ -100,11 +101,12 @@
 														value="${cart.buyCount }" min="0" step="1"
 														class="c-input-text qty text"></td>
 													<td id="totalPrice${status.index}">${cart.totPrice}</td>
-													<input type="hidden" id="cartNo${status.index}" name="cartNo" value="${cart.cartNo }">
 													<td><button type="button" class="btn btn-secondary"  onclick="cartDelete();">삭제</button></td>
+													<input type="hidden" id="cartNo${status.index}" name="cartNo" value="${cart.cartNo }">
 													
 												</tr>
 											</c:forEach>
+											
 										</tbody>
 									</table>
 								</div>
@@ -117,7 +119,6 @@
 						<div class="col-lg-6 col-sm-6"></div>
 						<div class="col-lg-6 col-sm-6">
 							<div class="update-box ">
-								<!-- <button onclick="buyCartpage()" class="btn-info" name="buyCart" id="realBuy">구매하기</button> -->
 								<input type="button" value="구매하기" name="buyCart" id="realBuy"  onclick="buyCartpage()" class="btn btn-primary"> 
 							</div>
 						</div>
@@ -133,14 +134,7 @@
 									<div class="ml-auto font-weight-bold">${cartsum}</div>
 								</div>
 								<hr class="my-1">
-								<!-- 	<div class="d-flex">
-											<h4>Coupon Discount</h4>
-											<div class="ml-auto font-weight-bold">$ 10</div>
-										</div> -->
-								<!-- <div class="d-flex">
-											<h4>Tax</h4>
-											<div class="ml-auto font-weight-bold">$ 2</div>
-										</div> -->
+
 								<div class="d-flex">
 									<h4>배송비</h4>
 									<div class="ml-auto font-weight-bold">무료</div>

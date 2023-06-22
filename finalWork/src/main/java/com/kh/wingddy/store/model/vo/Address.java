@@ -1,5 +1,8 @@
 package com.kh.wingddy.store.model.vo;
 
+import lombok.Data;
+
+@Data
 public class Address {
 
 	private Number currentPage; //페이지 번호
@@ -22,4 +25,5 @@ public class Address {
 	private String udrtYn;//지하여부
 	private Number buldMnnm; //건물본번
 	private Number buldSlno; //건물부번 (부번이 없는 경우 0)
-	}
+	private String addrDetail;
+}
