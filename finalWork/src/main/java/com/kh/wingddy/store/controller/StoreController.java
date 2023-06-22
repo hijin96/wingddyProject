@@ -46,6 +46,7 @@ import com.kh.wingddy.common.template.Pageination;
 import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.member.model.vo.Member;
 import com.kh.wingddy.store.model.service.StoreService;
+import com.kh.wingddy.store.model.vo.Address;
 import com.kh.wingddy.store.model.vo.Cart;
 import com.kh.wingddy.store.model.vo.KakaoApproveResponse;
 import com.kh.wingddy.store.model.vo.KakaopayReadyResponse;
@@ -104,9 +105,7 @@ public class StoreController {
 		cart.setMemberNo(m.getMemberNo());
 		
 		if(storeService.insertStoreCart(cart) >0) {
-			
 			ArrayList<Cart> cartList = storeService.selectStoreCart(m.getMemberNo());
-			
 			model.addAttribute("cartList",cartList);
 			return "store/storecart";
 		}else {
@@ -152,24 +151,21 @@ public class StoreController {
 	}
 	
 		
-	//구매하기페이지 이동
+	//구매하기페이지!
 	@GetMapping("storebuy.do")
-	public String storebuy(@RequestParam(value = "cartNo")String[] cartNo, Order order, HttpSession session,Cart cart,Model model) {
-		Member m = ((Member) session.getAttribute("loginUser"));
-		cart.setMemberNo(m.getMemberNo());
-		
-		//ArrayList<Cart> cartList = storeService.selectStoreCart(m.getMemberNo());
-	
+	public String storebuy(@RequestParam(value = "cartNo")String[] cartNo, Order order, HttpSession session,Model model,Cart cart) {
 		if(storeService.insertOrderNo(order)>0) {
-			//결제하기를 눌렀을떄 카카오로 이동 성공하면 정보들 update 
-			//실패하면 장바구니로 돌려보내기 
-			//-> 성공요청이들어오면 장바구니 update, s_pay insert
-				//storeService.OrderInformation(order); 
+			int orderNo = storeService.checkedOrderNo();
+			int sumPrice=0;
 			//cart.setMemberNo(m.getMemberNo());
-		
 			ArrayList<Cart> cartList = storeService.buyCartSelect(cartNo);
-			System.out.println("cartList: "+ cartList);
+			for(int i=0; i<cartList.size(); i++) {
+				sumPrice += cartList.get(i).getTotPrice();
+			}
 			model.addAttribute("cartList",cartList);
+			model.addAttribute("orderNo",orderNo);
+			model.addAttribute("sumPrice",sumPrice);
+		//	System.out.println("sumPirce: "+sumPrice);
 			return "store/storebuy";
 			//storeService.selectOrder()
 		}
@@ -177,6 +173,31 @@ public class StoreController {
 	}
 	//구매완료페이지이동
 	//->구매가 성공적으로 이루어지면 페이지 이동
+	@RequestMapping("storeBuySuccess")
+	public String storeBuySuccess(@RequestParam("sumPrice")int sumPrice, Model model,String[] cartNo,Order order,Address address,HttpSession session) {
+			//System.out.println("구매하기 페이지는 들어옴");
+			String address1 = address.getRoadAddrPart1();
+			String address2 = address.getRoadAddrPart2();
+			String address3 = address.getAddrDetail();
+			order.setOrderAddress(address1+address2+address3);
+			System.out.println("sumPirce"+sumPrice);
+		
+			Member m = ((Member) session.getAttribute("loginUser"));
+			order.setMemberNo(m.getMemberNo());
+			System.out.println("order정보" + order);
+			if(storeService.storeBuySuccess(order)>0) {
+				System.out.println("성공");
+				
+			}else {
+				System.out.println("실패");
+			}
+			
+			//System.out.println("controller : "+ success);
+			//구매완료update
+				//-> 성공요청이들어오면 장바구니 update, s_pay insert
+				//ArrayList<Cart> cartList = storeService.orderSuccessUpdateCart(cartNo,order);
+			return "store/storemain";
+	}
 	
 	//카카오페이 결제-  요청하기
 		@PostMapping("/payment/ready")

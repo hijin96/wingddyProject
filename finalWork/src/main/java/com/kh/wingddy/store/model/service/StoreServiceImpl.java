@@ -184,6 +184,26 @@ public class StoreServiceImpl implements StoreService {
 		
 		return storeDao.buyCartSelect(sqlSession,cartNo);
 	}
+	//구매번호 조회
+	@Override
+	public int checkedOrderNo() {
+		return storeDao.checkedOrderNo(sqlSession);
+	}
+
+	
+	@Override
+	public int storeBuySuccess(Order order) {
+		int success =storeDao.storeBuySuccess(sqlSession,order);
+		System.out.println("서비스: " + success);
+		return success;
+	}
+
+	@Override
+	public ArrayList<Cart> orderSuccessUpdateCart(String[] cartNo, Order order) {
+	
+		return storeDao.orderSuccessUpdateCart(sqlSession,cartNo,order);
+	}
+
 
 
 	

@@ -72,6 +72,7 @@
 							<div class="col-xl-7 col-lg-7 col-md-6">
 								<div class="single-product-details">
 									<form  action="storebuybasket" method="POST">
+									
 									 	<input type="hidden" name="spName" value="${s.spName}">
 										<h2>${s.spName}</h2>
 										<h5>
@@ -117,9 +118,8 @@
 										console.log(emptyloginUser);
 										$('#cart').click(function(){
 											var buyCount = $('#buyCount').val();
-											console.log(buyCount);
-											if( buyCount=='0' || buyCount==''){
-												
+											console.log("buycount"+buyCount);
+											if( buyCount<'0'||buyCount==''){
 												alert("수량을체크해주세요");
 												return;
 											}
