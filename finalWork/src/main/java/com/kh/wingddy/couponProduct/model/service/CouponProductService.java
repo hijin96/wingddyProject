@@ -19,7 +19,7 @@ public interface CouponProductService {
 	
 	int deleteCouponProduct(int cpNo);
 	
-	ArrayList<CouponProduct> myCouponList(int memberNo);
+	ArrayList<CouponProduct> myCouponList(CouponProduct cp);
 	
 	int useCoupon(int memberNo, int cpNo);
 	
@@ -27,5 +27,5 @@ public interface CouponProductService {
 	
 	ArrayList<CouponProduct> selectClassCplist(int cno);
 	
-	
+	ArrayList<CouponProduct> selectStudentCplist(CouponProduct cp);
 }

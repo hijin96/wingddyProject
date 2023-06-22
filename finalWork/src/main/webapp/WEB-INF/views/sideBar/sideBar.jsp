@@ -508,6 +508,21 @@
     <c:remove var="alphabetBno" scope="request" />
     <c:remove var="alphabetDetailCno" scope="request" />
   </c:if>
+  
+  <c:if test="${ not empty couponCno }">
+    <form action="couponStore" method="post" id="moveToCp">
+      <input type="hidden" name="cno" value="${requestScope.couponCno}">
+    </form>
+    
+    <script>
+      window.onload(moveToCp());
+      
+      function moveToCp (){
+        document.getElementById('moveToCp').submit();
+      }
+    </script>
+    <c:remove var="couponCno" scope="request" />
+  </c:if>
 
 
   <script>

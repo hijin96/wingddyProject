@@ -53,5 +53,12 @@ public class CouponProductDao {
 		return sqlSession.insert("coupon-mapper.insertCouponProduct", cp);
 	}
 	
+	public ArrayList<CouponProduct> myCouponList(SqlSessionTemplate sqlSession, CouponProduct cp){
+		return (ArrayList)sqlSession.selectList("coupon-mapper.myCouponList", cp);
+	}
+	
+	public ArrayList<CouponProduct> selectStudentCplist(SqlSessionTemplate sqlSession, CouponProduct cp){
+		return (ArrayList)sqlSession.selectList("coupon-mapper.selectStudentCplist", cp);
+	}
 	
 }

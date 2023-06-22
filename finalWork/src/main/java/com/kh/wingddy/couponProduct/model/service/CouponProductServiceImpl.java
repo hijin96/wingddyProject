@@ -46,13 +46,13 @@ public class CouponProductServiceImpl implements CouponProductService {
 	}
 
 	@Override
-	public ArrayList<CouponProduct> myCouponList(int memberNo) {
-		return null;
-	}
-
-	@Override
 	public int useCoupon(int memberNo, int cpNo) {
 		return 0;
+	}
+	
+	@Override
+	public ArrayList<CouponProduct> myCouponList(CouponProduct cp) {
+		return cpDao.myCouponList(sqlSession, cp);
 	}
 
 	@Override
@@ -72,6 +72,11 @@ public class CouponProductServiceImpl implements CouponProductService {
 	@Override
 	public ArrayList<CouponProduct> selectClassCplist(int cno) {
 		return cpDao.selectClassCplist(sqlSession, cno);
+	}
+
+	@Override
+	public ArrayList<CouponProduct> selectStudentCplist(CouponProduct cp) {
+		return cpDao.selectStudentCplist(sqlSession, cp);
 	}
 
 	
