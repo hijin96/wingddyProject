@@ -76,7 +76,7 @@
                    			</div>	
                    		</div>
 						
-						<form id="form-enrollCp" action="enroll.cp" method="post">
+						<form id="form-enrollCp" action="enroll.cp" method="post" enctype="multipart/form-data">
 							<div class="form-group row mb-4">
 	                    		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">상품명</label>
 	                    		<div class="col-sm-12 col-md-7">
@@ -114,13 +114,6 @@
 	                      		</div>
                     		</div>
                     		
-                    		<div class="form-group row mb-4">
-	                    		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">썸네일 변경</label>
-	                    		<div class="col-sm-12 col-md-7">
-	                        		<input name="filePath" type="file" class="form-control">
-	                      		</div>
-                    		</div>
-                    		
                     		<div class="text-center">
 	                    		<div class="d-inline-block">
 		                    		<button type="submit" class="btn btn-primary">등록하기</button>
@@ -138,7 +131,7 @@
 			$('.click-cp').on('click', function(){
 				let cpInfo = $(this).children();
 				
-				$('#updateCpName').attr('value', cpInfo.eq(4).text());
+				$('#updateCpName').attr('value', cpInfo.eq(5).text());
 				$('#updateCpContent').attr('value', cpInfo.eq(1).val());
 				$('#updateCpAmount').attr('value', cpInfo.eq(6).text());
 				$('#updateCartNo').attr('value', cpInfo.eq(3).val());

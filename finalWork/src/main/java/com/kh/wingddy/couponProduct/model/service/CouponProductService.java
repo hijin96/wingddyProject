@@ -3,6 +3,7 @@ package com.kh.wingddy.couponProduct.model.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.couponProduct.model.vo.CouponProduct;
 
@@ -18,7 +19,7 @@ public interface CouponProductService {
 	
 	int deleteCouponProduct(int cpNo);
 	
-	ArrayList<CouponProduct> myCouponList(int memberNo);
+	ArrayList<CouponProduct> myCouponList(CouponProduct cp);
 	
 	int useCoupon(int memberNo, int cpNo);
 	
@@ -26,5 +27,5 @@ public interface CouponProductService {
 	
 	ArrayList<CouponProduct> selectClassCplist(int cno);
 	
-	
+	ArrayList<CouponProduct> selectStudentCplist(CouponProduct cp);
 }

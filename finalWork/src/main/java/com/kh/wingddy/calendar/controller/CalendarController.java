@@ -64,7 +64,7 @@ public class CalendarController {
 	public String updateSchedule(Calendar c, Model model) {
 		//System.out.println(c);
 		if(calendarService.updateSchedule(c) > 0) {
-			return "redirect:/calendar";
+			return "";
 		} else {
 			model.addAttribute("errorMsg", "일정 수정 실패");
 			return "common/errorPage";
