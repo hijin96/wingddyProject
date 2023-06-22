@@ -534,7 +534,6 @@
     })
   </script>
   
-  
 
   <!-- General JS Scripts -->
   <script src="resources/assets/modules/jquery.min.js"></script>
