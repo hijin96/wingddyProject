@@ -151,7 +151,6 @@ public class LetterController {
 	@RequestMapping(value="getGift.le")
 	private int getGift(Letter letter) {
 		
-		
 		return letterService.getGift(letter);
 		
 	}
@@ -171,9 +170,17 @@ public class LetterController {
 	@RequestMapping(value="markAll.le")
 	private int markAll(int memberNo) {
 		
-		
 		return letterService.markAll(memberNo);
 		
+	}
+	
+	
+	@RequestMapping(value="delete.le")
+	private String deleteLetter(int[] letterList) {
+		
+		System.out.println(letterList);
+		
+		return "";
 	}
 	
 	
