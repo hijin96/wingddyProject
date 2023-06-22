@@ -192,7 +192,20 @@
 	</select>
 	
 	<select id="selectStudentCplist" parameterType="couponProduct" resultType="couponProduct">
-		
+		select A.member_no memberNo
+		      ,C.member_name memberName
+		      ,A.product_no cpNo
+		      ,count(A.product_no) as "amount"
+		      ,product_name productName
+		  from coupon_product A, vw_cp B, member C
+		 where A.product_no = B.product_no
+		   and A.member_no = C.member_no
+		   and class_no = #{classNo}
+		group by A.member_no, C.member_name, A.product_no, product_name
 	</select> 
+	
+	<delete id="useCoupon" parameterType="couponProduct">
+		
+	</delete>
 	
 </mapper>

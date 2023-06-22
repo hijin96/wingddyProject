@@ -35,19 +35,10 @@ public class CouponProductServiceImpl implements CouponProductService {
 		return cpDao.insertCouponProduct(sqlSession, cp) > 0 ? 1 : 0;
 	}
 
-	@Override
-	public int updateCouponProduct(CouponProduct cp) {
-		return 0;
-	}
 
 	@Override
-	public int deleteCouponProduct(int cpNo) {
-		return 0;
-	}
-
-	@Override
-	public int useCoupon(int memberNo, int cpNo) {
-		return 0;
+	public int useCoupon(CouponProduct cp) {
+		return cpDao.useCoupon(sqlSession, cp) > 0 ? 1 : 0 ; 
 	}
 	
 	@Override
@@ -79,6 +70,7 @@ public class CouponProductServiceImpl implements CouponProductService {
 		return cpDao.selectStudentCplist(sqlSession, cp);
 	}
 
+	
 	
 	
 	

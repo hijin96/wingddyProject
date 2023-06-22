@@ -61,4 +61,8 @@ public class CouponProductDao {
 		return (ArrayList)sqlSession.selectList("coupon-mapper.selectStudentCplist", cp);
 	}
 	
+	public int useCoupon(SqlSessionTemplate sqlSession, CouponProduct cp) {
+		return sqlSession.delete("coupon-mapper.useCoupon", cp);
+	}
+	
 }
