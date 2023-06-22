@@ -1,6 +1,7 @@
 package com.kh.wingddy.letter.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -109,7 +110,12 @@ public class LetterDao {
 	}
 	
 	
-	
+	public int deleteLetter(SqlSessionTemplate session, Letter letter) {
+		
+		System.out.println(session.delete("deleteLetter", letter));
+		
+		return 0;
+	}
 	
 	
 	

@@ -28,7 +28,7 @@ SELECT COUNT(*)
   JOIN MEMBER USING ON (SENDER = MEMBER_NO)
  WHERE CLASS_NO = #{classNo}
    AND RECIPIENT = #{recipient}
-   AND STATUS = 'Y'
+   AND RECIPIENT_STATUS = 'Y'
  ORDER BY SEND_DATE DESC
 </select>
 
@@ -38,7 +38,7 @@ SELECT COUNT(*)
    JOIN MEMBER USING ON (RECIPIENT = MEMBER_NO)
   WHERE CLASS_NO = #{classNo}
     AND SENDER = #{sender}
-    AND STATUS = 'Y'
+    AND SENDER_STATUS = 'Y'
   ORDER BY SEND_DATE DESC
 </select>
 
@@ -49,7 +49,7 @@ SELECT LETTER_NO, MEMBER_ID||'('||MEMBER_NAME||')' AS "SENDER", SUBSTR(LETTER_CO
   JOIN MEMBER USING ON (SENDER = MEMBER_NO)
  WHERE CLASS_NO = #{classNo}
    AND RECIPIENT = #{recipient}
-   AND STATUS = 'Y'
+   AND RECIPIENT_STATUS = 'Y'
  ORDER BY LETTER_NO DESC
 </select>
 
@@ -59,7 +59,7 @@ SELECT LETTER_NO, MEMBER_ID||'('||MEMBER_NAME||')' AS "SENDER", SUBSTR(LETTER_CO
    JOIN MEMBER USING ON (RECIPIENT = MEMBER_NO)
   WHERE CLASS_NO = #{classNo}
     AND SENDER = #{sender}
-    AND STATUS = 'Y'
+    AND SENDER_STATUS = 'Y'
   ORDER BY LETTER_NO DESC
 </select>
 
@@ -108,7 +108,6 @@ SELECT LETTER_NO, A.MEMBER_ID||'('||A.MEMBER_NAME||')' as "SENDER", B.MEMBER_ID|
   JOIN MEMBER A ON(SENDER = A.MEMBER_NO)
   JOIN MEMBER B ON(RECIPIENT = B.MEMBER_NO)
  WHERE LETTER_NO = #{letterNo}
-   AND STATUS = 'Y'
 </select>
 
 
@@ -149,7 +148,28 @@ UPDATE LETTER
 </update>
 
 
+<delete id="deleteLetter" parameterType="letter">
 
+
+DELETE FROM LETTER
+ WHERE LETTER_NO IN
+ 
+<foreach collection="list" item="item" index="i" open="(" close=")" separator="," >
+	#{item}
+</foreach>
+
+<choose>
+	<when test="#{sender != null}">
+	 	AND SENDER_STATUS = 'N'
+	</when>
+	<otherwise>
+		AND RECIPIENT_STATUS = 'N'
+	</otherwise>
+</choose>
+
+
+
+</delete>
 
 
 

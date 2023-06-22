@@ -537,6 +537,18 @@
 		$(document).on('click', '#deleteLetter', function(){
 
 			var hiddenValues = [];
+			var sender;
+			var recipient;	
+
+			var tableId = $(this).parents('table').prop('id');
+
+			if(tableId === 'sentLetterArea'){
+				sender = '${sessionScope.loginUser.memberNo}';
+			}
+			else{
+				recipient = '${sessionScope.loginUser.memberNo}';
+			}
+
 
 			$(this).parents('table').find('td input[type="checkbox"]:checked').each(function(){
 				
@@ -547,11 +559,14 @@
 
 			$.ajax({
 				url : 'delete.le',
+				type : 'post',
 				data : {
+					sender : sender,
+					recipient : recipient,
 					letterList : hiddenValues
 				},
 				success : function(){
-					
+
 				}
 			})
 		
