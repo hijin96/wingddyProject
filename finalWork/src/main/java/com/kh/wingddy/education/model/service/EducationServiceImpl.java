@@ -48,4 +48,9 @@ public class EducationServiceImpl implements EducationService {
 		return result;
 	}
 
+	@Override
+	public Edu selectEduOne(int eduNo) {
+		return eduMapper.selectEduOne(eduNo);
+	}
+
 }

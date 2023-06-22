@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +47,7 @@ import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.member.model.vo.Member;
 import com.kh.wingddy.store.model.service.StoreService;
 import com.kh.wingddy.store.model.vo.Cart;
+import com.kh.wingddy.store.model.vo.KakaoApproveResponse;
 import com.kh.wingddy.store.model.vo.KakaopayReadyResponse;
 import com.kh.wingddy.store.model.vo.Order;
 import com.kh.wingddy.store.model.vo.Store;
@@ -93,7 +96,7 @@ public class StoreController {
 
 	//구매하기 클릭시 -> 장바구니페이지이동
 	@PostMapping("storebuybasket")
-	public String storeCart(Cart cart,Store s,HttpSession session,Model model) {
+	public String storeCart(Cart cart,HttpSession session,Model model) {
 		// 장바구니 페이지 들어오면 구매하기 넘어가기 전에 구매번호랑 장바구니 번호 가지고 들어가야함!
 		// 장바구니 페이지 들어올때 detail에서 (구매수량, 상품번호,주문완료여부, 장바구니번호 )필요한 정보들 받아오기
 		//장바구니 넘어오면서 담은 모든 장바구니 정보를 가져와야 하는데 그러지 못함->cartNo먼저 insert하고 정보 가져오기 
@@ -103,7 +106,6 @@ public class StoreController {
 		if(storeService.insertStoreCart(cart) >0) {
 			
 			ArrayList<Cart> cartList = storeService.selectStoreCart(m.getMemberNo());
-			
 			
 			model.addAttribute("cartList",cartList);
 			return "store/storecart";
@@ -128,8 +130,16 @@ public class StoreController {
 	public String ajaxStoreCart(Store s,Cart cart, HttpSession session) {
 		Member m = ((Member) session.getAttribute("loginUser"));
 		cart.setMemberNo(m.getMemberNo());
-		
 		return new Gson().toJson(storeService.insertStoreCart(cart));
+	}
+	//장바구니페이지에서 가격ajax
+	@ResponseBody
+	@RequestMapping(value="shoppingcartprice", produces= "application/json;charset=UTF-8")
+	public String ajaxShoppingcartprice(Cart cart,HttpSession session) {
+		Member m = ((Member) session.getAttribute("loginUser"));
+		cart.setMemberNo(m.getMemberNo());
+		
+		return new Gson().toJson(storeService.selectStoreCart(m.getMemberNo()));
 	}
 	// 장바구니 삭제ajax
 	@ResponseBody
@@ -140,22 +150,47 @@ public class StoreController {
 		cart.setMemberNo(m.getMemberNo());
 		return new Gson().toJson(storeService. deleteCart(cart));
 	}
-
+	
+		
 	//구매하기페이지 이동
-	@RequestMapping("storebuy.do")
-	public String storebuy(Order order, HttpSession session,Store s) {
+	@GetMapping("storebuy.do")
+	public String storebuy(@RequestParam(value = "cartNo")String[] cartNo, Order order, HttpSession session,Cart cart,Model model) {
 		Member m = ((Member) session.getAttribute("loginUser"));
+		cart.setMemberNo(m.getMemberNo());
+		
+		//ArrayList<Cart> cartList = storeService.selectStoreCart(m.getMemberNo());
+	
 		if(storeService.insertOrderNo(order)>0) {
 			//결제하기를 눌렀을떄 카카오로 이동 성공하면 정보들 update 
 			//실패하면 장바구니로 돌려보내기 
 			//-> 성공요청이들어오면 장바구니 update, s_pay insert
-			
-			//살리기storeService.OrderInformation(order,s); 
+				//storeService.OrderInformation(order); 
+			//cart.setMemberNo(m.getMemberNo());
+		
+			ArrayList<Cart> cartList = storeService.buyCartSelect(cartNo);
+			System.out.println("cartList: "+ cartList);
+			model.addAttribute("cartList",cartList);
 			return "store/storebuy";
 			//storeService.selectOrder()
 		}
 		return "store/cartDirect";
 	}
+	//구매완료페이지이동
+	//->구매가 성공적으로 이루어지면 페이지 이동
+	
+	//카카오페이 결제-  요청하기
+		@PostMapping("/payment/ready")
+		public KakaopayReadyResponse readyToKakaoPay() {
+			return storeService.kakaoPayReady();
+			
+		}
+		//카카오페이 결제-  성공
+		@GetMapping("/payment/success")
+		public ResponseEntity afterPay(@RequestParam("pg_token") String pgToken) {
+			KakaoApproveResponse kakaoApprove = storeService.ApproveResponse(pgToken);
+			return new ResponseEntity<>(kakaoApprove, HttpStatus.OK);
+		}
+		
 	
 	//주소 팝업창
 	@RequestMapping("address.do")
@@ -268,15 +303,5 @@ public class StoreController {
 		return new Gson().toJson(map);
 
 	}
-	//카카오페이 결제-  요청하기
-	@PostMapping("/payment/ready")
-	public KakaopayReadyResponse readyToKakaoPay() {
-		return storeService.kakaoPayReady();
-		
-	}
-	//카카오페이 결제-  성공
-	//@GetMapping("/payment/success")
-	//public ResponseEntity afterPay(@RequestParam("pg_token") String pgToken) {
-//		KakaopayReadyResponse kakaoApprove = StoreService.approveResponse(pgToken);
-	//}
+	
 }

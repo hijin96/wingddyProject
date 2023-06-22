@@ -6,6 +6,8 @@ import java.util.HashMap;
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.store.model.vo.Cart;
+import com.kh.wingddy.store.model.vo.KakaoApproveResponse;
+import com.kh.wingddy.store.model.vo.KakaoPayAmount;
 import com.kh.wingddy.store.model.vo.KakaopayReadyResponse;
 import com.kh.wingddy.store.model.vo.Order;
 import com.kh.wingddy.store.model.vo.Store;
@@ -32,6 +34,8 @@ public interface StoreService {
 	int insertStoreCart(Cart cart);
 	//장바구니 목록보기
 	ArrayList<Cart> selectStoreCart(int MemberNo);
+	//구매하기 페이지에서 구매할 목록만 가져가기
+	ArrayList<Cart> buyCartSelect(String[] cartNo);
 
 	
 	//장바구니 삭제
@@ -39,7 +43,7 @@ public interface StoreService {
 	//구매하기페이지 
 	int insertOrderNo(Order order);
 	//구매정보등록
-	int OrderInformation(Order order,Store s);
+	int OrderInformation(Order order);
 	
 	//위시리스트 추가 및 삭제
 	//댓글리스트 조회
@@ -51,9 +55,9 @@ public interface StoreService {
 	//결제(insert)
 	KakaopayReadyResponse kakaoPayReady();
 	
-	KakaopayReadyResponse approveResponse();
+	KakaoApproveResponse ApproveResponse(String pgToken); 
 	
-	
+	KakaoPayAmount PayAmount();
 
 	
 	

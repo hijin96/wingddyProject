@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.kh.wingddy.education.model.service.EducationService;
@@ -127,8 +129,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("exam.edu")
-	public ModelAndView eduExamPage(HttpServletRequest request, ModelAndView mv, int eduNo, String eduType, int cno) {
-		
+	public ModelAndView eduExamPage(ModelAndView mv, int eduNo, 
+									String eduType, int cno) {
 		String view = "";
 		switch(eduType) {
 		case "W" : view = "education/examWord"; break;
@@ -136,12 +138,20 @@ public class EducationController {
 		case "O" : view = "education/examOX"; break;
 		default :  view = "redirect:main.edu";
 		}
-		mv.addObject("cno", cno).setViewName(view);
+		mv.addObject("edu", educationService.selectEduOne(eduNo))
+		  .addObject("cno", cno)
+		  .setViewName(view);
 		return mv;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="examQuiz.qz", produces="application/json; charset=UTF-8")
+	public String eduExamQuizList(int eduNo) {
+		return new Gson().toJson(educationService.selectQuizList(eduNo));
+	}
+	
 	@RequestMapping("result.edu")
-	public String eduResultPage(HttpServletRequest request, int eduNo) {
+	public String eduResultPage(int eduNo) {
 		
 		return "education/eduResult";
 	}

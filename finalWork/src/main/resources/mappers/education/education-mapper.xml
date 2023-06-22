@@ -163,4 +163,17 @@
 			  )
 	</insert>
 	
+	<select id="selectEduOne" resultMap="eduResultSet">
+		SELECT
+			   EDU_NO
+			  ,EDU_NAME
+			  ,EDU_TYPE
+			  ,TO_CHAR(END_TIME, 'YY"년" MM"월" DD"일"') END_TIME
+			  ,GACHA_COUNT
+		  FROM
+		  	   EDUCATION
+		 WHERE
+		 	   EDU_NO = #{eduNo}
+	</select>
+	
 </mapper>

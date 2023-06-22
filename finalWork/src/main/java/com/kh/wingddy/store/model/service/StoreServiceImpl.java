@@ -16,6 +16,8 @@ import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.store.model.dao.StoreDao;
 import com.kh.wingddy.store.model.vo.Cart;
+import com.kh.wingddy.store.model.vo.KakaoApproveResponse;
+import com.kh.wingddy.store.model.vo.KakaoPayAmount;
 import com.kh.wingddy.store.model.vo.KakaopayReadyResponse;
 import com.kh.wingddy.store.model.vo.Order;
 import com.kh.wingddy.store.model.vo.Store;
@@ -87,6 +89,7 @@ public class StoreServiceImpl implements StoreService {
 			return storeDao.updateStoreCart(sqlSession,cart);
 	}
 	}
+	//구매하기페이지 
 	@Override
 	public int insertOrderNo(Order order) {
 		//주문번호만들기 성고하면 주문페이지로 이동
@@ -97,19 +100,18 @@ public class StoreServiceImpl implements StoreService {
 		return storeDao.deleteStoreCart(sqlSession,cart);
 	}
 
-
+	//장바구니 목록보기
 	@Override
 	public ArrayList<Cart> selectStoreCart (int MemberNo) {
-		System.out.println("서비스 memberNo : " + MemberNo);
 		ArrayList<Cart> list = storeDao.selectStoreCart(sqlSession,MemberNo);
-		System.out.println("서비스 result : " + list);
+		//System.out.println("서비스 result : " + list);
 		return list;
 	}
 
 	@Override
-	public int OrderInformation(Order order, Store s) {
+	public int OrderInformation(Order order) {
 		
-		return storeDao.OrderInformation(sqlSession,order,s);
+		return storeDao.OrderInformation(sqlSession,order);
 	}
 
 	//클라이언트의 요청이나 서버의 응답에 포함되어 부가적인 정보를 담고 있음
@@ -154,8 +156,33 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public KakaopayReadyResponse approveResponse() {
+	public KakaoApproveResponse ApproveResponse(String pgToken) {
+		MultiValueMap<String,String> parameters  = new LinkedMultiValueMap<>();
+		parameters.add("cid", cid);
+		parameters.add("tid", kakaoReady.getTid());
+		parameters.add("partner_order_id", "가맹점 주문 번호 ");
+        parameters.add("partner_user_id", "가맹점 회원 ID");
+        parameters.add("pg_token",pgToken);
+        RestTemplate resTemplate = new RestTemplate();
+        HttpEntity<MultiValueMap<String, String>> requEntity = new HttpEntity<MultiValueMap<String,String>>(parameters,this.getHeaders());
+        RestTemplate restTemplate = new RestTemplate();
+        KakaoApproveResponse approveResponse  = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/approve", 
+												        					requEntity,
+												        					KakaoApproveResponse.class);
+		return approveResponse;
+	}
+
+	@Override
+	public KakaoPayAmount PayAmount() {
+		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	//구매하기 페이지에서 구매할 목록만 가져가기
+	@Override
+	public ArrayList<Cart> buyCartSelect(String[] cartNo) {
+		
+		return storeDao.buyCartSelect(sqlSession,cartNo);
 	}
 
 

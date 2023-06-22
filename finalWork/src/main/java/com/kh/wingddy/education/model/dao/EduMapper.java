@@ -24,5 +24,7 @@ public interface EduMapper {
 
 	int insertQuiz(Quiz q);
 
+	Edu selectEduOne(int eduNo);
+
 
 }
