@@ -483,6 +483,41 @@
 			})
 		}
 
+	
+
+		$(document).on('click', '.letterDetailView td:not(:first-child)', function(){
+
+
+			let lno = $(this).parent().find('input[type="hidden"]').val();
+
+			$("input[name='letterNo']").val(lno);
+	
+			$("#moveToLetterDatail").submit();
+			
+		});
+
+
+
+
+
+/*
+	$(document).ready(function() {
+			$('.letterDetailView td:not(:first-child)').click(function() {
+				console.log('123');
+			});
+	});
+
+
+		$(document).ready(function() {
+			$('#deleteLetter').click(function() {
+				var hiddenValues = [];
+				$('.letterDetailView input[type="hidden"]').each(function() {
+				hiddenValues.push($(this).val());
+				});
+				console.log(hiddenValues);
+			});
+		});
+
 
 
 
@@ -497,15 +532,30 @@
 	
 			$("#moveToLetterDatail").submit();
 		});
-
+*/
 
 		$(document).on('click', '#deleteLetter', function(){
-	
-			console.log('123');
-			
 
-			//console.log($(this).find('input[type="checkbox"]').is(":checked"));
-			
+			var hiddenValues = [];
+
+			$(this).parents('table').find('td input[type="checkbox"]:checked').each(function(){
+				
+				hiddenValues.push($(this).next().val());
+				
+			})
+
+
+			$.ajax({
+				url : 'delete.le',
+				data : {
+					letterList : hiddenValues
+				},
+				success : function(){
+					
+				}
+			})
+		
+	
 		})
 
 		

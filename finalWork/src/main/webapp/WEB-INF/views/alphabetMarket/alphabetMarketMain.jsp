@@ -82,6 +82,7 @@
 
 <form action="detail.aph" method="post" id="moveToDetail">
 	<input type="hidden" name="bno" id="marketBno">
+	<input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
 </form>
 
 
