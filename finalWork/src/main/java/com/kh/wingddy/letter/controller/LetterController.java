@@ -131,9 +131,66 @@ public class LetterController {
 		request.setAttribute("letterCno",letter.getClassNo());
 		
 		return "sideBar/sideBar";
-		
-
 	}
+	
+	@RequestMapping("detail.le")
+	private String letterDetail(Letter letter, Model model) {
+		
+		// 내가 받은 메일만 읽음표시
+		letterService.changeReadStatus(letter);
+		
+		
+		//디테일이동
+		model.addAttribute("letter", letterService.letterDetail(letter));
+		
+		return "letter/letterDetail";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="getGift.le")
+	private int getGift(Letter letter) {
+		
+		
+		return letterService.getGift(letter);
+		
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="unRead.le", produces="application/json; charset=UTF-8")
+	private String unReadLetter(int memberNo) {
+		
+		return new Gson().toJson(letterService.unReadLetter(memberNo));
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="markAll.le")
+	private int markAll(int memberNo) {
+		
+		
+		return letterService.markAll(memberNo);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

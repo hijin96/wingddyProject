@@ -76,4 +76,14 @@ public class VocaServiceImpl implements VocaService {
 		return vocaMapper.selectBookClassList(bookNo);
 	}
 
+	@Override
+	public int checkClassBook(ClassVocaBook cv) {
+		return vocaMapper.checkClassBook(cv);
+	}
+
+	@Override
+	public int insertClassBookOne(ArrayList<ClassVocaBook> cvList) {
+		return vocaMapper.insertClassBook(cvList);
+	}
+
 }

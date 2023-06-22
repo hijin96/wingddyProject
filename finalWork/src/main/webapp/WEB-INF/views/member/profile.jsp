@@ -66,6 +66,7 @@
             <a href="#" class="ion-ios-calendar" data-pack="ios" data-tags="date, time, month, year" style="font-size:x-large;"></a>
             <a href="#" class="ion-ios-bookmarks" data-pack="default" data-tags="favorite, tag, save" style="font-size: x-large;"></a>
             <a href="#" id="swal-7" class="ion-android-settings" data-pack="android" data-tags="options" style="font-size:x-large;"></a>
+            <a href="#updatePwd" data-toggle="modal" class="ion-key" data-pack="default" data-tags="access" style="font-size:x-large;"></a>
             <c:if test="${loginUser.memberType eq 'T'}">
               <a href="#" id="swal-9" class="ion-android-settings" data-pack="android" data-tags="options" style="font-size:x-large;"></a>
             </c:if>
@@ -73,8 +74,38 @@
         </div>
       </div>
 
-        
-      </section>
+    </section>
+      
+      
+    <div id="updatePwd" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-md modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">비밀번호 변경 모달창</h5>
+              </div>
+                  <div class="modal-body">
+                      <div class="form-group" id="">
+                          <label>이메일 입력</label>
+                          <div>
+                            <input type="text" name="frontEmail" id="frontEmail2">
+                          </div>
+                      </div>
+                      <div class="form-group" id="" >
+                        <label for="emailBack">Select Email</label>
+                        <select class="form-control selectric backEmail" id="backEmail2">
+                            <option selected>@wingddy.com</option>
+                            <option>@naver.com</option>
+                            <option>@gmail.com</option>
+                            <option>@daum.net</option>
+                        </select>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-primary forgetPwdBtn">인증코드 받~기</button>
+                  </div>
+          </div>
+      </div>
+  </div>
 
     </div>
 
@@ -98,9 +129,9 @@
   <script src="resources/assets/js/custom.js"></script>
 
   <script>
-    $("#swal-7").click(function() {
+    $("#swal-7").click(() => {
             swal({
-              title: 'What is your Password?',
+              title: '너의 비밀번호는 뭐니?',
               content: {
               element: 'input',
               attributes: {
@@ -108,12 +139,12 @@
                 type: 'text',
               },
               },
-            }).then((data) => {
+            }).then(data => {
               $.ajax({
                 url : 'confirmPass.me',
                 data : {memberPwd : data},
                 type : 'post',
-                success : function(result){
+                success : result => {
                     //console.log(result);
                     if(result === '1'){
                       swal('Correct password!', 'update profile?', 'success');
@@ -132,14 +163,14 @@
                       swal('incorrect password!', 'enter agian', 'error');
                     }
                 },
-                error : function(){
+                error : () => {
                   swal('incorrect password!', 'enter agian', 'error');
                 }
               });
             });
           });
 
-  $("#swal-9").click(function() {
+  $("#swal-9").click(() => {
     swal({
       title: 'What is your Password?',
       content: {
@@ -149,12 +180,12 @@
         type: 'text',
       },
       },
-    }).then((data) => {
+    }).then(data => {
       $.ajax({
         url : 'confirmPass.me',
         data : {memberPwd : data},
         type : 'post',
-        success : function(result){
+        success : result => {
             //console.log(result);
             if(result === '1'){
               swal('Correct Password!', 'Update Proof Of Employment?', 'success');
@@ -170,12 +201,35 @@
               swal('incorrect password!', 'enter agian', 'error');
             }
         },
-        error : function(){
+        error : () => {
           swal('incorrect password!', 'enter agian', 'error');
         }
       });
     });
-  });      
+  });     
+  
+  $(() => {
+      $('.forgetPwdBtn').click(() => {
+        $.ajax({
+          url : 'forgetPwd.me',
+          type : 'POST',
+          data : {
+            email : $('#frontEmail2').val() + $('#backEmail2 option:selected').val()
+          },
+          success : result => {
+            if(result === 'notExist'){
+              alert('가입되어있지 않은 이메일입니다!');
+            }
+            else {
+              alert('인증번호 보내드립니다!ㅋ');
+            }
+          },
+          error : () => {
+            console.log('asd');
+          }
+        });
+      })
+    })
   </script>
 </body>
 </html>

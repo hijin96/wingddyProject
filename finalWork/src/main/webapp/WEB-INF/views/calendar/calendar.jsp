@@ -154,7 +154,7 @@
 								<c:if test="${loginUser.memberType eq 'S'}">
 									배경색 <input type="color" name="color" value="#ffc34d" />
 								</c:if>
-								<input type="hidden" name="memberNo" value="${ loginUser.memberNo }" />
+								<input type="hidden" name="memberNo" value="${loginUser.memberNo }" />
 								<input type="hidden" name="memberType" value="${loginUser.memberType }" />
 							</div>
 							

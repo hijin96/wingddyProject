@@ -1,6 +1,7 @@
 package com.kh.wingddy.couponProduct.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class CouponProductServiceImpl implements CouponProductService {
 	
 	@Override
 	public int insertCouponProduct(CouponProduct cp) {
-		return 0;
+		return cpDao.insertCouponProduct(sqlSession, cp);
 	}
 
 	@Override
@@ -52,6 +53,25 @@ public class CouponProductServiceImpl implements CouponProductService {
 	@Override
 	public int useCoupon(int memberNo, int cpNo) {
 		return 0;
+	}
+
+	@Override
+	public int buyCouponProduct(ArrayList<CouponProduct> cpList, CouponProduct cp) {
+		//(학생 보유 상품 insert, 상품 목록 수량 update, 학생 보유 쿠폰 update)
+		
+		
+		if(cpDao.insertMyCp(sqlSession, cpList) * cpDao.updateCp(sqlSession, cp) * cpDao.updateCoupon(sqlSession, cp) > 0) {
+			System.out.println("성공");
+			return 1; 
+		} else {
+			System.out.println("실패");
+			return 0;
+		}
+	}
+
+	@Override
+	public ArrayList<CouponProduct> selectClassCplist(int cno) {
+		return cpDao.selectClassCplist(sqlSession, cno);
 	}
 
 	

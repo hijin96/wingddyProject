@@ -3,19 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="coupon-mapper">
+
+
+
+
 	<select id="selectListCount" parameterType="_int" resultType="_int">
 		select NVL(count(*), 0)
 		  from coupon_product_shop
 		 where class_no = #{classNo}
 	</select>
 	
-	<select id="selectCouponProductList" parameterType="couponProduct" resultType="couponProduct" >
+	<select id="selectCpList" parameterType="couponProduct" resultType="couponProduct" >
 		select 
-		       product_no pNo
+		       product_no cpNo
 		      ,cart_no cartNo
 		      ,product_name productName
 		      ,product_content productContent
-		      ,coupon_price CouponPrice
+		      ,coupon_price couponPrice
 		      ,amount
 		      ,class_no classNo
 		      ,file_no fileNo
@@ -24,9 +28,127 @@
 		       vw_cp
 		 where 
 		       class_no = #{classNo}
-		 order by (case when #{orderBy} = 'coupon_price' then coupon_price asc
-		 				when #{orderBy} = 'coupon_price desc then coupon_price desc
-		 				when #{orderBy} = 'amount' then amount end)
-
+		   and 
+		   	   amount ^= 0    
+		 order 
+		    by 
+		 	   coupon_price asc
 	</select>
+	
+	<select id="selectCpList_desc" parameterType="couponProduct" resultType="couponProduct" >
+		select 
+		       product_no cpNo
+		      ,cart_no cartNo
+		      ,product_name productName
+		      ,product_content productContent
+		      ,coupon_price couponPrice
+		      ,amount
+		      ,class_no classNo
+		      ,file_no fileNo
+		      ,file_path || file_name filePath
+		  from 
+		       vw_cp
+		 where 
+		       class_no = #{classNo}
+		   and 
+		   	   amount ^= 0       
+		 order 
+		 	by 
+		 	   coupon_price desc
+	</select>
+	
+	<select id="selectCpList_amount" parameterType="couponProduct" resultType="couponProduct" >
+		select 
+		       product_no cpNo
+		      ,cart_no cartNo
+		      ,product_name productName
+		      ,product_content productContent
+		      ,coupon_price couponPrice
+		      ,amount
+		      ,class_no classNo
+		      ,file_no fileNo
+		      ,file_path || file_name filePath
+		  from 
+		       vw_cp
+		 where 
+		       class_no = #{classNo}
+		   and 
+		   	   amount > 0       
+		 order 
+		 	by 
+		 	   amount asc
+	</select>
+	
+	<insert id="insertMyCp" parameterType="list">
+		insert 
+		   all
+		   	<foreach collection="list" index="index" item="couponProduct">
+		   		into 
+			  	     coupon_product 
+			  	    (
+			  	     product_no
+			  	    ,member_no
+			  	    )
+	  	      values
+			  		(
+			  		 #{couponProduct.cpNo}
+			  	    ,#{couponProduct.memberNo}
+			  	    )
+			</foreach>
+		select * from dual						
+	</insert>
+	
+	<update id="updateCp" parameterType="couponProduct">
+		update 
+			   coupon_product_shop
+		   set
+		   	   amount = amount - #{amount}
+		 where
+		 	   product_no = #{cpNo}
+	</update>
+	
+	<update id="updateCoupon" parameterType="couponProduct">
+		update
+			   class_mycount
+		   set
+		   	   coupon_count = coupon_count - (select 
+		   	   										 coupon_price
+		   	   								    from
+		   	   								    	 coupon_product_shop
+	   	   								       where
+	   	   								       	     product_no = #{cpNo}) * #{amount}
+	</update>
+	
+	<select id="selectClassCplist" parameterType="_int" resultType="couponProduct">
+		select 
+		       sp_no cpNo
+		      ,name productName
+		      ,cart_no cartNo
+		      ,content productContent
+		      ,file_path filePath
+		      ,amount
+		  from
+		       vw_teacher_own_product   
+		 where
+		 	   member_no = #{mno}      
+	</select>
+	
+	<insert id="insertCouponProduct" parameterType="couponProduct" >
+		insert
+		  into
+		  	   coupon_product_shop
+		values
+			   (
+			   seq_cp_no.nextval
+			  ,#{cartNo}
+			  ,#{productName}
+			  ,#{productContent}
+			  ,#{couponPrice}
+			  ,#{amount}
+			  ,#{classNo}
+			   )  	   
+	</insert>
+	
+	
+	
 </mapper>

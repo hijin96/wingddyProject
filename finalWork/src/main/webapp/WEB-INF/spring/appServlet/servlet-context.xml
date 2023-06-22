@@ -39,10 +39,12 @@
 			<mapping path="/classManagement.cl"/>
 			
 			<mapping path="/enroll.le"/>
+			<mapping path="/detail.le"/>
 
 
 			<mapping path="/couponStore" />
 			<mapping path="/enrollForm.cp" />
+			<mapping path="/myList.cp" />
 			
 
 			

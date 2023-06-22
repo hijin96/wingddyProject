@@ -16,6 +16,11 @@
 		border: 0px !important;
 	}
 
+	.letterDetailView:hover{
+		cursor: pointer;
+		background-color: rgb(240, 240, 240) !important;
+	}
+
 </style>
 </head>
 <body>
@@ -67,50 +72,7 @@
 									<div class="card-body p-0">
 									  <div class="table-responsive">
 										<table class="table table-striped text-center" id="receivedLetterArea">
-											<tr align="left">
-												<td colspan="5">
-													<button class="btn btn-primary">삭제</button>
-												</td>
-											</tr>
-											<tr>
-												<th class="p-0 text-center">
-													<div class="form-check">
-														<input type="checkbox" class="form-check-input" id="receivedCheckboxAll" onClick="receivedCheckboxAll();">
-													</div>
-												</th>
-												<th>From</th>
-												<th>Detail</th>
-												<th>Date</th>
-												<th>Status</th>
-											</tr>
-											<tr>
-												<td class="p-0 text-center">
-													<div class="form-check">
-														<input type="checkbox"  class="form-check-input receivedCheckbox">
-													</div>
-												</td>
-												<td>
-													김길동
-												</td>
-												<td>내용sfsdfsdfsdfsdfsf!</td>
-												<td>2018-01-20</td>
-												<td><div class="badge badge-info">확인완료</div></td>
-											</tr>
-											<tr>
-												<td class="p-0 text-center">
-													<div class="form-check">
-														<input type="checkbox"  class="form-check-input receivedCheckbox">
-													</div>
-												</td>
-												<td>
-													김길동
-												</td>
-												<td>내용sfsdfsdfsdfsdfsf!</td>
-												<td>2018-01-20</td>
-												<td><div class="badge badge-info">확인완료</div></td>
-											</tr>
-											
-											
+								
 											
 										</table>
 
@@ -158,7 +120,6 @@
 										<table class="table table-striped text-center" id="sentLetterArea">
 
 										</table>
-
 										<div class="card-footer text-center">
 											<nav class="d-inline-block">
 												<ul class="pagination mb-0" id="sentPagingArea">
@@ -166,7 +127,6 @@
 												</ul>
 											</nav>
 										</div>
-
 									  </div>
 									</div>
 								  </div>
@@ -179,6 +139,11 @@
 		    </section>
 	    </div>
 </div>
+<form action="detail.le" method="post" id="moveToLetterDatail">
+	<input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
+	<input type="hidden" name="letterNo">
+	<input type="hidden" name="memberNo" value="${sessionScope.loginUser.memberNo}">
+</form>
 
 
 
@@ -364,23 +329,26 @@
 				},
 				success : function(list){
 
-					console.log('rec');
-					console.log(list);
+					//console.log('rec');
+					//console.log(list);
 
-					var value = '<tr align="left"><td colspan="5"><button class="btn btn-primary">삭제</button></td></tr>'
+					var value = '<tr align="left"><td colspan="5"><button class="btn btn-primary" id="deleteLetter">삭제</button></td></tr>'
 							  + '<tr><th class="p-0 text-center"><div class="form-check">'
 							  + '<input type="checkbox" class="form-check-input" id="receivedCheckboxAll" onClick="receivedCheckboxAll();"></div></th>'
 							  + '<th>From</th><th>Detail</th><th>Date</th><th>Status</th></tr>';
 
 
 					for(let i in list){
-						value += '<tr><td class="p-0 text-center"><div class="form-check">'
+						value += '<tr class="letterDetailView"><td class="p-0 text-center"><div class="form-check">'
 							   + '<input type="checkbox" class="form-check-input receivedCheckbox">'
 							   + '<input type="hidden" value="' + list[i].letterNo +'"></div></td>';
 
 
 						if(list[i].anonymous == 'Y'){
 							value += '<td>'+ '<b>Manitto</b>' +'</td>';
+						}
+						else if(list[i].toManitto  == 'Y'){
+							value += '<td>'+ '<b>Manitti</b>' +'</td>';
 						}
 						else{
 							value += '<td>'+ list[i].sender +'</td>';
@@ -471,24 +439,27 @@
 				},
 				success : function(list){
 
-					console.log('sent');
-					console.log(list);
+					//console.log('sent');
+					//console.log(list);
 					
 
-					var value = '<tr align="left"><td colspan="5"><button class="btn btn-primary">삭제</button></td></tr>'
+					var value = '<tr align="left"><td colspan="5"><button class="btn btn-primary" id="deleteLetter">삭제</button></td></tr>'
 							  + '<tr><th class="p-0 text-center"><div class="form-check">'
 							  + '<input type="checkbox" class="form-check-input" id="sentCheckboxAll" onClick="sentCheckboxAll();"></div></th>'
 							  + '<th>To</th><th>Detail</th><th>Date</th><th>Status</th></tr>';
 
 
 					for(let i in list){
-						value += '<tr><td class="p-0 text-center"><div class="form-check">'
+						value += '<tr class="letterDetailView"><td class="p-0 text-center"><div class="form-check">'
 							   + '<input type="checkbox" class="form-check-input sentCheckbox">'
 							   + '<input type="hidden" value="' + list[i].letterNo +'"></div></td>';
 
 
 						if(list[i].toManitto == 'Y'){
 							value += '<td>'+ '<b>Manitto</b>' +'</td>';
+						}
+						else if(list[i].anonymous == 'Y'){
+							value += '<td>'+ '<b>Manitti</b>' +'</td>';
 						}
 						else{
 							value += '<td>'+ list[i].recipient +'</td>';
@@ -511,6 +482,33 @@
 				}
 			})
 		}
+
+
+
+
+
+
+		$(document).on('click', '.letterDetailView', function(){
+			
+
+			let lno = $(this).find('input[type="hidden"]').val();
+
+			$("input[name='letterNo']").val(lno);
+	
+			$("#moveToLetterDatail").submit();
+		});
+
+
+		$(document).on('click', '#deleteLetter', function(){
+	
+			console.log('123');
+			
+
+			//console.log($(this).find('input[type="checkbox"]').is(":checked"));
+			
+		})
+
+		
 	</script>
 
 

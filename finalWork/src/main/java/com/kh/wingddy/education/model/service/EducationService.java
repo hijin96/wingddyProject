@@ -2,8 +2,10 @@ package com.kh.wingddy.education.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.wingddy.education.model.vo.Edu;
 import com.kh.wingddy.education.model.vo.EduProgress;
 import com.kh.wingddy.education.model.vo.Quiz;
+import com.kh.wingddy.member.model.vo.Member;
 
 public interface EducationService {
 
@@ -18,11 +20,14 @@ public interface EducationService {
 	// 조기 마감 (Time 컬럼을 현재 시간으로 UPDATE)
 	// (진행율이 100% 일때만 가능?)
 	int updateEndTime(int eduNo);
+	// 완료 학생 조회
+	ArrayList<Member> selectCompleteStudent(int eduNo);
 	
 	// 학습 조회
 	ArrayList<Quiz> selectQuizList(int eduNo);
 	
 	// 학습 등록
+	int insertEducation(Edu e, ArrayList<Quiz> qList);
 	// case 1.단어 문제 등록 
 	// (등록할 때 랜덤으로)(controller)
 	// 내 단어장 리스트 조회(SELECT)(있음)
@@ -38,6 +43,8 @@ public interface EducationService {
 	/* 학생  */
 	// 학습 조회 및 풀기(퀴즈의 순번을 랜덤으로 조회, 모든 작업 완료 후 한번에 INSERT)
 	// (화면단에서 시간 체크를 할것인가)
+	// 조회
+	Edu selectEduOne(int eduNo);
 	// case 1.단어 문제 
 	// 조회 (SELECT)
 	// 풀기 (INSERT)
