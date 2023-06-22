@@ -1,12 +1,12 @@
 package com.kh.wingddy.couponProduct.model.dao;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.couponProduct.model.vo.CouponProduct;
 
@@ -53,6 +53,16 @@ public class CouponProductDao {
 		return sqlSession.insert("coupon-mapper.insertCouponProduct", cp);
 	}
 	
+	public ArrayList<CouponProduct> myCouponList(SqlSessionTemplate sqlSession, CouponProduct cp){
+		return (ArrayList)sqlSession.selectList("coupon-mapper.myCouponList", cp);
+	}
 	
+	public ArrayList<CouponProduct> selectStudentCplist(SqlSessionTemplate sqlSession, CouponProduct cp){
+		return (ArrayList)sqlSession.selectList("coupon-mapper.selectStudentCplist", cp);
+	}
+	
+	public int useCoupon(SqlSessionTemplate sqlSession, CouponProduct cp) {
+		return sqlSession.delete("coupon-mapper.useCoupon", cp);
+	}
 	
 }

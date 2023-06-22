@@ -2,6 +2,7 @@ package com.kh.wingddy.letter.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,6 +105,11 @@ public class LetterServiceImpl implements LetterService{
 	@Override
 	public int markAll(int memberNo) {
 		return letterDao.markAll(sqlSession, memberNo);
+	}
+
+	@Override
+	public int deleteLetter(Letter letter) {
+		return letterDao.deleteLetter(sqlSession, letter);
 	}
 
 	

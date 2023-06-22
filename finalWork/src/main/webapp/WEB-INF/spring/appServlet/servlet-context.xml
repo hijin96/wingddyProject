@@ -34,6 +34,9 @@
 			<mapping path="/enroll.aph"/>
 			<mapping path="/myAlphabet.aph"/>
 			<mapping path="/makeWords.aph"/>
+			<mapping path="/detail.aph"/>
+			
+			
 
 			<mapping path="/main.mani"/>
 			<mapping path="/classManagement.cl"/>
