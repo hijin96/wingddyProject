@@ -159,7 +159,7 @@
 									<input id="buyAmount" type="number" name="amount" class="form-control inputWidth" min="0" />
 									<input type="hidden" name="memberNo" value="${loginUser.memberNo}" />
 									<input type="hidden" name="cpNo" />
-									<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
+									<input type="hidden" name="classNo" value="${requestScope.classroom.classNo}" />
 								</div>
 								<div>
 									<p id="myCount">현재 보유 쿠폰은 100장입니다.</p>

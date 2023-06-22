@@ -79,7 +79,7 @@ public class CouponProductController {
 	}
 	
 	@RequestMapping("buy.cp")
-	public String buyCouponProduct(CouponProduct cp, Model model) {
+	public String buyCouponProduct(CouponProduct cp, Model model, HttpServletRequest request) {
 		//System.out.println(cp);
 		
 		ArrayList<CouponProduct> cpList = new ArrayList(); 
@@ -87,10 +87,10 @@ public class CouponProductController {
 		for(int i = 0; i < cp.getAmount(); i++) {
 			cpList.add(cp);
 		}
-		
+		System.out.println(cp.getClassNo());
 		if(cpService.buyCouponProduct(cpList, cp) > 0 ) {
-			model.addAttribute("cno", cp.getClassNo());
-			return "redirect:/couponStore";
+			request.setAttribute("couponCno", cp.getClassNo());
+			return "sideBar/sideBar";
 		} else {
 			model.addAttribute("errorMsg", "쿠폰 교환 실패");
 			return "common/errorPage";
