@@ -15,6 +15,7 @@
 		<result column="COMPLETE_COUNT" property="completeCount"/>
 		<result column="PROGRESS_RATE" property="progressRate"/>
 		<result column="GACHA_COUNT" property="gachaCount"/>
+		<result column="EDU_STATE" property="eduState" />
 	</resultMap>
 	
 	<resultMap type="edu" id="eduResultSet">
@@ -31,8 +32,8 @@
 		<result column="GACHA_COUNT" property="gachaCount"/>
 	</resultMap>
 	
-	<select id="selectEduList" resultMap="eduProResultSet">
-		SELECT 
+	<select id="selectEduList" resultMap="eduProResultSet" parameterType="hashMap">
+        SELECT 
 		       EDU_NO
 		      ,EDU_NAME
 		      ,EDU_TYPE
@@ -42,6 +43,9 @@
 		      ,NVL(CC, 0) COMPLETE_COUNT
 		      ,ROUND(NVL(CC, 0) / TOTAL_COUNT, 3) PROGRESS_RATE
 		      ,GACHA_COUNT
+		<if test='memberType == "S"'>
+			  ,EDU_STATE
+		</if>
 		  FROM EDUCATION
 		  JOIN (SELECT 
 		               CLASS_NO
@@ -52,16 +56,38 @@
 		            BY
 		               CLASS_NO) USING (CLASS_NO)
 		  LEFT
-		  JOIN (SELECT
-		               EDU_NO
-		              ,COUNT(*) CC
-		          FROM
-		               QUIZ
-		          JOIN
-		               INCORRECT USING (QUIZ_NO)
-		         GROUP
-		            BY
-		               MEMBER_NO, EDU_NO) USING (EDU_NO)
+		  JOIN (SELECT 
+                       EDU_NO
+                      ,COUNT(*) CC
+                  FROM(SELECT
+                              EDU_NO
+                             ,MEMBER_NO
+                         FROM
+                              QUIZ
+                         JOIN
+                              INCORRECT USING (QUIZ_NO)
+                        GROUP
+                           BY
+                              MEMBER_NO, EDU_NO)
+                 GROUP BY EDU_NO) USING (EDU_NO)
+		<if test='memberType == "S"'> 
+          LEFT
+          JOIN (SELECT 
+                       EDU_NO
+                      ,COUNT(*) EDU_STATE
+                  FROM(SELECT
+                              EDU_NO
+                             ,MEMBER_NO
+                         FROM
+                              QUIZ
+                         JOIN
+                              INCORRECT USING (QUIZ_NO)
+                        GROUP
+                           BY
+                              MEMBER_NO, EDU_NO
+                       HAVING MEMBER_NO = #{memberNo})
+                 GROUP BY EDU_NO) USING (EDU_NO)
+		</if>
 		 WHERE 
 		       CLASS_NO = #{classNo}
 		 ORDER
@@ -175,5 +201,17 @@
 		 WHERE
 		 	   EDU_NO = #{eduNo}
 	</select>
+	
+	<insert id="insertIncorrect" parameterType="java.util.ArrayList">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			   INTO INCORRECT
+			 VALUES 
+			 	   (
+					#{item.memberNo}
+				   ,#{item.quizNo}
+				   ,#{item.incorrectContent}
+			 	   )
+		</foreach>
+	</insert>
 	
 </mapper>

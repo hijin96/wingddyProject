@@ -1,8 +1,13 @@
 package com.kh.wingddy.education.model.vo;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
-@Data 
+@Getter @Setter @ToString(callSuper = true) @NoArgsConstructor @AllArgsConstructor @SuperBuilder
 public class Edu {
 	
 	private int eduNo;		//EDU_NO	NUMBER
@@ -12,4 +17,5 @@ public class Edu {
 	private String endTime;	//END_TIME	DATE
 	private Double limitTime; 
 	private int gachaCount;
+	private int eduState;
 }
