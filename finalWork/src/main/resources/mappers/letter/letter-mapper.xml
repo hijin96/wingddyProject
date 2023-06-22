@@ -103,7 +103,7 @@ UPDATE LETTER
 
 
 <select id="letterDetail" resultMap="letterResultSet" parameterType="letter">
-SELECT LETTER_NO, A.MEMBER_ID||'('||A.MEMBER_NAME||')' as "SENDER", B.MEMBER_ID||'('||B.MEMBER_NAME||')' as "RECIPIENT", LETTER_CONTENT, SEND_DATE, ANONYMOUS, TO_MANITTO, GIFT, READ_CHECK, STATUS, A.MEMBER_NO AS "MEMBER_NO", GET_GIFT
+SELECT LETTER_NO, A.MEMBER_ID||'('||A.MEMBER_NAME||')' as "SENDER", B.MEMBER_ID||'('||B.MEMBER_NAME||')' as "RECIPIENT", LETTER_CONTENT, SEND_DATE, ANONYMOUS, TO_MANITTO, GIFT, READ_CHECK, A.MEMBER_NO AS "MEMBER_NO", GET_GIFT
   FROM LETTER
   JOIN MEMBER A ON(SENDER = A.MEMBER_NO)
   JOIN MEMBER B ON(RECIPIENT = B.MEMBER_NO)
@@ -138,6 +138,7 @@ SELECT CLASS_NO, CLASS_NAME, LETTER_NO, A.MEMBER_ID||'('||A.MEMBER_NAME||')' as 
   JOIN CLASSROOM USING(CLASS_NO)
  WHERE RECIPIENT = #{memberNo}
    AND READ_CHECK = 'N'
+   AND RECIPIENT_STATUS = 'Y'
  ORDER BY LETTER_NO DESC
 </select>
 
@@ -148,28 +149,25 @@ UPDATE LETTER
 </update>
 
 
-<delete id="deleteLetter" parameterType="letter">
-
-
-DELETE FROM LETTER
+<update id="deleteLetterSender" parameterType="letter">
+UPDATE LETTER
+   SET SENDER_STATUS = 'N'
  WHERE LETTER_NO IN
- 
-<foreach collection="list" item="item" index="i" open="(" close=")" separator="," >
-	#{item}
-</foreach>
+		<foreach collection="letterList" item="item" index="i" open="(" close=")" separator="," >
+			#{item}
+		</foreach>
+</update>
 
-<choose>
-	<when test="#{sender != null}">
-	 	AND SENDER_STATUS = 'N'
-	</when>
-	<otherwise>
-		AND RECIPIENT_STATUS = 'N'
-	</otherwise>
-</choose>
+<update id="deleteLetterRecipient" parameterType="letter">
+UPDATE LETTER
+   SET RECIPIENT_STATUS = 'N'
+ WHERE LETTER_NO IN
+		<foreach collection="letterList" item="item" index="i" open="(" close=")" separator="," >
+			#{item}
+		</foreach>
+</update>
 
 
-
-</delete>
 
 
 

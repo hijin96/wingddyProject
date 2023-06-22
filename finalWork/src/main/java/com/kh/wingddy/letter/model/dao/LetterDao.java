@@ -112,9 +112,11 @@ public class LetterDao {
 	
 	public int deleteLetter(SqlSessionTemplate session, Letter letter) {
 		
-		System.out.println(session.delete("deleteLetter", letter));
-		
-		return 0;
+		if(!letter.getSender().equals("")) {
+			return session.update("letterMapper.deleteLetterSender", letter);
+		}else {
+			return session.update("letterMapper.deleteLetterRecipient", letter);
+		}
 	}
 	
 	

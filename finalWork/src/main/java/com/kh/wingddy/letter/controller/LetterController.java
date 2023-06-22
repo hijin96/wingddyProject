@@ -178,13 +178,16 @@ public class LetterController {
 	}
 	
 	
-	@RequestMapping(value="delete.le")
+	@ResponseBody
+	@RequestMapping(value="delete.le", produces="html/text; charset=UTF-8")
 	private String deleteLetter(Letter letter) {
 		
-		System.out.println(letter);
-		//letterService.deleteLetter(letter);
+		if(letter.getLetterList().size() == letterService.deleteLetter(letter)) {
+			return "success";
+		}else {
+			return "fail";
+		}
 		
-		return "";
 	}
 	
 	
