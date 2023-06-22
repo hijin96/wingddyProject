@@ -28,7 +28,7 @@ SELECT COUNT(*)
   JOIN MEMBER USING ON (SENDER = MEMBER_NO)
  WHERE CLASS_NO = #{classNo}
    AND RECIPIENT = #{recipient}
-   AND STATUS = 'Y'
+   AND RECIPIENT_STATUS = 'Y'
  ORDER BY SEND_DATE DESC
 </select>
 
@@ -38,7 +38,7 @@ SELECT COUNT(*)
    JOIN MEMBER USING ON (RECIPIENT = MEMBER_NO)
   WHERE CLASS_NO = #{classNo}
     AND SENDER = #{sender}
-    AND STATUS = 'Y'
+    AND SENDER_STATUS = 'Y'
   ORDER BY SEND_DATE DESC
 </select>
 
@@ -49,7 +49,7 @@ SELECT LETTER_NO, MEMBER_ID||'('||MEMBER_NAME||')' AS "SENDER", SUBSTR(LETTER_CO
   JOIN MEMBER USING ON (SENDER = MEMBER_NO)
  WHERE CLASS_NO = #{classNo}
    AND RECIPIENT = #{recipient}
-   AND STATUS = 'Y'
+   AND RECIPIENT_STATUS = 'Y'
  ORDER BY LETTER_NO DESC
 </select>
 
@@ -59,7 +59,7 @@ SELECT LETTER_NO, MEMBER_ID||'('||MEMBER_NAME||')' AS "SENDER", SUBSTR(LETTER_CO
    JOIN MEMBER USING ON (RECIPIENT = MEMBER_NO)
   WHERE CLASS_NO = #{classNo}
     AND SENDER = #{sender}
-    AND STATUS = 'Y'
+    AND SENDER_STATUS = 'Y'
   ORDER BY LETTER_NO DESC
 </select>
 
@@ -103,12 +103,11 @@ UPDATE LETTER
 
 
 <select id="letterDetail" resultMap="letterResultSet" parameterType="letter">
-SELECT LETTER_NO, A.MEMBER_ID||'('||A.MEMBER_NAME||')' as "SENDER", B.MEMBER_ID||'('||B.MEMBER_NAME||')' as "RECIPIENT", LETTER_CONTENT, SEND_DATE, ANONYMOUS, TO_MANITTO, GIFT, READ_CHECK, STATUS, A.MEMBER_NO AS "MEMBER_NO", GET_GIFT
+SELECT LETTER_NO, A.MEMBER_ID||'('||A.MEMBER_NAME||')' as "SENDER", B.MEMBER_ID||'('||B.MEMBER_NAME||')' as "RECIPIENT", LETTER_CONTENT, SEND_DATE, ANONYMOUS, TO_MANITTO, GIFT, READ_CHECK, A.MEMBER_NO AS "MEMBER_NO", GET_GIFT
   FROM LETTER
   JOIN MEMBER A ON(SENDER = A.MEMBER_NO)
   JOIN MEMBER B ON(RECIPIENT = B.MEMBER_NO)
  WHERE LETTER_NO = #{letterNo}
-   AND STATUS = 'Y'
 </select>
 
 
@@ -139,6 +138,7 @@ SELECT CLASS_NO, CLASS_NAME, LETTER_NO, A.MEMBER_ID||'('||A.MEMBER_NAME||')' as 
   JOIN CLASSROOM USING(CLASS_NO)
  WHERE RECIPIENT = #{memberNo}
    AND READ_CHECK = 'N'
+   AND RECIPIENT_STATUS = 'Y'
  ORDER BY LETTER_NO DESC
 </select>
 
@@ -148,6 +148,24 @@ UPDATE LETTER
  WHERE RECIPIENT = #{memberNo}
 </update>
 
+
+<update id="deleteLetterSender" parameterType="letter">
+UPDATE LETTER
+   SET SENDER_STATUS = 'N'
+ WHERE LETTER_NO IN
+		<foreach collection="letterList" item="item" index="i" open="(" close=")" separator="," >
+			#{item}
+		</foreach>
+</update>
+
+<update id="deleteLetterRecipient" parameterType="letter">
+UPDATE LETTER
+   SET RECIPIENT_STATUS = 'N'
+ WHERE LETTER_NO IN
+		<foreach collection="letterList" item="item" index="i" open="(" close=")" separator="," >
+			#{item}
+		</foreach>
+</update>
 
 
 

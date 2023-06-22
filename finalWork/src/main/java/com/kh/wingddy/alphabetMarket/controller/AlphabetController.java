@@ -128,17 +128,17 @@ public class AlphabetController {
 	
 	// 마켓 글 등록!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 	@RequestMapping("post.aph")
-	public String insertMarket(AlphabetMarket am, Model model, HttpSession session) {
+	public String insertMarket(AlphabetMarket am, HttpServletRequest request, HttpSession session) {
 		
 		
 		
 		if(AlphabetService.insertMarket(am) == 1) {
 			
-			model.addAttribute("bno", AlphabetService.writerLastMarket(am)); // 해당 글 상세보기로 되돌려주긴
-			
+			request.setAttribute("alphabetBno", AlphabetService.writerLastMarket(am)); // 해당 글 상세보기로 되돌려주긴
+			request.setAttribute("alphabetDetailCno", am.getClassNo()); // 클래스넘
 		}
 		
-		return "redirect:/detail.aph";
+		return "sideBar/sideBar";
 	}
 	
 	
@@ -239,9 +239,9 @@ public class AlphabetController {
 			session.setAttribute("alertMsg", "에러 발생! 다시 시도해 보세요!");
 		}
 		
-		model.addAttribute("cno", wd.getClassNo());
+		model.addAttribute("alphabetCno", wd.getClassNo());
 		
-		return "redirect:/makeWords.aph";
+		return "sideBar/sideBar";
 	}
 	
 	

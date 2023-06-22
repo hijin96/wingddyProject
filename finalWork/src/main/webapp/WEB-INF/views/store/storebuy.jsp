@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,134 +31,134 @@
 				<div class="main-content">
 					<br><br><br><br><br><br><br>
 					<div class="cart-box-main">
-						<div class="container">
-							<div class="row new-account-login">
-								
-							</div>
+						<div class="container row new-account-logi">
+							
 							<div class="row">
-								<div class="col-sm-6 col-lg-6 mb-3">
-									<div class="checkout-address">
-										<div class="title-left">
-											<h3>결제하기</h3>
-										</div>
-										<form class="needs-validation" novalidate>
-											<div class="row">
-												<div class="col-md-6 mb-3">
-													<label for="sendName">보내는이 *</label>
-													
-													<input type="text" class="form-control" id="sendName" placeholder="" name="sendName" required>
-													<div class="invalid-feedback"> 보내는이를 작성해주세요</div>
-												</div>
-												<div class="col-md-6 mb-3">
-													<label for="resName">받는이 *</label>
-													<input type="text" class="form-control" id="resName" placeholder="" name="resName" required>
-													<div class="invalid-feedback">받는이를 작성해주세요</div>
-												</div>
-											</div>
-										
-											<div class="mb-3">
-												 <input type="hidden" id="confmKey" name="confmKey" value=""  >
-												<label for="address">주소*</label>
-												<div class="invalid-feedback"> 주소를 입력해주세요</div>
-												<button type="button" onclick="goPopup();">주소검색</button>
-												<br><label for="zipNo"> 우편번호 *</label> <input name="zipNo" id="zipNo" class="form-control" type="text" placeholder="우편번호" />
-												<br>도로명주소<br><br>
-												<input type="text" class="form-control" id="roadAddrPart1"  placeholder="도로명주소" name="roadAddrPart1"  required><br>
-												<input type="text" class="form-control" id="roadAddrPart2"  placeholder="" name="roadAddrPart2"  required>
-											</div>
-											<div class="mb-3">
-												<label for="addrDetail">상세주소 2 *</label>
-												<input type="text" class="form-control" id="addrDetail"  name="addrDetail" placeholder="고객입력 상세주소"> </div>
-												
-											
-											<div class="row">
-												<div class="col-md-6 mb-3">
-													<label for="cc-name">Name on card</label>
-													<input type="text" class="form-control" id="cc-name" placeholder="" required> <small class="text-muted">Full name as displayed on card</small>
-													<div class="invalid-feedback"> Name on card is required </div>
-												</div>
-												<div class="col-md-6 mb-3">
-													<label for="cc-number">Credit card number</label>
-													<input type="text" class="form-control" id="cc-number" placeholder="" required>
-													<div class="invalid-feedback"> Credit card number is required </div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-3 mb-3">
-													<label for="cc-expiration">Expiration</label>
-													<input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-													<div class="invalid-feedback"> Expiration date required </div>
-												</div>
-												<div class="col-md-3 mb-3">
-													<label for="cc-expiration">CVV</label>
-													<input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-													<div class="invalid-feedback"> Security code required </div>
-												</div>
-											</div>
-											<hr class="mb-1"> </form>
-									</div>
-								</div>
-								<div class="col-sm-6 col-lg-6 mb-3">
-									<div class="row">
-										<div class="col-md-12 col-lg-12">
-											
-										</div>
-										<div class="col-md-12 col-lg-12">
-											<div class="odr-box">
-												<div class="title-left">
-													<h3>구매예정 목록</h3>
-												</div>
-												<div class="rounded p-2 bg-light">
-													<div class="media mb-2 border-bottom">
-														<div class="media-body"> <a href="detail.html"> Lorem ipsum dolor sit amet</a>
-															<div class="small text-muted">가격: $80.00 <span class="mx-2">|</span> Qty: 1 <span class="mx-2">|</span> Subtotal: $80.00</div>
+										<div class="col-sm-6 col-lg-6 mb-3">
+											<div class="checkout-address">
+														<div class="title-left">
+															<h3>결제하기</h3>
+														</div>
+												<form class="needs-validation" action="storeBuySuccess" method="post" >
+													<input type="hidden" name="orderNo" value="${orderNo}"/>
+													<div class="row">
+														<div class="col-md-6 mb-3">
+															<label for="sendName">보내는이 *</label>
+															
+															<input type="text" class="form-control" id="sendName" placeholder="" name="sendName" required>
+															<div class="invalid-feedback"> 보내는이를 작성해주세요</div>
+														</div>
+														<div class="col-md-6 mb-3">
+															<label for="resName">받는이 *</label>
+															<input type="text" class="form-control" id="resName" placeholder="" name="resName" required>
+															<div class="invalid-feedback">받는이를 작성해주세요</div>
 														</div>
 													</div>
+												
+													<div class="mb-3">
+														<input type="hidden" id="confmKey" name="confmKey" value=""  >
+														<label for="address">주소*</label>
+														<div class="invalid-feedback"> 주소를 입력해주세요</div>
+														<button type="button" onclick="goPopup();">주소검색</button>
+														<br><label for="zipNo"> 우편번호 *</label> <input name="zipNo" id="zipNo" class="form-control" type="text" placeholder="우편번호" />
+														<br>도로명주소<br><br>
+														<input type="text" class="form-control" id="roadAddrPart1"  placeholder="도로명주소" name="roadAddrPart1"  required><br>
+														<input type="text" class="form-control" id="roadAddrPart2"  placeholder="" name="roadAddrPart2"  required>
+													</div>
+													<div class="mb-3">
+														<label for="addrDetail">상세주소 2 *</label>
+														<input type="text" class="form-control" id="addrDetail"  name="addrDetail" placeholder="고객입력 상세주소"> 
+													</div>
+														<div class="mb-3">
+														<label for="addrDetail"> 받는이 핸드폰번호 *</label>
+														<input type="text" class="form-control" id="resPhone"  name="resPhone" placeholder="받는이 핸드폰 번호"> 
+													</div>
+												</div>				
 													
-												</div>
-											</div>
-										</div>
-										<br><br><br>
-										<div class="col-md-12 col-lg-12">
+													<div class="row">
+														<div class="col-md-6 mb-3">
+															<label for="cc-name">Name on card</label>
+															<input type="text" class="form-control" id="cc-name" placeholder="" > <small class="text-muted">Full name as displayed on card</small>
+															<div class="invalid-feedback"> Name on card is required </div>
+														</div>
+														<div class="col-md-6 mb-3">
+															<label for="cc-number">Credit card number</label>
+															<input type="text" class="form-control" id="cc-number" placeholder="" >
+															<div class="invalid-feedback"> Credit card number is required </div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-3 mb-3">
+															<label for="cc-expiration">Expiration</label>
+															<input type="text" class="form-control" id="cc-expiration" placeholder="" >
+															<div class="invalid-feedback"> Expiration date required </div>
+														</div>
+														<div class="col-md-3 mb-3">
+															<label for="cc-expiration">CVV</label>
+															<input type="text" class="form-control" id="cc-cvv" placeholder="" >
+															<div class="invalid-feedback"> Security code required </div>
+														</div>
+													</div>
+													<hr class="mb-1">  
+										
 											
-											<div class="order-box">
-												<div class="title-left">
-													<br><br>
-													<h3>결제금액</h3>
-												</div>
-												<div class="d-flex">
-													<div class="font-weight-bold">상품</div>
-													<div class="ml-auto font-weight-bold">금액</div>
-												</div>
-												<hr class="my-1">
-												<div class="d-flex">
-													<h4>Sub Total</h4>
-													<div class="ml-auto font-weight-bold"> $ 440 </div>
-												</div>
-												<div class="d-flex">
-													<h4>Discount</h4>
-													<div class="ml-auto font-weight-bold"> $ 40 </div>
-												</div>
-												<hr class="my-1">
-												<div class="d-flex">
-													<h4>Coupon Discount</h4>
-													<div class="ml-auto font-weight-bold"> $ 10 </div>
-												</div>
-												<br>
-												<div class="d-flex">
-													<h4>Shipping Cost</h4>
-													<div class="ml-auto font-weight-bold"> Free </div>
-												</div>
-												<hr>
-												<div class="d-flex gr-total">
-													<h5>총결제금</h5>
-													<div class="ml-auto h5"> $ 388 </div>
-												</div>
-												<hr> </div>
 										</div>
-										<div class="col-12 d-flex shopping-box"> <a href="" class="ml-auto btn hvr-hover">결제하기</a> </div>
+									<div class="col-sm-6 col-lg-6 mb-3">
+										<div class="row col-md-12 col-lg-12">
+											
+													<div class="col-md-12 col-lg-12">
+														<div class="odr-box">
+															<div class="title-left">
+																<h3>구매예정 목록</h3>
+															</div>
+															<c:forEach var="cart" items="${cartList }" varStatus="status">
+															<div class="rounded p-2 bg-light">
+																<div class="media mb-2 border-bottom">
+																	<div class="media-body"> 
+																		<a href="detail.html"> ${cart.spName }</a>
+																		<div class="small text-muted">${cart.spPrice }원 <span class="mx-2">|</span> 구매수량 ${cart.buyCount } 개<span class="mx-2">|</span> ${cart.totPrice} 원</div>
+																	</div>
+																	
+																</div>
+																
+															</div>
+															</c:forEach>
+														</div>
+													</div>
+													<br><br><br>
+											<div class="col-md-12 col-lg-12">
+												
+												<div class="order-box">
+													<div class="title-left">
+														<br><br>
+														<h3>결제금액</h3>
+													</div>
+													<div class="d-flex">
+														<div class="font-weight-bold">상품</div>
+														<div class="ml-auto font-weight-bold">금액</div>
+													</div>
+													<hr class="my-1">
+													<div class="d-flex">
+														<h4>총결제금</h4>
+														<div class="ml-auto font-weight-bold" > ${sumPrice}  </div>
+														<input type="hidden" name="sumPrice" value="${sumPrice}">
+													</div>
+													<div class="d-flex">
+														
+													</div>
+													<br>
+													<hr>
+													<div class="d-flex gr-total">
+														<h5>총결제금</h5>
+													<div class="ml-auto h5"> ${sumPrice} </div>
+													</div>
+													<hr> </div>
+											</div>
+											<div class="col-12 d-flex shopping-box"> <button type="submit" class="btn btn-primary btn-lg btn-block">결제하기</button> </div>
+										</div>
 									</div>
-								</div>
+								</form>
+								
 							</div>
 				
 						</div>
@@ -186,15 +187,26 @@
 						document.getElementById("addrDetail").value = addrDetail;
 						document.getElementById("zipNo").value = zipNo;
 					}
-					
+
+					let url= document.location.href;
+					var queryString = url.split("?")[1];
+					// 쿼리 문자열을 "&"로 분할하여 각각의 파라미터로 나눔
+					var params = queryString.split("&");
+					// 파라미터 배열을 순회하면서 "cartNo" 파라미터를 찾음
+				//	console.log("queryString: " + queryString);
+				//	console.log("params: " + params);
+					for (var i = 0; i < params.length; i++) {
+					// "cartNo" 파라미터를 찾으면 숫자 값을 추출
+					if (params[i].startsWith("cartNo=")) {
+					var cartNumber = params[i].split("=")[1];
+					// 여기에서 숫자 값을 사용하거나 출력할 수 있습니다.
+					console.log(cartNumber);
+					break; // 숫자 값을 찾았으므로 반복문을 종료합니다.
+					    }
+					}
 					</script>
-					
 				</div>	
-			       	 	
-			       	 	
-			       	 
 			</div>
-	
 	</div>
 
 

@@ -92,6 +92,5 @@ public class MemberServiceImpl implements MemberService {
 	public int updatePwd(Member m) {
 		return memberDao.updatePwd(sqlSession, m);
 	}
-	
-	
+
 }

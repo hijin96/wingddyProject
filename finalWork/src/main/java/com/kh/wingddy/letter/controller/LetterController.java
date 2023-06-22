@@ -1,5 +1,7 @@
 package com.kh.wingddy.letter.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -151,7 +154,6 @@ public class LetterController {
 	@RequestMapping(value="getGift.le")
 	private int getGift(Letter letter) {
 		
-		
 		return letterService.getGift(letter);
 		
 	}
@@ -171,8 +173,20 @@ public class LetterController {
 	@RequestMapping(value="markAll.le")
 	private int markAll(int memberNo) {
 		
-		
 		return letterService.markAll(memberNo);
+		
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="delete.le", produces="html/text; charset=UTF-8")
+	private String deleteLetter(Letter letter) {
+		
+		if(letter.getLetterList().size() == letterService.deleteLetter(letter)) {
+			return "success";
+		}else {
+			return "fail";
+		}
 		
 	}
 	

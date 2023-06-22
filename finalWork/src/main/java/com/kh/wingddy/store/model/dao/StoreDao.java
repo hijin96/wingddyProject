@@ -69,17 +69,39 @@ public class StoreDao {
 	}
 
 	public ArrayList<Cart> selectStoreCart(SqlSessionTemplate sqlSession, int MemberNo) {
-		ArrayList<Cart> list = (ArrayList)sqlSession.selectList("storeMapper.selectStoreCart", MemberNo);
-		System.out.println("dao result : " + list);
-		return  list;
+		//ArrayList<Cart> list = (ArrayList)sqlSession.selectList("storeMapper.selectStoreCart", MemberNo);
+		//System.out.println("dao result : " + list);
+		return  (ArrayList)sqlSession.selectList("storeMapper.selectStoreCart", MemberNo);
 	}
 
 	public int createOrderNo(SqlSessionTemplate sqlSession, Order order) {
 		return sqlSession.insert("storeMapper.createOrderNo", order);
 	}
 
-	public int OrderInformation(SqlSessionTemplate sqlSession, Order order, Store s) {
+	public int OrderInformation(SqlSessionTemplate sqlSession, Order order) {
 
 		return sqlSession.update("storeMapper.orderInfomation", order);
 	}
+	//구매하기 페이지에서 구매할 목록만 가져가기
+	public ArrayList<Cart> buyCartSelect(SqlSessionTemplate sqlSession, String[] cartNo) {
+		return (ArrayList)sqlSession.selectList("storeMapper.buyCartSelect", cartNo);
+		
+	}
+	//마지막 구매번호 알아내기
+	public int checkedOrderNo(SqlSessionTemplate sqlSession) {
+	
+		return sqlSession.selectOne("storeMapper.checkedOrderNo");
+	}
+	//구매완료
+	public int storeBuySuccess(SqlSessionTemplate sqlSession,Order order) {
+		int success= sqlSession.update("storeMapper.storeBuySuccess",order);
+		System.out.println("dao: " + success);
+		return success;
+	}
+
+	public ArrayList<Cart> orderSuccessUpdateCart(SqlSessionTemplate sqlSession, String[] cartNo, Order order) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
