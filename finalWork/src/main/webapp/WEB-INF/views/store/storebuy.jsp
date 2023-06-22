@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,14 +108,18 @@
 												<div class="title-left">
 													<h3>구매예정 목록</h3>
 												</div>
+												<c:forEach var="cart" items="${cartList }" varStatus="status">
 												<div class="rounded p-2 bg-light">
 													<div class="media mb-2 border-bottom">
-														<div class="media-body"> <a href="detail.html"> Lorem ipsum dolor sit amet</a>
-															<div class="small text-muted">가격: $80.00 <span class="mx-2">|</span> Qty: 1 <span class="mx-2">|</span> Subtotal: $80.00</div>
+														<div class="media-body"> 
+															<a href="detail.html"> ${cart.spName }</a>
+															<div class="small text-muted">${cart.spPrice }원 <span class="mx-2">|</span> 구매수량 ${cart.buyCount } 개<span class="mx-2">|</span> Subtotal: $80.00</div>
 														</div>
+														
 													</div>
 													
 												</div>
+												</c:forEach>
 											</div>
 										</div>
 										<br><br><br>
@@ -155,7 +160,7 @@
 												</div>
 												<hr> </div>
 										</div>
-										<div class="col-12 d-flex shopping-box"> <a href="" class="ml-auto btn hvr-hover">결제하기</a> </div>
+										<div class="col-12 d-flex shopping-box"> <a href="" class="btn btn-primary btn-lg btn-block">결제하기</a> </div>
 									</div>
 								</div>
 							</div>
