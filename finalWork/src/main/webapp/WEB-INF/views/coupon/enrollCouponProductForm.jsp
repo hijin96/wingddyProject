@@ -76,7 +76,7 @@
                    			</div>	
                    		</div>
 						
-						<form id="form-enrollCp" action="enroll.cp" method="post">
+						<form id="form-enrollCp" action="enroll.cp" method="post" enctype="multipart/form-data">
 							<div class="form-group row mb-4">
 	                    		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">상품명</label>
 	                    		<div class="col-sm-12 col-md-7">
@@ -111,13 +111,6 @@
 	                    		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">현재 썸네일</label>
 	                    		<div class="col-sm-12 col-md-7">
 	                        		<img alt="img">
-	                      		</div>
-                    		</div>
-                    		
-                    		<div class="form-group row mb-4">
-	                    		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">썸네일 변경</label>
-	                    		<div class="col-sm-12 col-md-7">
-	                        		<input name="upfile" type="file" class="form-control">
 	                      		</div>
                     		</div>
                     		

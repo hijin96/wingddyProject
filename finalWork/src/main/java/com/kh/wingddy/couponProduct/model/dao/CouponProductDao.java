@@ -53,8 +53,5 @@ public class CouponProductDao {
 		return sqlSession.insert("coupon-mapper.insertCouponProduct", cp);
 	}
 	
-	public int insertAttachment(SqlSessionTemplate sqlSession, Attachment at) {
-		return sqlSession.insert("store-mapper.insertStoreAttachment", at);
-	}
 	
 }

@@ -21,6 +21,7 @@ import com.kh.wingddy.common.template.Pageination;
 import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.couponProduct.model.service.CouponProductServiceImpl;
 import com.kh.wingddy.couponProduct.model.vo.CouponProduct;
+import com.kh.wingddy.member.model.vo.Member;
 
 @Controller
 public class CouponProductController {
@@ -99,22 +100,9 @@ public class CouponProductController {
 	 * @return
 	 */
 	@RequestMapping("enroll.cp")
-	public String insertCouponProduct(CouponProduct cp
-									 ,@RequestParam(value="file", required=false)MultipartFile upfile, HttpSession session, Model model){
-		
-		Attachment at = new Attachment();
-		
-		String changeName = rename.fileName(upfile, session);
-		
-		at.setOriginName(upfile.getOriginalFilename());
-		at.setChangeName(changeName);
-		at.setFilePath("resources/uploadFiles/");
-		
-		at.setFileNo(cp.getFileNo());
-		at.setMemberNo(cp.getMemberNo());
-		System.out.println(at);
-		
-		if(cpService.insertCouponProduct(cp, at) > 0) {
+	public String insertCouponProduct(CouponProduct cp, Model model){
+	
+		if(cpService.insertCouponProduct(cp) > 0) {
 			model.addAttribute("cno", cp.getClassNo());
 			return "redirect:/couponStore";
 		} else {

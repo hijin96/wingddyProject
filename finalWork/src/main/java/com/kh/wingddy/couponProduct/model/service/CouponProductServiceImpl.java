@@ -31,12 +31,8 @@ public class CouponProductServiceImpl implements CouponProductService {
 	}
 	
 	@Override
-	public int insertCouponProduct(CouponProduct cp, Attachment at) {
-		if(cpDao.insertCouponProduct(sqlSession, cp) * cpDao.insertAttachment(sqlSession, at) > 0){
-			return 1;
-		} else {
-			return 0;
-		}
+	public int insertCouponProduct(CouponProduct cp) {
+		return cpDao.insertCouponProduct(sqlSession, cp) > 0 ? 1 : 0;
 	}
 
 	@Override

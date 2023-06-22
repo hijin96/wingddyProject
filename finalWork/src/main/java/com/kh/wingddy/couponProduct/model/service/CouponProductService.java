@@ -13,7 +13,7 @@ public interface CouponProductService {
 
 	ArrayList<CouponProduct> selectCouponProductList(PageInfo pi, CouponProduct cp);
 	
-	int insertCouponProduct(CouponProduct cp, Attachment at);
+	int insertCouponProduct(CouponProduct cp);
 	
 	int updateCouponProduct(CouponProduct cp);
 	

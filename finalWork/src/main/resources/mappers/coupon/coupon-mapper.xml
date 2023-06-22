@@ -45,7 +45,7 @@
 		      ,amount
 		      ,class_no classNo
 		      ,file_no fileNo
-		      ,file_path || file_name filePath
+		      ,filePath
 		  from 
 		       vw_cp
 		 where 
@@ -67,7 +67,7 @@
 		      ,amount
 		      ,class_no classNo
 		      ,file_no fileNo
-		      ,file_path || file_name filePath
+		      ,filePath
 		  from 
 		       vw_cp
 		 where 
@@ -151,6 +151,29 @@
 			  ,#{amount}
 			  ,#{classNo}
 			   )
+	</insert>
+	
+	<insert id="insertAttach" parameterType="attachment">
+		INSERT
+		  INTO
+		       ATTACHMENT
+		       (
+		       FILE_NO,
+		       MEMBER_NO,
+		       ORIGIN_NAME,
+		       CHANGE_NAME,
+		       FILE_LEVEL,
+		       FILE_PATH
+		       )
+		VALUES
+		      (
+		      SEQ_FNO.NEXTVAL,
+		      #{memberNo},
+		      #{originName},
+		      #{changeName},
+		      #{fileLevel},
+		      #{filePath}
+		      )
 	</insert>
 	
 	
