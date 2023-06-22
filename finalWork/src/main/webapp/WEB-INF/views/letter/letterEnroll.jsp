@@ -26,19 +26,22 @@
 								<input type="hidden" name="classNo" value="${requestScope.classroom.classNo}">
 								<input type="hidden" name="sender" value="${sessionScope.loginUser.memberNo}">
 								<div align="center">
+									<input type="hidden" name="toManitto">
+									<input type="hidden" name="anonymous">
 									<c:choose>
 										<c:when test="${not empty myManitti}">
 											
 											<p style="font-size: larger; font-weight: bolder;">'마니띠에게' 클릭 시 익명으로 보낼 수 있어요!</p>
 											<input type="radio" name="recipient" value="${myManitto}">마니또에게
-											<input type="hidden" name="toManitto">
+											
 											<input type="radio" name="recipient" value="${myManitti}">마니띠에게
-											<input type="hidden" name="anonymous">
+											
 											<button type="button" onclick="noneCheck();" class="btn btn-primary">선택취소</button>
 											
 										</c:when>
 										<c:otherwise>
 											<p style="font-size: larger; font-weight: bolder;">마니또게임을 하고 있지 않아요!</p>
+											
 										</c:otherwise>
 									</c:choose>
 								</div>
