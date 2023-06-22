@@ -5,7 +5,7 @@ import java.sql.Date;
 import lombok.Data;
 @Data
 public class Cart {
-	private int cartNo; //장바구니번호
+	private String cartNo; //장바구니번호
 	private int memberNo; //회원번호
 	private String spName;
 	private int spPrice;//가격
