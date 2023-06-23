@@ -96,15 +96,17 @@
 				<div id="content-top2">
 					<c:choose>
 						<c:when test="${loginUser.memberType eq  'T'}">
-							<form action="enrollForm.cp" method="post">
+							<form id="teacher-form" action="enrollForm.cp" method="post">
 								<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
 								<input type="hidden" name="mno" value="${loginUser.memberNo}" />
+								<button type="button" id="studentCplist" class="btn btn-primary" >학생 보유 쿠폰 조회</button>
 								<button type="submit" class="btn btn-warning" >상품 등록하기</button>
 							</form>
 						</c:when>
 						<c:when test="${loginUser.memberType eq 'S' }">
 							<form action="myList.cp" method="post">
 								<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
+								<input type="hidden" name="memberNo" value="${loginUser.memberNo}" />
 								<button type="submit" class="btn btn-warning" >내 보유 쿠폰 확인하기</button>
 							</form>
 						</c:when>
@@ -133,18 +135,7 @@
 	                   			</div>
 	                 		</div>
 	               		</article>
-	               		
-	               		
-	               		
-	               		
-	               		
 	             	</div>
-	             	
-	             	
-		             	
-		            
-	             	
-	             	
              	</c:forEach>
              	
 			</div>
@@ -168,6 +159,7 @@
 									<input id="buyAmount" type="number" name="amount" class="form-control inputWidth" min="0" />
 									<input type="hidden" name="memberNo" value="${loginUser.memberNo}" />
 									<input type="hidden" name="cpNo" />
+									<input type="hidden" name="classNo" value="${requestScope.classroom.classNo}" />
 								</div>
 								<div>
 									<p id="myCount">현재 보유 쿠폰은 100장입니다.</p>
@@ -179,7 +171,7 @@
 							<!-- Modal footer -->
 							<div class="modal-footer">
 								<button type="button" class="btn btn-warning" data-dismiss="modal">취소</button>
-								<button type="submit" id="btn-buyCp" class="btn btn-success" disabled="true">교환</button>
+								<button type="submit" id="btn-buyCp" class="btn btn-success" disabled="disabled">교환</button>
 							</div>
 						</form>
 					
@@ -288,7 +280,7 @@
 			url : 'couponCount.cp',
 			data : {'memberNo' : memberNo, 'classNo' : cno},
 			success : function(result){
-
+				console.log(result);
 				myCoupon = result.couponCount;
 				$('#myCount').html('현재 보유 쿠폰은 ' + myCoupon + '개입니다.');
 			}
@@ -306,10 +298,11 @@
 			if(myCoupon < $(this).val() * price){
 				//console.log('못 사');
 				$('#warningMsg').html('보유한 쿠폰보다 많은 상품은 교환할 수 없습니다!');
+				$('#btn-buyCp').prop('disabled', 'disabled');
 			} else {
 				$('#warningMsg').html('');
 				// 조건 불만족이면 submit 버튼 활성화
-				$('#btn-buyCp').prop('disabled', false);
+				$('#btn-buyCp').prop('disabled', '');
 			}
 			
 		})
@@ -322,32 +315,20 @@
 	  	$('#warningMsg').html('');
 	});
 	
-	
-	
 	$(function(){
 		var ob = "${orderBy}";
 		//console.log(ob);
 		//console.log($('#orderBy').val(ob));
 		$('#orderBy').val("${orderBy}").prop("selected", true);
 		
-		
-		
-		
-		
-		
-		/*
-		console.log(pi);
-		console.log(pi.currentPage);
-		for(i in ${cplist}){
-			console.log(i);
-		}
-		if(${cplist}.length == 0){
-			console.log('야호');
-			$('#contents').html('<div id="noneCp" class="text-center"><h6>구매 가능한 상품이 존재하지 않습니다.</h6></div>');
-		}*/
 	})
 	
-	
+	// 학생 보유 쿠폰 조회 페이지로
+	$('#studentCplist').on('click', function(){
+		$('#teacher-form').attr('action', 'selectSlist.cp');
+		$('#teacher-form').submit();
+		
+	})
 	
 
 

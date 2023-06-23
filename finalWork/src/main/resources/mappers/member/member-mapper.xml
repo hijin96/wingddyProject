@@ -49,6 +49,7 @@
                MEMBER_PWD, 
                MEMBER_NAME,
                MEMBER_TYPE,
+               LOGIN_TYPE,
                EMAIL, 
                PHONE,
                ENROLL_DATE 
@@ -59,6 +60,7 @@
                #{memberPwd},
                #{memberName},
                #{memberType},
+               #{loginType},
                #{email},
                #{phone},
                SYSDATE

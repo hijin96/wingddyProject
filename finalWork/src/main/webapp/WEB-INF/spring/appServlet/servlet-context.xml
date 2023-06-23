@@ -48,6 +48,8 @@
 			<mapping path="/couponStore" />
 			<mapping path="/enrollForm.cp" />
 			<mapping path="/myList.cp" />
+			<mapping path="/selectSlist.cp" />
+			<mapping path="/use.cp" />
 			
 
 			

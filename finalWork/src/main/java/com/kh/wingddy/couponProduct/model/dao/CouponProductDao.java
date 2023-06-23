@@ -1,7 +1,7 @@
 package com.kh.wingddy.couponProduct.model.dao;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -53,6 +53,26 @@ public class CouponProductDao {
 		return sqlSession.insert("coupon-mapper.insertCouponProduct", cp);
 	}
 	
+	public ArrayList<CouponProduct> myCouponList(SqlSessionTemplate sqlSession, CouponProduct cp){
+		return (ArrayList)sqlSession.selectList("coupon-mapper.myCouponList", cp);
+	}
+	
+	public ArrayList<CouponProduct> selectStudentCplist(SqlSessionTemplate sqlSession, CouponProduct cp){
+		return (ArrayList)sqlSession.selectList("coupon-mapper.selectStudentCplist", cp);
+	}
+	
+	public int useCoupon(SqlSessionTemplate sqlSession, CouponProduct cp) {
+		return sqlSession.delete("coupon-mapper.useCoupon", cp);
+	}
+	
+	public ArrayList<CouponProduct> searchStudentCp(SqlSessionTemplate sqlSession, HashMap map) {
+		
+		if(map.get("searchOption").equals("studentName")) {
+			return (ArrayList)sqlSession.selectList("coupon-mapper.searchStudentCp-name", map);
+		} else {
+			return (ArrayList)sqlSession.selectList("coupon-mapper.searchStudentCp-cpName", map);
+		}
+	}
 	
 	
 }

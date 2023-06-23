@@ -1,5 +1,7 @@
 package com.kh.wingddy.letter.model.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -18,5 +20,7 @@ public class Letter {
 	private String readCheck;
 	private String className;
 	
+	
 	private int memberNo;
+	private List<String> letterList;
 }

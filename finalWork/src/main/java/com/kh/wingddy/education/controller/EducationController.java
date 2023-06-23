@@ -1,6 +1,7 @@
 package com.kh.wingddy.education.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,10 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kh.wingddy.education.model.service.EducationService;
 import com.kh.wingddy.education.model.vo.Edu;
 import com.kh.wingddy.education.model.vo.EduProgress;
+import com.kh.wingddy.education.model.vo.Incorrect;
 import com.kh.wingddy.education.model.vo.Quiz;
 import com.kh.wingddy.member.model.vo.Member;
 import com.kh.wingddy.voca.model.service.VocaService;
@@ -35,9 +38,15 @@ public class EducationController {
 	private VocaService vocaService;
 	
 	@RequestMapping("main.edu")
-	public ModelAndView eduMainPage(int cno, ModelAndView mv) {
+	public ModelAndView eduMainPage(ModelAndView mv, HttpSession session, int cno) {
+		Member m = (Member)session.getAttribute("loginUser");
 		
-		ArrayList<EduProgress> eList = educationService.selectEduList(cno);
+		HashMap<String, Object> map = new HashMap();
+		map.put("classNo", cno);
+		map.put("memberNo", m.getMemberNo());
+		map.put("memberType", m.getMemberType());
+		
+		ArrayList<EduProgress> eList = educationService.selectEduList(map);
 		
 		mv.
 		addObject("eList", eList).
@@ -148,6 +157,40 @@ public class EducationController {
 	@RequestMapping(value="examQuiz.qz", produces="application/json; charset=UTF-8")
 	public String eduExamQuizList(int eduNo) {
 		return new Gson().toJson(educationService.selectQuizList(eduNo));
+	}
+	
+	@RequestMapping("insertIncorrect.edu")
+	public ModelAndView insertIncorrect(ModelAndView mv, HttpSession session, String incorrectList, int cno) {
+		
+		int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
+		JsonArray iList = new JsonParser().parse(incorrectList).getAsJsonArray();
+		ArrayList<Incorrect> list = new ArrayList();
+		int quizNo = 0;
+		
+		for(int i = 0; i < iList.size(); i++) {
+			JsonObject items = iList.get(i).getAsJsonObject();
+			String correct = items.get("correctContent").getAsString();
+			String incorrect = items.get("incorrectContent").getAsString();
+			quizNo = items.get("quizNo").getAsInt();
+			
+			if(!correct.equals(incorrect)) {
+				list.add(new Incorrect().builder()
+										.quizNo(quizNo)
+										.incorrectContent(incorrect)
+										.memberNo(memberNo).build());
+			}
+		}
+		if(list.isEmpty()) {
+			list.add(new Incorrect().builder()
+								    .quizNo(quizNo)
+								    .memberNo(memberNo).build());
+		}
+		if(educationService.insertIncorrect(list) > 0) {
+			
+		}
+		
+		mv.addObject("cno",cno).setViewName("redirect:main.edu");
+		return mv;
 	}
 	
 	@RequestMapping("result.edu")

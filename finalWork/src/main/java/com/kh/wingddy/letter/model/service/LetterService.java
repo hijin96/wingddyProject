@@ -1,6 +1,7 @@
 package com.kh.wingddy.letter.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.letter.model.vo.Letter;
@@ -47,6 +48,9 @@ public interface LetterService {
 	
 	// 모두 읽은 걸로
 	int markAll(int memberNo);
+	
+	// 쪽지 삭제
+	int deleteLetter(Letter letter);
 	
 	
 	

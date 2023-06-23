@@ -102,141 +102,168 @@
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
             <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
           </ul>
-          <div class="search-element">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
-            <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-          </div>
+          
         </form>
         <ul class="navbar-nav navbar-right">
-          <li class="dropdown dropdown-list-toggle"><a href="" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep" onclick="messageIcon();"><i class="far fa-envelope"></i></a>
-            <div class="dropdown-menu dropdown-list dropdown-menu-right">
-              <div class="dropdown-header">Messages
-                <div class="float-right">
-                  <a id="markAll" onclick="markAll();">Mark All As Read</a>
+          <c:if test="${not empty loginUser}">
+            <li class="dropdown dropdown-list-toggle"><a href="" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle" id="messageBeep"><i class="far fa-envelope"></i></a>
+              <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                <div class="dropdown-header">Messages
+                  <div class="float-right">
+                    <a id="markAll" onclick="markAll();">Mark All As Read</a>
+                  </div>
                 </div>
-              </div>
-              <div class="dropdown-list-content dropdown-list-message" id="messageArea">
-                
-                
-              </div>
-
-              
-              <div class="dropdown-list-content dropdown-list-message footer">
-
-                <div class="text-center letterClass">
-                 <br>
+                <div class="dropdown-list-content dropdown-list-message" id="messageArea">
+                  
+                  
                 </div>
 
-                <form action="letterBox" method="post"  id="postLetterSender">
-                  <input type="hidden" name="cno" value="" id="form-cno"/>
+                
+                <div class="dropdown-list-content dropdown-list-message footer">
+
+                  <div class="text-center letterClass">
+                  <br>
+                  </div>
+
+                  <form action="letterBox" method="post"  id="postLetterSender">
+                    <input type="hidden" name="cno" value="" id="form-cno"/>
+                  </form>
+
+
+                  <c:forEach var="cList" items="${classList}">
+                    <div class="text-center letterClass">
+                      <a class="moveToLetter">${cList.className}<i class="fas fa-chevron-right"></i></a>
+                      <input type="hidden" name="cno" value="${cList.classNo}" /> 
+                    </div>
+                  </c:forEach>
+                  
+                </div>
+
+                <form action="detail.le" method="post" id="moveToLetterDatail">
+                  <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
+                  <input type="hidden" name="letterNo" >
+                  <input type="hidden" name="memberNo" value="${sessionScope.loginUser.memberNo}">
                 </form>
 
+                <script>
 
-                <c:forEach var="cList" items="${classList}">
-                  <div class="text-center letterClass">
-                    <a class="moveToLetter">${cList.className}<i class="fas fa-chevron-right"></i></a>
-                    <input type="hidden" name="cno" value="${cList.classNo}" /> 
-                  </div>
-                </c:forEach>
-                
-              </div>
+                  setInterval(() => {messageIcon();
+                    
+                  }, 1000);
 
-              <form action="detail.le" method="post" id="moveToLetterDatail">
-                <input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
-                <input type="hidden" name="letterNo" >
-                <input type="hidden" name="memberNo" value="${sessionScope.loginUser.memberNo}">
-              </form>
+                  $(document).on('click', '.unReadMessages', function(){
 
-              <script>
+                    let cno =  $(this).find('input[name="cno"]').val();
 
-                $(document).on('click', '.unReadMessages', function(){
-
-                  let cno =  $(this).find('input[name="cno"]').val();
-
-                  let lno = $(this).find('input[name="lno"]').val();
-                  
-                  $("input[name='letterNo']").val(lno);
-                  $("input[name='cno']").val(cno);
-            
-                  $("#moveToLetterDatail").submit();
-                })
+                    let lno = $(this).find('input[name="lno"]').val();
+                    
+                    $("input[name='letterNo']").val(lno);
+                    $("input[name='cno']").val(cno);
+              
+                    $("#moveToLetterDatail").submit();
+                  })
 
 
-                function messageIcon(){
-                  $.ajax({
-                    url : 'unRead.le',
-                    data : {
-                      memberNo : '${sessionScope.loginUser.memberNo}'
-                    },
-                    success : function(list){
+                  function messageIcon(){
+                    $.ajax({
+                      url : 'unRead.le',
+                      data : {
+                        memberNo : '${sessionScope.loginUser.memberNo}'
+                      },
+                      success : function(list){
 
-                      console.log(list);
+                        //console.log(list);
 
-                      let value = '';
-                      for(let i in list){
-                        value += '<a class="dropdown-item dropdown-item-unread unReadMessages"><div>'
-                               + '<input type="hidden" name="cno" value="'+ list[i].classNo +'">'
-                               + '<input type="hidden" name="lno" value="'+ list[i].letterNo +'">'
+                        let value = '';
+                        for(let i in list){
+                          value += '<a class="dropdown-item dropdown-item-unread unReadMessages"><div>'
+                                + '<input type="hidden" name="cno" value="'+ list[i].classNo +'">'
+                                + '<input type="hidden" name="lno" value="'+ list[i].letterNo +'">'
 
-                        if(list[i].anonymous == 'Y'){
-                          value += '<h6 align="center">Manitto</h6>'
+                          if(list[i].anonymous == 'Y'){
+                            value += '<h6 align="center">Manitto</h6>'
+                          }
+                          else if(list[i].toManitto == 'Y'){
+                            value += '<h6 align="center">Manitti</h6>'
+                          }
+                          else{
+                            value += '<h6 align="center">' + list[i].sender + '</h6>'
+                          }
+                              
+                          value += '<b>' + list[i].className + '</b>'
+                                + '<p>' + list[i].letterContent + '</p>'
+                                + '<div class="time">' + list[i].sendDate + '</div>'
+                                + '</div> </a>'
                         }
-                        else if(list[i].toManitto == 'Y'){
-                          value += '<h6 align="center">Manitti</h6>'
+
+                        if(list.length != 0){
+                          $('#messageBeep').attr('class','nav-link nav-link-lg message-toggle beep');
                         }
                         else{
-                          value += '<h6 align="center">' + list[i].sender + '</h6>'
+                          $('#messageBeep').attr('class','nav-link nav-link-lg message-toggle');
                         }
-                            
-                        value += '<b>' + list[i].className + '</b>'
-                               + '<p>' + list[i].letterContent + '</p>'
-                               + '<div class="time">' + list[i].sendDate + '</div>'
-                               + '</div> </a>'
+
+
+
+                        $('#messageArea').html(value);
                       }
+                    })
+                    
+                  }
+
+                  function markAll(){
+                    
+                    $.ajax({
+                      url : 'markAll.le',
+                      data : {memberNo : '${sessionScope.loginUser.memberNo}'},
+                      success : function(){
+                        messageIcon();
+                      }
+                    })
+                  }
 
 
 
-                      $('#messageArea').html(value);
-                    }
+
+
+                  $('.moveToLetter').click(function(){
+                    let cno = $(this).next().val();
+
+                    $('#form-cno').val(cno);
+                    $('#postLetterSender').submit();
+                  });
+
+                  /*
+                  $(function(){
+                    $('#kakaoLogout').click(function(){
+
+                      let AuthorizationKey = '%Authorization: KakaoAK 0f4ccb72fe53a170e5cd34928f2e8e78';
+                      let contentType = 'Content-Type: application/x-www-form-urlencoded';
+                      let targetIdType = '&target_id_type=user_id';
+                      let targetId = '&target_id=' + '${loginUser.memberId}';
+                      let logoutUrl = 'https://kapi.kakao.com/v1/user/logout' + contentType + AuthorizationKey + targetIdType + targetId;
+                      location.href = logoutUrl;
+                      console.log(logoutUrl);
+                    })
                   })
-                  
-                }
+                  */
+                </script>
 
-                function markAll(){
-                  
-                  $.ajax({
-                    url : 'markAll.le',
-                    data : {memberNo : '${sessionScope.loginUser.memberNo}'},
-                    success : function(){
-                      messageIcon();
-                    }
-                  })
-                }
+          
 
 
-
-
-
-                $('.moveToLetter').click(function(){
-                  let cno = $(this).next().val();
-
-                  $('#form-cno').val(cno);
-                  $('#postLetterSender').submit();
-                });
-
-              </script>
-
-         
-
-
-            </div>
-          </li>
+              </div>
+            </li>
+          </c:if>
           <c:choose>
             <c:when test="${not empty loginUser}">
               <li class="dropdown"><a href="" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <c:choose>
-                  <c:when test="${not empty profile}">
+                  <c:when test="${not empty profile and loginUser.loginType eq 'W'}">
                     <img alt="image" src="${contextPath}/${profile.filePath}" class="rounded-circle mr-1">
+                  </c:when>
+                  <c:when test="${not empty profile and loginUser.loginType eq 'K'}">
+                    <img alt="image" src="${profile}" class="rounded-circle mr-1">
                   </c:when>
                   <c:otherwise>
                     <img alt="image" src="resources/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
@@ -248,9 +275,21 @@
                   <i class="far fa-user"></i> 프로필
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="logout.me" class="dropdown-item has-icon text-danger">
-                  <i class="fas fa-sign-out-alt"></i> 로그아웃
-                  </a>
+                  <c:choose>
+                    <c:when test="${loginUser.loginType eq 'W'}">
+                      <a href="logout.me" class="dropdown-item has-icon text-danger">
+                        <i class="fas fa-sign-out-alt"></i> 로그아웃
+                      </a>
+                    </c:when>
+                    <c:when test="${loginUser.loginType eq 'K'}">
+                      <form action="logoutKakao.me" method="POST">
+                        <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoLogout"><i class="fas fa-sign-out-alt"></i> 로그아웃</button>
+                      </form>
+                    </c:when>
+                    <c:when test="${loginUser.loginType eq 'N'}">
+                      <a href="logoutNaver.me" class="dropdown-item has-icon text-danger"></a>
+                    </c:when>
+                  </c:choose>
                   </div>
               </li>
             </c:when>
@@ -262,7 +301,7 @@
                 <i class="fas fa-cog"></i> 회원가입
               </a>
               <div class="dropdown-divider"></div>
-              <a href="loginForm.me" class="dropdown-item has-icon text-danger">
+              <a href="loginForm.me" class="dropdown-item has-icon text-success">
                 <i class="fas fa-sign-out-alt"></i> 로그인
               </a>
             	</div>
@@ -344,10 +383,12 @@
 					<a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>알파벳 마켓</span></a>
 					<input type="hidden" name="url" value="main.aph" /> 
 				</li>	
+        <!--
 				<li>
 					<a class="nav-link submit"><i class="fas fa-pencil-ruler"></i> <span>쪽지</span></a>
 					<input type="hidden" name="url" value="" />
 				</li>
+        -->
 				<li>
 					<a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
 					<input type="hidden" name="url" value="main.mani" /> 
@@ -376,7 +417,16 @@
                 <li class="dropdown">
                   <a href="" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>${loginUser.memberName}</span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="logout.me">로그아웃</a></li> 
+                    <c:choose>
+                      <c:when test="${loginUser.loginType eq 'W'}">
+                        <li><a href="logout.me">로그아웃</a></li> 
+                      </c:when>
+                      <c:when test="${loginUser.loginType eq 'K'}">
+                        <form action="logoutKakao.me" method="POST">
+                          <li><button type="submit" class="dropdown-item has-icon text-danger" style="margin:auto;">로그아웃</button></li> 
+                        </form>
+                      </c:when>
+                    </c:choose>
                   </ul>
                 </li>
               </c:when>
@@ -508,7 +558,36 @@
     <c:remove var="alphabetBno" scope="request" />
     <c:remove var="alphabetDetailCno" scope="request" />
   </c:if>
-
+  
+  
+  <c:if test="${ not empty couponCno }">
+    <form action="couponStore" method="post" id="moveToCp">
+      <input type="hidden" name="cno" value="${requestScope.couponCno}">
+    </form>
+    <script>
+      	window.onload(moveToCp());
+     	 function moveToCp (){
+        	document.getElementById('moveToCp').submit();
+     	 }
+    </script>
+    <c:remove var="couponCno" scope="request" />
+  </c:if>
+  
+  
+   <c:if test="${ not empty useCpCno }">
+    <form action="selectSlist.cp" method="post" id="moveToScplist">
+      <input type="hidden" name="cno" value="${requestScope.useCpCno}" />
+      <input type="hidden" name="mno" value="${loginUser.memberNo}" />
+    </form>
+    <script>
+      	window.onload(moveToStudentCplist());
+     	 function moveToStudentCplist (){
+        	document.getElementById('moveToScplist').submit();
+     	 }
+    </script>
+    <c:remove var="useCpCno" scope="request" />
+  </c:if>
+  
 
   <script>
     $(function(){
@@ -535,7 +614,6 @@
       })
     })
   </script>
-  
   
 
   <!-- General JS Scripts -->

@@ -61,7 +61,7 @@
 									  <div class="card-header-form">
 										<form>
 										  <div class="input-group">
-											<input type="text" class="form-control" placeholder="Search">
+											<input type="text" class="form-control" placeholder="Search" id="receivedKeyword">
 											<div class="input-group-btn">
 											  <button class="btn btn-primary"><i class="fas fa-search"></i></button>
 											</div>
@@ -107,7 +107,7 @@
 									  <div class="card-header-form">
 										<form>
 										  <div class="input-group">
-											<input type="text" class="form-control" placeholder="Search">
+											<input type="text" class="form-control" placeholder="Search"  id="sentKeyword">
 											<div class="input-group-btn">
 											  <button class="btn btn-primary"><i class="fas fa-search"></i></button>
 											</div>
@@ -273,7 +273,8 @@
 				data : {
 					rPage : currentPage,
 					classNo : '${requestScope.classroom.classNo}',
-					recipient : '${sessionScope.loginUser.memberNo}'
+					recipient : '${sessionScope.loginUser.memberNo}',
+					keyword : $('#receivedKeyword').val()
 				},
 				success : function(list){
 					//console.log("received페이징");
@@ -498,45 +499,21 @@
 
 
 
-
-
-/*
-	$(document).ready(function() {
-			$('.letterDetailView td:not(:first-child)').click(function() {
-				console.log('123');
-			});
-	});
-
-
-		$(document).ready(function() {
-			$('#deleteLetter').click(function() {
-				var hiddenValues = [];
-				$('.letterDetailView input[type="hidden"]').each(function() {
-				hiddenValues.push($(this).val());
-				});
-				console.log(hiddenValues);
-			});
-		});
-
-
-
-
-
-
-		$(document).on('click', '.letterDetailView', function(){
-			
-
-			let lno = $(this).find('input[type="hidden"]').val();
-
-			$("input[name='letterNo']").val(lno);
-	
-			$("#moveToLetterDatail").submit();
-		});
-*/
-
 		$(document).on('click', '#deleteLetter', function(){
 
 			var hiddenValues = [];
+			var sender = '';
+			var recipient  = '';
+
+			var tableId = $(this).parents('table').prop('id');
+
+			if(tableId === 'sentLetterArea'){
+				sender = '${sessionScope.loginUser.memberNo}';
+			}
+			else{
+				recipient = '${sessionScope.loginUser.memberNo}';
+			}
+
 
 			$(this).parents('table').find('td input[type="checkbox"]:checked').each(function(){
 				
@@ -547,11 +524,29 @@
 
 			$.ajax({
 				url : 'delete.le',
+				type : 'post',
 				data : {
+					sender : sender,
+					recipient : recipient,
 					letterList : hiddenValues
 				},
-				success : function(){
-					
+				success : function(result){
+
+					if(result == 'success'){
+						alert(hiddenValues.length + '개의 메세지가 삭제되었습니다.');
+					}
+					else{
+						alert('삭제에 실패하였습니다.');
+					}
+
+
+					if(sender != ''){
+						sentPaging(1);
+					}
+					else{
+						receivedPaging(1);
+					}
+
 				}
 			})
 		
