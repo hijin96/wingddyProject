@@ -48,6 +48,9 @@ public class LetterController {
 	@ResponseBody
 	@RequestMapping(value="receivedPaging.le", produces="application/json; charset=UTF-8")
 	public String ajaxReceivedPaging(Letter letter, int rPage) {
+		
+		System.out.println("receivedPaging");
+		System.out.println(letter);
 
 	
 		PageInfo pi = Pageination.getPageInfo(letterService.receviedCount(letter), rPage, 5, 5); 
@@ -61,8 +64,7 @@ public class LetterController {
 	@RequestMapping(value="recevied.le",  produces="application/json; charset=UTF-8")
 	public String ajaxReceivedLetter(Letter letter, int rPage) {
 		
-		
-		
+
 		PageInfo pi = Pageination.getPageInfo(letterService.receviedCount(letter), rPage, 5, 5); 
 		
 		

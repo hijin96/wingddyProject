@@ -29,6 +29,7 @@ SELECT COUNT(*)
  WHERE CLASS_NO = #{classNo}
    AND RECIPIENT = #{recipient}
    AND RECIPIENT_STATUS = 'Y'
+   AND LETTER_CONTENT LIKE '%'||#{keyword}||'%'
  ORDER BY SEND_DATE DESC
 </select>
 
@@ -39,6 +40,7 @@ SELECT COUNT(*)
   WHERE CLASS_NO = #{classNo}
     AND SENDER = #{sender}
     AND SENDER_STATUS = 'Y'
+    AND LETTER_CONTENT LIKE '%'||#{keyword}||'%'
   ORDER BY SEND_DATE DESC
 </select>
 
@@ -50,6 +52,7 @@ SELECT LETTER_NO, MEMBER_ID||'('||MEMBER_NAME||')' AS "SENDER", SUBSTR(LETTER_CO
  WHERE CLASS_NO = #{classNo}
    AND RECIPIENT = #{recipient}
    AND RECIPIENT_STATUS = 'Y'
+   AND LETTER_CONTENT LIKE '%'||#{keyword}||'%'
  ORDER BY LETTER_NO DESC
 </select>
 
@@ -60,6 +63,7 @@ SELECT LETTER_NO, MEMBER_ID||'('||MEMBER_NAME||')' AS "SENDER", SUBSTR(LETTER_CO
   WHERE CLASS_NO = #{classNo}
     AND SENDER = #{sender}
     AND SENDER_STATUS = 'Y'
+    AND LETTER_CONTENT LIKE '%'||#{keyword}||'%'
   ORDER BY LETTER_NO DESC
 </select>
 

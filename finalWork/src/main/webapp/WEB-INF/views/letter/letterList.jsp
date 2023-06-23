@@ -59,14 +59,14 @@
 									<div class="card-header">
 									  <h4>받은 쪽지</h4>
 									  <div class="card-header-form">
-										<form>
+										
 										  <div class="input-group">
 											<input type="text" class="form-control" placeholder="Search" id="receivedKeyword">
 											<div class="input-group-btn">
-											  <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+											  <button type="button" class="btn btn-primary" id="receivedKeywordBtn"><i class="fas fa-search"></i></button>
 											</div>
 										  </div>
-										</form>
+										
 									  </div>
 									</div>
 									<div class="card-body p-0">
@@ -105,14 +105,14 @@
 									<div class="card-header">
 									  <h4>보낸 쪽지</h4>
 									  <div class="card-header-form">
-										<form>
-										  <div class="input-group">
-											<input type="text" class="form-control" placeholder="Search"  id="sentKeyword">
-											<div class="input-group-btn">
-											  <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-											</div>
-										  </div>
-										</form>
+										
+										<div class="input-group">
+										<input type="text" class="form-control" placeholder="Search"  id="sentKeyword">
+										<div class="input-group-btn">
+											<button class="btn btn-primary" id="sentKeywordBtn" ><i class="fas fa-search"></i></button>
+										</div>
+										</div>
+										
 									  </div>
 									</div>
 									<div class="card-body p-0">
@@ -264,6 +264,14 @@
 			
 		})
 
+		$('#receivedKeywordBtn').click(function(){
+			receivedPaging(1);
+		})
+
+		$('#sentKeywordBtn').click(function(){
+			sentPaging(1);
+		})
+
 
 
 		function receivedPaging(currentPage){
@@ -326,7 +334,8 @@
 				data : {
 					rPage : currentPage,
 					classNo : '${requestScope.classroom.classNo}',
-					recipient : '${sessionScope.loginUser.memberNo}'
+					recipient : '${sessionScope.loginUser.memberNo}',
+					keyword : $('#receivedKeyword').val()
 				},
 				success : function(list){
 
@@ -381,7 +390,8 @@
 				data : {
 					rPage : currentPage,
 					classNo : '${requestScope.classroom.classNo}',
-					sender : '${sessionScope.loginUser.memberNo}'
+					sender : '${sessionScope.loginUser.memberNo}',
+					keyword : $('#sentKeyword').val()
 				},
 				success : function(list){
 
@@ -436,7 +446,8 @@
 				data : {
 					rPage : currentPage,
 					classNo : '${requestScope.classroom.classNo}',
-					sender : '${sessionScope.loginUser.memberNo}'
+					sender : '${sessionScope.loginUser.memberNo}',
+					keyword : $('#sentKeyword').val()
 				},
 				success : function(list){
 
