@@ -1,8 +1,10 @@
 package com.kh.wingddy.couponProduct.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.kh.wingddy.alphabetMarket.model.service.AlphabetService;
@@ -118,22 +119,52 @@ public class CouponProductController {
 	@RequestMapping("selectSlist.cp")
 	public String selectStudentCplist(CouponProduct cp, int cno, Model model) {
 		cp.setClassNo(cno);
-		System.out.println(cpService.selectStudentCplist(cp));
+		//System.out.println(cpService.selectStudentCplist(cp));
 		model.addAttribute("sclist", cpService.selectStudentCplist(cp));
 		
 		return "coupon/studentCpList";
 	}
 	
-	@RequestMapping("use.Cp")
-	public String useCoupon(CouponProduct cp, Model model) {
+	@RequestMapping("use.cp")
+	public String useCoupon(CouponProduct cp, int cno, Model model, HttpServletRequest request, HttpSession session) {
+		
+		cp.setClassNo(cno);
+		System.out.println(cp);
 		if(cpService.useCoupon(cp) > 0) {
-			return "";
+			request.setAttribute("useCpCno", cp.getClassNo());
+			session.setAttribute("alertMsg", "학생의 쿠폰이 성공적으로 사용되었습니다.");
+			return "sideBar/sideBar";
 		} else {
-			return "";
+			model.addAttribute("errorMsg", "학생의 쿠폰상품 사용에 실패했습니다.");
+			return "common/errorPage";
 		}
 	}
 	
+	@RequestMapping("useSearch.cp")
+	public String useSearchCoupon(CouponProduct cp, int cno, Model model, HttpServletRequest request, HttpSession session) {
+		//System.out.println(cp);
+		if(cpService.useCoupon(cp) > 0) {
+			request.setAttribute("useCpCno", cno);
+			session.setAttribute("alertMsg", "학생의 쿠폰이 성공적으로 사용되었습니다.");
+			return "sideBar/sideBar";
+		} else {
+			model.addAttribute("errorMsg", "학생의 쿠폰상품 사용에 실패했습니다.");
+			return "common/errorPage";
+		}
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="searchStudent.cp", produces="application/json; charset=UTF-8")
+	public String ajaxSearchStudentCp(String searchOption, String keyword, int cno) {
+		HashMap map = new HashMap();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		map.put("cno", cno);
+		
+		//System.out.println(map);
+		
+		return new Gson().toJson(cpService.searchStudentCp(map));
+	}
 	
 	
 	

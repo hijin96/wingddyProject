@@ -155,4 +155,14 @@
 		 WHERE
 		       EMAIL = #{email}    
 	</update>
+	
+	<delete id="dropMember" parameterType="member">
+		DELETE
+		  FROM
+			   MEMBER
+		 WHERE
+		       MEMBER_ID = #{memberId}
+		   AND
+		       EMAIL = #{email}         
+	</delete>
 </mapper>

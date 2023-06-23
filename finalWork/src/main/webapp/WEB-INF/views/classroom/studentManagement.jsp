@@ -100,27 +100,23 @@
                         <h5 class="modal-title">뽑기 부여 모달창</h5>
                     </div>
                     <!-- 클래스 뽑기 횟수 부여 -->
-                    <form action="#" method="POST" id="giftGacha-form">
                         <div class="modal-body">
-                            <div class="form-group" id="">
-                                <label>학생 선택</label>
-                                <input type="number" name="" value="">
-                            </div>
                             <div class="form-group" id="" >
                                 <label>뽑기횟수 선택</label>
-                                <input type="number" name="" value="">
+                                <input type="number" id="gachaCount">
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">부~~~~~~~여</button>
+                            <button type="button" class="btn btn-primary" onclick="gachaCount();">submit</button>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+    
+
         $(function(){
                 $('.management').find('tbody>tr').click(function(){
                     if($(this).find('input[name=studentNo]').is(':checked') == false){
@@ -222,6 +218,47 @@
                 alert('선택된 학생이 없습니다!');
             }
         }
+
+        function gachaCount(){
+
+            var chkArr = $('input[name=studentNo]:checked');
+
+            var studentNoArr = [];  
+
+            for(var i = 0; i <= chkArr.length; i++){
+                if($(chkArr[i]).is(':checked')){
+                    studentNoArr.push(chkArr[i].value);
+                }
+            }
+
+            if(studentNoArr.length > 0 &&  $('#gachaCount').val() != 0){
+
+                $.ajax({
+                    url : 'giveGachaCount',
+                    type : 'post',
+                    data : {
+                        StudentList : studentNoArr,
+                        classNo : '${requestScope.classroom.classNo}',
+                        gachaCount : $('#gachaCount').val()
+                    },
+                    success : function(result){
+                        if(result == 'success'){
+                            
+                            $('#giftGacha').modal('hide')
+                            $('#gachaCount').val();
+                            $('input[name=studentNo]:checked').prop('checked', false);
+    
+                            alert('뽑기 횟수를 부여하였습니다');
+                        }
+                    }
+    
+                })
+
+
+            }
+
+        }
+
     </script>
     <script src="resources/assets/js/page/features-posts.js"></script>
 </body>

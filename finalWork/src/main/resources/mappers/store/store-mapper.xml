@@ -216,7 +216,7 @@
 		WHERE SP_NO=#{spNo}
 		AND MEMBER_NO=#{memberNo}
 	</update>
-	<insert id="createOrderNo">
+	<insert id="createOrderNo" parameterType="_int"> 
 		INSERT INTO 
 				S_ORDER (ORDER_NO
 						,MEMBER_NO)
@@ -258,6 +258,7 @@
 		    ,BUY_COUNT
 		    ,CART_DAY
 		    ,S_CART.MEMBER_NO
+		    ,CART_NO
 		    ,(SP_PRICE * BUY_COUNT) AS TOTPRICE
 		FROM S_STORE S
 		JOIN S_CART  ON(S_CART.SP_NO = S.SP_NO)
@@ -269,12 +270,12 @@
 		</foreach>
 	
 	</select>
-	<update id="storeBuySuccess" parameterType="order">
+	<update id="storeBuySuccess" parameterType="order" >
+	
 		UPDATE
    				 S_ORDER
 			SET
-   			     MEMBER_NO=#{memberNo}
-   			    ,RES_NAME=#{resName}
+   			    RES_NAME=#{resName}
                 ,SEND_NAME=#{sendName}
     			,RES_PHONE=#{resPhone}
     			,SUMPRICE=#{sumPrice}
@@ -283,16 +284,51 @@
 		WHERE
     			ORDER_NO=#{orderNo}
 	</update>
-	<update id="orderSuccess" parameterType="cart">
-		UPDATE S_CART 
-			SET ORDER_YN='Y', 
-		ORDER_NO=#{orderNo} 
+	<update id="orderSuccess" parameterType="collection" >
+	UPDATE S_CART 
+		SET ORDER_YN='Y', 
+		ORDER_NO=#{collection.orderNo} 
 		WHERE
-		MEMBER_NO={memberNo}
-		AND CART_NO IN 
-		<foreach collection="array" item="cartNo"  index="i" separator="," open="(" close=")">
+		CART_NO IN 
+		<foreach collection="list" item="cartNo"  index="i" separator="," open="(" close=")"> 
 		#{cartNo}
 		</foreach>
 	</update>
+
+	<insert id="orderAllSuccess" parameterType="order">
+		INSERT INTO 
+				S_ORDER (ORDER_NO
+						,MEMBER_NO
+						,RES_NAME
+						,SEND_NAME
+						,RES_PHONE
+						,SUMPRICE
+						,ORDER_ADDRESS
+						,ORDER_DAY
+						)
+				VALUES 
+						(SEQ_ORDER_NO.NEXTVAL
+						,#{memberNo}
+						,#{resName}
+						,#{sendName}
+						,#{resPhone}
+						,#{sumPrice}
+						,#{orderAddress}
+						,SYSDATE
+						)
+	</insert>
+
+	<update id="orderCartUpdate" parameterType="collection">
+	UPDATE S_CART 
+			SET ORDER_YN='Y',
+	ORDER_NO=#{collection.orderNo}
+	WHERE
+		MEMBER_NO=#{memberNo}
+	AND CART_NO IN 
+		<foreach collection="list" item="cartNo"  index="i" separator="," open="(" close=")"> 
+		#{cartNo}
+		</foreach>
+	</update>
+	
 
 </mapper>

@@ -298,7 +298,7 @@
 			if(myCoupon < $(this).val() * price){
 				//console.log('못 사');
 				$('#warningMsg').html('보유한 쿠폰보다 많은 상품은 교환할 수 없습니다!');
-				
+				$('#btn-buyCp').prop('disabled', 'disabled');
 			} else {
 				$('#warningMsg').html('');
 				// 조건 불만족이면 submit 버튼 활성화

@@ -1,6 +1,7 @@
 package com.kh.wingddy.store.model.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import com.kh.wingddy.common.model.vo.Attachment;
@@ -41,7 +42,7 @@ public interface StoreService {
 	//장바구니 삭제
 	int deleteCart(Cart cart);
 	//구매하기페이지 
-	int insertOrderNo(Order order);
+	int createOrderNo(Order order);
 	//구매정보등록
 	int OrderInformation(Order order);
 	
@@ -52,18 +53,15 @@ public interface StoreService {
 	//댓글 삭제하기
 	
 	//위시리스트 목록보기
-	//결제(insert)
-	KakaopayReadyResponse kakaoPayReady();
 	
-	KakaoApproveResponse ApproveResponse(String pgToken); 
-	
-	KakaoPayAmount PayAmount();
 	//결제완료
 	int storeBuySuccess(Order order);
-	
-	ArrayList<Cart> orderSuccessUpdateCart(String[] cartNo,Order order);
-
 	int checkedOrderNo();
+	int orderAllSuccess(Order order);
+	
+	int orderSuccessUpdateCart(ArrayList<HashMap<String, Object>> list);
+	int orderCartUpdate(ArrayList<HashMap<String, Object>> listAll);
+	
 	
 	
 	

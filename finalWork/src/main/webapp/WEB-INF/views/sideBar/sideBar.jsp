@@ -102,10 +102,7 @@
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
             <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
           </ul>
-          <div class="search-element">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
-            <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-          </div>
+          
         </form>
         <ul class="navbar-nav navbar-right">
           <c:if test="${not empty loginUser}">
@@ -236,6 +233,20 @@
                     $('#postLetterSender').submit();
                   });
 
+                  /*
+                  $(function(){
+                    $('#kakaoLogout').click(function(){
+
+                      let AuthorizationKey = '%Authorization: KakaoAK 0f4ccb72fe53a170e5cd34928f2e8e78';
+                      let contentType = 'Content-Type: application/x-www-form-urlencoded';
+                      let targetIdType = '&target_id_type=user_id';
+                      let targetId = '&target_id=' + '${loginUser.memberId}';
+                      let logoutUrl = 'https://kapi.kakao.com/v1/user/logout' + contentType + AuthorizationKey + targetIdType + targetId;
+                      location.href = logoutUrl;
+                      console.log(logoutUrl);
+                    })
+                  })
+                  */
                 </script>
 
           
@@ -248,8 +259,11 @@
             <c:when test="${not empty loginUser}">
               <li class="dropdown"><a href="" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <c:choose>
-                  <c:when test="${not empty profile}">
+                  <c:when test="${not empty profile and loginUser.loginType eq 'W'}">
                     <img alt="image" src="${contextPath}/${profile.filePath}" class="rounded-circle mr-1">
+                  </c:when>
+                  <c:when test="${not empty profile and loginUser.loginType eq 'K'}">
+                    <img alt="image" src="${profile}" class="rounded-circle mr-1">
                   </c:when>
                   <c:otherwise>
                     <img alt="image" src="resources/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
@@ -261,9 +275,24 @@
                   <i class="far fa-user"></i> 프로필
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="logout.me" class="dropdown-item has-icon text-danger">
-                  <i class="fas fa-sign-out-alt"></i> 로그아웃
-                  </a>
+                  <c:choose>
+                    <c:when test="${loginUser.loginType eq 'W'}">
+                      <a href="logout.me" class="dropdown-item has-icon text-danger">
+                        <i class="fas fa-sign-out-alt"></i> 로그아웃
+                      </a>
+                    </c:when>
+                    <c:when test="${loginUser.loginType eq 'K'}">
+                      <form action="logoutKakao.me" method="POST">
+                        <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoLogout"><i class="fas fa-sign-out-alt"></i> 로그아웃</button>
+                      </form>
+                      <form action="dropKakaoMember.me" method="POST">
+                        <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoDrop"><i class="fas fa-sign-out-alt"></i> 회원탈퇴</button>
+                      </form>
+                    </c:when>
+                    <c:when test="${loginUser.loginType eq 'N'}">
+                      <a href="logoutNaver.me" class="dropdown-item has-icon text-danger"></a>
+                    </c:when>
+                  </c:choose>
                   </div>
               </li>
             </c:when>
@@ -274,8 +303,9 @@
               <a href="#enrollModal" data-toggle="modal" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> 회원가입
               </a>
+              
               <div class="dropdown-divider"></div>
-              <a href="loginForm.me" class="dropdown-item has-icon text-danger">
+              <a href="loginForm.me" class="dropdown-item has-icon text-success">
                 <i class="fas fa-sign-out-alt"></i> 로그인
               </a>
             	</div>
@@ -349,10 +379,12 @@
         		<form action="" method="POST" id="postSender">
         			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
         		</form>
-				<li>
-					<a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
-					<input type="hidden" name="url" value="myAlphabet.aph" /> 
-				</li>	
+        <c:if test="${loginUser.memberType ne 'T'}">
+          <li>
+            <a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
+            <input type="hidden" name="url" value="myAlphabet.aph" /> 
+          </li>	
+        </c:if>
 				<li>
 					<a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>알파벳 마켓</span></a>
 					<input type="hidden" name="url" value="main.aph" /> 
@@ -363,10 +395,12 @@
 					<input type="hidden" name="url" value="" />
 				</li>
         -->
-				<li>
-					<a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
-					<input type="hidden" name="url" value="main.mani" /> 
-				</li>	
+        <c:if test="${loginUser.memberType eq 'T'}">
+          <li>
+            <a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
+            <input type="hidden" name="url" value="main.mani" /> 
+          </li>	
+        </c:if>
 				<li>
 					<a id="couponHandler" class="nav-link submit"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a>
 					<input type="hidden" name="url" value="couponStore" /> 
@@ -391,7 +425,19 @@
                 <li class="dropdown">
                   <a href="" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>${loginUser.memberName}</span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="logout.me">로그아웃</a></li> 
+                    <c:choose>
+                      <c:when test="${loginUser.loginType eq 'W'}">
+                        <li><a href="logout.me">로그아웃</a></li> 
+                      </c:when>
+                      <c:when test="${loginUser.loginType eq 'K'}">
+                        <form action="logoutKakao.me" method="POST">
+                          <li><button type="submit" class="dropdown-item has-icon text-danger" style="margin:auto;"><i class="fas fa-sign-out-alt"></i> 로그아웃</button></li> 
+                        </form>
+                        <form action="dropKakaoMember.me" method="POST">
+                          <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoDrop"><i class="fas fa-sign-out-alt"></i> 회원탈퇴</button>
+                        </form>
+                      </c:when>
+                    </c:choose>
                   </ul>
                 </li>
               </c:when>
@@ -462,7 +508,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary forgetPwdBtn">인증코드 받~기</button>
+                    <button type="button" class="btn btn-primary forgetPwdBtn">인증코드 받기</button>
                 </div>
         </div>
     </div>
@@ -474,6 +520,8 @@
 		</script>
 		<c:remove var="alertMsg" scope="session" />
 	</c:if>
+
+
 
 
   <c:if test="${ not empty alphabetCno }">
@@ -524,12 +572,11 @@
     <c:remove var="alphabetDetailCno" scope="request" />
   </c:if>
   
+  
   <c:if test="${ not empty couponCno }">
-  	
     <form action="couponStore" method="post" id="moveToCp">
       <input type="hidden" name="cno" value="${requestScope.couponCno}">
     </form>
-    
     <script>
       	window.onload(moveToCp());
      	 function moveToCp (){
@@ -537,6 +584,21 @@
      	 }
     </script>
     <c:remove var="couponCno" scope="request" />
+  </c:if>
+  
+  
+   <c:if test="${ not empty useCpCno }">
+    <form action="selectSlist.cp" method="post" id="moveToScplist">
+      <input type="hidden" name="cno" value="${requestScope.useCpCno}" />
+      <input type="hidden" name="mno" value="${loginUser.memberNo}" />
+    </form>
+    <script>
+      	window.onload(moveToStudentCplist());
+     	 function moveToStudentCplist (){
+        	document.getElementById('moveToScplist').submit();
+     	 }
+    </script>
+    <c:remove var="useCpCno" scope="request" />
   </c:if>
   
 

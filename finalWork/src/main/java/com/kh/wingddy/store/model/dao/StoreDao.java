@@ -1,7 +1,9 @@
 package com.kh.wingddy.store.model.dao;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -99,9 +101,31 @@ public class StoreDao {
 		return success;
 	}
 
-	public ArrayList<Cart> orderSuccessUpdateCart(SqlSessionTemplate sqlSession, String[] cartNo, Order order) {
-		// TODO Auto-generated method stub
-		return null;
+	public int orderSuccessUpdateCart(SqlSessionTemplate sqlSession, ArrayList<HashMap<String, Object>> list) {
+		
+		for(int i=0; i<list.size(); i++) {
+		System.out.println("dao리스트에서확인: "+ list.get(i));
+		System.out.println("daokey: "+ list.get(i).keySet());
+		}
+		 
+		 //int success =sqlSession.update("storeMapper.orderSuccess",list);
+		 //System.out.println("DAO됐음좋겠어요: " + success);
+		 return sqlSession.update("storeMapper.orderSuccess",list);
 	}
+	//구매정보 한번에 insert
+	public int orderAllSuccess(SqlSessionTemplate sqlSession, Order order) {
+		return sqlSession.insert("storeMapper.orderAllSuccess",order);
+	}
+	
+	//map안에 arryalist으로 가져가서 업데이트 해보기
+	public int orderCartUpdate(SqlSessionTemplate sqlSession, ArrayList<HashMap<String, Object>> listAll) {
+		// TODO Auto-generated method stub
+		System.out.println("dao orderCartUpdate: " + listAll);
+		int success = sqlSession.update("storeMapper.orderCartUpdate",listAll);
+		System.out.println("dao ArrayList: "+ success);
+		return success;
+	}
+
+
 
 }

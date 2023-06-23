@@ -51,7 +51,7 @@ public class ClassroomController {
 	@RequestMapping("passStudent.cl")
 	public String passStudent(ClassMember cm) {
 		
-		System.out.println(cm);
+		//System.out.println(cm);
 		int result = classroomService.passStudent(cm);
 		
 		
@@ -136,7 +136,7 @@ public class ClassroomController {
 		//System.out.println(memberNoList.get(0));
 		System.out.println("cmList" + cmList);
 		int result = classroomService.kickoutStudent(cmList);
-		System.out.println(result);
+		//System.out.println(result);
 		return result;
 	}
 	
@@ -151,4 +151,38 @@ public class ClassroomController {
 		//System.out.println(icList);
 		return new Gson().toJson(classroomService.selectProgressStudent(cm));
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 클래스 학생관리 > 학생 뽑기 횟수 부여 - 세희
+	@ResponseBody
+	@RequestMapping(value="giveGachaCount", produces="html/text; charset=UTF-8")
+	public String giveGachaCount(ClassMember cm) {
+		
+		if(classroomService.giveGachaCount(cm) > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
+	
+
+	
 }
