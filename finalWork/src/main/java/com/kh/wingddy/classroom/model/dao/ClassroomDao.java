@@ -58,4 +58,20 @@ public class ClassroomDao {
 	public ArrayList<Incorrect> selectProgressStudent(SqlSessionTemplate sqlSession, ClassMember cm){
 		return (ArrayList)sqlSession.selectList("com.kh.wingddy.education.model.dao.EduMapper.selectProgressStudent", cm);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 클래스 학생관리 > 학생 뽑기 횟수 부여 - 세희
+	public int giveGachaCount(SqlSessionTemplate session, ClassMember cm) {
+		return session.insert("classMapper.giveGachaCount", cm);
+	}
+	
 }
