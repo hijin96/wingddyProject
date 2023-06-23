@@ -303,6 +303,7 @@
               <a href="#enrollModal" data-toggle="modal" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> 회원가입
               </a>
+              
               <div class="dropdown-divider"></div>
               <a href="loginForm.me" class="dropdown-item has-icon text-success">
                 <i class="fas fa-sign-out-alt"></i> 로그인

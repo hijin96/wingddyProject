@@ -80,4 +80,9 @@ public class MemberDao {
 		
 		return sqlSession.update("memberMapper.updatePwd", m);
 	}
+	
+	public int dropMember(SqlSessionTemplate sqlSession, Member m) {
+		
+		return sqlSession.delete("memberMapper.dropMember", m);
+	}
 }

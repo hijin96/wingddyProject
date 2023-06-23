@@ -93,4 +93,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.updatePwd(sqlSession, m);
 	}
 
+	@Override
+	public int dropMember(Member m) {
+		return memberDao.dropMember(sqlSession, m);
+	}
+
 }

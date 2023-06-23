@@ -120,8 +120,8 @@ public class KakaoController {
 	@PostMapping("dropKakaoMember.me")
 	public String dropKakaoMember(HttpSession session) throws IOException {
 		
-		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
-		String dropUser = kakaoService.dropKakaoMember(memberId);
+		Member member = (Member)session.getAttribute("loginUser");
+		String dropUser = kakaoService.dropKakaoMember(member.getMemberId());
 		System.out.println(dropUser);
 		
 		if(dropUser == null) {
@@ -130,6 +130,7 @@ public class KakaoController {
 		}
 		
 		session.invalidate();
+		memberService.dropMember(member);
 		return "redirect:/";
 	}
 }
