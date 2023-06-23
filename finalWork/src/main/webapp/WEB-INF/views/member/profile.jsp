@@ -41,8 +41,11 @@
           <div class="card profile-widget">
             <div class="profile-widget-header">    
               <c:choose>
-                  <c:when test="${not empty profile}">
+                  <c:when test="${not empty profile and loginUser.loginType eq 'W'}">
                     <img alt="image" src="${contextPath}/${profile.filePath}" class="rounded-circle profile-widget-picture">
+                  </c:when>
+                  <c:when test="${not empty profile and loginUser.loginType eq 'K'}">
+                    <img alt="image" src="${profile}" class="rounded-circle profile-widget-picture">
                   </c:when>
                   <c:otherwise>
                     <img alt="image" src="resources/assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture">
@@ -65,11 +68,19 @@
             <a href="#" class="ion-university" data-pack="default" data-tags="graduate, education, school, tassle" style="font-size:x-large;"></a>
             <a href="#" class="ion-ios-calendar" data-pack="ios" data-tags="date, time, month, year" style="font-size:x-large;"></a>
             <a href="#" class="ion-ios-bookmarks" data-pack="default" data-tags="favorite, tag, save" style="font-size: x-large;"></a>
-            <a href="#" id="swal-7" class="ion-android-settings" data-pack="android" data-tags="options" style="font-size:x-large;"></a>
-            <a href="#updatePwd" data-toggle="modal" class="ion-key" data-pack="default" data-tags="access" style="font-size:x-large;"></a>
-            <c:if test="${loginUser.memberType eq 'T'}">
-              <a href="#" id="swal-9" class="ion-android-settings" data-pack="android" data-tags="options" style="font-size:x-large;"></a>
-            </c:if>
+            <c:choose>
+              <c:when test="${loginUser.loginType eq 'W'}">
+                <a href="#" id="swal-7" class="ion-android-settings" data-pack="android" data-tags="options" style="font-size:x-large;"></a>
+                <a href="#updatePwd" data-toggle="modal" class="ion-key" data-pack="default" data-tags="access" style="font-size:x-large;"></a>
+                <c:if test="${loginUser.memberType eq 'T'}">
+                  <a href="#" id="swal-9" class="ion-android-settings" data-pack="android" data-tags="options" style="font-size:x-large;"></a>
+                </c:if>
+              </c:when>
+              <c:otherwise>
+                <a href="updateForm.me" class="ion-android-settings" data-pack="android" data-tags="options" style="font-size:x-large;"></a>
+              </c:otherwise>
+            </c:choose>
+
           </div>
         </div>
       </div>

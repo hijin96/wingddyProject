@@ -233,6 +233,20 @@
                     $('#postLetterSender').submit();
                   });
 
+                  /*
+                  $(function(){
+                    $('#kakaoLogout').click(function(){
+
+                      let AuthorizationKey = '%Authorization: KakaoAK 0f4ccb72fe53a170e5cd34928f2e8e78';
+                      let contentType = 'Content-Type: application/x-www-form-urlencoded';
+                      let targetIdType = '&target_id_type=user_id';
+                      let targetId = '&target_id=' + '${loginUser.memberId}';
+                      let logoutUrl = 'https://kapi.kakao.com/v1/user/logout' + contentType + AuthorizationKey + targetIdType + targetId;
+                      location.href = logoutUrl;
+                      console.log(logoutUrl);
+                    })
+                  })
+                  */
                 </script>
 
           
@@ -245,8 +259,11 @@
             <c:when test="${not empty loginUser}">
               <li class="dropdown"><a href="" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <c:choose>
-                  <c:when test="${not empty profile}">
+                  <c:when test="${not empty profile and loginUser.loginType eq 'W'}">
                     <img alt="image" src="${contextPath}/${profile.filePath}" class="rounded-circle mr-1">
+                  </c:when>
+                  <c:when test="${not empty profile and loginUser.loginType eq 'K'}">
+                    <img alt="image" src="${profile}" class="rounded-circle mr-1">
                   </c:when>
                   <c:otherwise>
                     <img alt="image" src="resources/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
@@ -261,16 +278,18 @@
                   <c:choose>
                     <c:when test="${loginUser.loginType eq 'W'}">
                       <a href="logout.me" class="dropdown-item has-icon text-danger">
+                        <i class="fas fa-sign-out-alt"></i> 로그아웃
+                      </a>
                     </c:when>
                     <c:when test="${loginUser.loginType eq 'K'}">
-                      <a href="logoutKakao.me" class="dropdown-item has-icon text-danger"></a>
+                      <form action="logoutKakao.me" method="POST">
+                        <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoLogout"><i class="fas fa-sign-out-alt"></i> 로그아웃</button>
+                      </form>
                     </c:when>
                     <c:when test="${loginUser.loginType eq 'N'}">
                       <a href="logoutNaver.me" class="dropdown-item has-icon text-danger"></a>
                     </c:when>
                   </c:choose>
-                  <i class="fas fa-sign-out-alt"></i> 로그아웃
-                  </a>
                   </div>
               </li>
             </c:when>
@@ -282,7 +301,7 @@
                 <i class="fas fa-cog"></i> 회원가입
               </a>
               <div class="dropdown-divider"></div>
-              <a href="loginForm.me" class="dropdown-item has-icon text-danger">
+              <a href="loginForm.me" class="dropdown-item has-icon text-success">
                 <i class="fas fa-sign-out-alt"></i> 로그인
               </a>
             	</div>
@@ -398,7 +417,16 @@
                 <li class="dropdown">
                   <a href="" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>${loginUser.memberName}</span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="logout.me">로그아웃</a></li> 
+                    <c:choose>
+                      <c:when test="${loginUser.loginType eq 'W'}">
+                        <li><a href="logout.me">로그아웃</a></li> 
+                      </c:when>
+                      <c:when test="${loginUser.loginType eq 'K'}">
+                        <form action="logoutKakao.me" method="POST">
+                          <li><button type="submit" class="dropdown-item has-icon text-danger" style="margin:auto;">로그아웃</button></li> 
+                        </form>
+                      </c:when>
+                    </c:choose>
                   </ul>
                 </li>
               </c:when>
