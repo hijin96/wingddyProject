@@ -375,10 +375,12 @@
         		<form action="" method="POST" id="postSender">
         			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
         		</form>
-				<li>
-					<a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
-					<input type="hidden" name="url" value="myAlphabet.aph" /> 
-				</li>	
+        <c:if test="${loginUser.memberType ne 'T'}">
+          <li>
+            <a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
+            <input type="hidden" name="url" value="myAlphabet.aph" /> 
+          </li>	
+        </c:if>
 				<li>
 					<a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>알파벳 마켓</span></a>
 					<input type="hidden" name="url" value="main.aph" /> 
@@ -389,10 +391,12 @@
 					<input type="hidden" name="url" value="" />
 				</li>
         -->
-				<li>
-					<a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
-					<input type="hidden" name="url" value="main.mani" /> 
-				</li>	
+        <c:if test="${loginUser.memberType eq 'T'}">
+          <li>
+            <a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
+            <input type="hidden" name="url" value="main.mani" /> 
+          </li>	
+        </c:if>
 				<li>
 					<a id="couponHandler" class="nav-link submit"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a>
 					<input type="hidden" name="url" value="couponStore" /> 
@@ -509,6 +513,8 @@
 		</script>
 		<c:remove var="alertMsg" scope="session" />
 	</c:if>
+
+
 
 
   <c:if test="${ not empty alphabetCno }">

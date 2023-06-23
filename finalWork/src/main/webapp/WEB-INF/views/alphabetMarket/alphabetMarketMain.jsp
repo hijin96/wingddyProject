@@ -141,28 +141,6 @@
 	
 	})
 
-	/*
-	function goPost(data){
-
-		var url='detail.aph'
-
-		var form = document.createElement('form');
-
-		form.setAttribute('method', 'post');
-		form.setAttribute('action', url);
-		document.charset = 'utf-8';
-
-		
-
-
-		var info;
-
-		info
-
-
-		
-	}
-	*/
 
 
 	function createButton(){
