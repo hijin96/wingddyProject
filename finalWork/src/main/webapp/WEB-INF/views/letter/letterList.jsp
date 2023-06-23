@@ -350,8 +350,8 @@
 
 					for(let i in list){
 						value += '<tr class="letterDetailView"><td class="p-0 text-center"><div class="form-check">'
-							   + '<input type="checkbox" class="form-check-input receivedCheckbox">'
-							   + '<input type="hidden" value="' + list[i].letterNo +'"></div></td>';
+							   + '<input type="checkbox" class="form-check-input receivedCheckbox" value="'+ list[i].letterNo +'">'
+							   + '</div></td>';
 
 
 						if(list[i].anonymous == 'Y'){
@@ -463,8 +463,8 @@
 
 					for(let i in list){
 						value += '<tr class="letterDetailView"><td class="p-0 text-center"><div class="form-check">'
-							   + '<input type="checkbox" class="form-check-input sentCheckbox">'
-							   + '<input type="hidden" value="' + list[i].letterNo +'"></div></td>';
+							   + '<input type="checkbox" class="form-check-input sentCheckbox" value="'+ list[i].letterNo +'">'
+							   + '</div></td>';
 
 
 						if(list[i].toManitto == 'Y'){
@@ -528,7 +528,7 @@
 
 			$(this).parents('table').find('td input[type="checkbox"]:checked').each(function(){
 				
-				hiddenValues.push($(this).next().val());
+				hiddenValues.push($(this).val());
 				
 			})
 
