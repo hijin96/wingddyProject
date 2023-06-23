@@ -87,7 +87,7 @@ public class CouponProductController {
 		for(int i = 0; i < cp.getAmount(); i++) {
 			cpList.add(cp);
 		}
-		System.out.println(cp.getClassNo());
+		//System.out.println(cp.getClassNo());
 		if(cpService.buyCouponProduct(cpList, cp) > 0 ) {
 			request.setAttribute("couponCno", cp.getClassNo());
 			return "sideBar/sideBar";
@@ -116,12 +116,22 @@ public class CouponProductController {
 	}
 	
 	@RequestMapping("selectSlist.cp")
-	public String selectStudentCplist(CouponProduct cp) {
-		cpService.selectStudentCplist(cp);
+	public String selectStudentCplist(CouponProduct cp, int cno, Model model) {
+		cp.setClassNo(cno);
+		System.out.println(cpService.selectStudentCplist(cp));
+		model.addAttribute("sclist", cpService.selectStudentCplist(cp));
+		
 		return "coupon/studentCpList";
 	}
 	
-	
+	@RequestMapping("use.Cp")
+	public String useCoupon(CouponProduct cp, Model model) {
+		if(cpService.useCoupon(cp) > 0) {
+			return "";
+		} else {
+			return "";
+		}
+	}
 	
 	
 	

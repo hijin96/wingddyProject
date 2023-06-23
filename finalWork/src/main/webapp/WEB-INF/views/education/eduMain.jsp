@@ -44,7 +44,7 @@
 	            		<h3>등록된 과제가 없습니다.</h3>
 	            	</c:if>
 	            	<c:forEach var="edu" items="${eList}">
-	            		<c:if test="${edu.limitTime gt 0}">
+	            		<c:if test="${edu.limitTime gt 0 and edu.eduState eq 0}">
 	            			<div class="col-12 col-md-6 col-lg-3">
 	            				<div class="card start-edu 
 	            				<c:choose>
@@ -78,7 +78,7 @@
 	            		<h2 class="section-title">완료된 과제</h2>
 	            	</div>
 	            	<c:forEach var="edu" items="${eList}">
-	            		<c:if test="${edu.limitTime le 0}">
+	            		<c:if test="${edu.limitTime le 0 or edu.eduState eq 1}">
 	            			<div class="col-12 col-md-6 col-lg-3">
 	            				<div class="card end-edu 
 	            				<c:choose>
@@ -90,7 +90,7 @@
 			            			<input type="hidden" value="${edu.eduNo}" name="eduNo"/>
 			            			<input type="hidden" value="'${edu.eduType}'" name="eduType"/>
 			            			<div class="card-header">
-			            				<h5>${edu.eduName}</h5>
+			            				<h5>${edu.eduName} <c:if test="${edu.eduState eq 1}">(완료)</c:if></h5>
 			            			</div>
 			            			<div class="card-body">
 			            				<div>마감일 : ${edu.endTime}</div>

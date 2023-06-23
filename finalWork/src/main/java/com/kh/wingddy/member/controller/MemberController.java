@@ -337,4 +337,6 @@ public class MemberController {
 		
 		return memberService.updatePwd(m);
 	}
+	
+	
 }

@@ -15,13 +15,9 @@ public interface CouponProductService {
 	
 	int insertCouponProduct(CouponProduct cp);
 	
-	int updateCouponProduct(CouponProduct cp);
-	
-	int deleteCouponProduct(int cpNo);
+	int useCoupon(CouponProduct cp);
 	
 	ArrayList<CouponProduct> myCouponList(CouponProduct cp);
-	
-	int useCoupon(int memberNo, int cpNo);
 	
 	int buyCouponProduct(ArrayList<CouponProduct> cpList, CouponProduct cp);
 	
