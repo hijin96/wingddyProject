@@ -51,7 +51,7 @@ public class ClassroomController {
 	@RequestMapping("passStudent.cl")
 	public String passStudent(ClassMember cm) {
 		
-		System.out.println(cm);
+		//System.out.println(cm);
 		int result = classroomService.passStudent(cm);
 		
 		
@@ -136,7 +136,7 @@ public class ClassroomController {
 		//System.out.println(memberNoList.get(0));
 		System.out.println("cmList" + cmList);
 		int result = classroomService.kickoutStudent(cmList);
-		System.out.println(result);
+		//System.out.println(result);
 		return result;
 	}
 	

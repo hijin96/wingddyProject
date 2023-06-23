@@ -276,12 +276,16 @@
 		VALUES (#{classNo}, #{studentNo}, DEFAULT, DEFAULT, DEFAULT)
 	</insert>
 	
-	
-	
-	
-	
-	
-	
+	<!-- 추방시 마이카운트 행 삭제 -->
+	<delete id="deleteMyCount" parameterType="classMember">
+		DELETE
+		  FROM
+			   CLASS_MYCOUNT
+		 WHERE
+		       MEMBER_NO = #{memberNo}
+		   AND
+		       CLASS_NO = #{classNo}
+	</delete>
 	
 	
 	

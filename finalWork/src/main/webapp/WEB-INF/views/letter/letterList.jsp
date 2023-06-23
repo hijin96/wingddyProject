@@ -61,7 +61,7 @@
 									  <div class="card-header-form">
 										<form>
 										  <div class="input-group">
-											<input type="text" class="form-control" placeholder="Search">
+											<input type="text" class="form-control" placeholder="Search" id="receivedKeyword">
 											<div class="input-group-btn">
 											  <button class="btn btn-primary"><i class="fas fa-search"></i></button>
 											</div>
@@ -107,7 +107,7 @@
 									  <div class="card-header-form">
 										<form>
 										  <div class="input-group">
-											<input type="text" class="form-control" placeholder="Search">
+											<input type="text" class="form-control" placeholder="Search"  id="sentKeyword">
 											<div class="input-group-btn">
 											  <button class="btn btn-primary"><i class="fas fa-search"></i></button>
 											</div>
@@ -273,7 +273,8 @@
 				data : {
 					rPage : currentPage,
 					classNo : '${requestScope.classroom.classNo}',
-					recipient : '${sessionScope.loginUser.memberNo}'
+					recipient : '${sessionScope.loginUser.memberNo}',
+					keyword : $('#receivedKeyword').val()
 				},
 				success : function(list){
 					//console.log("received페이징");

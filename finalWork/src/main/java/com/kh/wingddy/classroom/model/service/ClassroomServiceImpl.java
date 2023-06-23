@@ -38,7 +38,7 @@ public class ClassroomServiceImpl implements ClassroomService {
 
 	@Override
 	public int passStudent(ClassMember cm) {
-		return classroomDao.passStudent(sqlSession, cm) * classroomDao.insertDefaultMyCount(sqlSession, cm);
+		return classroomDao.passStudent(sqlSession, cm) * classroomDao.insertDefaultMyCount(sqlSession, cm); // 0으로 행 삽입
 	}
 
 	@Override
@@ -70,9 +70,15 @@ public class ClassroomServiceImpl implements ClassroomService {
 	@Transactional
 	public int kickoutStudent(ArrayList<ClassMember> memberNoList) {
 		int result = 1;
+		
 		for(int i = 0; i < memberNoList.size(); i++) {
 			result *= classroomDao.kickoutStudent(sqlSession, memberNoList.get(i));
+			result *= classroomDao.deleteMyCount(sqlSession, memberNoList.get(i));
+
 		}
+		
+		
+		
 		return result;
 	}
 

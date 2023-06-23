@@ -78,4 +78,10 @@ public class ClassroomDao {
 	public int insertDefaultMyCount(SqlSessionTemplate session, ClassMember cm) {
 		return session.insert("classMapper.insertDefaultMyCount", cm);
 	}
+	
+	// 추방시 마이카운트 삭제
+	public int deleteMyCount(SqlSessionTemplate session, ClassMember cm) {
+		return session.delete("classMapper.deleteMyCount", cm);
+	}
+	
 }
