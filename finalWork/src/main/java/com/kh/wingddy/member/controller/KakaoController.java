@@ -32,7 +32,7 @@ public class KakaoController {
 	private RenameFile renameFile = new RenameFile();
 	
 	@GetMapping("kakaoLogin.me")
-	public ModelAndView kakaoLogin(@RequestParam String code, ModelAndView mv) throws IOException {
+	public ModelAndView kakaoLogin(@RequestParam String code, ModelAndView mv, HttpSession session) throws IOException {
 		
 		//System.out.println(code);
 		String accessToken = kakaoService.getKakaoToken(code);
@@ -43,7 +43,8 @@ public class KakaoController {
 		m.setLoginType("K");
 		Member loginUser = memberService.loginMember(m);
 		if(loginUser != null) {
-			mv.addObject("loginUser", m);
+			System.out.println("로그인 성공된 멤버 : " + loginUser);
+			session.setAttribute("loginUser", loginUser);
 			mv.setViewName("redirect:/");
 		} else {
 			mv.addObject("alertMsg", "회원정보가 없는 계정입니다 회원가입하시겠습니까?");
@@ -73,16 +74,27 @@ public class KakaoController {
 			System.out.println("Teacher : " + m);
 			System.out.println("Attachment : " + at);
 			
-			//memberService.insertTeacher(m, at);
+			if(memberService.insertTeacher(m, at) > 0) {
+				session.setAttribute("loginUser", m);
+				mv.addObject("alertMsg", "정상적으로 회원가입되었습니다");
+				mv.setViewName("redirect:/");
+			} else {
+				mv.addObject("alertMsg", "회원가입 실패!");
+				mv.setViewName("common/loginForm");
+			}
 		} else {
-			
 			
 			m.setMemberType("S");
 			System.out.println("Student : " + m);
-			//memberService.insertMember(m);
+			if(memberService.insertMember(m) > 0) {
+				session.setAttribute("loginUser", m);
+				mv.addObject("alertMsg", "정상적으로 회원가입되었습니다");
+				mv.setViewName("redirect:/");
+			} else {
+				mv.addObject("alertMsg", "회원가입 실패!");
+				mv.setViewName("common/loginForm");
+			}
 		}
-		
-		
 		return mv;
 	}
 }
