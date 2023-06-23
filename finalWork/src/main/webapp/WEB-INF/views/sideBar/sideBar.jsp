@@ -236,6 +236,20 @@
                     $('#postLetterSender').submit();
                   });
 
+                  /*
+                  $(function(){
+                    $('#kakaoLogout').click(function(){
+
+                      let AuthorizationKey = '%Authorization: KakaoAK 0f4ccb72fe53a170e5cd34928f2e8e78';
+                      let contentType = 'Content-Type: application/x-www-form-urlencoded';
+                      let targetIdType = '&target_id_type=user_id';
+                      let targetId = '&target_id=' + '${loginUser.memberId}';
+                      let logoutUrl = 'https://kapi.kakao.com/v1/user/logout' + contentType + AuthorizationKey + targetIdType + targetId;
+                      location.href = logoutUrl;
+                      console.log(logoutUrl);
+                    })
+                  })
+                  */
                 </script>
 
           
@@ -263,17 +277,18 @@
                   <div class="dropdown-divider"></div>
                   <c:choose>
                     <c:when test="${loginUser.loginType eq 'W'}">
-                      <a href="logout.me" class="dropdown-item has-icon text-danger">
+                      <a href="logout.me" class="dropdown-item has-icon text-danger"></a>
                     </c:when>
                     <c:when test="${loginUser.loginType eq 'K'}">
-                      <a href="logoutKakao.me" class="dropdown-item has-icon text-danger"></a>
+                      <form action="logoutKakao.me" method="POST">
+                        <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoLogout"></button>
+                      </form>
                     </c:when>
                     <c:when test="${loginUser.loginType eq 'N'}">
                       <a href="logoutNaver.me" class="dropdown-item has-icon text-danger"></a>
                     </c:when>
                   </c:choose>
                   <i class="fas fa-sign-out-alt"></i> 로그아웃
-                  </a>
                   </div>
               </li>
             </c:when>
@@ -285,7 +300,7 @@
                 <i class="fas fa-cog"></i> 회원가입
               </a>
               <div class="dropdown-divider"></div>
-              <a href="loginForm.me" class="dropdown-item has-icon text-danger">
+              <a href="loginForm.me" class="dropdown-item has-icon text-success">
                 <i class="fas fa-sign-out-alt"></i> 로그인
               </a>
             	</div>

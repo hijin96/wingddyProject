@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -44,6 +45,7 @@ public class KakaoController {
 		Member loginUser = memberService.loginMember(m);
 		if(loginUser != null) {
 			System.out.println("로그인 성공된 멤버 : " + loginUser);
+			session.setAttribute("accessToken", accessToken);
 			session.setAttribute("loginUser", loginUser);
 			mv.setViewName("redirect:/");
 		} else {
@@ -96,5 +98,21 @@ public class KakaoController {
 			}
 		}
 		return mv;
+	}
+	
+	@PostMapping("logoutKakao.me")
+	public String logoutKakao(HttpSession session) throws IOException {
+		
+		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
+		String logoutUser = kakaoService.logoutKakao(memberId);
+		System.out.println(logoutUser);
+		
+		if(logoutUser == null) {
+			session.setAttribute("alertMsg", "카카오 로그아웃 실패");
+			return "common/loginForm";
+		}
+		
+		session.invalidate();
+		return "redirect:/";
 	}
 }
