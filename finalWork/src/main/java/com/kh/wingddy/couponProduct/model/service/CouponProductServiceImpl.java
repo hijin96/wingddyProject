@@ -1,6 +1,7 @@
 package com.kh.wingddy.couponProduct.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,10 +53,8 @@ public class CouponProductServiceImpl implements CouponProductService {
 		
 		
 		if(cpDao.insertMyCp(sqlSession, cpList) * cpDao.updateCp(sqlSession, cp) * cpDao.updateCoupon(sqlSession, cp) > 0) {
-			//System.out.println("성공");
 			return 1; 
 		} else {
-			//System.out.println("실패");
 			return 0;
 		}
 	}
@@ -68,6 +67,11 @@ public class CouponProductServiceImpl implements CouponProductService {
 	@Override
 	public ArrayList<CouponProduct> selectStudentCplist(CouponProduct cp) {
 		return cpDao.selectStudentCplist(sqlSession, cp);
+	}
+
+	@Override
+	public ArrayList<CouponProduct> searchStudentCp(HashMap map) {
+		return cpDao.searchStudentCp(sqlSession, map);
 	}
 
 	

@@ -1,6 +1,7 @@
 package com.kh.wingddy.couponProduct.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -137,7 +138,18 @@ public class CouponProductController {
 		}
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value="searchStudent.cp", produces="application/json; charset=UTF-8")
+	public String ajaxSearchStudentCp(String searchOption, String keyword, int cno) {
+		HashMap map = new HashMap();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		map.put("cno", cno);
+		
+		System.out.println(map);
+		
+		return new Gson().toJson(cpService.searchStudentCp(map));
+	}
 	
 	
 	

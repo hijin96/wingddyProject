@@ -1,12 +1,12 @@
 package com.kh.wingddy.couponProduct.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.couponProduct.model.vo.CouponProduct;
 
@@ -64,5 +64,15 @@ public class CouponProductDao {
 	public int useCoupon(SqlSessionTemplate sqlSession, CouponProduct cp) {
 		return sqlSession.delete("coupon-mapper.useCoupon", cp);
 	}
+	
+	public ArrayList<CouponProduct> searchStudentCp(SqlSessionTemplate sqlSession, HashMap map) {
+		
+		if(map.get("searchOption").equals("studentName")) {
+			return (ArrayList)sqlSession.selectList("coupon-mapper.searchStudentCp-name", map);
+		} else {
+			return (ArrayList)sqlSession.selectList("coupon-mapper.searchStudentCp-cpName", map);
+		}
+	}
+	
 	
 }
