@@ -1,6 +1,7 @@
 package com.kh.wingddy.education.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.wingddy.education.model.dao.EduMapper;
 import com.kh.wingddy.education.model.vo.Edu;
 import com.kh.wingddy.education.model.vo.EduProgress;
+import com.kh.wingddy.education.model.vo.Incorrect;
 import com.kh.wingddy.education.model.vo.Quiz;
 import com.kh.wingddy.member.model.vo.Member;
 
@@ -19,8 +21,8 @@ public class EducationServiceImpl implements EducationService {
 	private EduMapper eduMapper;
 	
 	@Override
-	public ArrayList<EduProgress> selectEduList(int cno) {
-		return eduMapper.selectEduList(cno);
+	public ArrayList<EduProgress> selectEduList(HashMap<String, Object> map) {
+		return eduMapper.selectEduList(map);
 	}
 
 	@Override
@@ -52,5 +54,13 @@ public class EducationServiceImpl implements EducationService {
 	public Edu selectEduOne(int eduNo) {
 		return eduMapper.selectEduOne(eduNo);
 	}
+
+	@Override
+	@Transactional
+	public int insertIncorrect(ArrayList<Incorrect> ilist) {
+		return eduMapper.insertIncorrect(ilist);
+	}
+	
+	
 
 }

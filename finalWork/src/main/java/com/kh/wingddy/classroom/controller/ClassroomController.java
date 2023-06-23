@@ -151,4 +151,38 @@ public class ClassroomController {
 		//System.out.println(icList);
 		return new Gson().toJson(classroomService.selectProgressStudent(cm));
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 클래스 학생관리 > 학생 뽑기 횟수 부여 - 세희
+	@ResponseBody
+	@RequestMapping(value="giveGachaCount", produces="html/text; charset=UTF-8")
+	public String giveGachaCount(ClassMember cm) {
+		
+		if(classroomService.giveGachaCount(cm) > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
+	
+
+	
 }

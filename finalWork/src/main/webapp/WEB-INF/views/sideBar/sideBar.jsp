@@ -261,7 +261,17 @@
                   <i class="far fa-user"></i> 프로필
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="logout.me" class="dropdown-item has-icon text-danger">
+                  <c:choose>
+                    <c:when test="${loginUser.loginType eq 'W'}">
+                      <a href="logout.me" class="dropdown-item has-icon text-danger">
+                    </c:when>
+                    <c:when test="${loginUser.loginType eq 'K'}">
+                      <a href="logoutKakao.me" class="dropdown-item has-icon text-danger"></a>
+                    </c:when>
+                    <c:when test="${loginUser.loginType eq 'N'}">
+                      <a href="logoutNaver.me" class="dropdown-item has-icon text-danger"></a>
+                    </c:when>
+                  </c:choose>
                   <i class="fas fa-sign-out-alt"></i> 로그아웃
                   </a>
                   </div>
@@ -579,7 +589,6 @@
       })
     })
   </script>
-  
   
 
   <!-- General JS Scripts -->

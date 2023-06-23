@@ -1,9 +1,11 @@
 package com.kh.wingddy.education.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.wingddy.education.model.vo.Edu;
 import com.kh.wingddy.education.model.vo.EduProgress;
+import com.kh.wingddy.education.model.vo.Incorrect;
 import com.kh.wingddy.education.model.vo.Quiz;
 import com.kh.wingddy.member.model.vo.Member;
 
@@ -12,9 +14,7 @@ public interface EducationService {
 	/* 공통 */
 	// 학습 메인 페이지
 	// 내 클래스 학습 리스트 조회 
-	ArrayList<EduProgress> selectEduList(int cno);
-
-	
+	ArrayList<EduProgress> selectEduList(HashMap<String, Object> map);
 	
 	/* 선생님 */
 	// 조기 마감 (Time 컬럼을 현재 시간으로 UPDATE)
@@ -45,6 +45,8 @@ public interface EducationService {
 	// (화면단에서 시간 체크를 할것인가)
 	// 조회
 	Edu selectEduOne(int eduNo);
+	// 풀기
+	int insertIncorrect(ArrayList<Incorrect> ilist);
 	// case 1.단어 문제 
 	// 조회 (SELECT)
 	// 풀기 (INSERT)

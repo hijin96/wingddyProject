@@ -247,4 +247,43 @@
 		       CLASS_NO = #{classNo}         
 	</delete>
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 클래스 학생관리 > 학생 뽑기 횟수 부여 - 세희 -->
+	<update id="giveGachaCount" parameterType="classMember">
+		UPDATE CLASS_MYCOUNT
+		   SET GACHA_COUNT = GACHA_COUNT + #{gachaCount}
+		 WHERE CLASS_NO = #{classNo}
+		   AND MEMBER_NO IN
+		<foreach collection="StudentList" item="item" index="i" open="(" close=")" separator="," >
+			#{item}
+		</foreach>
+	</update>
+	
+	<!-- 마이카운트 0으로 행 추가 -->
+	<insert id="insertDefaultMyCount" parameterType="classMember">
+		INSERT INTO CLASS_MYCOUNT(CLASS_NO, MEMBER_NO, COUPON_COUNT, GACHA_COUNT, TOTAL_COUPON_COUNT)
+		VALUES (#{classNo}, #{studentNo}, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

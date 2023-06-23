@@ -47,6 +47,7 @@
                   <div class="row">
                     <div class="form-group col-6">
                       <label for="frist_name">Your ID</label><button type="button" id="checkBtn" class="btn btn-icon btn-success" style="margin-left:195px; height:30px;" disabled="true">check ID</button>
+                      <input type="hidden" name="loginType" value="W">
                       <input id="frist_name" type="text" class="form-control" name="memberId" autofocus required placeholder="Please Enter ID">
                     </div>
                     <div class="form-group col-6">

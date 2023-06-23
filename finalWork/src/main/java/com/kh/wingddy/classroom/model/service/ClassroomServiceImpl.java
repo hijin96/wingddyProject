@@ -38,7 +38,7 @@ public class ClassroomServiceImpl implements ClassroomService {
 
 	@Override
 	public int passStudent(ClassMember cm) {
-		return classroomDao.passStudent(sqlSession, cm);
+		return classroomDao.passStudent(sqlSession, cm) * classroomDao.insertDefaultMyCount(sqlSession, cm);
 	}
 
 	@Override
@@ -84,6 +84,25 @@ public class ClassroomServiceImpl implements ClassroomService {
 	@Override
 	public ArrayList<Incorrect> selectProgressStudent(ClassMember cm) {
 		return classroomDao.selectProgressStudent(sqlSession, cm);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 클래스 학생관리 > 학생 뽑기 횟수 부여 - 세희
+	@Override
+	public int giveGachaCount(ClassMember cm) {
+		return classroomDao.giveGachaCount(sqlSession, cm);
 	}
 	
 	

@@ -20,6 +20,13 @@
   <link rel="stylesheet" href="resources/assets/css/components.css">
 <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+
+  <style>
+    #kakao{
+      background-color : #FEE500;
+      color : #000000;
+    }
+  </style>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -104,9 +111,9 @@
                     </a>
                   </div>
                   <div class="col-6">
-                    <a class="btn btn-warning btn-block btn-social btn-twitter">
-                      <span class="fab fa-twitter"></span> KAKAO
-                    </a>                                
+                      <a href="#" id="kakao">
+                        <img src="resources/images/kakao_login_medium_narrow.png" alt="kakaoLogin">
+                      </a>                                
                   </div>
                 </div>
 
@@ -196,9 +203,18 @@
           }
         });
       }
-      
-      
     }
+
+    $(function(){
+      $('#kakao').click(function(){
+        let responseType = '&response_type=code';
+        let clientId = '&client_id=af6d74bf8700ecc5864ca816dbce8bee';
+        let redirectUri = '&redirect_uri=http://localhost:8007/wingddy/kakaoLogin.me';
+        let scope = '&scope=account_email,profile_image';
+        let loginUrl = 'https://kauth.kakao.com/oauth/authorize?' + responseType + clientId + redirectUri + scope;
+        location.href = loginUrl;
+      })
+    })
   </script>
   <!-- Page Specific JS File -->
   
