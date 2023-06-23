@@ -65,11 +65,11 @@
 
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="enrollFrontEmail" type="text" class="form-control" name="email" required placeholder="@를 제외한 앞 이메일주소를 입력해주세요" value="asasdads">
+                    <input id="enrollFrontEmail" type="text" class="form-control" name="email" required placeholder="@를 제외한 앞 이메일주소를 입력해주세요" value="">
                     <select class="form-control selectric" id="enrollBackEmail">
-                      <option>naver.com</option>
-                      <option>gmail.com</option>
-                      <option>daum.net</option>
+                      <option>@naver.com</option>
+                      <option>@gmail.com</option>
+                      <option>@daum.net</option>
                     </select>
                     <input type="hidden" name="email">
                   </div>
@@ -280,7 +280,7 @@
 
         $('input[name=email]').val(enrollEmail);
         console.log(enrollEmail);
-        $('form').submit();
+        $('#enrollWingddy').submit();
 
       })
 

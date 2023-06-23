@@ -130,6 +130,7 @@ public class MemberController {
 			return memberService.insertTeacher(m, at) > 0 ? "sideBar/sideBar":"common/errorPage";
 		} else {
 			
+			System.out.println(m);
 			String encPwd = bcryptPasswordEncoder.encode(m.getMemberPwd());
 			m.setMemberPwd(encPwd);
 			m.setMemberType("S");

@@ -40,7 +40,8 @@
 															<h3>결제하기</h3>
 														</div>
 												<form class="needs-validation" action="storeBuySuccess" method="post" >
-													<input type="hidden" name="orderNo" value="${orderNo}"/>
+													<input type="hidden" name="orderNo" value="${orderNo}"/> 
+												
 													<div class="row">
 														<div class="col-md-6 mb-3">
 															<label for="sendName">보내는이 *</label>
@@ -58,8 +59,8 @@
 													<div class="mb-3">
 														<input type="hidden" id="confmKey" name="confmKey" value=""  >
 														<label for="address">주소*</label>
-														<div class="invalid-feedback"> 주소를 입력해주세요</div>
-														<button type="button" onclick="goPopup();">주소검색</button>
+														<div class="invalid-feedback"> 주소를 입력해주세요</div> <br>
+														<button type="button" class="btn btn-info" onclick="goPopup();">주소검색</button>
 														<br><label for="zipNo"> 우편번호 *</label> <input name="zipNo" id="zipNo" class="form-control" type="text" placeholder="우편번호" />
 														<br>도로명주소<br><br>
 														<input type="text" class="form-control" id="roadAddrPart1"  placeholder="도로명주소" name="roadAddrPart1"  required><br>
@@ -76,33 +77,18 @@
 												</div>				
 													
 													<div class="row">
-														<div class="col-md-6 mb-3">
-															<label for="cc-name">Name on card</label>
-															<input type="text" class="form-control" id="cc-name" placeholder="" > <small class="text-muted">Full name as displayed on card</small>
-															<div class="invalid-feedback"> Name on card is required </div>
-														</div>
-														<div class="col-md-6 mb-3">
-															<label for="cc-number">Credit card number</label>
-															<input type="text" class="form-control" id="cc-number" placeholder="" >
-															<div class="invalid-feedback"> Credit card number is required </div>
-														</div>
+														<div id="kakaoPay"> 
+															<img src="resources/images/payment-icon/payment_icon.png" href="#" onclick="javascript:kakaoPay('https://kapi.kakao.com/v1/payment/ready');"> </a>
+														 </div>
 													</div>
 													<div class="row">
-														<div class="col-md-3 mb-3">
-															<label for="cc-expiration">Expiration</label>
-															<input type="text" class="form-control" id="cc-expiration" placeholder="" >
-															<div class="invalid-feedback"> Expiration date required </div>
-														</div>
-														<div class="col-md-3 mb-3">
-															<label for="cc-expiration">CVV</label>
-															<input type="text" class="form-control" id="cc-cvv" placeholder="" >
-															<div class="invalid-feedback"> Security code required </div>
+														<div class="col-md-3 mb-3 form-control invalid-feedback">
+														
 														</div>
 													</div>
 													<hr class="mb-1">  
-										
-											
 										</div>
+										
 									<div class="col-sm-6 col-lg-6 mb-3">
 										<div class="row col-md-12 col-lg-12">
 											
@@ -112,6 +98,7 @@
 																<h3>구매예정 목록</h3>
 															</div>
 															<c:forEach var="cart" items="${cartList }" varStatus="status">
+															<input type="hidden" name ="cartNo" value=${cart.cartNo }>
 															<div class="rounded p-2 bg-light">
 																<div class="media mb-2 border-bottom">
 																	<div class="media-body"> 
@@ -165,6 +152,15 @@
 					</div>
 					<!-- End Cart -->
 					<script>
+					function kakaoPay(url){
+						let from = document.createElement("form");
+						let url="https://kapi.kakao.com/v1/payment/ready"
+						method="post"
+					
+						
+						from.submit();
+					}
+
 					//document.domain =  "http://localhost:8007/wingddy/address.do";
 					 function goPopup(){
 				            var url = "address.do";
@@ -188,22 +184,7 @@
 						document.getElementById("zipNo").value = zipNo;
 					}
 
-					let url= document.location.href;
-					var queryString = url.split("?")[1];
-					// 쿼리 문자열을 "&"로 분할하여 각각의 파라미터로 나눔
-					var params = queryString.split("&");
-					// 파라미터 배열을 순회하면서 "cartNo" 파라미터를 찾음
-				//	console.log("queryString: " + queryString);
-				//	console.log("params: " + params);
-					for (var i = 0; i < params.length; i++) {
-					// "cartNo" 파라미터를 찾으면 숫자 값을 추출
-					if (params[i].startsWith("cartNo=")) {
-					var cartNumber = params[i].split("=")[1];
-					// 여기에서 숫자 값을 사용하거나 출력할 수 있습니다.
-					console.log(cartNumber);
-					break; // 숫자 값을 찾았으므로 반복문을 종료합니다.
-					    }
-					}
+
 					</script>
 				</div>	
 			</div>

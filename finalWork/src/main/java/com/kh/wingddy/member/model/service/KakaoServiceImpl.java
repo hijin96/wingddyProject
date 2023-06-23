@@ -140,5 +140,107 @@ public class KakaoServiceImpl implements KakaoService {
 		return result;
 	}
 
+	@Override
+	public String logoutKakao(String memberId) throws IOException {
+
+		String kakaoUrl = "https://kapi.kakao.com/v1/user/logout";
+		String adminKey = "0f4ccb72fe53a170e5cd34928f2e8e78";
+		String id = null;
+		try {
+			System.out.println("??");
+			url = new URL(kakaoUrl);
+			urlConnection = (HttpURLConnection)url.openConnection();
+			
+			urlConnection.setRequestMethod("POST");
+			urlConnection.setRequestProperty("Authorization", "KakaoAK " + adminKey);
+			
+			urlConnection.setDoOutput(true);
+			
+			bw = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
+			sb = new StringBuilder();
+			sb.append("target_id_type=user_id");
+			sb.append("&target_id=" + memberId);
+			
+			bw.write(sb.toString());
+			bw.flush();
+			System.out.println("로그아웃 상태코드 : " + urlConnection.getResponseCode());
+			br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+			
+			String line = "";
+			String responseData = "";
+			while((line = br.readLine()) != null) {
+				responseData += line;
+			}
+			
+			System.out.println("결과 값" + responseData);
+			
+			JSONObject responseObj = (JSONObject)new JSONParser().parse(responseData);
+			id = responseObj.get("id").toString();
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} finally {
+			br.close();
+			bw.close();
+		}
+		
+		return id;
+	}
+
+	@Override
+	public String dropKakaoMember(String memberId) throws IOException {
+		
+		String kakaoUrl = "https://kapi.kakao.com/v1/user/unlink";
+		String adminKey = "0f4ccb72fe53a170e5cd34928f2e8e78";
+		String id = null;
+		
+		try {
+			url = new URL(kakaoUrl);
+			urlConnection = (HttpURLConnection)url.openConnection();
+			
+			urlConnection.setRequestMethod("POST");
+			urlConnection.setRequestProperty("Authorization", "KakaoAK " + adminKey);
+			
+			urlConnection.setDoOutput(true);
+			
+			bw = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
+			sb = new StringBuilder();
+			sb.append("target_id_type=user_id");
+			sb.append("&target_id=" + memberId);
+			
+			bw.write(sb.toString());
+			bw.flush();
+			System.out.println("로그아웃 상태코드 : " + urlConnection.getResponseCode());
+			br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+			
+			String line = "";
+			String responseData = "";
+			while((line = br.readLine()) != null) {
+				responseData += line;
+			}
+			
+			System.out.println("결과 값" + responseData);
+			
+			JSONObject responseObj = (JSONObject)new JSONParser().parse(responseData);
+			id = responseObj.get("id").toString();
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} finally {
+			br.close();
+			bw.close();
+		}
+		
+		return id;
+	}
+
 	
 }
