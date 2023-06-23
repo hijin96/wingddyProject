@@ -33,7 +33,7 @@ public class CalendarController {
 	public String insertSchedule(Calendar c, Model model) {
 		
 		if(calendarService.insertSchedule(c) > 0) {
-			return ""; 
+			return "redirect:/calendar"; 
 		} else {
 			model.addAttribute("errorMsg", "일정 추가 실패.");
 			return "common/errorPage";
@@ -64,7 +64,7 @@ public class CalendarController {
 	public String updateSchedule(Calendar c, Model model) {
 		//System.out.println(c);
 		if(calendarService.updateSchedule(c) > 0) {
-			return "";
+			return "redirect:/calendar";
 		} else {
 			model.addAttribute("errorMsg", "일정 수정 실패");
 			return "common/errorPage";

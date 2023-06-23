@@ -127,9 +127,24 @@ public class CouponProductController {
 	
 	@RequestMapping("use.cp")
 	public String useCoupon(CouponProduct cp, int cno, Model model, HttpServletRequest request, HttpSession session) {
+		
 		cp.setClassNo(cno);
+		System.out.println(cp);
 		if(cpService.useCoupon(cp) > 0) {
 			request.setAttribute("useCpCno", cp.getClassNo());
+			session.setAttribute("alertMsg", "학생의 쿠폰이 성공적으로 사용되었습니다.");
+			return "sideBar/sideBar";
+		} else {
+			model.addAttribute("errorMsg", "학생의 쿠폰상품 사용에 실패했습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("useSearch.cp")
+	public String useSearchCoupon(CouponProduct cp, int cno, Model model, HttpServletRequest request, HttpSession session) {
+		//System.out.println(cp);
+		if(cpService.useCoupon(cp) > 0) {
+			request.setAttribute("useCpCno", cno);
 			session.setAttribute("alertMsg", "학생의 쿠폰이 성공적으로 사용되었습니다.");
 			return "sideBar/sideBar";
 		} else {
@@ -146,7 +161,7 @@ public class CouponProductController {
 		map.put("keyword", keyword);
 		map.put("cno", cno);
 		
-		System.out.println(map);
+		//System.out.println(map);
 		
 		return new Gson().toJson(cpService.searchStudentCp(map));
 	}

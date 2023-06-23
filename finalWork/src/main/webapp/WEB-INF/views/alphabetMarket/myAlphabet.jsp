@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+	
+	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>내 알파벳</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div id="app">
@@ -38,7 +42,7 @@
 								</tr>
 							</table>
 							<div align="right">
-								<button class="btn btn-primary" id="gachaBtn">알파벳 뽑기</button>
+								<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">알파벳 뽑기</button>
 							
 								<form action="makeWords.aph" method="post">
 									<input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
@@ -59,6 +63,31 @@
 		    </section>
 	    </div>
 </div>
+
+
+<!-- modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Alphabet Gacha</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <p>Do you want to pick it?</p>
+		</div>
+		<div class="modal-footer bg-whitesmoke br">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-primary"  id="gachaBtn">Gacha!</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+
+
 
 <script>
 
@@ -127,44 +156,51 @@
 
 		if($('#gachaCount').text() != '0'){
 
-			if (confirm('Do you wanna get it?')) {
+			
 
-				var alphabetArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-				var random_index = Math.floor(Math.random() * alphabetArr.length);
-				var random_alphabet = alphabetArr[random_index];
-				
-				$.ajax({
-					url : 'gacha.aph',
-					data : {
-						cno : '${requestScope.classroom.classNo}',
-						mno : '${sessionScope.loginUser.memberNo}',
-						alphabet : random_alphabet
-					},
-					success : function(result){
-						if(result == 'success'){
-							myAlphabet();
-							myCount();
-						}else{
-							alert('실패');
-						}
+			var alphabetArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+			var random_index = Math.floor(Math.random() * alphabetArr.length);
+			var random_alphabet = alphabetArr[random_index];
+			
+			$.ajax({
+				url : 'gacha.aph',
+				data : {
+					cno : '${requestScope.classroom.classNo}',
+					mno : '${sessionScope.loginUser.memberNo}',
+					alphabet : random_alphabet
+				},
+				success : function(result){
+					if(result == 'success'){
+						myAlphabet();
+						myCount();
+					}else{
+						alert('실패');
 					}
+				}
 
-				})
+			})
 
-				alert(random_alphabet + '를 뽑았어요!!');
+			swal(random_alphabet, '를 뽑았어요!!');
 				
-			}
+				
+			
 
 		}
 		else{
-			alert("You don't have a chance to get an alphabet!!")
+			swal("You don't have a chance to get an alphabet!!");
 		}
+
+		$('#exampleModal').modal('hide')
 	}
 
 
 
 
 </script>
+
+
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </body>
 </html>

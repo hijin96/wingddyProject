@@ -23,17 +23,17 @@
 					<div class="card">
 						<div class="card-body">
 				        	<div class="search-element">
-								<form class="form-inline mr-auto">
+								<div class="form-inline mr-auto">
 									<select class="selectric" name="searchOption">
 										<option value="studentName">학생 이름</option>
 										<option value="cpName">쿠폰명</option>
 									</select> &nbsp;&nbsp;&nbsp;
 									<input id="search-input" class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
-						            <button id="btn-search" class="btn" type="button"><i class="fas fa-search"></i></button>
-						        </form>
+						            <button id="btn-search" class="btn" type="button" onclick="searchKeyword()"><i class="fas fa-search"></i></button>
+						        </div>
 				        	</div>
 					        <br><br>
-		  					<table class="table text-center table-striped table-md">
+		  					<table id="studentCplist" class="table text-center table-striped table-md">
 				        		<thead>
 						          	<tr>
 						            	<th>이름</th>
@@ -66,26 +66,70 @@
 		</div>
 	</div>
 </div>
-
+<form id="form-ajax" action="useSearch.cp" method="post">
+	<input type="hidden" name="cpNo" />
+	<input type="hidden" name="memberNo" />
+	<input type="hidden" name="cno" />
+</form>
 <script>
-	$('#btn-search').on('click', function(){
+	
+	
+	function searchKeyword(){
 		let searchOption = $('select[class=selectric]').val();
 		let keyword = $('#search-input').val();
 		let cno = ${requestScope.classroom.classNo};
 		
-		$.ajax({
-			url : 'searchStudent.cp',
-			type : 'post',
-			data : {
-				searchOption : searchOption,
-				keyword : keyword,
-				cno : cno
-			},
-			success : function(result){
-				console.log(result);
-			}
-		})
-	})
+		if(!keyword == ''){
+			
+			$.ajax({
+				url : 'searchStudent.cp',
+				type : 'post',
+				data : {
+					searchOption : searchOption,
+					keyword : keyword,
+					cno : cno
+				},
+				success : function(searchList){
+					//console.log(searchList);
+					let result = '';
+					
+					if(searchList.length != 0){
+						for(i in searchList){
+							result += '<tr>'
+								  		+ '<input type="hidden" name="cpNo" value="' + searchList[i].cpNo + '"/>'
+								  		+ '<input type="hidden" name="memberNo" value="' + searchList[i].memberNo + '"/>'
+								  		+ '<input type="hidden" name="classNo" value="' + ${requestScope.classroom.classNo} + '"/>'
+								  		+ '<td>' + searchList[i].memberName + '</td>'
+					        			+ '<td>' + searchList[i].productName + '</td>'
+					        			+ '<td>' + searchList[i].amount + '</td>'
+					        			+ '<td><button id="btn-ajax" type="submit" class="btn btn-warning">사용하기</button></td>'
+								 	+ '</tr>';
+							
+						}
+					} else {
+						result = '<tr><td colspan="4">해당 키워드와 일치하는 결과가 없습니다.</td></tr>';
+					}
+					$('#studentCplist>tbody').html(result);
+					
+					$(document).on('click', '#btn-ajax', function(){
+						let form = $('#form-ajax').children();
+						let info = $(this).parents('tr').children();
+						
+						form.eq(0).val(info.eq(0).val());
+						form.eq(1).val(info.eq(1).val());
+						form.eq(2).val(info.eq(2).val());
+						
+						$('#form-ajax').submit();
+					})
+				}
+			}) 
+		} else {
+			alert('검색어를 입력해주세요');
+		}
+	}
+	
+	
+	
 
 </script>
 
