@@ -147,13 +147,15 @@
                                         case 'S' : eduType = '단어배치풀이'; break;
                                         case 'O' : eduType = 'OX퀴즈풀이'; break;
                                     }
-                                    progress += '<tr>'
-                                           + '<td>' + list[i].eduName + '</td>'                                        
-                                           + '<td>' + eduType + '</td>'                                        
-                                           + '<td>' + list[i].quizContent + '</td>'                                        
-                                           + '<td>' + list[i].incorrectContent + '</td>'                                        
-                                           + '<td>' + list[i].correctContent + '</td>'                                        
-                                           + '</tr>'
+                                    if(list[i].incorrectContent != null){
+	                                    progress += '<tr>'
+	                                           + '<td>' + list[i].eduName + '</td>'                                        
+	                                           + '<td>' + eduType + '</td>'                                        
+	                                           + '<td>' + list[i].quizContent + '</td>'                                        
+	                                           + '<td>' + list[i].incorrectContent + '</td>'                                        
+	                                           + '<td>' + list[i].correctContent + '</td>'                                        
+	                                           + '</tr>';
+                                    }
                                 }
                                 //console.log(progress);
                                 $('#progress tbody').html(progress);

@@ -150,8 +150,8 @@
 				eduType = 'S';
 				
 				for(let i = 1; i <= 5; i++){
-					let content = $('#sentence-'+ i).val().trim(' ');
-					let correct = $('#sentence-kr-'+ i).val().trim(' ');
+					let content = $('#sentence-kr-'+ i).val().trim(' ');
+					let correct = $('#sentence-'+ i).val().trim(' ');
 					
 					if((content != '') && (correct != '')){
 						quiz.push({'content':content, 'correct':correct});

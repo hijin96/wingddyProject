@@ -20,7 +20,7 @@ public interface EduMapper {
 
 	int updateEndTime(int eduNo);
 
-	ArrayList<Member> selectCompleteStudent(int eduNo);
+	ArrayList<Member> selectCompleteStudent(HashMap<String, Integer> map);
 
 	int insertEducation(Edu e);
 
@@ -29,6 +29,7 @@ public interface EduMapper {
 	Edu selectEduOne(int eduNo);
 
 	int insertIncorrect(ArrayList<Incorrect> ilist);
+
 
 
 }

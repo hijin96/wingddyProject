@@ -61,14 +61,20 @@
                       ,COUNT(*) CC
                   FROM(SELECT
                               EDU_NO
-                             ,MEMBER_NO
+                             ,STUDENT_NO
                          FROM
-                              QUIZ
+                              CLASS_MEMBER
                          JOIN
-                              INCORRECT USING (QUIZ_NO)
+                              INCORRECT ON (MEMBER_NO = STUDENT_NO)
+                         JOIN
+                              QUIZ USING (QUIZ_NO)
+                         JOIN
+                              EDUCATION USING(EDU_NO)
+                        WHERE
+                              EDUCATION.CLASS_NO = CLASS_MEMBER.CLASS_NO
                         GROUP
                            BY
-                              MEMBER_NO, EDU_NO)
+                              STUDENT_NO, EDU_NO)
                  GROUP BY EDU_NO) USING (EDU_NO)
 		<if test='memberType == "S"'> 
           LEFT
@@ -141,7 +147,7 @@
 		 	   EDU_NO = #{eduNo}
 	</update>
 	
-	<select id="selectCompleteStudent" resultType="Member">
+	<select id="selectCompleteStudent" resultType="Member" parameterType="hashMap">
 		SELECT
 		       MEMBER_NO memberNo
 		      ,MEMBER_ID memberId
@@ -157,6 +163,13 @@
 		                            QUIZ USING (QUIZ_NO)
 		                      WHERE
 		                            EDU_NO = #{eduNo}
+                                AND
+                                    MEMBER_NO IN (SELECT 
+                                                         STUDENT_NO
+                                                    FROM
+                                                         CLASS_MEMBER
+                                                   WHERE
+                                                         CLASS_NO = #{classNo})
 		                      GROUP 
 		                         BY MEMBER_NO)
 	</select>

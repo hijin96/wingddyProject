@@ -28,7 +28,7 @@
                     <div class="col-12">
                         <h2 class="section-title">${edu.eduName}</h2>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-6">
+                    <div class="col-12 col-md-9 col-lg-9">
                         <div class="card quiz-contain">
                             <div class="card-header">
                                 <h5><span id="quiz-index"></span>번문제</h5>

@@ -55,9 +55,15 @@ public class EducationController {
 	}
 	
 	@RequestMapping("detail.edu")
-	public ModelAndView eduDetailPage(HttpServletRequest request, ModelAndView mv, int eduNo) {
+	public ModelAndView eduDetailPage(HttpServletRequest request, ModelAndView mv, int eduNo, int cno) {
+		
+		HashMap<String, Integer> map = new HashMap();
+		
+		map.put("classNo", cno);
+		map.put("eduNo", eduNo);
+		
 		mv.addObject("qList", educationService.selectQuizList(eduNo))
-		.addObject("mList", educationService.selectCompleteStudent(eduNo))
+		.addObject("mList", educationService.selectCompleteStudent(map))
 		.setViewName("education/eduDetail");
 		return mv;
 	}
@@ -155,8 +161,23 @@ public class EducationController {
 	
 	@ResponseBody
 	@RequestMapping(value="examQuiz.qz", produces="application/json; charset=UTF-8")
-	public String eduExamQuizList(int eduNo) {
-		return new Gson().toJson(educationService.selectQuizList(eduNo));
+	public String eduExamQuizList(int eduNo, String eduType) {
+		ArrayList<Quiz> list = educationService.selectQuizList(eduNo);
+		
+		if(eduType != null) {
+			ArrayList<String[]> sList = new ArrayList();
+			String[] splitContent;
+			
+			for(Quiz q : list) {
+				splitContent = shuffleList(q.getCorrectContent().split(" "));
+				sList.add(splitContent);
+			}
+			HashMap<String, Object> map = new HashMap();
+			map.put("qList", list);
+			map.put("sList", sList);
+			return new Gson().toJson(map);
+		}
+		return new Gson().toJson(list);
 	}
 	
 	@RequestMapping("insertIncorrect.edu")
@@ -198,4 +219,28 @@ public class EducationController {
 		
 		return "education/eduResult";
 	}
+	
+	public String[] shuffleList(String[] list) {
+		ArrayList<String> prevList = new ArrayList();
+		
+		for(String s: list) {
+			prevList.add(s);
+		}
+		ArrayList<String> newList = new ArrayList();
+		
+		while(prevList.size() > 0) {
+			int ranNum = (int)(Math.random() * prevList.size());
+			
+			newList.add(prevList.get(ranNum));
+			prevList.remove(ranNum);
+		}
+		String[] result = new String[newList.size()];
+		
+		for(int i = 0; i < newList.size(); i++) {
+			result[i] = newList.get(i);
+		}
+		
+		return result;
+	}
+
 }

@@ -216,17 +216,27 @@
 		         GROUP 
 		            BY 
 		               CLASS_NO) USING(CLASS_NO)
-     LEFT JOIN (SELECT 
-         			   MEMBER_NO
-         			  ,COUNT(*) CM
-		          FROM 
-		               EDUCATION
-		          JOIN 
-		               QUIZ USING(EDU_NO)
-		          JOIN 
-		               INCORRECT USING(QUIZ_NO)
-		         GROUP 
-		            BY CLASS_NO, MEMBER_NO) USING(MEMBER_NO)
+          LEFT
+          JOIN (SELECT 
+                       STUDENT_NO MN
+                      , CN
+                      ,COUNT(*)CM 
+                  FROM (SELECT 
+                               STUDENT_NO, EDU_NO, EDUCATION.CLASS_NO CN
+                          FROM 
+                               CLASS_MEMBER
+                          JOIN 
+                               INCORRECT ON(MEMBER_NO = STUDENT_NO)
+                          JOIN 
+                               QUIZ USING(QUIZ_NO)
+                         JOIN
+                              EDUCATION USING(EDU_NO)
+                        WHERE
+                              EDUCATION.CLASS_NO = CLASS_MEMBER.CLASS_NO
+                        GROUP
+                           BY
+                              STUDENT_NO, EDU_NO, EDUCATION.CLASS_NO)
+              GROUP BY CN, STUDENT_NO) ON (CLASS_NO = CN AND MEMBER_NO = MN)
 		 WHERE 
 		       CLASS_NO = #{cno}
 		   AND 

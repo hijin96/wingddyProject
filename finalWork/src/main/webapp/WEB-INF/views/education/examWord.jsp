@@ -34,7 +34,7 @@
                     <div class="col-12">
                         <h2 class="section-title">${edu.eduName}</h2>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-6">
+                    <div class="col-12 col-md-9 col-lg-9">
                         <div class="card quiz-contain">
                             <div class="card-header">
                                 <h5><span id="quiz-index"></span>번문제</h5>
@@ -113,10 +113,14 @@
 
 		// 입력값 확인
 		$('input[name=word-quiz-answer]').keyup(() => {
-			if($('input[name=word-quiz-answer]').val().trim(' ') != ''){
-				$('#next-btn').removeAttr('disabled');
-			}else{
-				$('#next-btn').attr('disabled', true);
+			let quizIndex = $('#quiz-index').text();
+			let length = quizArr.length;
+			if(quizIndex < length){
+				if($('input[name=word-quiz-answer]').val().trim(' ') != ''){
+					$('#next-btn').removeAttr('disabled');
+				}else{
+					$('#next-btn').attr('disabled', true);
+				}
 			}
 		});
 
@@ -129,12 +133,14 @@
 			checkIndex(quizIndex);
 			
 			answerObj = {'quizNo':$('#quiz-no').val(),'correctContent' : quizArr[quizIndex - 1].correctContent,'incorrectContent' : targetText};
+			target.val('');
 		};
 
 		// 이전버튼
 		$('#prev-btn').click(() => {
 			let index = answerArr.length - 1;
 			let prevAnswer = answerArr[index];
+			$('input[name=word-quiz-answer]').val(prevAnswer.incorrectContent);
 			changeQuiz(-1);
 			$('#next-btn').removeAttr('disabled');
 			answerArr.pop();
@@ -152,6 +158,7 @@
 		
 		// 제출 버튼
 		$('#send-btn').click(() => {
+			injectAnswer();
 			answerArr.push(answerObj);
 			$('input[name=incorrectList]').val(JSON.stringify(answerArr));
 			console.log($('input[name=incorrectList]').val());
