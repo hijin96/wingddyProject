@@ -49,8 +49,7 @@ public class LetterController {
 	@RequestMapping(value="receivedPaging.le", produces="application/json; charset=UTF-8")
 	public String ajaxReceivedPaging(Letter letter, int rPage) {
 		
-		System.out.println("receivedPaging");
-		System.out.println(letter);
+
 
 	
 		PageInfo pi = Pageination.getPageInfo(letterService.receviedCount(letter), rPage, 5, 5); 
