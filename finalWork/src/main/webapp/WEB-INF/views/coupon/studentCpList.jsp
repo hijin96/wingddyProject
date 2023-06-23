@@ -32,10 +32,11 @@
 				        		</thead>
 				        		<tbody>
 						        	<c:forEach items="${sclist}" var="cp" varStatus="status">
-						        		<form action="use.Cp" method="post">
+						        		<form action="use.cp" method="post">
 							        		<tr>
 							        			<input type="hidden" name="cpNo" value="${cp.cpNo}"/>
-							        			<input type="hidden" name="memberNo" value="${loginUser.memberNo}" />
+							        			<input type="hidden" name="memberNo" value="${cp.memberNo}" />
+							        			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
 							        			<td>${cp.memberName}</td>
 							        			<td>${cp.productName}</td>
 							        			<td>${cp.amount}</td>
