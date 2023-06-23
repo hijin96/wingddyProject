@@ -38,7 +38,7 @@ public class ClassroomServiceImpl implements ClassroomService {
 
 	@Override
 	public int passStudent(ClassMember cm) {
-		return classroomDao.passStudent(sqlSession, cm);
+		return classroomDao.passStudent(sqlSession, cm) * classroomDao.insertDefaultMyCount(sqlSession, cm);
 	}
 
 	@Override

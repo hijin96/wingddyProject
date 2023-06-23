@@ -74,4 +74,8 @@ public class ClassroomDao {
 		return session.insert("classMapper.giveGachaCount", cm);
 	}
 	
+	// 학생 마이카운트 0으로 추가
+	public int insertDefaultMyCount(SqlSessionTemplate session, ClassMember cm) {
+		return session.insert("classMapper.insertDefaultMyCount", cm);
+	}
 }

@@ -269,4 +269,21 @@
 			#{item}
 		</foreach>
 	</update>
+	
+	<!-- 마이카운트 0으로 행 추가 -->
+	<insert id="insertDefaultMyCount" parameterType="classMember">
+		INSERT INTO CLASS_MYCOUNT(CLASS_NO, MEMBER_NO, COUPON_COUNT, GACHA_COUNT, TOTAL_COUPON_COUNT)
+		VALUES (#{classNo}, #{studentNo}, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>
