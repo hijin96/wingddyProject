@@ -534,12 +534,11 @@
     <c:remove var="alphabetDetailCno" scope="request" />
   </c:if>
   
+  
   <c:if test="${ not empty couponCno }">
-  	
     <form action="couponStore" method="post" id="moveToCp">
       <input type="hidden" name="cno" value="${requestScope.couponCno}">
     </form>
-    
     <script>
       	window.onload(moveToCp());
      	 function moveToCp (){
@@ -547,6 +546,21 @@
      	 }
     </script>
     <c:remove var="couponCno" scope="request" />
+  </c:if>
+  
+  
+   <c:if test="${ not empty useCpCno }">
+    <form action="selectSlist.cp" method="post" id="moveToScplist">
+      <input type="hidden" name="cno" value="${requestScope.useCpCno}" />
+      <input type="hidden" name="mno" value="${loginUser.memberNo}" />
+    </form>
+    <script>
+      	window.onload(moveToStudentCplist());
+     	 function moveToStudentCplist (){
+        	document.getElementById('moveToScplist').submit();
+     	 }
+    </script>
+    <c:remove var="useCpCno" scope="request" />
   </c:if>
   
 

@@ -52,10 +52,10 @@ public class CouponProductServiceImpl implements CouponProductService {
 		
 		
 		if(cpDao.insertMyCp(sqlSession, cpList) * cpDao.updateCp(sqlSession, cp) * cpDao.updateCoupon(sqlSession, cp) > 0) {
-			System.out.println("성공");
+			//System.out.println("성공");
 			return 1; 
 		} else {
-			System.out.println("실패");
+			//System.out.println("실패");
 			return 0;
 		}
 	}
