@@ -285,6 +285,9 @@
                       <form action="logoutKakao.me" method="POST">
                         <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoLogout"><i class="fas fa-sign-out-alt"></i> 로그아웃</button>
                       </form>
+                      <form action="dropKakaoMember.me" method="POST">
+                        <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoDrop"><i class="fas fa-sign-out-alt"></i> 회원탈퇴</button>
+                      </form>
                     </c:when>
                     <c:when test="${loginUser.loginType eq 'N'}">
                       <a href="logoutNaver.me" class="dropdown-item has-icon text-danger"></a>
@@ -423,7 +426,10 @@
                       </c:when>
                       <c:when test="${loginUser.loginType eq 'K'}">
                         <form action="logoutKakao.me" method="POST">
-                          <li><button type="submit" class="dropdown-item has-icon text-danger" style="margin:auto;">로그아웃</button></li> 
+                          <li><button type="submit" class="dropdown-item has-icon text-danger" style="margin:auto;"><i class="fas fa-sign-out-alt"></i> 로그아웃</button></li> 
+                        </form>
+                        <form action="dropKakaoMember.me" method="POST">
+                          <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoDrop"><i class="fas fa-sign-out-alt"></i> 회원탈퇴</button>
                         </form>
                       </c:when>
                     </c:choose>
@@ -497,7 +503,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary forgetPwdBtn">인증코드 받~기</button>
+                    <button type="button" class="btn btn-primary forgetPwdBtn">인증코드 받기</button>
                 </div>
         </div>
     </div>
