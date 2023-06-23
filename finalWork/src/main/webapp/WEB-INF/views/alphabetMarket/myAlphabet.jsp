@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+	
+	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>내 알파벳</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div id="app">
@@ -38,7 +42,7 @@
 								</tr>
 							</table>
 							<div align="right">
-								<button class="btn btn-primary" id="gachaBtn">알파벳 뽑기</button>
+								<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">알파벳 뽑기</button>
 							
 								<form action="makeWords.aph" method="post">
 									<input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
@@ -59,6 +63,28 @@
 		    </section>
 	    </div>
 </div>
+
+
+<!-- modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Modal title</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <p>Modal body text goes here.</p>
+		</div>
+		<div class="modal-footer bg-whitesmoke br">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-primary"  id="gachaBtn">Save changes</button>
+		</div>
+	  </div>
+	</div>
+  </div>
 
 <script>
 
@@ -151,7 +177,8 @@
 
 				})
 
-				alert(random_alphabet + '를 뽑았어요!!');
+				swal(random_alphabet, '를 뽑았어요!!');
+				
 				
 			}
 
@@ -165,6 +192,10 @@
 
 
 </script>
+
+
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </body>
 </html>

@@ -53,13 +53,11 @@
 					<label class="form-check-label" for="defaultCheck1">
 					  거래완료 안보기 
 					</label><br>
-					<!--<c:if test="${ not empty loginUser }">-->
 					<form action="enroll.aph" method="POST">
 						<input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
 						<input type="hidden" name="mno" value="${sessionScope.loginUser.memberNo}">
 						<button type="submit" class="btn btn-primary">게시글작성</button>
 					</form>	
-					<!--</c:if>-->
 				</div>
 				
 	             
