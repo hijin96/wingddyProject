@@ -21,6 +21,7 @@ public class Store {
 	private String changeName;
 	private int fileLevel;
 	private String filePath;
+	private ArrayList<Cart> cartList;
 	//private String upfile;
 
 }

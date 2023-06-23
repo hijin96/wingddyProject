@@ -10,6 +10,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -154,65 +155,72 @@ public class StoreController {
 	//구매하기페이지!
 	@GetMapping("storebuy.do")
 	public String storebuy(@RequestParam(value = "cartNo")String[] cartNo, Order order, HttpSession session,Model model,Cart cart) {
-		if(storeService.insertOrderNo(order)>0) {
+		//order정보를 생성후 orderNumber를 확인하고  그 이후에 구매하기 페이지로 넘어옴
+		Member m = ((Member) session.getAttribute("loginUser"));
+		order.setMemberNo(m.getMemberNo());
+		if(storeService.createOrderNo(order)>0) { 
+			
 			int orderNo = storeService.checkedOrderNo();
+			System.out.println("구매하기페이지 ORDER"+ order );
 			int sumPrice=0;
-			//cart.setMemberNo(m.getMemberNo());
 			ArrayList<Cart> cartList = storeService.buyCartSelect(cartNo);
 			for(int i=0; i<cartList.size(); i++) {
 				sumPrice += cartList.get(i).getTotPrice();
 			}
 			model.addAttribute("cartList",cartList);
-			model.addAttribute("orderNo",orderNo);
+		//	model.addAttribute("orderNo",orderNo);
 			model.addAttribute("sumPrice",sumPrice);
-		//	System.out.println("sumPirce: "+sumPrice);
 			return "store/storebuy";
-			//storeService.selectOrder()
 		}
 		return "store/cartDirect";
 	}
 	//구매완료페이지이동
-	//->구매가 성공적으로 이루어지면 페이지 이동
+	//->구매가 성공적으로 이루어지면 메인 페이지 이동
 	@RequestMapping("storeBuySuccess")
-	public String storeBuySuccess(@RequestParam("sumPrice")int sumPrice, Model model,String[] cartNo,Order order,Address address,HttpSession session) {
+	public String storeBuySuccess(@RequestParam("sumPrice")int sumPrice, @RequestParam(value = "cartNo")String[] cartNo,Model model,Order order,Address address,HttpSession session) {
 			//System.out.println("구매하기 페이지는 들어옴");
 			String address1 = address.getRoadAddrPart1();
 			String address2 = address.getRoadAddrPart2();
 			String address3 = address.getAddrDetail();
 			order.setOrderAddress(address1+address2+address3);
-			System.out.println("sumPirce"+sumPrice);
-		
+			 
 			Member m = ((Member) session.getAttribute("loginUser"));
 			order.setMemberNo(m.getMemberNo());
-			System.out.println("order정보" + order);
-			if(storeService.storeBuySuccess(order)>0) {
-				System.out.println("성공");
-				
-			}else {
-				System.out.println("실패");
-			}
+
+			/*
+			 * if(storeService.storeBuySuccess(order)>0) { System.out.println("성공");
+			 * 
+			 * }else { System.out.println("실패"); }
+			 */
+			//int success = storeService.orderAllSuccess(order);
 			
-			//System.out.println("controller : "+ success);
-			//구매완료update
-				//-> 성공요청이들어오면 장바구니 update, s_pay insert
-				//ArrayList<Cart> cartList = storeService.orderSuccessUpdateCart(cartNo,order);
+			//구매완료 버튼을 누르면 모든 정보가 insert됨!
+			//  if(storeService.orderAllSuccess(order)>0) {
+				
+				//  ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+			//	  HashMap<String, Object> map =new HashMap();
+				//  map.put("cartNo", cartNo); 
+			//	  map.put("orderNo",order.getOrderNo());
+				  
+				  //리스트로 가져가서 업데이트!
+			//	  int jaja =  storeService.orderSuccessUpdateCart(list); 
+				  
+				  //map으로 가져가서 업데이트 해보기
+				  ArrayList<HashMap<String, Object>> listAll = new ArrayList<HashMap<String,Object>>();
+				  HashMap<String, Object> maps = new HashMap<>();
+				  maps.put("cartNo", new ArrayList<>(Arrays.asList(cartNo)));
+				  maps.put("orderNo", order.getOrderNo());
+				  listAll.add(maps);
+				  System.out.println("컨트롤러orderCartUpdate" + cartNo);
+				  int success = storeService.orderCartUpdate(listAll);
+				  System.out.println("컨트롤러  orderCartUpdate: " + success);
+				
+		//	  }else { System.out.println("실패"); }
+			
 			return "store/storemain";
 	}
 	
-	//카카오페이 결제-  요청하기
-		@PostMapping("/payment/ready")
-		public KakaopayReadyResponse readyToKakaoPay() {
-			return storeService.kakaoPayReady();
-			
-		}
-		//카카오페이 결제-  성공
-		@GetMapping("/payment/success")
-		public ResponseEntity afterPay(@RequestParam("pg_token") String pgToken) {
-			KakaoApproveResponse kakaoApprove = storeService.ApproveResponse(pgToken);
-			return new ResponseEntity<>(kakaoApprove, HttpStatus.OK);
-		}
-		
-	
+
 	//주소 팝업창
 	@RequestMapping("address.do")
 	public String address() {
