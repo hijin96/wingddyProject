@@ -55,11 +55,12 @@
                       <input id="last_name" type="text" class="form-control" name="memberName" value="${loginUser.memberName}">
                     </div>
                   </div>
-
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email" value="${loginUser.email}" readonly>
-                  </div>
+                  <c:if test="${loginUser.loginType eq 'W'}">
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input id="email" type="email" class="form-control" name="email" value="${loginUser.email}" readonly>
+                    </div>
+                  </c:if>
                  
                   <div class="row">
                     
@@ -88,7 +89,7 @@
                       </div>
                     </div>
                   </div>
-
+                  <c:if test="${loginUser.loginType eq 'W'}">
                   <div class="row" id="profile">
                     <div class="col-6">
                       <div class="card">
@@ -114,13 +115,13 @@
                       </div>
                     </div>
                   </div>
-
+                  </c:if>
 
 
 
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block">
-                      Join Wingddy
+                      Update Wingddy!
                     </button>
                   </div>
                 </form>
@@ -135,7 +136,7 @@
     </section>
   </div>
   <script>
-   
+    
     
 
   </script>

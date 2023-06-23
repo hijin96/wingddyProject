@@ -47,6 +47,7 @@ public class KakaoController {
 			System.out.println("로그인 성공된 멤버 : " + loginUser);
 			session.setAttribute("accessToken", accessToken);
 			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("profile", (String)userInfo.get("profileUrl"));
 			mv.setViewName("redirect:/");
 		} else {
 			mv.addObject("alertMsg", "회원정보가 없는 계정입니다 회원가입하시겠습니까?");

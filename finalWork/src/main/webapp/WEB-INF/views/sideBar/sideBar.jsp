@@ -259,8 +259,11 @@
             <c:when test="${not empty loginUser}">
               <li class="dropdown"><a href="" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <c:choose>
-                  <c:when test="${not empty profile}">
+                  <c:when test="${not empty profile and loginUser.loginType eq 'W'}">
                     <img alt="image" src="${contextPath}/${profile.filePath}" class="rounded-circle mr-1">
+                  </c:when>
+                  <c:when test="${not empty profile and loginUser.loginType eq 'K'}">
+                    <img alt="image" src="${profile}" class="rounded-circle mr-1">
                   </c:when>
                   <c:otherwise>
                     <img alt="image" src="resources/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
@@ -274,18 +277,19 @@
                   <div class="dropdown-divider"></div>
                   <c:choose>
                     <c:when test="${loginUser.loginType eq 'W'}">
-                      <a href="logout.me" class="dropdown-item has-icon text-danger"></a>
+                      <a href="logout.me" class="dropdown-item has-icon text-danger">
+                        <i class="fas fa-sign-out-alt"></i> 로그아웃
+                      </a>
                     </c:when>
                     <c:when test="${loginUser.loginType eq 'K'}">
                       <form action="logoutKakao.me" method="POST">
-                        <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoLogout"></button>
+                        <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoLogout"><i class="fas fa-sign-out-alt"></i> 로그아웃</button>
                       </form>
                     </c:when>
                     <c:when test="${loginUser.loginType eq 'N'}">
                       <a href="logoutNaver.me" class="dropdown-item has-icon text-danger"></a>
                     </c:when>
                   </c:choose>
-                  <i class="fas fa-sign-out-alt"></i> 로그아웃
                   </div>
               </li>
             </c:when>
@@ -413,7 +417,16 @@
                 <li class="dropdown">
                   <a href="" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>${loginUser.memberName}</span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="logout.me">로그아웃</a></li> 
+                    <c:choose>
+                      <c:when test="${loginUser.loginType eq 'W'}">
+                        <li><a href="logout.me">로그아웃</a></li> 
+                      </c:when>
+                      <c:when test="${loginUser.loginType eq 'K'}">
+                        <form action="logoutKakao.me" method="POST">
+                          <li><button type="submit" class="dropdown-item has-icon text-danger" style="margin:auto;">로그아웃</button></li> 
+                        </form>
+                      </c:when>
+                    </c:choose>
                   </ul>
                 </li>
               </c:when>
