@@ -551,7 +551,7 @@
   
    <c:if test="${ not empty useCpCno }">
     <form action="selectSlist.cp" method="post" id="moveToScplist">
-      <input type="hidden" name="cno" value="${requestScope.couponCno}" />
+      <input type="hidden" name="cno" value="${requestScope.useCpCno}" />
       <input type="hidden" name="mno" value="${loginUser.memberNo}" />
     </form>
     <script>
