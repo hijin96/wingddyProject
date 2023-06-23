@@ -117,6 +117,7 @@
 		   	   								    	 coupon_product_shop
 	   	   								       where
 	   	   								       	     product_no = #{cpNo}) * #{amount}
+	     where member_no = #{memberNo}	   								       	     
 	</update>
 	
 	<select id="selectClassCplist" parameterType="_int" resultType="couponProduct">
@@ -192,20 +193,65 @@
 	</select>
 	
 	<select id="selectStudentCplist" parameterType="couponProduct" resultType="couponProduct">
-		select A.member_no memberNo
-		      ,C.member_name memberName
-		      ,A.product_no cpNo
-		      ,count(A.product_no) as "amount"
-		      ,product_name productName
-		  from coupon_product A, vw_cp B, member C
-		 where A.product_no = B.product_no
-		   and A.member_no = C.member_no
-		   and class_no = #{classNo}
-		group by A.member_no, C.member_name, A.product_no, product_name
+		select *
+		  from class_member
+		      ,(select A.member_no memberNo
+		              ,C.member_name memberName
+		              ,A.product_no cpNo
+		              ,count(A.product_no) as "amount"
+		              ,product_name productName
+		          from coupon_product A, vw_cp B, member C
+		         where A.product_no = B.product_no
+		           and A.member_no = C.member_no
+		         group by A.member_no, C.member_name, A.product_no, product_name)
+		 where memberNo = student_no
+		   and class_No = #{classNo}
+		   and enter_status = 'Y'
 	</select> 
 	
 	<delete id="useCoupon" parameterType="couponProduct">
-		
+		delete from coupon_product
+		 where member_no = #{memberNo}
+		   and product_no = #{cpNo}
+		   and rownum = 1
 	</delete>
+	
+	<select id="searchStudentCp-name" parameterType="hashMap" resultType="couponProduct">
+		select *
+		  from (select *
+		          from class_member
+		              ,(select A.member_no memberNo
+		                      ,C.member_name memberName
+		                      ,A.product_no cpNo
+		                      ,count(A.product_no) as "amount"
+		                      ,product_name productName
+		                  from coupon_product A, vw_cp B, member C
+		                 where A.product_no = B.product_no
+		                   and A.member_no = C.member_no
+		                 group by A.member_no, C.member_name, A.product_no, product_name)
+		         where memberNo = student_no
+		           and class_No = #{cno}
+		           and enter_status = 'Y')
+		 where memberName like '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="searchStudentCp-cpName" parameterType="hashMap" resultType="couponProduct">
+		select *
+		  from (select *
+		          from class_member
+		              ,(select A.member_no memberNo
+		                      ,C.member_name memberName
+		                      ,A.product_no cpNo
+		                      ,count(A.product_no) as "amount"
+		                      ,product_name productName
+		                  from coupon_product A, vw_cp B, member C
+		                 where A.product_no = B.product_no
+		                   and A.member_no = C.member_no
+		                 group by A.member_no, C.member_name, A.product_no, product_name)
+		         where memberNo = student_no
+		           and class_No = #{cno}
+		           and enter_status = 'Y')
+		 where productName like '%' || #{keyword} || '%'
+	</select>
 	
 </mapper>

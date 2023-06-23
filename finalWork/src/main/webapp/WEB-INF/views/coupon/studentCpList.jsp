@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Student Coupon</title>
 </head>
 <body>
 <div id="app">
@@ -16,11 +16,23 @@
 			<div id="header">
 				<h3>학생 보유 쿠폰</h3>
 			</div>
+			<br><br>
 			
 			<section class="section">
 				<section class="section-body">
 					<div class="card">
 						<div class="card-body">
+				        	<div class="search-element">
+								<form class="form-inline mr-auto">
+									<select class="selectric" name="searchOption">
+										<option value="studentName">학생 이름</option>
+										<option value="cpName">쿠폰명</option>
+									</select> &nbsp;&nbsp;&nbsp;
+									<input id="search-input" class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
+						            <button id="btn-search" class="btn" type="button"><i class="fas fa-search"></i></button>
+						        </form>
+				        	</div>
+					        <br><br>
 		  					<table class="table text-center table-striped table-md">
 				        		<thead>
 						          	<tr>
@@ -32,10 +44,11 @@
 				        		</thead>
 				        		<tbody>
 						        	<c:forEach items="${sclist}" var="cp" varStatus="status">
-						        		<form action="use.Cp" method="post">
+						        		<form action="use.cp" method="post">
 							        		<tr>
 							        			<input type="hidden" name="cpNo" value="${cp.cpNo}"/>
-							        			<input type="hidden" name="memberNo" value="${loginUser.memberNo}" />
+							        			<input type="hidden" name="memberNo" value="${cp.memberNo}" />
+							        			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
 							        			<td>${cp.memberName}</td>
 							        			<td>${cp.productName}</td>
 							        			<td>${cp.amount}</td>
@@ -55,7 +68,24 @@
 </div>
 
 <script>
-	
+	$('#btn-search').on('click', function(){
+		let searchOption = $('select[class=selectric]').val();
+		let keyword = $('#search-input').val();
+		let cno = ${requestScope.classroom.classNo};
+		
+		$.ajax({
+			url : 'searchStudent.cp',
+			type : 'post',
+			data : {
+				searchOption : searchOption,
+				keyword : keyword,
+				cno : cno
+			},
+			success : function(result){
+				console.log(result);
+			}
+		})
+	})
 
 </script>
 

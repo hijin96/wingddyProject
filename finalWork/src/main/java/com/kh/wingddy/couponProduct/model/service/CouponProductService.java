@@ -1,9 +1,8 @@
 package com.kh.wingddy.couponProduct.model.service;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
-import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.couponProduct.model.vo.CouponProduct;
 
@@ -24,4 +23,6 @@ public interface CouponProductService {
 	ArrayList<CouponProduct> selectClassCplist(int cno);
 	
 	ArrayList<CouponProduct> selectStudentCplist(CouponProduct cp);
+	
+	ArrayList<CouponProduct> searchStudentCp(HashMap map);
 }

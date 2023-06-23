@@ -102,10 +102,7 @@
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
             <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
           </ul>
-          <div class="search-element">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
-            <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-          </div>
+          
         </form>
         <ul class="navbar-nav navbar-right">
           <c:if test="${not empty loginUser}">
@@ -549,12 +546,11 @@
     <c:remove var="alphabetDetailCno" scope="request" />
   </c:if>
   
+  
   <c:if test="${ not empty couponCno }">
-  	
     <form action="couponStore" method="post" id="moveToCp">
       <input type="hidden" name="cno" value="${requestScope.couponCno}">
     </form>
-    
     <script>
       	window.onload(moveToCp());
      	 function moveToCp (){
@@ -562,6 +558,21 @@
      	 }
     </script>
     <c:remove var="couponCno" scope="request" />
+  </c:if>
+  
+  
+   <c:if test="${ not empty useCpCno }">
+    <form action="selectSlist.cp" method="post" id="moveToScplist">
+      <input type="hidden" name="cno" value="${requestScope.useCpCno}" />
+      <input type="hidden" name="mno" value="${loginUser.memberNo}" />
+    </form>
+    <script>
+      	window.onload(moveToStudentCplist());
+     	 function moveToStudentCplist (){
+        	document.getElementById('moveToScplist').submit();
+     	 }
+    </script>
+    <c:remove var="useCpCno" scope="request" />
   </c:if>
   
 
