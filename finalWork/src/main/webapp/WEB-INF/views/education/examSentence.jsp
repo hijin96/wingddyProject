@@ -18,6 +18,13 @@
 	    font-size: 20px;
     	text-align: center;
 	}
+	.inject-sentence:hover{
+		cursor: pointer;
+		background-color: rgb(228, 228, 228);
+	}
+	.form-row input{
+		cursor: pointer;
+	}
 </style>
 <body>
 	<jsp:include page="../sideBar/sideBar.jsp"/>
@@ -33,7 +40,7 @@
                     <div class="col-12">
                         <h2 class="section-title">${edu.eduName}</h2>
                     </div>
-                    <div class="col-12 col-md-9 col-lg-9">
+                    <div class="col-12 col-md-6 col-lg-6">
                         <div class="card quiz-contain">
                             <div class="card-header">
                                 <h5><span id="quiz-index"></span>번문제</h5>
@@ -51,17 +58,22 @@
                                 	<div class="card-body" id="quiz-content"></div>
                                 </div>
 		                        <div class="col-12 card">
-		                            <div class="card-body" align="center">
-										<div class="row sortable-card">
-												<div class="col-12 col-md-6 col-lg-3">
-													<div class="card">
-														<div class="card-body">
-															
-														</div>
-													</div>
-												</div>
+		                            <div class="card-body">
+										<div class="form-row inputLi">
+											<div class="form-group col-md-4">
+												<input type="text" class="form-control" id="input1" readonly>
+											</div>
+											<div class="form-group col-md-4">
+												<input type="text" class="form-control" id="input2" readonly>
+											</div>
+											<div class="form-group col-md-4">
+												<input type="text" class="form-control" id="input3" readonly>
+											</div>
 										</div>
 		                            </div>
+		                        </div>
+		                        <div class="row" id="sentence-box">
+									
 		                        </div>
                             </div>
                             <div class="card-footer">
@@ -81,23 +93,6 @@
             </div>
         </section>
 	</div>
-	<!-- General JS Scripts -->
-	<script src="resources/assets/modules/jquery.min.js"></script>
-	<script src="resources/assets/modules/popper.js"></script>
-	<script src="resources/assets/modules/tooltip.js"></script>
-	<script src="resources/assets/modules/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
-	<script src="resources/assets/modules/moment.min.js"></script>
-	<script src="resources/assets/js/stisla.js"></script>
-	
-	<!-- JS Libraies -->
-	<script src="resources/assets/modules/jquery-ui/jquery-ui.min.js"></script>
-	<script src="resources/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
-	
-	<!-- Template JS File -->
-	<script src="resources/assets/js/scripts.js"></script>
-	<script src="resources/assets/js/custom.js"></script>
-
 	<script>
 		window.onload = () =>{
 			getQuiz();
@@ -107,8 +102,6 @@
 		let answerArr = []; // 입력 배열
 		let answerObj;		// 입력 객체
 		let contentArr;
-
-		let httpRequest;	
 
 		// 퀴즈 리스트 불러오기(ajax)
 		const getQuiz = () => {
@@ -133,67 +126,95 @@
 					let value = '';
 					
 					for(let i = 0; i < contentArr[0].length; i++){
-						value  += '<div class="col-12 col-md-6 col-lg-3">'
-								+ 	'<div class="card">'
-								+ 		'<div class="card-head">'
+						value  += '<div class="col-3">'
+								+ 	'<div class="card inject-sentence">'
+								+ 		'<div class="card-body" align="center">'
 								+			contentArr[0][i]
 								+		'</div>'
 								+	'</div>'
 								+ '</div>';
 					}
-					$('.sortable-card').html(value);
+					$('#sentence-box').html(value);
 				}
 			});
-			httpRequest = new XMLHttpRequest();
-
-			
-			
-			httpRequest.onreadystatechange = () =>{
-				if(httpRequest.readyState === XMLHttpRequest.DONE){
-					if(httpRequest.status === 200){
-
-						let result = httpRequest.response;
-						
-						
-						
-					}
-				}
-			}
-			httpRequest.open('POST', 'examQuiz.qz?eduNo=' + eduNo + '&edyType=' + eduType);
-			httpRequest.responseType = 'json';
-			httpRequest.send();
 		}
 
+		// 정답 대입
+		$('#sentence-box').on('click','.inject-sentence', e => {
+			let target = $(e.target).text();
+			let inputli = []
+			$('.inputLi input').each((i , el) => {
+				if($(el).val() == ''){
+					inputli.push($(el));
+				}
+			});
+			let checkNum = 1;
+			let input = $('.inputLi input');
+			for(let i = 1; i <= input.length; i++){
+				let inputval = $('#input'+ i)
+				if(inputval.val() == target){
+					checkNum *= 0;
+				}
+			}
+			if(checkNum != 0){
+				$(inputli[0]).val(target);
+			}
+			checkInput();
+		});
+
+		// 대입 값 삭제
+		$('.inputLi input').click(e => {
+			$(e.target).val('');
+			checkInput();
+		})
+
 		// 입력값 확인
-		$('input[name=word-quiz-answer]').keyup(() => {
-			let quizIndex = $('#quiz-index').text();
-			let length = quizArr.length;
-			if(quizIndex < length){
-				if($('input[name=word-quiz-answer]').val().trim(' ') != ''){
+		checkInput = () => {
+			let input = $('.inputLi input');
+			for(let i = 1; i <= input.length; i++){
+				let inputval = $('#input'+ i)
+				let checkNum = 1;
+				if(inputval.val() == ''){
+					checkNum *= 0;
+				}
+				if(checkNum != 0){
 					$('#next-btn').removeAttr('disabled');
-				}else{
+				} 
+				else{
 					$('#next-btn').attr('disabled', true);
 				}
 			}
-		});
+		}
 
 		// 입력답 저장
 		const injectAnswer = () => {
-			let target = $('input[name=word-quiz-answer]') ;
+			let target = $('.inputLi input');
 			let quizIndex = $('#quiz-index').text();
-			let targetText = target.val().trim(' ');
+			let targetText = '';
+			
+			for(let i = 0; i<target.length; i++){
+				targetText += $(target[i]).val().trim(' ') + ' ';
+			}
+			console.log(targetText);
 
 			checkIndex(quizIndex);
 			
-			answerObj = {'quizNo':$('#quiz-no').val(),'correctContent' : quizArr[quizIndex - 1].correctContent,'incorrectContent' : targetText};
-			target.val('');
+			answerObj = {'quizNo':$('#quiz-no').val(),'correctContent' : quizArr[quizIndex - 1].correctContent,'incorrectContent' : targetText.trim(' ')};
+			target.each((i , e) => {
+				$(e).val('');
+			})
 		};
 
 		// 이전버튼
 		$('#prev-btn').click(() => {
 			let index = answerArr.length - 1;
 			let prevAnswer = answerArr[index];
-			$('input[name=word-quiz-answer]').val(prevAnswer.incorrectContent);
+			let text = prevAnswer.incorrectContent.split(' ');
+			let input = $('.inputLi input');
+			for(let i = 1; i <= input.length; i++){
+				let inputval = $('#input'+ i)
+				inputval.val(text[i-1]);
+			}
 			changeQuiz(-1);
 			$('#next-btn').removeAttr('disabled');
 			answerArr.pop();
@@ -206,6 +227,7 @@
 			answerArr.push(answerObj);
 			console.log(answerArr);
 			changeQuiz(1);
+			$('#send-btn').attr('disabled', true);
 			checkLength();
 		});
 		
@@ -226,6 +248,18 @@
 			
 			let i = quizIndex.text() - 1 + num;
 			
+			let value = '';
+					
+			for(let j = 0; j < contentArr[i].length; j++){
+				value  += '<div class="col-3">'
+						+ 	'<div class="card inject-sentence">'
+						+ 		'<div class="card-body" align="center">'
+						+			contentArr[i][j]
+						+		'</div>'
+						+	'</div>'
+						+ '</div>';
+			}
+			$('#sentence-box').html(value);
 			
 			quizNo.val(quizArr[i].quizNo);
 			quizContent.text(quizArr[i].quizContent);
