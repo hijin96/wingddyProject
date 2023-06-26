@@ -282,8 +282,11 @@
                       </a>
                     </c:when>
                     <c:when test="${loginUser.loginType eq 'K'}">
-                      <form action="logoutKakao.me" method="POST">
-                        <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoLogout"><i class="fas fa-sign-out-alt"></i> 로그아웃</button>
+                      <form action="logoutKakaoAdminKey.me" method="POST">
+                        <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoLogout"><i class="fas fa-sign-out-alt"></i>어드민키 로그아웃</button>
+                      </form>
+                      <form action="logoutKakaoRestKey.me" method="GET">
+                        <button type="submit" class="dropdown-item has-icon text-danger" ><i class="fas fa-sign-out-alt"></i>레스트키 로그아웃</button>
                       </form>
                       <form action="dropKakaoMember.me" method="POST">
                         <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoDrop"><i class="fas fa-sign-out-alt"></i> 회원탈퇴</button>
@@ -430,8 +433,11 @@
                         <li><a href="logout.me">로그아웃</a></li> 
                       </c:when>
                       <c:when test="${loginUser.loginType eq 'K'}">
-                        <form action="logoutKakao.me" method="POST">
-                          <li><button type="submit" class="dropdown-item has-icon text-danger" style="margin:auto;"><i class="fas fa-sign-out-alt"></i> 로그아웃</button></li> 
+                        <form action="logoutKakaoAdminKey.me" method="POST">
+                          <li><button type="submit" class="dropdown-item has-icon text-danger" style="margin:auto;"><i class="fas fa-sign-out-alt"></i>어드민키 로그아웃</button></li> 
+                        </form>
+                        <form action="logoutKakaoRestKey.me" method="GET">
+                          <li><button type="submit" class="dropdown-item has-icon text-danger" style="margin:auto;"><i class="fas fa-sign-out-alt"></i>레스트키 로그아웃</button></li> 
                         </form>
                         <form action="dropKakaoMember.me" method="POST">
                           <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoDrop"><i class="fas fa-sign-out-alt"></i> 회원탈퇴</button>
