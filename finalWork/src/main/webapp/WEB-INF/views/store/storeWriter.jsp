@@ -84,8 +84,25 @@
 		ClassicEditor.create(document.querySelector('#editor'), {
 			ckfinder : {
 				uploadUrl : 'resources/uploadFiles'
-			}
+				
+			},
+		
+		
 		});
+		</script>
+		<script>
+		var eiditor= $('#editor1').text();
+	
+ 		if(eiditor.getData()=='' 
+	        || CKEDITOR.instances.editor.getData().length ==0){
+	    alert("내용을 입력해주세요.");
+	    $("#editor1").focus();
+	//    return false;
+	}
+ 
+ //	console.log('ei');
+ 	
+ 
 	
 	</script>
 

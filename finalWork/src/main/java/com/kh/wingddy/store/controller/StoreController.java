@@ -148,7 +148,6 @@ public class StoreController {
 	@RequestMapping(value="buyCountUpdate", produces = "application/json;charset=UTF-8")
 	public String updateBuyCount(String cartNo,int buyCount,HttpSession session,Model model) {
 		int memberNo = ((Member) session.getAttribute("loginUser")).getMemberNo();
-		int buyCounst =0;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo",memberNo);
 		map.put("buyCount", buyCount);
@@ -203,7 +202,7 @@ public class StoreController {
 		Member m = ((Member) session.getAttribute("loginUser"));
 		order.setMemberNo(m.getMemberNo());
 			
-			System.out.println("구매하기페이지 ORDER"+ order );
+			//System.out.println("구매하기페이지 ORDER"+ order );
 			int sumPrice=0;
 			ArrayList<Cart> cartList = storeService.buyCartSelect(cartNo);
 			for(int i=0; i<cartList.size(); i++) {
@@ -240,8 +239,8 @@ public class StoreController {
 
 	//주소 팝업창
 	@RequestMapping("address.do")
-	public String address() {
-		
+	public String address(HttpSession session) {
+		Member m = ((Member) session.getAttribute("loginUser"));
 		return "store/popupAddress";
 	}
 	

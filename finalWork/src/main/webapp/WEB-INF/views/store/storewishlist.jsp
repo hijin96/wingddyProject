@@ -72,7 +72,7 @@
 													</td>
 													<td id="wishNo${status.index}"> ${wish.spNo }</td>				
 													<td class="thumbnail-img")>
-														<a href="http://localhost:8007/wingddy/storedetail?spNo=${wish.spNo }" >
+														<a  href="storedetail?spNo=${wish.spNo }" >
 														<img class="img-fluid" src="./${wish.filePath}/${wish.changeName}"  alt=""/>
 														</a> 
 													</td>

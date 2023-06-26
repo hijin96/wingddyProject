@@ -141,7 +141,7 @@
 													  title: '장바구니',
 													  body: '<p>장바구니담기성공.</p>',
 													  created: function(modal) {
-													  modal.find('.modal-footer').prepend('<div class="mr-auto"><a href="#">장바구니페이지로 이동</a></div>');
+													  modal.find('.modal-footer').prepend('<div class="mr-auto"><a href="cartDirect">장바구니페이지로 이동</a></div>');
 													  },
 													 type: 'POST', buttons: [
 														    {

@@ -32,8 +32,7 @@
 				<script>
 					var checkLogin =${empty loginUser || (loginUser.memberType eq ('S'))}
 					 	if(checkLogin){
-					 		alert("선생님만 이용할 수 있는 페이지 입니다. 로그인 후 이용해주세요");
-					 		window.location.href='http://localhost:8007/wingddy/';
+					 		alert("선생님만 이용할 수 있는 페이지 입니다. 로그인 후 이용해주세요");window.history.back();
 					 	}
 				</script>
 </head>
