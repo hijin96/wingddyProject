@@ -53,6 +53,7 @@ import com.kh.wingddy.store.model.vo.KakaoApproveResponse;
 import com.kh.wingddy.store.model.vo.KakaopayReadyResponse;
 import com.kh.wingddy.store.model.vo.Order;
 import com.kh.wingddy.store.model.vo.Store;
+import com.kh.wingddy.store.model.vo.Wish;
 import com.sun.media.jfxmedia.events.NewFrameEvent;
 
 import jdk.nashorn.internal.ir.annotations.Reference;
@@ -132,35 +133,76 @@ public class StoreController {
 		cart.setMemberNo(m.getMemberNo());
 		return new Gson().toJson(storeService.insertStoreCart(cart));
 	}
-	//장바구니페이지에서 가격ajax
-	@ResponseBody
-	@RequestMapping(value="shoppingcartprice", produces= "application/json;charset=UTF-8")
-	public String ajaxShoppingcartprice(Cart cart,HttpSession session) {
-		Member m = ((Member) session.getAttribute("loginUser"));
-		cart.setMemberNo(m.getMemberNo());
-		
-		return new Gson().toJson(storeService.selectStoreCart(m.getMemberNo()));
-	}
+
 	// 장바구니 삭제ajax
 	@ResponseBody
 	@RequestMapping(value = "deletestorecart.do", produces = "application/json;charset=UTF-8")
-	public String ajaxDeleteStoreCart(Store s,Cart cart, HttpSession session) {
+	public String ajaxDeleteStoreCart(Cart cart, HttpSession session) {
 		
 		Member m = ((Member) session.getAttribute("loginUser"));
 		cart.setMemberNo(m.getMemberNo());
 		return new Gson().toJson(storeService. deleteCart(cart));
 	}
+	//장바구니 개수수정
+	@ResponseBody
+	@RequestMapping(value="buyCountUpdate", produces = "application/json;charset=UTF-8")
+	public String updateBuyCount(String cartNo,int buyCount,HttpSession session,Model model) {
+		int memberNo = ((Member) session.getAttribute("loginUser")).getMemberNo();
+		int buyCounst =0;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo",memberNo);
+		map.put("buyCount", buyCount);
+		map.put("cartNo",cartNo);
+		if(storeService.updateBuyCount(map)>0) {
+			return "1";
+		}else {
+			return "0";
+		}
+	}
 	
+	
+	//체크박스로 장바구니 삭제 ajax
+	@ResponseBody
+	@RequestMapping(value="CheckBoxCartDelete", produces = "application/json;charset=UTF-8")
+	public String ajaxCheckBoxCartDelete(@RequestParam(name = "cartNo",required = false)String[] cartNo,HttpSession session,Model model) {
 		
+		int memberNo = ((Member) session.getAttribute("loginUser")).getMemberNo();
+		HashMap<String, Object> map = new HashMap();
+		map.put("memberNo", memberNo);
+		map.put("cartNo",cartNo);
+		
+		if(storeService.CheckBoxCartDelete(map)>0) {
+			return "1";
+		} else {
+			return "0";
+		}
+		//return new Gson().toJson(storeService.CheckBoxCartDelete(map));
+	}
+	//위시리스트 삭제
+	@ResponseBody
+	@RequestMapping(value="wishCheckDelete", produces = "application/json;charset=UTF-8")
+	public String ajaxWishListDelete(@RequestParam(name="spNo",required = false) int[] spNo,HttpSession session,Model model) {
+		System.out.println("여기는 오나");
+		int memberNo = ((Member) session.getAttribute("loginUser")).getMemberNo();
+		HashMap<String, Object> map = new HashMap();
+		map.put("memberNo", memberNo);
+		map.put("spNo", spNo);
+		System.out.println("MAP" + map);
+		if(storeService.WishListDelete(map)>0) {
+			return "1";
+		}else {
+			return "0";
+		}
+	}
+	
+	
 	//구매하기페이지!
 	@GetMapping("storebuy.do")
 	public String storebuy(@RequestParam(value = "cartNo")String[] cartNo, Order order, HttpSession session,Model model,Cart cart) {
 		//order정보를 생성후 orderNumber를 확인하고  그 이후에 구매하기 페이지로 넘어옴
 		Member m = ((Member) session.getAttribute("loginUser"));
 		order.setMemberNo(m.getMemberNo());
-		if(storeService.createOrderNo(order)>0) { 
 			
-			int orderNo = storeService.checkedOrderNo();
 			System.out.println("구매하기페이지 ORDER"+ order );
 			int sumPrice=0;
 			ArrayList<Cart> cartList = storeService.buyCartSelect(cartNo);
@@ -168,11 +210,8 @@ public class StoreController {
 				sumPrice += cartList.get(i).getTotPrice();
 			}
 			model.addAttribute("cartList",cartList);
-		//	model.addAttribute("orderNo",orderNo);
 			model.addAttribute("sumPrice",sumPrice);
 			return "store/storebuy";
-		}
-		return "store/cartDirect";
 	}
 	//구매완료페이지이동
 	//->구매가 성공적으로 이루어지면 메인 페이지 이동
@@ -183,41 +222,19 @@ public class StoreController {
 			String address2 = address.getRoadAddrPart2();
 			String address3 = address.getAddrDetail();
 			order.setOrderAddress(address1+address2+address3);
-			 
 			Member m = ((Member) session.getAttribute("loginUser"));
 			order.setMemberNo(m.getMemberNo());
-
-			/*
-			 * if(storeService.storeBuySuccess(order)>0) { System.out.println("성공");
-			 * 
-			 * }else { System.out.println("실패"); }
-			 */
-			//int success = storeService.orderAllSuccess(order);
+			  int orderNo = storeService.createOrderNo();
+			  order.setOrderNo(orderNo);
 			
-			//구매완료 버튼을 누르면 모든 정보가 insert됨!
-			//  if(storeService.orderAllSuccess(order)>0) {
-				
-				//  ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-			//	  HashMap<String, Object> map =new HashMap();
-				//  map.put("cartNo", cartNo); 
-			//	  map.put("orderNo",order.getOrderNo());
-				  
+			  if(storeService.orderAllSuccess(order)>0) {
+				  HashMap<String, Object> map =new HashMap();
+				  map.put("cartNo", cartNo); 
+				  map.put("orderNo",orderNo);
 				  //리스트로 가져가서 업데이트!
-			//	  int jaja =  storeService.orderSuccessUpdateCart(list); 
-				  
-				  //map으로 가져가서 업데이트 해보기
-				  ArrayList<HashMap<String, Object>> listAll = new ArrayList<HashMap<String,Object>>();
-				  HashMap<String, Object> maps = new HashMap<>();
-				  maps.put("cartNo", new ArrayList<>(Arrays.asList(cartNo)));
-				  maps.put("orderNo", order.getOrderNo());
-				  listAll.add(maps);
-				  System.out.println("컨트롤러orderCartUpdate" + cartNo);
-				  int success = storeService.orderCartUpdate(listAll);
-				  System.out.println("컨트롤러  orderCartUpdate: " + success);
-				
-		//	  }else { System.out.println("실패"); }
-			
-			return "store/storemain";
+				  int jaja =  storeService.orderSuccessUpdateCart(map); 			  }
+		
+			return "redirect:/storemain";
 	}
 	
 
@@ -231,12 +248,31 @@ public class StoreController {
 
 	
 
-	// 위시리스트
+	// 위시리스트페이지 이동
 	@RequestMapping("storewish")
-	public String storewish() {
+	public String storewish(HttpSession session,Model model) {
+		int memberNo = ((Member) session.getAttribute("loginUser")).getMemberNo();
+		ArrayList<Wish> wishList = storeService.wishList(memberNo);
+		System.out.println("wish정보확인: " + wishList);
+		model.addAttribute("wish", storeService.wishList(memberNo));
+		
 		return "store/storewishlist";
 	}
-
+	//ajax위시리스트 값체크 후 insert
+	@ResponseBody
+	@RequestMapping("storeWishListInsert")
+	public String AjaxstoreWishListInsert(@RequestParam(name="spNo")int spNo,Model m,HttpSession session) {
+		int memberNo = ((Member) session.getAttribute("loginUser")).getMemberNo();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo",memberNo);
+		map.put("spNo",spNo);
+		//담겨있는지 체크
+		if(storeService.checkWishList(map)>0) {
+			return "1";
+		}
+		return "0";
+	}
+	
 	// 주문정보
 	@RequestMapping("shoppinglist")
 	public String storeShoppingList() {
@@ -326,11 +362,13 @@ public class StoreController {
 		
 		//System.out.println(savePath);
 		
-		// CK에디터 등록하기 위해서 JSON으로 리턴하는것에 어려움을 느꼈음.
+	
 		// 경로 지정하는것 어려워했음 ㅠ
 		// JSON이 버전에 따라 사용법이 다름
 		return new Gson().toJson(map);
 
 	}
+	
+	
 	
 }

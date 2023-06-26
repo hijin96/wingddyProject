@@ -40,8 +40,7 @@
 															<h3>결제하기</h3>
 														</div>
 												<form class="needs-validation" action="storeBuySuccess" method="post" >
-													<input type="hidden" name="orderNo" value="${orderNo}"/> 
-												
+													
 													<div class="row">
 														<div class="col-md-6 mb-3">
 															<label for="sendName">보내는이 *</label>
@@ -77,8 +76,8 @@
 												</div>				
 													
 													<div class="row">
-														<div id="kakaoPay"> 
-															<img src="resources/images/payment-icon/payment_icon.png" href="#" onclick="javascript:kakaoPay('https://kapi.kakao.com/v1/payment/ready');"> </a>
+														<div class="col-md-6 mb-3">
+															<img id="kakaoPay"  src="resources/images/payment-icon/payment_icon.png" href="#"> 
 														 </div>
 													</div>
 													<div class="row">
@@ -87,62 +86,67 @@
 														</div>
 													</div>
 													<hr class="mb-1">  
-										</div>
-										
-									<div class="col-sm-6 col-lg-6 mb-3">
-										<div class="row col-md-12 col-lg-12">
-											
-													<div class="col-md-12 col-lg-12">
-														<div class="odr-box">
-															<div class="title-left">
-																<h3>구매예정 목록</h3>
-															</div>
-															<c:forEach var="cart" items="${cartList }" varStatus="status">
-															<input type="hidden" name ="cartNo" value=${cart.cartNo }>
-															<div class="rounded p-2 bg-light">
-																<div class="media mb-2 border-bottom">
-																	<div class="media-body"> 
-																		<a href="detail.html"> ${cart.spName }</a>
-																		<div class="small text-muted">${cart.spPrice }원 <span class="mx-2">|</span> 구매수량 ${cart.buyCount } 개<span class="mx-2">|</span> ${cart.totPrice} 원</div>
-																	</div>
-																	
-																</div>
-																
-															</div>
-															</c:forEach>
-														</div>
 													</div>
-													<br><br><br>
-											<div class="col-md-12 col-lg-12">
-												
-												<div class="order-box">
-													<div class="title-left">
-														<br><br>
-														<h3>결제금액</h3>
-													</div>
-													<div class="d-flex">
-														<div class="font-weight-bold">상품</div>
-														<div class="ml-auto font-weight-bold">금액</div>
-													</div>
-													<hr class="my-1">
-													<div class="d-flex">
-														<h4>총결제금</h4>
-														<div class="ml-auto font-weight-bold" > ${sumPrice}  </div>
-														<input type="hidden" name="sumPrice" value="${sumPrice}">
-													</div>
-													<div class="d-flex">
-														
-													</div>
-													<br>
-													<hr>
-													<div class="d-flex gr-total">
-														<h5>총결제금</h5>
-													<div class="ml-auto h5"> ${sumPrice} </div>
-													</div>
-													<hr> </div>
+											<div class="row">
+												<div class="col-md-6 mb-3">
+													
+												</div>
 											</div>
-											<div class="col-12 d-flex shopping-box"> <button type="submit" class="btn btn-primary btn-lg btn-block">결제하기</button> </div>
-										</div>
+											
+											<div class="col-sm-6 col-lg-6 mb-3">
+													<div class="row">
+																	<div class="col-md-12 col-lg-12">
+																		<div class="odr-box">
+																			<div class="title-left">
+																				<h3>구매예정 목록</h3>
+																			</div>
+																			<c:forEach var="cart" items="${cartList }" varStatus="status">
+																			<input type="hidden" name ="cartNo" value=${cart.cartNo }>
+																			<div class="rounded p-2 bg-light">
+																				<div class="media mb-2 border-bottom">
+																					<div class="media-body"> 
+																						<a href="#"><input type="hidden" name="spName"> ${cart.spName }</a>
+																						
+																						<div class="small text-muted">${cart.spPrice }원 <span class="mx-2">|</span> 구매수량 ${cart.buyCount } 개<span class="mx-2">|</span> ${cart.totPrice} 원</div>
+																					</div>
+																					
+																				</div>
+																				
+																			</div>
+																			</c:forEach>
+																		</div>
+																	</div>
+														<br><br><br>
+												<div class="col-md-12 col-lg-12">
+													
+													<div class="order-box">
+														<div class="title-left">
+															<br><br>
+															<h3>결제금액</h3>
+														</div>
+														<div class="d-flex">
+															<div class="font-weight-bold">상품</div>
+															<div class="ml-auto font-weight-bold">금액</div>
+														</div>
+														<hr class="my-1">
+														<div class="d-flex">
+															<h4>총결제금</h4>
+															<div class="ml-auto font-weight-bold" > ${sumPrice}  </div>
+															<input type="hidden" name="sumPrice" value="${sumPrice}">
+														</div>
+														<div class="d-flex">
+															
+														</div>
+														<br>
+														<hr>
+														<div class="d-flex gr-total">
+															<h5>총결제금</h5>
+														<div class="ml-auto h5"> ${sumPrice} </div>
+														</div>
+														<hr> </div>
+												</div>
+												<div class="col-12 d-flex shopping-box"> <button type="submit" class="btn btn-primary btn-lg btn-block">결제하기</button> </div>
+											</div>
 									</div>
 								</form>
 								
@@ -152,14 +156,6 @@
 					</div>
 					<!-- End Cart -->
 					<script>
-					function kakaoPay(url){
-						let from = document.createElement("form");
-						let url="https://kapi.kakao.com/v1/payment/ready"
-						method="post"
-					
-						
-						from.submit();
-					}
 
 					//document.domain =  "http://localhost:8007/wingddy/address.do";
 					 function goPopup(){
@@ -168,14 +164,8 @@
 				            var option = "width=570,height=420, scrollbars=yes, resizable=yes"
 				            window.open(url, name, option);
 				        }
-					
-					
-					</script>
-					 
-					<script>
-					
 					function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn
-											, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
+								, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
 						// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
 						
 						document.getElementById("roadAddrPart1").value = roadAddrPart1;
@@ -183,6 +173,36 @@
 						document.getElementById("addrDetail").value = addrDetail;
 						document.getElementById("zipNo").value = zipNo;
 					}
+
+					
+					
+					</script>
+					<script>
+					$(function(){
+						$('#kakaoPay').click(function(){
+						   $.ajax({
+							   
+							 url:'/payment/ready',
+							 data :{
+								 odr_name : $("input[name='spName']").val(),
+								 odr_addr : $("input[name='roadAddrPart1']").val(),
+								 odr_addr : $("input[name='roadAddrPart2']").val(),
+								 odr_total_price : $("input[name='sumPrice']").val()
+								 
+							 },type: 'get',
+						    	 success: function(response){
+								 alert(response.next_redirect_po_url);
+								 location.href=response_redirect_pc_url;
+							 }
+							
+						   })
+						})
+					})
+					
+					</script>
+					 
+					<script>
+					
 
 
 					</script>
