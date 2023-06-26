@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+import com.google.gson.JsonElement;
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.store.model.vo.Cart;
@@ -12,6 +13,7 @@ import com.kh.wingddy.store.model.vo.KakaoPayAmount;
 import com.kh.wingddy.store.model.vo.KakaopayReadyResponse;
 import com.kh.wingddy.store.model.vo.Order;
 import com.kh.wingddy.store.model.vo.Store;
+import com.kh.wingddy.store.model.vo.Wish;
 
 public interface StoreService {
 	
@@ -42,7 +44,7 @@ public interface StoreService {
 	//장바구니 삭제
 	int deleteCart(Cart cart);
 	//구매하기페이지 
-	int createOrderNo(Order order);
+	int createOrderNo();
 	//구매정보등록
 	int OrderInformation(Order order);
 	
@@ -59,8 +61,14 @@ public interface StoreService {
 	int checkedOrderNo();
 	int orderAllSuccess(Order order);
 	
-	int orderSuccessUpdateCart(ArrayList<HashMap<String, Object>> list);
-	int orderCartUpdate(ArrayList<HashMap<String, Object>> listAll);
+	int orderSuccessUpdateCart(HashMap<String, Object> map);
+	int CheckBoxCartDelete(HashMap<String, Object> map);
+	//위시리스트 추가
+	//int wishListInsert(HashMap<String, Object> map);
+	ArrayList<Wish> wishList(int memberNo);
+	int checkWishList(HashMap<String, Object> map);
+	int WishListDelete(HashMap<String, Object> map);
+	int updateBuyCount(HashMap<String, Object> map);
 	
 	
 	

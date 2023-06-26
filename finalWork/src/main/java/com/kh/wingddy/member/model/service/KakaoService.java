@@ -9,7 +9,15 @@ public interface KakaoService {
 	
 	public Map<String, Object> getUserInfo(String accessToken) throws IOException;
 	
-	public String logoutKakao(String memberId) throws IOException;
+	/**
+	 * adminKey 카카오 로그아웃
+	 * @param memberId
+	 * @return 로그아웃 계정 아이디
+	 * @throws IOException
+	 */
+	public String logoutKakaoAdminKey(String memberId) throws IOException;
 	
 	public String dropKakaoMember(String memberId) throws IOException;
+	
+	public String logoutKakao() throws IOException;
 }

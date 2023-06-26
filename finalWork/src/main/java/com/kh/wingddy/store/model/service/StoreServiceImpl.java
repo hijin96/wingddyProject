@@ -23,20 +23,21 @@ import com.kh.wingddy.store.model.vo.KakaoPayAmount;
 import com.kh.wingddy.store.model.vo.KakaopayReadyResponse;
 import com.kh.wingddy.store.model.vo.Order;
 import com.kh.wingddy.store.model.vo.Store;
+import com.kh.wingddy.store.model.vo.Wish;
 
 @Service
 public class StoreServiceImpl implements StoreService {
-	
+
 	@Autowired
 	private StoreDao storeDao;
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
-	public static final String admin_Key ="${580c0648b175b72fe78aeff8d208161e}";
-	public static final String cid="TC0ONETIME";
+
+	public static final String admin_Key = "${580c0648b175b72fe78aeff8d208161e}";
+	public static final String cid = "TC0ONETIME";
 	private KakaopayReadyResponse kakaoReady;
-	
-	//게시글목록조회 -1
+
+	// 게시글목록조회 -1
 	@Override
 	public int selectListCount() {
 		return storeDao.selectListCount(sqlSession);
@@ -44,25 +45,28 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public ArrayList<Store> selectList(PageInfo pageInfo) {
-		
-		return storeDao.selectList(sqlSession,pageInfo);
+
+		return storeDao.selectList(sqlSession, pageInfo);
 	}
-	
+
 	@Override
 	public int inceraseCount(int spNo) {
-		return storeDao.inceraseCount(sqlSession,spNo);
+		return storeDao.inceraseCount(sqlSession, spNo);
 	}
-	//썸네일 번호 생성
+
+	// 썸네일 번호 생성
 	@Override
 	public int createFileNo() {
 		return storeDao.createFileNo(sqlSession);
 	}
-	//게시글 등록
+
+	// 게시글 등록
 	@Override
-	public int insertStoreBoard(Store s,Attachment at) {
+	public int insertStoreBoard(Store s, Attachment at) {
 		// TODO Auto-generated method stub
-		return storeDao.insertStoreBoard(sqlSession,at,s);
+		return storeDao.insertStoreBoard(sqlSession, at, s);
 	}
+
 	@Override
 	public int updateStoreBoard(int spNo) {
 		// TODO Auto-generated method stub
@@ -74,7 +78,7 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	@Override
 	public Store selectStoreBoard(int spNo) {
 		return storeDao.selectStoreBoard(sqlSession, spNo);
@@ -82,85 +86,113 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public int insertStoreCart(Cart cart) {
-		if(storeDao.checkStoreCart(sqlSession,cart)==0) {
-			
-			//System.out.println("서비스 데이터 값 INSERT :"+storeDao.insertStoreCart(sqlSession,s,cart));
-			return storeDao.insertStoreCart(sqlSession,cart);
-		}else {
-			//System.out.println("UPDATE: "+storeDao.updateStoreCart(sqlSession,cart) );
-			return storeDao.updateStoreCart(sqlSession,cart);
-	}
-	}
-	//구매하기페이지 
-	@Override
-	public int createOrderNo(Order order) {
-		//주문번호만들기 성고하면 주문페이지로 이동
-		return	storeDao.createOrderNo(sqlSession,order);
-	}
-	@Override
-	public int deleteCart(Cart cart) {
-		return storeDao.deleteStoreCart(sqlSession,cart);
+		if (storeDao.checkStoreCart(sqlSession, cart) == 0) {
+
+			// System.out.println("서비스 데이터 값 INSERT
+			// :"+storeDao.insertStoreCart(sqlSession,s,cart));
+			return storeDao.insertStoreCart(sqlSession, cart);
+		} else {
+			// System.out.println("UPDATE: "+storeDao.updateStoreCart(sqlSession,cart) );
+			return storeDao.updateStoreCart(sqlSession, cart);
+		}
 	}
 
-	//장바구니 목록보기
+	// 구매하기페이지
 	@Override
-	public ArrayList<Cart> selectStoreCart (int MemberNo) {
-		ArrayList<Cart> list = storeDao.selectStoreCart(sqlSession,MemberNo);
-		//System.out.println("서비스 result : " + list);
+	public int createOrderNo() {
+		// 주문번호만들기 성고하면 주문페이지로 이동
+		return storeDao.createOrderNo(sqlSession);
+	}
+
+	@Override
+	public int deleteCart(Cart cart) {
+		return storeDao.deleteStoreCart(sqlSession, cart);
+	}
+
+	// 장바구니 목록보기
+	@Override
+	public ArrayList<Cart> selectStoreCart(int MemberNo) {
+		ArrayList<Cart> list = storeDao.selectStoreCart(sqlSession, MemberNo);
+		// System.out.println("서비스 result : " + list);
 		return list;
+	}
+
+	// 체크박스로 장바구니 삭제
+	@Override
+	public int CheckBoxCartDelete(HashMap<String, Object> map) {
+
+		return storeDao.CheckBoxCartDelete(sqlSession, map);
 	}
 
 	@Override
 	public int OrderInformation(Order order) {
-		
-		return storeDao.OrderInformation(sqlSession,order);
+
+		return storeDao.OrderInformation(sqlSession, order);
 	}
 
-
-	
-	//구매하기 페이지에서 구매할 목록만 가져가기
+	// 구매하기 페이지에서 구매할 목록만 가져가기
 	@Override
 	public ArrayList<Cart> buyCartSelect(String[] cartNo) {
-		
-		return storeDao.buyCartSelect(sqlSession,cartNo);
+
+		return storeDao.buyCartSelect(sqlSession, cartNo);
 	}
-	//구매번호 조회
+
+	// 구매번호 조회
 	@Override
 	public int checkedOrderNo() {
 		return storeDao.checkedOrderNo(sqlSession);
 	}
 
-	
 	@Override
 	public int storeBuySuccess(Order order) {
-		int success =storeDao.storeBuySuccess(sqlSession,order);
+		int success = storeDao.storeBuySuccess(sqlSession, order);
 		System.out.println("서비스: " + success);
 		return success;
 	}
-	//구매완료하기 
+
+	// 구매완료하기
 	@Override
-	public int orderSuccessUpdateCart(ArrayList<HashMap<String, Object>> list) {
-		int success = storeDao.orderSuccessUpdateCart(sqlSession,list);
-		System.out.println("서비스orderSuccessUpdateCart: " +success );
+	public int orderSuccessUpdateCart(HashMap<String, Object> map) {
+		int success = storeDao.orderSuccessUpdateCart(sqlSession, map);
+		System.out.println("서비스orderSuccessUpdateCart: " + success);
 		return success;
 	}
 
 	@Override
 	public int orderAllSuccess(Order order) {
 		// TODO Auto-generated method stub
-		return storeDao.orderAllSuccess(sqlSession,order);
+		return storeDao.orderAllSuccess(sqlSession, order);
 	}
-	  //map으로 가져가서 업데이트 해보기
+
+
+	// 위시리스트체크
 	@Override
-	public int orderCartUpdate(ArrayList<HashMap<String, Object>> listAll) {
-		// TODO Auto-generated method stub
-		return storeDao.orderCartUpdate(sqlSession,listAll);
+	public int checkWishList(HashMap<String, Object> map) {
+		if (storeDao.checkWishList(sqlSession, map) == 0) {
+			return storeDao.wishListInsert(sqlSession, map);
+		} else {
+			return 0;
+		}
+
+		// return storeDao.checkWishList(sqlSession,map);
 	}
 
-
-
+	// 위시리스트 목록
+	@Override
+	public ArrayList<Wish> wishList(int memberNo) {
 	
-
-
+		return storeDao.wishList(sqlSession,memberNo);
+	}
+	//위시리스트 ajax삭제
+	@Override
+	public int WishListDelete(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return storeDao.wishListDelete(sqlSession,map);
+	}
+	//장바구니 수량수정
+	@Override
+	public int updateBuyCount(HashMap<String, Object> map) {
+		return storeDao.updateBuyCount(sqlSession,map);
+	}
 
 }

@@ -53,6 +53,16 @@
 		<result column="ORDER_DAY" property="orderDay"/>
 		<result column="ORDER_ADDRESS" property="orderAddress"/>
 	</resultMap>
+	<resultMap type="wish" id="WishResultSet">
+		<result column="WISH_DAY" property="wishDay"/>
+		<result column="SP_PRICE" property="spPrice"/>
+		<result column="SP_NO" property="spNo"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="FILE_PATH" property="filePath"/>
+				<result column="SP_NAME" property="spName"/>
+	</resultMap>
+
+	
 	<select id="selectListCount" resultType="_int">
            SELECT COUNT(*) 
             FROM S_STORE S
@@ -188,6 +198,7 @@
 		JOIN S_CART  ON(S_CART.SP_NO = S.SP_NO)
 		JOIN ATTACHMENT ON(ATTACHMENT.FILE_NO= S.FILE_NO)
 		WHERE S_CART.MEMBER_NO = #{memberNo}
+		AND ORDER_YN ='N'
 	</select>
 	<select id="checkStoreCart"  resultType="_int" >
 	SELECT
@@ -208,6 +219,19 @@
 		MEMBER_NO= #{memberNo} 
 		AND SP_NO=#{spNo}
 	</delete>
+	<delete id="CheckBoxCartDelete" parameterType="java.util.HashMap">
+	DELETE 
+		FROM S_CART 
+	WHERE 
+		MEMBER_NO= #{memberNo}
+		AND CART_NO IN
+	<foreach collection="cartNo" item="cartNo"  index="i" separator="," open="(" close=")"> 
+	#{cartNo}
+	</foreach>
+	
+	</delete>
+
+	
 	<update id="updateStoreCart" parameterType="cart">
 		UPDATE 
 			S_CART
@@ -216,14 +240,10 @@
 		WHERE SP_NO=#{spNo}
 		AND MEMBER_NO=#{memberNo}
 	</update>
-	<insert id="createOrderNo" parameterType="_int"> 
-		INSERT INTO 
-				S_ORDER (ORDER_NO
-						,MEMBER_NO)
-				VALUES 
-						(SEQ_ORDER_NO.NEXTVAL
-						,#{memberNo})
-	</insert>
+	<select id="createOrderNo" resultType="_int"> 
+	SELECT SEQ_ORDER_NO.NEXTVAL
+	FROM DUAL
+	</select>
 	<select id="checkedOrderNo" resultType="_int">
 		SELECT 
        		 LAST_NUMBER 
@@ -284,14 +304,14 @@
 		WHERE
     			ORDER_NO=#{orderNo}
 	</update>
-	<update id="orderSuccess" parameterType="collection" >
-	UPDATE S_CART 
-		SET ORDER_YN='Y', 
-		ORDER_NO=#{collection.orderNo} 
+	<update id="orderSuccessUpdateCart" parameterType="java.util.HashMap">
+		UPDATE S_CART 
+			SET ORDER_YN='Y', 
+			ORDER_NO=#{orderNo} 
 		WHERE
-		CART_NO IN 
-		<foreach collection="list" item="cartNo"  index="i" separator="," open="(" close=")"> 
-		#{cartNo}
+			CART_NO IN 
+		<foreach collection="cartNo" index="i" item="cartNo" separator="," open="(" close=")">
+				#{cartNo}
 		</foreach>
 	</update>
 
@@ -307,7 +327,7 @@
 						,ORDER_DAY
 						)
 				VALUES 
-						(SEQ_ORDER_NO.NEXTVAL
+						(#{orderNo}
 						,#{memberNo}
 						,#{resName}
 						,#{sendName}
@@ -318,17 +338,47 @@
 						)
 	</insert>
 
-	<update id="orderCartUpdate" parameterType="collection">
-	UPDATE S_CART 
-			SET ORDER_YN='Y',
-	ORDER_NO=#{collection.orderNo}
-	WHERE
-		MEMBER_NO=#{memberNo}
-	AND CART_NO IN 
-		<foreach collection="list" item="cartNo"  index="i" separator="," open="(" close=")"> 
-		#{cartNo}
+	<insert id="wishListInsert" parameterType="java.util.HashMap">
+		INSERT INTO S_WISH(MEMBER_NO,SP_NO,WISH_DAY) VALUES (#{memberNo},#{spNo},SYSDATE)
+	</insert>
+	<select id="checkWishList" resultType="_int" parameterType="java.util.HashMap" >
+	SELECT COUNT(*) FROM S_WISH WHERE MEMBER_NO=#{memberNo} AND SP_NO=#{spNo}
+	</select>
+	<select id="wishList" resultMap="WishResultSet">
+		  SELECT 
+				 S.SP_NO
+				,S.SP_NAME
+				,S.SP_PRICE
+                ,A.FILE_PATH
+                ,A.CHANGE_NAME
+                ,W.WISH_DAY
+		FROM
+			S_STORE S
+        JOIN ATTACHMENT A  ON (S.FILE_NO= A.FILE_NO)
+        JOIN S_WISH W ON (S.SP_NO = W.SP_NO)
+        WHERE W.MEMBER_NO =#{memberNo} 
+        ORDER BY WISH_DAY DESC
+	</select>
+	<delete id="wishListDelete" parameterType="java.util.HashMap">
+	DELETE 
+		FROM S_WISH 
+	WHERE 
+		MEMBER_NO= #{memberNo}
+		AND SP_NO IN
+		<foreach collection="spNo" item="spNo" index="i"  open="(" separator="," close=")">
+		#{spNo}
 		</foreach>
-	</update>
 	
+	
+	</delete>
+	<update id="updateBuyCount" parameterType="java.util.HashMap">
+	 UPDATE 
+	 	 S_CART 
+	 SET  
+	    BUY_COUNT=#{buyCount} 
+	  WHERE 
+	     MEMBER_NO=#{memberNo} 
+	  AND CART_NO = #{cartNo}
+	</update>
 
 </mapper>

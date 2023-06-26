@@ -43,7 +43,7 @@
 	<div id="storecart">
 		<div>
 			<jsp:include page="../sideBar/sideBar.jsp" />
-			<div class="main-content">
+			<div class="main-content" >
 				<br>
 				<br>
 				<br>
@@ -58,14 +58,14 @@
 								<h4>장바구니</h4>
 								<div class="card-header-form"></div>
 							</div>
-							<div class="card-body p-0">
+							<div class="card-body p-0" >
 								<div class="table-responsive">
 								
-									<table class="table table-striped">
+									<table class="table table-striped" >
 										<tbody>
 											<tr>
-												<th>
-													<div class="custom-checkbox custom-control">
+												<th class="p-0 text-center">
+													<div class="custom-checkbox custom-control" >
 														<input type="checkbox" data-checkboxes="mygroup"
 															data-checkbox-role="dad" class="custom-control-input"
 															id="buycheckbox-all" name="buycheckbox-all"
@@ -79,7 +79,8 @@
 												<th>수량</th>
 												<th>수량수정</th>
 												<th>소계</th>
-												<th>삭제</th>
+												<th>수정</th>
+												
 											</tr>
 											<c:forEach var="cart" items="${cartList }" varStatus="status">
 												<%--  ${status.index} 0부터의 순서 --%>
@@ -97,13 +98,11 @@
 													<td class="align-middle">${cart.spName }</td>
 													<td class="align-middle">${cart.spPrice}</td>
 													<td>${cart.buyCount }</td>
-													<td><input type="number" size="4"
-														value="${cart.buyCount }" min="0" step="1"
-														class="c-input-text qty text"></td>
+													<td>
+													<input type="number" size="4"  min="0" step="1" class="c-input-text qty text" id="countUpdate${status.index }"></td>
 													<td id="totalPrice${status.index}">${cart.totPrice}</td>
-													<td><button type="button" class="btn btn-secondary"  onclick="cartDelete();">삭제</button></td>
 													<input type="hidden" id="cartNo${status.index}" name="cartNo" value="${cart.cartNo }">
-													
+													<td> <button type="button" id="cartUpdate${status.index }" class="btn btn-secondary"  onclick="cartUpdate();">수정</button></td>
 												</tr>
 											</c:forEach>
 											
@@ -116,10 +115,12 @@
 
 
 					<div class="row my-5">
-						<div class="col-lg-6 col-sm-6"></div>
-						<div class="col-lg-6 col-sm-6">
+					
+						<div class="col-lg-8 col-sm-12">
 							<div class="update-box ">
 								<input type="button" value="구매하기" name="buyCart" id="realBuy"  onclick="buyCartpage()" class="btn btn-primary"> 
+								<input type="button" value="삭제하기" name="cartDelete" class="btn btn-secondary" onclick="cartDelete();" >
+							<!-- 	<input type="button" value="수량수정" name="cartUpdate" class="btn btn-secondary" onclick="cartUpdate();" > -->
 							</div>
 						</div>
 					</div>
@@ -200,16 +201,9 @@
 								sumPrice += Number(totalPrice);
 								//sumPriced += sumPrice;
 							}
-							console.log("sumPrice: " + sumPrice);
+							//console.log("sumPrice: " + sumPrice);
 							$('#sumPrice').text(sumPrice); //클릭할때마다 값 바꿔줌
-							
-							/* for(var j= 0; j<checkAll.length; j++){
-								let index = checkAll[j].value;
-								let cartNo = $('#cartNo'+index).val();
-								console.log("cartNo: "+ cartNo);
-								cartNos.push(cartNo);
-							}
- */
+
 						});
 				
 			});
@@ -229,12 +223,78 @@
 			        window.location.href = "storebuy.do?cartNo=" + cartNos.join(",");
 			    	}
 			   }
+			 
 		</script>
 
 		<script>
+			//장바구니 삭제
+			
 			function cartDelete() {
-				//삭제하기
+				let cartNos = [];
+				let checkAll = $('input[name=buyCheckBox]').filter(':checked');
+				  for (var i = 0; i < checkAll.length; i++) {
+			            let index = checkAll[i].value;
+			           	 let cartNo = $('#cartNo' + index).val();
+			             cartNos.push(cartNo);
+			             console.log('cartNo'+ cartNo); 
+				  }
+				 
+				  console.log('cartNos: ' + cartNos)
+				  $.ajax({
+		            	url:'CheckBoxCartDelete'
+		            	,data:{cartNo : cartNos}
+				   		,type: 'post'
+				   		//,dataType:'json'
+				   		,traditional: true
+		          	,success : function(data){
+		          		if(data == "1"){
+		          			alert('삭제성공');
+		          			 location.reload();
+		          		} else {
+		          			console.log('에러');
+		          			alert('삭제실패');
+		          		}
+		          		
+		          	},error:function(){
+		          		console.log('에러');
+		          		alert('에러');
+		          	}  
+				  
+				  
+				  })
 			}
+			  //장바구니 수정 (cartNo, countUpdate의 수량 같이 가져가기)
+			   function cartUpdate(){
+				   let index =0;
+				  
+					let checkAll = $('input[name=buyCheckBox]').filter(':checked');
+					  for (var i = 0; i < checkAll.length; i++) {
+				                index = checkAll[i].value;
+					  }
+					  
+					  let cartNo = $('#cartNo' + index).val();
+					  let countUpdate = $('#countUpdate'+ index).val();
+					  Number(countUpdate)
+					  console.log('countUpdate: ' + countUpdate)
+					   console.log('carNo:cartNo: ' + cartNo)
+					  $.ajax({
+						url:  'buyCountUpdate'
+						,data:{cartNo:cartNo,  buyCount:countUpdate }
+					  	,type:'post'
+					  	 ,success: function(data){
+					  		 if(data==1){
+					  			 alert("수정성공");
+					  			 location.reload();
+					  		 }else{
+					  			 console.log('실패');
+					  		 }
+					  	 }
+ 					  	,error:function(){
+ 					  		console.log('에러');
+ 					  	
+ 					  	}
+					  })
+			   }
 		</script>
 
 
