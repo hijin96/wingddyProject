@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Site Metas -->
-<title>ThewayShop - Ecommerce Bootstrap 4 HTML Template</title>
+<title>상품상세보기</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -71,7 +71,7 @@
 							</div>
 							<div class="col-xl-7 col-lg-7 col-md-6">
 								<div class="single-product-details">
-									<form  action="storebuybasket" method="POST">
+									<form  action="storebuybasket" method="POST" id="form">
 									
 									 	<input type="hidden" name="spName" value="${s.spName}">
 										<h2>${s.spName}</h2>
@@ -96,13 +96,12 @@
 											<div class="cart-and-bay-btn">
 												<input type="hidden" name="fileNo" value="${s.fileNo }">
 												
-												<button onclick="buycount();" class="btn btn-info" id="buyCart" >구매하기</button>
-												<%-- <input type="hidden" name="cartNo" value="${cart.cartNo }"> --%>
+												<button type='button' onclick="buyCart()" class="btn btn-info" >구매하기</button>
 												<button class="btn btn-primary trigger--fire-modal-6" id="cart" type="button">장바구니!!</button>
 													<div class="add-to-btn">
 														<div class="add-comp">
-															<a class="btn hvr-hover" href="#"> 
-															<i class="fas fa-heart"></i>위시리스트 </a>
+															<div class="btn hvr-hover" onclick="wishList();"> 
+															<i class="fas fa-heart"></i>위시리스트 </div>
 														</div>
 													</div>
 											</div>
@@ -112,12 +111,17 @@
 									<script>
 										
 										
-										var spNo = ${s.spNo};
-										var spPrice = ${s.spPrice};
-										var emptyloginUser = ${not empty loginUser};
-										console.log(emptyloginUser);
+										let spNo = ${s.spNo};
+										let spPrice = ${s.spPrice};
+										let emptyloginUser = ${not empty loginUser};
+										let amount =${s.amount };
+										let buyCount = $('#buyCount');
+									
+										console.log('amount' +typeof(amount));
+										console.log('buyCount' + typeof(buyCount));
+										console.log('emptyloginUser'+emptyloginUser);
 										$('#cart').click(function(){
-											var buyCount = $('#buyCount').val();
+											
 											console.log("buycount"+buyCount);
 											if( buyCount<'0'||buyCount==''){
 												alert("수량을체크해주세요");
@@ -127,7 +131,7 @@
 												$.ajax({
 													url: 'storecart.do',
 													data: { spNo: spNo,
-														buyCount:buyCount,
+														buyCount:buyCount.val(),
 														spPrice: spPrice
 														
 													},
@@ -163,14 +167,43 @@
 											}
 
 										});
-										function buycount(){
-											if( !emptyloginUser){
+										function buyCart(){
+											console.log('amount : '+ amount);
+											console.log('buy:  ' + buyCount.val());
+											if(emptyloginUser==false){
 												alert("구매는 로그인후 이용하세요");
 												window.location.href='http://localhost:8007/wingddy/'
 												
 											}
+											if(amount<Number(buyCount.val())){
+												alert("구매수량이 판매수량보다 많습니다. 수량을 수정해주세요");
+											}else{
+												document.getElementById('form').submit();
+											}
+												
 										}
 										
+										function wishList(){
+											console.log('위시리스트클릭');
+											$.ajax({
+												url:'storeWishListInsert'
+												,data : {
+													spNo:spNo
+												}
+												,type:'get'
+												,success : function(data){
+													if(data=="1"){
+														alert('위시리스트에 담겼습니다.');
+													}else{
+														alert("위시리스트 담기 실패, 이미 담겨있는지 확인해보세요");
+													}
+												
+												},error: function(error){
+													console.log()
+												}
+													
+											});
+										}
 								     </script>
 									<div class="add-to-btn"></div>
 								</div>
@@ -183,7 +216,7 @@
 				<div class="ck-body-wrapper">
 					<div id="editor">${s.spContent }</div>
 				</div>
-<!-- 나중에 readOnly로 바꾸기 
+				<!-- 나중에 readOnly로 바꾸기 
 				<script>
 					  ClassicEditor.create( document.querySelector( '#editor' ), {
 					       
