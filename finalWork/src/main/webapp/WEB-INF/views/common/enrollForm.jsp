@@ -65,13 +65,11 @@
 
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="enrollFrontEmail" type="text" class="form-control" name="email" required placeholder="@를 제외한 앞 이메일주소를 입력해주세요" value="">
-                    <select class="form-control selectric" id="enrollBackEmail">
-                      <option>@naver.com</option>
-                      <option>@gmail.com</option>
-                      <option>@daum.net</option>
-                    </select>
-                    <input type="hidden" name="email">
+                    <input id="enrollEmail" type="email" class="form-control" name="email" required placeholder="@를 제외한 앞 이메일주소를 입력해주세요" value="">
+
+                    <div class="form-group col-6">
+                      <label for="last_name" id="chkEmail"></label>
+                    </div>
                   </div>
 
                   <div class="row">
@@ -130,7 +128,7 @@
                   </div>
 
                   <div class="form-group">
-                    <button type="button" id="enrollBtn" class="btn btn-primary btn-lg btn-block" disabled>
+                    <button type="submit" id="enrollBtn" class="btn btn-primary btn-lg btn-block" disabled>
                       Join Wingddy
                     </button>
                   </div>
@@ -251,6 +249,19 @@
         }
     }
 
+    function keyupEmailCheck(){
+      var emailInput = $('#enrollEmail').val();
+
+      const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+
+      if(!getEmail.test(emailInput)){
+        $('#chkEmail').text('@을 포함한 정확한 이메일 주소를 입력해주세요!');
+      }
+      else{
+        $('#chkEmail').text('');
+      }
+    }
+
     function keyupPhoneCheck(){
       var phoneInput = $('#phone').val();
       const getPhone = RegExp(/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/);
@@ -272,19 +283,7 @@
       }
     }
 
-    $(function(){
-
-      $('#enrollBtn').click(function(){
-
-        let enrollEmail = $('#enrollFrontEmail').val() + $('#enrollBackEmail option:selected').val();
-
-        $('input[name=email]').val(enrollEmail);
-        console.log(enrollEmail);
-        $('#enrollWingddy').submit();
-
-      })
-
-    })
+    
   </script>
 
   <!-- General JS Scripts -->
