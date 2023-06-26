@@ -239,9 +239,10 @@ public class StoreController {
 
 	//주소 팝업창
 	@RequestMapping("address.do")
-	public String address(HttpSession session) {
+	public ModelAndView address(HttpSession session, ModelAndView mv) {
 		Member m = ((Member) session.getAttribute("loginUser"));
-		return "store/popupAddress";
+		mv.addObject(m).setViewName("store/popupAddress");
+		return mv;
 	}
 	
 

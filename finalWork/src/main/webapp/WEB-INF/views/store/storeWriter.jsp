@@ -56,7 +56,7 @@
 								<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="spOnecom">한줄소개</label>
 								<div class="col-sm-12 col-md-7">
 									<input type="text"  class="form-control" name="spOnecom" required>
-									<textarea name="spContent" id="editor"> </textarea>
+									<textarea name="spContent" id="editor" required class="testtest"></textarea>
 									<span>썸네일 선택
 									<input class="note-image-input note-form-control note-input" type="file" name="upfile" accept="image/*" multiple="multiple" required>
 									</span>
@@ -65,7 +65,7 @@
 								
 									<div>
 										<input type="button" class="btn btn-secondary mt-3 mx-2" value="작성취소" /> 
-										<input type="submit" class="btn btn-primary mt-3 mx-2" value="작성완료" />
+										<input type="submit" class="btn btn-primary mt-3 mx-2" value="작성완료"  />
 									</div>
 								</div>
 						
@@ -90,22 +90,7 @@
 		
 		});
 		</script>
-		<script>
-		var eiditor= $('#editor1').text();
-	
- 		if(eiditor.getData()=='' 
-	        || CKEDITOR.instances.editor.getData().length ==0){
-	    alert("내용을 입력해주세요.");
-	    $("#editor1").focus();
-	//    return false;
-	}
- 
- //	console.log('ei');
- 	
- 
-	
-	</script>
-
+		
 	
 </body>
 
