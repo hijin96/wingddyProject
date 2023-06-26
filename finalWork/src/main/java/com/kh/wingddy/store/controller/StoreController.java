@@ -234,7 +234,7 @@ public class StoreController {
 				  //리스트로 가져가서 업데이트!
 				  int jaja =  storeService.orderSuccessUpdateCart(map); 			  }
 		
-			return "http://localhost:8007/wingddy/storemain";
+			return "redirect:/storemain";
 	}
 	
 
