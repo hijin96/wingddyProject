@@ -216,6 +216,7 @@
 			            let cartNo = $('#cartNo' + index).val();
 			            cartNos.push(cartNo);
 			        }
+			        
 			        if(checkAll.length==0){
 			        	alert('구매할 물품을 선택해주세요');
 			        }else{

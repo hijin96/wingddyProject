@@ -199,8 +199,8 @@ public class StoreController {
 	@GetMapping("storebuy.do")
 	public String storebuy(@RequestParam(value = "cartNo")String[] cartNo, Order order, HttpSession session,Model model,Cart cart) {
 		//order정보를 생성후 orderNumber를 확인하고  그 이후에 구매하기 페이지로 넘어옴
-		Member m = ((Member) session.getAttribute("loginUser"));
-		order.setMemberNo(m.getMemberNo());
+		int memberNo = ((Member) session.getAttribute("loginUser")).getMemberNo();
+	//	order.setMemberNo(m.getMemberNo());
 			
 			//System.out.println("구매하기페이지 ORDER"+ order );
 			int sumPrice=0;
@@ -210,6 +210,7 @@ public class StoreController {
 			}
 			model.addAttribute("cartList",cartList);
 			model.addAttribute("sumPrice",sumPrice);
+			model.addAttribute("memberNo",memberNo);
 			return "store/storebuy";
 	}
 	//구매완료페이지이동
@@ -221,15 +222,15 @@ public class StoreController {
 			String address2 = address.getRoadAddrPart2();
 			String address3 = address.getAddrDetail();
 			order.setOrderAddress(address1+address2+address3);
-			Member m = ((Member) session.getAttribute("loginUser"));
-			order.setMemberNo(m.getMemberNo());
-			  int orderNo = storeService.createOrderNo();
+			int memberNo = ((Member) session.getAttribute("loginUser")).getMemberNo();
+		    int orderNo = storeService.createOrderNo();
 			  order.setOrderNo(orderNo);
 			
 			  if(storeService.orderAllSuccess(order)>0) {
 				  HashMap<String, Object> map =new HashMap();
 				  map.put("cartNo", cartNo); 
 				  map.put("orderNo",orderNo);
+				  map.put("memberNo",memberNo);
 				  //리스트로 가져가서 업데이트!
 				  int jaja =  storeService.orderSuccessUpdateCart(map); 			  }
 		
@@ -239,10 +240,10 @@ public class StoreController {
 
 	//주소 팝업창
 	@RequestMapping("address.do")
-	public ModelAndView address(HttpSession session, ModelAndView mv) {
-		Member m = ((Member) session.getAttribute("loginUser"));
-		mv.addObject(m).setViewName("store/popupAddress");
-		return mv;
+	public String address() {
+		//Member m = ((Member) session.getAttribute("loginUser"));
+		//mv.addObject(m).setViewName(viewName);
+		return "store/popupAddress";
 	}
 	
 
