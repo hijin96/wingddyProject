@@ -72,7 +72,7 @@
 													<p class="spNo">${s.spNo }</p>
 												</div>
 												<img src="./${s.filePath}/${s.changeName}" class="img-fluid"
-													alt="Image">
+													alt="Image"  style="height:300px">
 												<div class="mask-icon">
 													<ul>
 														<li><a href="#" data-toggle="tooltip"
@@ -128,7 +128,6 @@
 				<script>
 					$('#storeAdd').click(function() {
 						var fileNo = $('fileNo').val();
-
 					})
 				</script>
 

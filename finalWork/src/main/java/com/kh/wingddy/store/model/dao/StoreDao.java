@@ -15,6 +15,7 @@ import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.store.model.vo.Cart;
 import com.kh.wingddy.store.model.vo.Order;
 import com.kh.wingddy.store.model.vo.Store;
+import com.kh.wingddy.store.model.vo.Wish;
 
 @Repository
 public class StoreDao {
@@ -76,8 +77,8 @@ public class StoreDao {
 		return  (ArrayList)sqlSession.selectList("storeMapper.selectStoreCart", MemberNo);
 	}
 
-	public int createOrderNo(SqlSessionTemplate sqlSession, Order order) {
-		return sqlSession.insert("storeMapper.createOrderNo", order);
+	public int createOrderNo(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("storeMapper.createOrderNo");
 	}
 
 	public int OrderInformation(SqlSessionTemplate sqlSession, Order order) {
@@ -100,23 +101,20 @@ public class StoreDao {
 		System.out.println("dao: " + success);
 		return success;
 	}
-
-	public int orderSuccessUpdateCart(SqlSessionTemplate sqlSession, ArrayList<HashMap<String, Object>> list) {
-		
-		for(int i=0; i<list.size(); i++) {
-		System.out.println("dao리스트에서확인: "+ list.get(i));
-		System.out.println("daokey: "+ list.get(i).keySet());
-		}
-		 
-		 //int success =sqlSession.update("storeMapper.orderSuccess",list);
-		 //System.out.println("DAO됐음좋겠어요: " + success);
-		 return sqlSession.update("storeMapper.orderSuccess",list);
-	}
+	
 	//구매정보 한번에 insert
 	public int orderAllSuccess(SqlSessionTemplate sqlSession, Order order) {
 		return sqlSession.insert("storeMapper.orderAllSuccess",order);
 	}
 	
+	//구매정보 cart update
+	public int orderSuccessUpdateCart(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		 
+		 //int success =sqlSession.update("storeMapper.orderSuccess",list);
+		 //System.out.println("DAO됐음좋겠어요: " + success);
+		 return sqlSession.update("storeMapper.orderSuccessUpdateCart",map);
+	}
+
 	//map안에 arryalist으로 가져가서 업데이트 해보기
 	public int orderCartUpdate(SqlSessionTemplate sqlSession, ArrayList<HashMap<String, Object>> listAll) {
 		// TODO Auto-generated method stub
@@ -125,6 +123,38 @@ public class StoreDao {
 		System.out.println("dao ArrayList: "+ success);
 		return success;
 	}
+	//체크박스로 장바구니 삭제
+	public int CheckBoxCartDelete(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+	
+		return sqlSession.delete("storeMapper.CheckBoxCartDelete" , map);
+	}
+
+	public int wishListInsert(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.insert("storeMapper.wishListInsert",map);
+	}
+	//위시리스트에 있는지 체크
+	public int checkWishList(SqlSessionTemplate sqlSession,HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("storeMapper.checkWishList",map);
+	}
+
+	public ArrayList<Wish> wishList(SqlSessionTemplate sqlSession, int memberNo) {
+		// TODO Auto-generated method stub
+		ArrayList<Wish> wishList =(ArrayList)sqlSession.selectList("storeMapper.wishList",memberNo);
+		System.out.println("dao: " + wishList);
+		return wishList;
+	}
+
+	public int wishListDelete(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("storeMapper.wishListDelete",map);
+	}
+
+	public int updateBuyCount(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("storeMapper.updateBuyCount",map);
+	}
+
 
 
 
