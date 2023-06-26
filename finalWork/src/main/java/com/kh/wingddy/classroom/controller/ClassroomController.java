@@ -102,7 +102,7 @@ public class ClassroomController {
 			
 			cr.setEnterCode(secret);
 		}
-		
+		// 새로고침해줘야함 바로 반영이 안댐
 		return classroomService.createClassroom(cr) > 0 ? "redirect:/" : "common/errorPage";
 	}
 	
@@ -120,10 +120,6 @@ public class ClassroomController {
 	@RequestMapping("kickoutStudent.cl")
 	public int kickoutStudent(@RequestParam(value="studentNoArr[]")int[] studentNoArr, int classNo) {
 		
-		//System.out.println("asdasd");   
-		//System.out.println(studentNoArr.length);
-		
-        
 		ArrayList<ClassMember> cmList = new ArrayList();
 		for(int i = 0; i < studentNoArr.length; i++) {
 			ClassMember cm = new ClassMember();     

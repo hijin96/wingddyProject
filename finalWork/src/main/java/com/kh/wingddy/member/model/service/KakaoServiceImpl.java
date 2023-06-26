@@ -141,7 +141,7 @@ public class KakaoServiceImpl implements KakaoService {
 	}
 
 	@Override
-	public String logoutKakao(String memberId) throws IOException {
+	public String logoutKakaoAdminKey(String memberId) throws IOException {
 
 		String kakaoUrl = "https://kapi.kakao.com/v1/user/logout";
 		String adminKey = "0f4ccb72fe53a170e5cd34928f2e8e78";
@@ -242,5 +242,40 @@ public class KakaoServiceImpl implements KakaoService {
 		return id;
 	}
 
+	
+	@Override
+	public String logoutKakao() throws IOException {
+
+		String restKey = "af6d74bf8700ecc5864ca816dbce8bee";
+		String kakaoUrl = "https://kauth.kakao.com/oauth/logout?client_id=" + restKey ;
+			   kakaoUrl += "&logout_redirect_uri=http://localhost:8007/wingddy/";
+		String responseData = null;
+		try {
+			url = new URL(kakaoUrl);
+			urlConnection = (HttpURLConnection)url.openConnection();
+			
+			urlConnection.setRequestMethod("GET");
+			
+			br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+			
+			String line = "";
+			responseData = "";
+			while((line = br.readLine()) != null) {
+				responseData += line;
+			}
+			
+			System.out.println("로그아웃 : " + responseData);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			br.close();
+		}
+		
+		return responseData;
+	}
+
+	
 	
 }

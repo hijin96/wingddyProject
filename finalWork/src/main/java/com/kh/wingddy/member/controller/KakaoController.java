@@ -101,11 +101,11 @@ public class KakaoController {
 		return mv;
 	}
 	
-	@PostMapping("logoutKakao.me")
+	@PostMapping("logoutKakaoAdminKey.me")
 	public String logoutKakao(HttpSession session) throws IOException {
 		
 		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
-		String logoutUser = kakaoService.logoutKakao(memberId);
+		String logoutUser = kakaoService.logoutKakaoAdminKey(memberId);
 		System.out.println(logoutUser);
 		
 		if(logoutUser == null) {
@@ -132,5 +132,16 @@ public class KakaoController {
 		session.invalidate();
 		memberService.dropMember(member);
 		return "redirect:/";
+	}
+	
+	@GetMapping("logoutKakaoRestKey.me")
+	public ModelAndView logoutKakaoRest(HttpSession session, ModelAndView mv) throws IOException {
+		
+		if(kakaoService.logoutKakao() != null) {
+			session.invalidate();
+			mv.setViewName("sideBar/sideBar");
+		}
+				
+		return mv;
 	}
 }
