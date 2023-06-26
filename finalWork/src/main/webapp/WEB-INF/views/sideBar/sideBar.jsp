@@ -285,6 +285,9 @@
                       <form action="logoutKakao.me" method="POST">
                         <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoLogout"><i class="fas fa-sign-out-alt"></i> 로그아웃</button>
                       </form>
+                      <form action="dropKakaoMember.me" method="POST">
+                        <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoDrop"><i class="fas fa-sign-out-alt"></i> 회원탈퇴</button>
+                      </form>
                     </c:when>
                     <c:when test="${loginUser.loginType eq 'N'}">
                       <a href="logoutNaver.me" class="dropdown-item has-icon text-danger"></a>
@@ -300,6 +303,7 @@
               <a href="#enrollModal" data-toggle="modal" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> 회원가입
               </a>
+              
               <div class="dropdown-divider"></div>
               <a href="loginForm.me" class="dropdown-item has-icon text-success">
                 <i class="fas fa-sign-out-alt"></i> 로그인
@@ -375,10 +379,12 @@
         		<form action="" method="POST" id="postSender">
         			<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" />
         		</form>
-				<li>
-					<a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
-					<input type="hidden" name="url" value="myAlphabet.aph" /> 
-				</li>	
+        <c:if test="${loginUser.memberType ne 'T'}">
+          <li>
+            <a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>내 알파벳</span></a>
+            <input type="hidden" name="url" value="myAlphabet.aph" /> 
+          </li>	
+        </c:if>
 				<li>
 					<a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>알파벳 마켓</span></a>
 					<input type="hidden" name="url" value="main.aph" /> 
@@ -389,10 +395,12 @@
 					<input type="hidden" name="url" value="" />
 				</li>
         -->
-				<li>
-					<a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
-					<input type="hidden" name="url" value="main.mani" /> 
-				</li>	
+        <c:if test="${loginUser.memberType eq 'T'}">
+          <li>
+            <a class="nav-link submit" ><i class="fas fa-pencil-ruler"></i> <span>마니또 관리</span></a>
+            <input type="hidden" name="url" value="main.mani" /> 
+          </li>	
+        </c:if>
 				<li>
 					<a id="couponHandler" class="nav-link submit"><i class="fas fa-pencil-ruler"></i> <span>쿠폰스토어</span></a>
 					<input type="hidden" name="url" value="couponStore" /> 
@@ -423,7 +431,10 @@
                       </c:when>
                       <c:when test="${loginUser.loginType eq 'K'}">
                         <form action="logoutKakao.me" method="POST">
-                          <li><button type="submit" class="dropdown-item has-icon text-danger" style="margin:auto;">로그아웃</button></li> 
+                          <li><button type="submit" class="dropdown-item has-icon text-danger" style="margin:auto;"><i class="fas fa-sign-out-alt"></i> 로그아웃</button></li> 
+                        </form>
+                        <form action="dropKakaoMember.me" method="POST">
+                          <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoDrop"><i class="fas fa-sign-out-alt"></i> 회원탈퇴</button>
                         </form>
                       </c:when>
                     </c:choose>
@@ -497,7 +508,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary forgetPwdBtn">인증코드 받~기</button>
+                    <button type="button" class="btn btn-primary forgetPwdBtn">인증코드 받기</button>
                 </div>
         </div>
     </div>
@@ -509,6 +520,8 @@
 		</script>
 		<c:remove var="alertMsg" scope="session" />
 	</c:if>
+
+
 
 
   <c:if test="${ not empty alphabetCno }">

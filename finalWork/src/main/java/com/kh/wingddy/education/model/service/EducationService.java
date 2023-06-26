@@ -21,7 +21,7 @@ public interface EducationService {
 	// (진행율이 100% 일때만 가능?)
 	int updateEndTime(int eduNo);
 	// 완료 학생 조회
-	ArrayList<Member> selectCompleteStudent(int eduNo);
+	ArrayList<Member> selectCompleteStudent(HashMap<String, Integer> map);
 	
 	// 학습 조회
 	ArrayList<Quiz> selectQuizList(int eduNo);

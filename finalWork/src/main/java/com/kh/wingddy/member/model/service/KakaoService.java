@@ -10,4 +10,6 @@ public interface KakaoService {
 	public Map<String, Object> getUserInfo(String accessToken) throws IOException;
 	
 	public String logoutKakao(String memberId) throws IOException;
+	
+	public String dropKakaoMember(String memberId) throws IOException;
 }

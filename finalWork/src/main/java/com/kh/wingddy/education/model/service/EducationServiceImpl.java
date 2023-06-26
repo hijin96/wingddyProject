@@ -36,8 +36,8 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ArrayList<Member> selectCompleteStudent(int eduNo) {
-		return eduMapper.selectCompleteStudent(eduNo);
+	public ArrayList<Member> selectCompleteStudent(HashMap<String, Integer> map) {
+		return eduMapper.selectCompleteStudent(map);
 	}
 
 	@Override

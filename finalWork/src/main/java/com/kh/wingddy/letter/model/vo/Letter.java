@@ -19,8 +19,10 @@ public class Letter {
 	private String getGift;
 	private String readCheck;
 	private String className;
+	private String keyword;
 	
 	
 	private int memberNo;
 	private List<String> letterList;
+	
 }

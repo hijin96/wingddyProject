@@ -50,6 +50,7 @@
 			<mapping path="/myList.cp" />
 			<mapping path="/selectSlist.cp" />
 			<mapping path="/use.cp" />
+			<mapping path="/useSearch.cp" />
 			
 
 			

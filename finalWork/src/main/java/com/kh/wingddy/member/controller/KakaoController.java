@@ -116,4 +116,21 @@ public class KakaoController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	@PostMapping("dropKakaoMember.me")
+	public String dropKakaoMember(HttpSession session) throws IOException {
+		
+		Member member = (Member)session.getAttribute("loginUser");
+		String dropUser = kakaoService.dropKakaoMember(member.getMemberId());
+		System.out.println(dropUser);
+		
+		if(dropUser == null) {
+			session.setAttribute("alertMsg", "카카오 로그아웃 실패");
+			return "common/loginForm";
+		}
+		
+		session.invalidate();
+		memberService.dropMember(member);
+		return "redirect:/";
+	}
 }
