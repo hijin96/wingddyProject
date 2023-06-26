@@ -373,12 +373,12 @@
 	</delete>
 	<update id="updateBuyCount" parameterType="java.util.HashMap">
 	 UPDATE 
-	 	 S_CART SET  
-	  BUY_COUNT=#{buyCount} 
+	 	 S_CART 
+	 SET  
+	    BUY_COUNT=#{buyCount} 
 	  WHERE 
-	  MEMBER_NO=#{memberNo} 
+	     MEMBER_NO=#{memberNo} 
 	  AND CART_NO = #{cartNo}
-	
 	</update>
 
 </mapper>

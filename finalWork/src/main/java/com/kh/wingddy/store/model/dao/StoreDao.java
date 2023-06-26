@@ -151,7 +151,6 @@ public class StoreDao {
 	}
 
 	public int updateBuyCount(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
 		return sqlSession.update("storeMapper.updateBuyCount",map);
 	}
 

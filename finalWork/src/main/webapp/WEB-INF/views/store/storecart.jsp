@@ -279,10 +279,11 @@
 					   console.log('carNo:cartNo: ' + cartNo)
 					  $.ajax({
 						url:  'buyCountUpdate'
-						,data:{carNo:cartNo,  buyCount:countUpdate }
+						,data:{cartNo:cartNo,  buyCount:countUpdate }
 					  	,type:'post'
 					  	 ,success: function(data){
 					  		 if(data==1){
+					  			 alert("수정성공");
 					  			 location.reload();
 					  		 }else{
 					  			 console.log('실패');

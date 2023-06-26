@@ -354,10 +354,10 @@
               <a href="" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>스토어</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="storemain">스토어로이동</a></li>
-              <c:if test ="${not empty loginUser}">
+               <c:if test ="${not empty loginUser&& (loginUser.memberType eq ('T')or loginUser.memberType eq ('A'))}">
                 <li><a class="nav-link" href="cartDirect">장바구니</a></li>
                 <li><a class="nav-link" href="storewish">위시리스트</a></li>
-                <li><a class="nav-link" href="storebuy">구매목록</a></li>
+                <!-- <li><a class="nav-link" href="storebuy">구매목록</a></li> -->
                </c:if> 
               </ul>
             </li>

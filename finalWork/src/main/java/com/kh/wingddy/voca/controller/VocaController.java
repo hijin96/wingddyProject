@@ -196,8 +196,8 @@ public class VocaController {
 	}
 	
 	public String papgoTranslate(String translate, String source, String target) {
-		 	String clientId = "vNSE36KCTiMxC5HtAFXt";//애플리케이션 클라이언트 아이디값";
-	        String clientSecret = "tTXCA5PsmV";//애플리케이션 클라이언트 시크릿값";
+		 	String clientId = "vNSE36KCTiMxC5HtAFXt";	//애플리케이션 클라이언트 아이디값";
+	        String clientSecret = "tTXCA5PsmV";			//애플리케이션 클라이언트 시크릿값";
 
 	        String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
 	        String text;
@@ -232,9 +232,9 @@ public class VocaController {
             }
 
             int responseCode = con.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 응답
+            if (responseCode == HttpURLConnection.HTTP_OK) { 	// 정상 응답
                 return readBody(con.getInputStream());
-            } else {  // 에러 응답
+            } else {  											// 에러 응답
                 return readBody(con.getErrorStream());
             }
         } catch (IOException e) {
