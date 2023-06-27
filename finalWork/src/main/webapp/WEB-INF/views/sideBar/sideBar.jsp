@@ -498,7 +498,6 @@
                     <div class="form-group" id="" >
                       <label for="emailBack">Select Email</label>
                       <select class="form-control selectric" id="backEmail">
-                          <option selected>@wingddy.com</option>
                           <option>@naver.com</option>
                           <option>@gmail.com</option>
                           <option>@daum.net</option>
@@ -615,7 +614,7 @@
               alert('가입되어있지 않은 이메일입니다!');
             }
             else {
-              alert('인증번호 보내드립니다!ㅋ');
+              alert('인증번호 보내드립니다!');
             }
           },
           error : function(){
