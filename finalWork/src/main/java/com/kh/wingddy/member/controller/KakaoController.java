@@ -121,12 +121,18 @@ public class KakaoController {
 	public String dropKakaoMember(HttpSession session) throws IOException {
 		
 		Member member = (Member)session.getAttribute("loginUser");
-		String dropUser = kakaoService.dropKakaoMember(member.getMemberId());
-		System.out.println(dropUser);
-		
-		if(dropUser == null) {
-			session.setAttribute("alertMsg", "카카오 로그아웃 실패");
-			return "common/loginForm";
+		if(memberService.selectEmploy(member.getMemberNo()) != null) {
+			
+			if(memberService.dropEmploy(member.getMemberNo()) > 0 ) {
+				
+				String dropUser = kakaoService.dropKakaoMember(member.getMemberId());
+				System.out.println(dropUser);
+				
+				if(dropUser == null) {
+					session.setAttribute("alertMsg", "카카오 로그아웃 실패");
+					return "common/loginForm";
+				}
+			}
 		}
 		
 		session.invalidate();

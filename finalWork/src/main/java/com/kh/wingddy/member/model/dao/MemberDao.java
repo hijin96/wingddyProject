@@ -85,4 +85,9 @@ public class MemberDao {
 		
 		return sqlSession.delete("memberMapper.dropMember", m);
 	}
+	
+	public int dropEmploy(SqlSessionTemplate sqlSession, int memberNo) {
+		
+		return sqlSession.delete("memberMapper.dropEmploy", memberNo);
+	}
 }

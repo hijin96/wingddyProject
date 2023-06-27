@@ -165,4 +165,15 @@
 		   AND
 		       EMAIL = #{email}         
 	</delete>
+	
+	<delete id="dropEmploy" parameterType="_int">
+		DELETE
+		  FROM 
+		       ATTACHMENT
+		 WHERE
+		       MEMBER_NO = #{memberNo}
+		   AND
+		       FILE_LEVEL = 1    
+		             
+	</delete>
 </mapper>
