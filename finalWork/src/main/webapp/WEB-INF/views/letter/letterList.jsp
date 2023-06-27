@@ -139,7 +139,7 @@
 		    </section>
 	    </div>
 </div>
-<form action="detail.le" method="post" id="moveToLetterDatail">
+<form action="detail.le" id="moveToLetterDatail">
 	<input type="hidden" name="cno" value="${requestScope.classroom.classNo}">
 	<input type="hidden" name="letterNo">
 	<input type="hidden" name="memberNo" value="${sessionScope.loginUser.memberNo}">
@@ -499,10 +499,13 @@
 
 		$(document).on('click', '.letterDetailView td:not(:first-child)', function(){
 
+		
 
-			let lno = $(this).parent().find('input[type="hidden"]').val();
+			let lno = $(this).parent().find('input[type="checkbox"]').val();
 
 			$("input[name='letterNo']").val(lno);
+
+			
 	
 			$("#moveToLetterDatail").submit();
 			

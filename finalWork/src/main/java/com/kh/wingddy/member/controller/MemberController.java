@@ -96,7 +96,7 @@ public class MemberController {
 		return "common/enrollForm";
 	}
 	
-	@RequestMapping("enrollMember.me")
+	@PostMapping("enrollMember.me")
 	public String insertMember(Member m,
 							   MultipartFile upfile,
 							   HttpSession session,

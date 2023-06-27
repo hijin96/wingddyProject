@@ -271,7 +271,7 @@
                 </c:choose>
                   <div class="d-sm-none d-lg-inline-block">${loginUser.memberName}</div></a>
                   <div class="dropdown-menu dropdown-menu-right">
-                  <a href="features-profile.html" class="dropdown-item has-icon">
+                  <a href="profile.me" class="dropdown-item has-icon">
                   <i class="far fa-user"></i> 프로필
                   </a>
                   <div class="dropdown-divider"></div>
@@ -291,9 +291,6 @@
                       <form action="dropKakaoMember.me" method="POST">
                         <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoDrop"><i class="fas fa-sign-out-alt"></i> 회원탈퇴</button>
                       </form>
-                    </c:when>
-                    <c:when test="${loginUser.loginType eq 'N'}">
-                      <a href="logoutNaver.me" class="dropdown-item has-icon text-danger"></a>
                     </c:when>
                   </c:choose>
                   </div>
@@ -354,10 +351,10 @@
               <a href="" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>스토어</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="storemain">스토어로이동</a></li>
-              <c:if test ="${not empty loginUser}">
+               <c:if test ="${not empty loginUser&& (loginUser.memberType eq ('T')or loginUser.memberType eq ('A'))}">
                 <li><a class="nav-link" href="cartDirect">장바구니</a></li>
                 <li><a class="nav-link" href="storewish">위시리스트</a></li>
-                <li><a class="nav-link" href="storebuy">구매목록</a></li>
+                <!-- <li><a class="nav-link" href="storebuy">구매목록</a></li> -->
                </c:if> 
               </ul>
             </li>

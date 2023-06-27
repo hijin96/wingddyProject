@@ -182,12 +182,18 @@ public class VocaController {
 		return mv;
 	}
 	
+	/** 사용자 입력값 DB조회 및 파파고 API 결과 조회 메소드
+	 * @param text : 사용자 입력 값
+	 * @param source : 입력 언어
+	 * @param target : 출력 언어
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="search.vc", produces="application/json; charset=UTF-8")
 	public String searchVoca(String text, String source, String target) {
-		ArrayList<Voca> list = vocaService.searchVoca(text);
+		ArrayList<Voca> list = vocaService.searchVoca(text); // text : 검색 input 값 -> DB조회
 		
-		Voca vc = checkList(text, papgoTranslate(text, source, target), source);
+		Voca vc = checkList(text, papgoTranslate(text, source, target), source); // 파파고결과값을 우리 VO로 만들어주는 메소드 checkList()
 		if(vc != null && vc.getVocaEnglish() != null) {
 			list.add(vc);
 		}
@@ -195,9 +201,11 @@ public class VocaController {
 		return new Gson().toJson(list);
 	}
 	
+	/** 파파고 API 번역 메소드
+	 */
 	public String papgoTranslate(String translate, String source, String target) {
-		 	String clientId = "vNSE36KCTiMxC5HtAFXt";//애플리케이션 클라이언트 아이디값";
-	        String clientSecret = "tTXCA5PsmV";//애플리케이션 클라이언트 시크릿값";
+		 	String clientId = "vNSE36KCTiMxC5HtAFXt";	//애플리케이션 클라이언트 아이디값";
+	        String clientSecret = "tTXCA5PsmV";			//애플리케이션 클라이언트 시크릿값";
 
 	        String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
 	        String text;
@@ -209,32 +217,41 @@ public class VocaController {
 
 	        HashMap<String, String> requestHeaders = new HashMap();
 	        requestHeaders.put("X-Naver-Client-Id", clientId);
-	        requestHeaders.put("X-Naver-Client-Secret", clientSecret);
+	        requestHeaders.put("X-Naver-Client-Secret", clientSecret); // api에 필요한 설정값
 
 	        String responseBody = post(apiURL, requestHeaders, text, source, target);
 	        
 	        return responseBody;
 	}
 	
+	/**
+	 * post형식으로 api한테 요청 보내고 응답 데이터 받는 메소드
+	 * @param apiUrl : api url값
+	 * @param requestHeaders : map에 담은 header값
+	 * @param text : 입력값
+	 * @param source : 입력언어
+	 * @param target : 출력언어
+	 * @return
+	 */
 	private String post(String apiUrl, Map<String, String> requestHeaders, String text, String source, String target){
-        HttpURLConnection con = connect(apiUrl);
+        HttpURLConnection con = connect(apiUrl); // url 연결
         String postParams = "source=" + source + "&target=" + target + "&text=" + text; //원본언어: 한국어 (ko) -> 목적언어: 영어 (en)
         try {
             con.setRequestMethod("POST");
             for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
-                con.setRequestProperty(header.getKey(), header.getValue());
+                con.setRequestProperty(header.getKey(), header.getValue()); // header값 set
             }
 
-            con.setDoOutput(true);
+            con.setDoOutput(true); // post방식일 때 사용하는 stream 설정 메소드 (기본값 false)
             try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
-                wr.write(postParams.getBytes());
+                wr.write(postParams.getBytes()); // post형식일 때 parameter값을 byte형식으로 쪼개서 전송하는 메소드
                 wr.flush();
-            }
+            } // try with resources 이용해서 자원 자동 반납
 
-            int responseCode = con.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 응답
+            int responseCode = con.getResponseCode(); // 응답코드
+            if (responseCode == HttpURLConnection.HTTP_OK) { 	// 정상 응답
                 return readBody(con.getInputStream());
-            } else {  // 에러 응답
+            } else {  											// 에러 응답 null return
                 return readBody(con.getErrorStream());
             }
         } catch (IOException e) {
@@ -255,6 +272,10 @@ public class VocaController {
         }
     }
 
+    /** 
+     * API 응답 데이터 받는 메소드
+     * @return
+     */
     private String readBody(InputStream body){
         InputStreamReader streamReader = new InputStreamReader(body);
 
@@ -272,26 +293,31 @@ public class VocaController {
         }
     }
     
+    /**
+     * PAPAGO API 결과값을 Voca 객체에 담아서 리턴
+     * 
+     * @param text : 입력받은 검색 단어
+     * @param result : API를 통해 돌아온 결과 값
+     * @param source : 입력받은 단어의 언어 타입
+     */
     private Voca checkList(String text, String result, String source){
-    	Voca vc = new Voca();
+    	Voca vc = null;
     	
-    	JsonObject jObj = new JsonParser().parse(result).getAsJsonObject()
-    									  .get("message").getAsJsonObject()
-    									  .get("result").getAsJsonObject();
+    	JsonObject resultObj = new JsonParser().parse(result).getAsJsonObject()
+									    	   .get("message").getAsJsonObject()
+	    									   .get("result").getAsJsonObject();
     	
-    	String engineType = jObj.get("engineType").getAsString();
-    	String transText = jObj.get("translatedText").getAsString();
+    	String engineType = resultObj.get("engineType").getAsString();// 결과값이 인공지능이 만든건지 아닌건지
+    	String transText = resultObj.get("translatedText").getAsString().replace('.',' ');// json타입으로 온 결과값
     	
     	if(engineType.equals("PRETRANS")) {
-    		if(source.equals("en") && !((transText.length() == 1) && (transText.charAt(0) >= 'A' || transText.charAt(0) <= 'z'))) {
-	    		vc.setVocaEnglish(text);
-	    		vc.setVocaKorean(transText.replace('.',' '));
-    		} else if(source.equals("ko")){
-    			vc.setVocaEnglish(transText.replace('.',' '));
-    			vc.setVocaKorean(text);
-    		} else {
-    			return null;
-    		}
+    		vc = new Voca();
+    		
+	    	String en = source.equals("ko") ? transText : text;
+	    	String kr = source.equals("en") ? text : transText;
+	    	
+	    	vc.setVocaEnglish(en);
+			vc.setVocaKorean(kr);
     	}
     	return vc;
     }

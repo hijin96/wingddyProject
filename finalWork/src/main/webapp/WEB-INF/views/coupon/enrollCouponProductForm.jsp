@@ -63,7 +63,7 @@
 					                        <tr class="click-cp">
 						                        <input type="hidden" name="cpNo" value="${cp.cpNo}" />
 						                        <input type="hidden" name="productContent" value="${cp.productContent}">
-						                        <input type="hidden" name="filePath" value="${cp.filePath}" />
+					                        	<input type="hidden" name="filePath" value="${cp.filePath}" />
 						                        <input type="hidden" name="cartNo" value="${cp.cartNo}" />
 												<td><c:out value="${status.count}"></c:out></td>
 												<td>${cp.productName}</td>
@@ -82,7 +82,7 @@
 	                    		<div class="col-sm-12 col-md-7">
 	                        		<input type="text" class="form-control readonly" id="updateCpName" name="productName" required>
 	                        		<input name="classNo" type="hidden" value="${requestScope.classroom.classNo}" />
-	                        		<input name="cartNo" type="hidden" id="updateCartNo" />
+	                        		<input name="cartNo" type="hidden" id="updateCartNo" value="0"/>
 	                      		</div>
                     		</div>
                     		
@@ -138,9 +138,8 @@
 				console.log(cpInfo.eq(3).val());
 				$('.readonly').attr('readonly', true);
 				
-				console.log(${requestScope.classroom.classNo});
-				
-				console.log($('#updateCartNo').val());
+				//console.log(${requestScope.classroom.classNo});
+				//console.log($('#updateCartNo').val());
 			})
 			
 			$('#btn-reset').on('click', function(){

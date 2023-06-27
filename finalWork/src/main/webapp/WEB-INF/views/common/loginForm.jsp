@@ -106,11 +106,6 @@
                 </div>
                 <div class="row sm-gutters">
                   <div class="col-6">
-                    <a class="btn btn-block btn-success btn-social btn-facebook">
-                      <span class="fab fa-facebook"></span> NAVER
-                    </a>
-                  </div>
-                  <div class="col-6">
                       <a href="#" id="kakao">
                         <img src="resources/images/kakao_login_medium_narrow.png" alt="kakaoLogin">
                       </a>                                
