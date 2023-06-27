@@ -150,6 +150,12 @@ public class AlphabetServiceImpl implements AlphabetService {
 		
 	}
 
+
+	@Override
+	public int ajaxUpdateReply(MarketReply mr) {
+		return alphabetDao.ajaxUpdateReply(sqlSession, mr);
+	}
+
 	
 	
 	

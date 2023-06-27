@@ -60,57 +60,27 @@
                           <th>숙제마감일</th>
                           <th>학습하기!</th>
                         </tr>
+                        <c:forEach var="edu" items="${eList}">
+                          <c:if test="${edu.limitTime gt 0 and edu.eduState eq 0}">
                           <tr>
-                            <td>단어풀기~!</td>
-                            <td>2023-06-28</td>
-                            <td><button type="button" class="btn btn-secondary pass">학습!</button></td>
+                            <td>${edu.eduName}</td>
+                            <td>${Math.round(edu.limitTime)}일</td>
+                            <td>
+                              <form action="exam.edu" method="POST">
+                                <input type="hidden" name=cno value="${ classroom.classNo }"/>
+                                <input type="hidden" value="${edu.eduNo}" name="eduNo"/>
+                                <input type="hidden" value="${edu.eduType}" name="eduType"/>
+                                <button type="submit" class="btn btn-secondary pass">학습!</button>
+                              </form>
+                            </td>
                           </tr>
-                          <tr>
-                            <td>OX풀이 ~!</td>
-                            <td>2023-06-28</td>
-                            <td><button type="button" class="btn btn-secondary pass">학습!</button></td>
-                          </tr>
-                          <tr>
-                            <td>배치풀이~!</td>
-                            <td>2023-06-28</td>
-                            <td><button type="button" class="btn btn-secondary pass">학습!</button></td>
-                          </tr>
+                          </c:if>
+                        </c:forEach>
                       </table>
                     </div>
                   </div>
                 </div>
                 <div class="col-12 col-md-12 col-lg-12">
-                  <div class="card card-primary">
-                    <div class="card-header">
-                      <h4>내 클래스 쿠폰스토어</h4>
-                    </div>
-                    <div class="card-body">
-                      <table class="table table-striped table-md passStudent">
-                        <tr>
-                          <th>상품명</th>
-                          <th>쿠폰설명</th>
-                          <th>수량</th>
-                        </tr>
-                        <tr>
-                          <td>지각면제권!</td>
-                          <td>지각을 면제해줌</td>
-                          <td>10개!</td>
-                        </tr>
-                        <tr>
-                          <td>숙제면제권!</td>
-                          <td>숙제를 면제해줌</td>
-                          <td>10개!</td>
-                        </tr>
-                        <tr>
-                          <td>과자꾸러미!</td>
-                          <td>많은 과자!</td>
-                          <td>10개!</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6 col-md-12 col-lg-6">
                   <div class="card card-primary">
                     <div class="card-header">
                       <h4>클래스 내 랭킹</h4>
@@ -137,22 +107,6 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-6 col-md-12 col-lg-6">
-                  <div class="card card-primary">
-                    <div class="card-header">
-                      <h4>내 보유 알파벳</h4>
-                    </div>
-                    <div class="card-body">
-                      <table class="table table-striped table-md passStudent">
-                        <tr>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
               </div>
         </section>
     </div>
@@ -174,13 +128,10 @@
             else{
               $('#collapseExample').html(manitti);
             }
-
-            
           }
-
-        })
-
-      })
+        });
+        
+      });
      
      
     </script>

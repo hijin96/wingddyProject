@@ -1,6 +1,7 @@
 package com.kh.wingddy.classroom.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +17,8 @@ import com.kh.wingddy.classroom.model.service.ClassroomService;
 import com.kh.wingddy.classroom.model.vo.ClassMember;
 import com.kh.wingddy.classroom.model.vo.Classroom;
 import com.kh.wingddy.common.template.GenerateSecret;
+import com.kh.wingddy.education.model.service.EducationService;
+import com.kh.wingddy.education.model.vo.EduProgress;
 import com.kh.wingddy.education.model.vo.Incorrect;
 import com.kh.wingddy.member.model.service.MemberServiceImpl;
 import com.kh.wingddy.member.model.vo.Member;
@@ -25,23 +28,34 @@ public class ClassroomController {
 	@Autowired
 	private ClassroomService classroomService;
 	
+	@Autowired
+	private EducationService educationService;
+	
 	@RequestMapping("classMain.cl")
 	public ModelAndView ClassMainView(ModelAndView mv, HttpSession session, int cno) {
 		
 		//ArrayList<ClassMember> cm = classroomService.selectPassStudent(cno);
 		//System.out.println(cm);
-		String memberType = ((Member)session.getAttribute("loginUser")).getMemberType();
+		Member m = (Member)session.getAttribute("loginUser");
+		String memberType = m.getMemberType();
 		//System.out.println(memberType);
 		if(memberType.equals("T")) {
 			//session.setAttribute("classroom", new Classroom(cno, "임시세션", "임시세션","임시코드"));
 			mv.addObject("passMember", classroomService.selectPassStudent(cno));
 			mv.addObject("myCount", classroomService.selectClassRanking(cno));
 			mv.setViewName("classroom/classTeacherMain");
-			
 		} else {
+			HashMap<String, Object> map = new HashMap();
+			map.put("classNo", cno);
+			map.put("memberNo", m.getMemberNo());
+			map.put("memberType", memberType);
 			
-			mv.addObject("myCount", classroomService.selectClassRanking(cno));
-			mv.setViewName("classroom/classStudentMain");
+			ArrayList<EduProgress> eList = educationService.selectEduList(map);
+			
+			mv.
+			addObject("eList", eList).
+			addObject("myCount", classroomService.selectClassRanking(cno)).
+			setViewName("classroom/classStudentMain");
 		}
 		return mv;
 	}
