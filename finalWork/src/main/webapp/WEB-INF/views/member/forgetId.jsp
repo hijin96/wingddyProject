@@ -14,7 +14,7 @@
 
     <div class="card card-primary">
         <div class="card-header">
-            <h4>아이디 찾~기~~~~~!</h4>
+            <h4>아이디 찾기</h4>
         </div>
         
         <div class="row">

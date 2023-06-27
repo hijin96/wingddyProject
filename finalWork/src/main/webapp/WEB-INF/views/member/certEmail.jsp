@@ -92,11 +92,11 @@
                     },
                     success : function(result){
                         if(result > 0){
-                            alert('비밀번호가 변경되었어요~!ㅋ다시 로그인해주세욧 ㅋ ~~~!');
+                            alert('비밀번호가 변경되었어요~! 다시 로그인해주세요!');
                             location.href = 'loginForm.me';
                         }
                         else{
-                            alert('비밀번호변경이 실패했어요~!ㅋ');
+                            alert('비밀번호변경이 실패했어요~!');
                         }
                     },
                     error : function(){

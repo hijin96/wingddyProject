@@ -17,7 +17,7 @@ public interface KakaoService {
 	 */
 	public String logoutKakaoAdminKey(String memberId) throws IOException;
 	
-	public String dropKakaoMember(String memberId) throws IOException;
+	//public String dropKakaoMember(String memberId) throws IOException;
 	
 	public String logoutKakao() throws IOException;
 }

@@ -42,8 +42,10 @@ public interface MemberService {
 	// 중복없이 진행 후 아이디 사용 체크 확인 -> 확인시 readonly로 아이디 막아주고
 	public int idCheck(String memberId);
 	// 회원가입 진행 
-	public int dropMember(Member m);
+	//public int dropMember(Member m);
 	
-	public int dropEmploy(int memberNo);
+	//public int dropEmploy(int memberNo);
+	
+	//public int dropClassroom(int memberNo);
 	
 }

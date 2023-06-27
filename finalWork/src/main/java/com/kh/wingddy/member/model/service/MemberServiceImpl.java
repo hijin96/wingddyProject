@@ -92,7 +92,7 @@ public class MemberServiceImpl implements MemberService {
 	public int updatePwd(Member m) {
 		return memberDao.updatePwd(sqlSession, m);
 	}
-
+	/*
 	@Override
 	public int dropMember(Member m) {
 		return memberDao.dropMember(sqlSession, m);
@@ -103,4 +103,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.dropEmploy(sqlSession, memberNo);
 	}
 
+	@Override
+	public int dropClassroom(int memberNo) {
+		return memberDao.dropEmploy(sqlSession, memberNo);
+	}
+	*/
 }
