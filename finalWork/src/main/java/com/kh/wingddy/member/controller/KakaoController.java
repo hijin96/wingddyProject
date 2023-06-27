@@ -34,14 +34,15 @@ public class KakaoController {
 	
 	@GetMapping("kakaoLogin.me")
 	public ModelAndView kakaoLogin(@RequestParam String code, ModelAndView mv, HttpSession session) throws IOException {
-		
-		System.out.println(code);
+		System.out.println("카카오");
+		//System.out.println(code);
 		String accessToken = kakaoService.getKakaoToken(code);
 		Map<String, Object> userInfo = kakaoService.getUserInfo(accessToken);
 		Member m = new Member();
 		m.setMemberId((String)userInfo.get("id"));
 		m.setEmail((String)userInfo.get("email"));
 		m.setLoginType("K");
+		System.out.println(m);
 		Member loginUser = memberService.loginMember(m);
 		if(loginUser != null) {
 			System.out.println("로그인 성공된 멤버 : " + loginUser);
@@ -50,6 +51,7 @@ public class KakaoController {
 			session.setAttribute("profile", (String)userInfo.get("profileUrl"));
 			mv.setViewName("redirect:/");
 		} else {
+			System.out.println("왔다");
 			mv.addObject("alertMsg", "회원정보가 없는 계정입니다 회원가입하시겠습니까?");
 			mv.addObject("enrollKakao", m);
 			mv.setViewName("member/kakaoLoginForm");

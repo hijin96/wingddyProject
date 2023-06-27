@@ -41,7 +41,6 @@
 										</c:when>
 										<c:otherwise>
 											<p style="font-size: larger; font-weight: bolder;">마니또게임을 하고 있지 않아요!</p>
-											
 										</c:otherwise>
 									</c:choose>
 								</div>

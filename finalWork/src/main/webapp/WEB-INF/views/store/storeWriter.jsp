@@ -56,7 +56,7 @@
 								<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="spOnecom">한줄소개</label>
 								<div class="col-sm-12 col-md-7">
 									<input type="text"  class="form-control" name="spOnecom" required>
-									<textarea name="spContent" id="editor" required class="testtest"></textarea>
+									<textarea name="spContent" id="editor"></textarea>
 									<span>썸네일 선택
 									<input class="note-image-input note-form-control note-input" type="file" name="upfile" accept="image/*" multiple="multiple" required>
 									</span>
@@ -85,7 +85,7 @@
 			ckfinder : {
 				uploadUrl : 'resources/uploadFiles'
 				
-			},
+			}
 		
 		
 		});

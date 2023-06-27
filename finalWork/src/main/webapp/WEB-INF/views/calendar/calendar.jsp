@@ -249,12 +249,6 @@
 			</div> <!-- 일정수정 모달 끝 -->
 			
 			
-			
-			
-			
-			
-			
-			
 		</div>
 	</div>	
 </div>	
@@ -275,7 +269,6 @@
 	        var calendarEl = document.getElementById('calendar');
 	        var calendar = new FullCalendar.Calendar(calendarEl, {
 	        	dateClick : function(info){
-	        		//console.log(info.dateStr); // 2023-06-02
 	        		showModal(info.dateStr);
 	        	},
 	        	selectable : true,
@@ -300,9 +293,7 @@
 		    						let cScheduleList1 = '';
 		    						let cScheduleList2 = '';
 		    						
-		    						//console.log(clist);
 		    						for(let i in clist){
-			        					//console.log(list[i].schedule + "/" + list[i].endDate);
 			        					 value.push({
 			        						 title : "<" + clist[i].className + ">" + clist[i].schedule,
 			        						 start : clist[i].startDate,
@@ -317,9 +308,6 @@
 			        					let startDate = new Date(clist[i].startDate);
 			        					let endDate = new Date(clist[i].endDate);
 			        					
-			        					//console.log(clist[i].schedule + " 의 endDate : " + endDate);
-			        					
-			        					
 			        					if(d >= startDate && d <= endDate){
 			        						cScheduleList1 +=  "<li><div id='scheduleName' >&lt;" + clist[i].className + "&gt; " + clist[i].schedule + "</div></li>"; 
 					        				todayArr.push(clist[i]);
@@ -333,7 +321,6 @@
 			        					$('#c_tomorrowList ul').html(cScheduleList2);
 			        					
 			        				}
-			        				//console.log(todayArr);
 		    						successCallback(value);
 		    					}
 		    				})
@@ -349,15 +336,11 @@
 			        			type : 'post',
 			        			success : function(list){
 			        				
-									//console.log("list : " + list);
-									
-									
 									let scheduleList1 = '';
 									let scheduleList2 = '';
 									let mark = '';
 									if(memberType == "S"){
 										for(let i in list){
-											//console.log(list[i].schedule + "/" + list[i].endDate);
 											value.push({
 												title : list[i].schedule,
 												start : list[i].startDate,
@@ -369,7 +352,6 @@
 											let startDate = new Date(list[i].startDate);
 											let endDate = new Date(list[i].endDate);
 											
-											//console.log(list[i].schedule + " 의 endDate : " + endDate);
 											if(d >= startDate && d <= endDate){
 												scheduleList1 +=  "<li><span id='scheduleName' style='background-color:" + list[i].color + "'>" + list[i].schedule + "</span></li>"; 
 												todayArr.push(list[i]);
@@ -387,14 +369,11 @@
 
 									// 캘린더 상단에 오늘, 내일 일정 없을 경우
 			        				if(todayArr.length == 0){
-			        					//console.log('길이 0');
 			        					$('#todayScheduleList').html("----- 오늘 일정이 존재하지 않습니다 -----").css({"color" : "gray", "margin" : "30px", "font-size" : "12px"});
 			        				}
 									if(tomorrowArr.length == 0){
 										$('#tomorrowScheduleList').html("----- 내일 일정이 존재하지 않습니다 -----").css({"color" : "gray", "margin" : "30px", "font-size" : "12px"});
 									}
-			        				
-			        				
 			        				
 	        					}
 							})
