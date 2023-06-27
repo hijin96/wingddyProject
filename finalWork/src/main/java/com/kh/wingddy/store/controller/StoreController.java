@@ -140,7 +140,7 @@ public class StoreController {
 	// 장바구니 개수수정
 	@ResponseBody
 	@RequestMapping(value = "buyCountUpdate", produces = "application/json;charset=UTF-8")
-	public String updateBuyCount(String cartNo, String buyCount, HttpSession session, Model model) {
+	public String updateBuyCount(String[] cartNo, String[] buyCount, HttpSession session, Model model) {
 		int memberNo = ((Member) session.getAttribute("loginUser")).getMemberNo();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);

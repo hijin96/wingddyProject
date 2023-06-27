@@ -78,7 +78,7 @@
 												<th>가격</th>
 												<th>수량</th>
 												<th>수량수정</th>
-												<th>소계</th>
+												<th name="cartU">소계</th>
 												<!-- <th>수정</th> -->
 												
 											</tr>
@@ -102,7 +102,7 @@
 													<input type="number" size="4"  min="0" step="1" class="c-input-text qty text" id="countUpdate${status.index }"></td>
 													<td id="totalPrice${status.index}">${cart.totPrice}</td>
 													<input type="hidden" id="cartNo${status.index}" name="cartNo" value="${cart.cartNo }">
-													<%-- <td> <button type="button" id="cartUpdate${status.index }" name="cartUpdate" class="btn btn-secondary"  >수정</button></td> --%>
+													<td> <button type="button" id="cartUpdate${status.index }" name="cartUpdate" class="btn btn-secondary" >수정</button></td> 
 												</tr>
 											</c:forEach>
 											
@@ -120,7 +120,7 @@
 							<div class="update-box ">
 								<input type="button" value="구매하기" name="buyCart" id="realBuy"  onclick="buyCartpage()" class="btn btn-primary"> 
 								<input type="button" value="삭제하기" name="cartDelete" class="btn btn-secondary" onclick="cartDelete();" >
-							 	<!-- <input type="button" value="수량수정" name="cartUpdate" class="btn btn-secondary" onclick="cartUpdate();" > -->
+		<!-- 					 	<input type="button" value="수량수정" name="cartUpdate" class="btn btn-secondary" onclick="cartUpdate();" > -->
 							</div>
 						</div>
 					</div>
@@ -265,30 +265,46 @@
 				  })
 			}
 			</script>
-
+			<script>
+			////임시용 장바구니 수정
+			$('button[name=cartUpdate]').click(function(){
+				console.log('임시용 장바구니 수정');
+				var index = $(this);
+				
+				let check = $('input[name=cartU]').childNodes;
+				
+				console.log('check: '+ check);
+				console.log('index: '+ index);
+				var click = $('button[name=cartUpdate]').parents();
+				console.log('click: '+ click);
+				
+				
+			});
 			
-			 <script>
+			
+			</script>
+			
+			 <!-- <script>
  			  //장바구니 수정 (cartNo, countUpdate의 수량 같이 가져가기)
 			   function cartUpdate(){
-				   	let countUpdate =0;
-				   	//let cartUpdate=cartUpdate+index
-				   	//체크박스 길이 만큼 
-				 
-					   let checkAll = $('input[name=buyCheckBox]');
-					   console.log('checkAll: '+checkAll[0].value);
+				    let index =0;
+				    let cartNos = [];
+				    let updateCount=[];
+					let checkAll = $('input[name=buyCheckBox]').filter(':checked');
 					  for (var i = 0; i < checkAll.length; i++) {
-				                let index = checkAll[i].value;
-				                console.log('index: '+ index);
-				                let cartNo = $('#cartNo' + index).val(); 
-				                console.log('cartNo: '+ cartNo)
+				               		 index = checkAll[i].value;
+				               	let cartNo = $('#cartNo' + index).val();
+				                let countUpdate = $('#countUpdate'+ index).val();
+				                console.log('cartNo: '+cartNo);
+				                cartNos.push(cartNo);
+				                updateCount.push(countUpdate);
 					  }
-					  console.log('index: '+ index);
-					  Number(countUpdate)
-					  console.log('countUpdate: ' + countUpdate)
-					   console.log('carNo:cartNo: ' + cartNo)
+					  
+					  console.log('updateCount: ' + updateCount)
+					  
 					  $.ajax({
 						url:  'buyCountUpdate'
-						,data:{cartNo:cartNo,  buyCount:countUpdate }
+						,data:{cartNo:cartNos,  buyCount:updateCount }
 					  	,type:'post'
 					  	 ,success: function(data){
 					  		 if(data==1){
@@ -304,11 +320,10 @@
  					  	}
 					  })
 			   }
-			  
 			   
 		</script> 
 
-
+ -->
 
 
 
