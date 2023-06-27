@@ -319,6 +319,7 @@ public class VocaController {
 	    	vc.setVocaEnglish(en);
 			vc.setVocaKorean(kr);
     	}
+    	
     	return vc;
     }
 	

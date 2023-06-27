@@ -39,10 +39,10 @@
 		      ,EDU_TYPE
 		      ,TO_CHAR(END_TIME, 'YY"년" MM"월" DD"일"') END_TIME
 		      ,(END_TIME - SYSDATE) LIMIT_TIME
+		      ,GACHA_COUNT
 		      ,TOTAL_COUNT
 		      ,NVL(CC, 0) COMPLETE_COUNT
 		      ,ROUND(NVL(CC, 0) / TOTAL_COUNT, 3) PROGRESS_RATE
-		      ,GACHA_COUNT
 		<if test='memberType == "S"'>
 			  ,EDU_STATE
 		</if>

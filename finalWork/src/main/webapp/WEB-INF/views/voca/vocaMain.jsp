@@ -166,44 +166,45 @@
 			</script>
 			
 			<!-- 클래스 단어장 -->
-			<c:forEach var="i" begin="0" end="${ classBookList.size() - 1 }">
-				<c:if test="${i eq 0 or classBookList[i].classNo ne classBookList[i-1].classNo}">
-					<div class="card">	
-						<div class="card-header">
-							<input type="hidden" value="${ classBookList[i].classNo }"/>
-							<h1>${ classBookList[i].className }</h1>
-						</div>
-						<div class="card-body">
-							<div id="accordion${i}">
-								<c:forEach var="j" begin="0" end="${ classBookList.size() - 1 }">
-									<c:if test="${ classBookList[i].classNo eq classBookList[j].classNo }">
-										<div class="accordion">
-											<div class="accordion-header select-voca" id="class-${i}-book-head-${j}" role="button" data-toggle="collapse" data-target="#class-${i}voca-book-${j}">
-												<input type="hidden" value="${ classBookList[j].bookNo }"/>
-												<h4>${ classBookList[j].bookName }</h4>
-												
+			<c:if test="${ not empty classBookList}">
+				<c:forEach var="i" begin="0" end="${ classBookList.size() - 1 }">
+					<c:if test="${i eq 0 or classBookList[i].classNo ne classBookList[i-1].classNo}">
+						<div class="card">	
+							<div class="card-header">
+								<input type="hidden" value="${ classBookList[i].classNo }"/>
+								<h1>${ classBookList[i].className }</h1>
+							</div>
+							<div class="card-body">
+								<div id="accordion${i}">
+									<c:forEach var="j" begin="0" end="${ classBookList.size() - 1 }">
+										<c:if test="${ classBookList[i].classNo eq classBookList[j].classNo }">
+											<div class="accordion">
+												<div class="accordion-header select-voca" id="class-${i}-book-head-${j}" role="button" data-toggle="collapse" data-target="#class-${i}voca-book-${j}">
+													<input type="hidden" value="${ classBookList[j].bookNo }"/>
+													<h4>${ classBookList[j].bookName }</h4>
+												</div>
+												<div class="accordion-body collapse" id="class-${i}voca-book-${j}" data-parent="#accordion${i}">
+													<table class="table" id="voca_table">
+														<thead>
+															<tr>
+																<th>#</th>
+																<th>단어</th>
+																<th>뜻</th>
+															</tr>
+														</thead>
+														<tbody>
+														</tbody>
+													</table>
+												</div>
 											</div>
-											<div class="accordion-body collapse" id="class-${i}voca-book-${j}" data-parent="#accordion${i}">
-												<table class="table" id="voca_table">
-													<thead>
-														<tr>
-															<th>#</th>
-															<th>단어</th>
-															<th>뜻</th>
-														</tr>
-													</thead>
-													<tbody>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</c:if>
-								</c:forEach>
+										</c:if>
+									</c:forEach>
+								</div>
 							</div>
 						</div>
-					</div>
-				</c:if>
-			</c:forEach>
+					</c:if>
+				</c:forEach>
+			</c:if>
 			<script>
 				$('.select-voca').on('click','h4', e => {
 					selectVoca(e);
