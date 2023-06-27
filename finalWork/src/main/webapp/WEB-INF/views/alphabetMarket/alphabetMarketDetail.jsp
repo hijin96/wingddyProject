@@ -386,6 +386,6 @@
 
 
 
-	<!-- Page Specific JS File 
-	<script src="${contextPath}/resources/assets/js/page/bootstrap-modal.js"></script>-->
+	 Page Specific JS File 
+	<script src="${contextPath}/resources/assets/js/page/bootstrap-modal.js"></script>
 </html>
