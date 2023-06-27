@@ -35,7 +35,7 @@ public class KakaoController {
 	@GetMapping("kakaoLogin.me")
 	public ModelAndView kakaoLogin(@RequestParam String code, ModelAndView mv, HttpSession session) throws IOException {
 		
-		//System.out.println(code);
+		System.out.println(code);
 		String accessToken = kakaoService.getKakaoToken(code);
 		Map<String, Object> userInfo = kakaoService.getUserInfo(accessToken);
 		Member m = new Member();
