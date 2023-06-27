@@ -271,7 +271,7 @@
                 </c:choose>
                   <div class="d-sm-none d-lg-inline-block">${loginUser.memberName}</div></a>
                   <div class="dropdown-menu dropdown-menu-right">
-                  <a href="" class="dropdown-item has-icon">
+                  <a href="profile.me" class="dropdown-item has-icon">
                   <i class="far fa-user"></i> 프로필
                   </a>
                   <div class="dropdown-divider"></div>
@@ -291,9 +291,6 @@
                       <form action="dropKakaoMember.me" method="POST">
                         <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoDrop"><i class="fas fa-sign-out-alt"></i> 회원탈퇴</button>
                       </form>
-                    </c:when>
-                    <c:when test="${loginUser.loginType eq 'N'}">
-                      <a href="logoutNaver.me" class="dropdown-item has-icon text-danger"></a>
                     </c:when>
                   </c:choose>
                   </div>
