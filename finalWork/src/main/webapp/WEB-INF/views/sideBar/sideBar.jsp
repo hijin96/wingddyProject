@@ -292,9 +292,6 @@
                         <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoDrop"><i class="fas fa-sign-out-alt"></i> 회원탈퇴</button>
                       </form>
                     </c:when>
-                    <c:when test="${loginUser.loginType eq 'N'}">
-                      <a href="logoutNaver.me" class="dropdown-item has-icon text-danger"></a>
-                    </c:when>
                   </c:choose>
                   </div>
               </li>
