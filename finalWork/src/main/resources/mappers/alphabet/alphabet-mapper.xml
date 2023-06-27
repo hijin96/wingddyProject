@@ -128,10 +128,19 @@
 		  ORDER BY ALPHABET
 	</select>
 
+	<update id="ajaxUpdateReply" parameterType="alphabetReply">
+		 UPDATE ALPHABET_REPLY
+		    SET REPLY_ALPHABET = #{alphabet}, REPLY_CONTENT = #{replyContent}
+		  WHERE REPLY_NO = #{replyNo}
+	</update>
+	
+	
 	<insert id="insertReply" parameterType="alphabetReply">
 		INSERT INTO ALPHABET_REPLY
 		VALUES(SEQ_MARKET_RNO.NEXTVAL, #{replyWriter}, #{alphabet}, #{replyContent}, DEFAULT, #{refMarket}, DEFAULT, DEFAULT)
 	</insert>
+	
+	
 	
 	<select id="checkMarketWriterAlphabet"  parameterType="changeAlphabet" resultType="boolean">
 		SELECT COUNT(*)

@@ -195,7 +195,7 @@
                                 + '<div class="time">' + list[i].sendDate + '</div>'
                                 + '</div> </a>'
                         }
-
+ 
                         if(list.length != 0){
                           $('#messageBeep').attr('class','nav-link nav-link-lg message-toggle beep');
                         }
@@ -203,7 +203,7 @@
                           $('#messageBeep').attr('class','nav-link nav-link-lg message-toggle');
                         }
 
-
+ 
 
                         $('#messageArea').html(value);
                       }
@@ -288,9 +288,7 @@
                       <form action="logoutKakaoRestKey.me" method="GET">
                         <button type="submit" class="dropdown-item has-icon text-danger" ><i class="fas fa-sign-out-alt"></i>레스트키 로그아웃</button>
                       </form>
-                      <form action="dropKakaoMember.me" method="POST">
-                        <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoDrop"><i class="fas fa-sign-out-alt"></i> 회원탈퇴</button>
-                      </form>
+                      
                     </c:when>
                   </c:choose>
                   </div>
@@ -354,7 +352,7 @@
                <c:if test ="${not empty loginUser&& (loginUser.memberType eq ('T')or loginUser.memberType eq ('A'))}">
                 <li><a class="nav-link" href="cartDirect">장바구니</a></li>
                 <li><a class="nav-link" href="storewish">위시리스트</a></li>
-                <!-- <li><a class="nav-link" href="storebuy">구매목록</a></li> -->
+                 <li><a class="nav-link" href="orderInfo">구매목록</a></li>
                </c:if> 
               </ul>
             </li>
@@ -435,9 +433,6 @@
                         </form>
                         <form action="logoutKakaoRestKey.me" method="GET">
                           <li><button type="submit" class="dropdown-item has-icon text-danger" style="margin:auto;"><i class="fas fa-sign-out-alt"></i>레스트키 로그아웃</button></li> 
-                        </form>
-                        <form action="dropKakaoMember.me" method="POST">
-                          <button type="submit" class="dropdown-item has-icon text-danger" id="kakaoDrop"><i class="fas fa-sign-out-alt"></i> 회원탈퇴</button>
                         </form>
                       </c:when>
                     </c:choose>

@@ -154,6 +154,19 @@ public class AlphabetController {
 
 	}
 	
+	// 마켓 댓글 등록
+		@ResponseBody
+		@RequestMapping("updateReply.aph")
+		public int ajaxUpdateReply(MarketReply mr) {
+			
+			System.out.println(mr);
+			//AlphabetService.ajaxInsertReply(mr);
+
+			
+			return AlphabetService.ajaxUpdateReply(mr);
+
+	}
+	
 	
 	
 	// 마켓 알파벳 바꾸기
@@ -243,6 +256,7 @@ public class AlphabetController {
 		
 		return "sideBar/sideBar";
 	}
+	
 	
 	
 	

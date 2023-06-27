@@ -75,6 +75,13 @@
 										
 								</div>
 							</c:if>
+							<br>
+							<div align="center">
+								<form action="letterBox">
+									<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
+									<button class="btn btn-primary btn-lg" >목록</button>
+								</form>
+							</div>
 						</div>
 					</div>
 		      	</div>

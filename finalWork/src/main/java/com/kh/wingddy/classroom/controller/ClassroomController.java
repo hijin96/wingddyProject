@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +20,7 @@ import com.kh.wingddy.common.template.GenerateSecret;
 import com.kh.wingddy.education.model.service.EducationService;
 import com.kh.wingddy.education.model.vo.EduProgress;
 import com.kh.wingddy.education.model.vo.Incorrect;
+import com.kh.wingddy.member.model.service.MemberServiceImpl;
 import com.kh.wingddy.member.model.vo.Member;
 
 @Controller
@@ -106,7 +106,7 @@ public class ClassroomController {
 	}
 	
 	@RequestMapping("addClass.cl")
-	public String addClass(Classroom cr) {
+	public ModelAndView addClass(Classroom cr, HttpSession session, ModelAndView mv) {
 		
 		
 		if(cr.getTeacherName() != null) {
@@ -117,7 +117,13 @@ public class ClassroomController {
 			cr.setEnterCode(secret);
 		}
 		// 새로고침해줘야함 바로 반영이 안댐
-		return classroomService.createClassroom(cr) > 0 ? "redirect:/" : "common/errorPage";
+		if(classroomService.createClassroom(cr) > 0) {
+			session.setAttribute("classList", classroomService.selectClassList((Member)session.getAttribute("loginUser")));
+			mv.setViewName("redirect:/");
+		} else {
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 	@RequestMapping("classManagement.cl")

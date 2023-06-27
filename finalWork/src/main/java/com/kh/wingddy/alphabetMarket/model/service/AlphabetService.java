@@ -37,6 +37,9 @@ public interface AlphabetService {
 	// 마켓 댓글 작성
 	int ajaxInsertReply(MarketReply mr);
 	
+	// 마켓 댓글 수정
+	int ajaxUpdateReply(MarketReply mr);
+	
 	
 	// 마켓 알파벳 체인지
 	String ajaxChangeAlphabet(ChangeAlphabet ca);

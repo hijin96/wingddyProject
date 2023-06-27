@@ -48,22 +48,27 @@
 					<div class="card-body">
 						
 						<div class="card">	
-								<div class="card-body p-0">
-									
-									<input type="hidden" class="btn btn-warning" id="modal-aphReply" ></input>
+							<div class="card-body p-0">
+								<input type="hidden" class="btn btn-warning" id="modal-aphReply" />
+								<input type="hidden" class="btn btn-warning" id="modal-update" />
 								<div class="table-responsive">
 									<table class="table table-striped table-md" id="commentsArea">
 									</table>
 								</div>
-								</div>
-								<div class="card-footer text-center">
-									<nav class="d-inline-block">
-										<ul class="pagination mb-0" id="commentList">
-
-										</ul>
-									</nav>
-								</div>
 							</div>
+							<div class="card-footer text-center">
+								<nav class="d-inline-block">
+									<ul class="pagination mb-0" id="commentList">
+									</ul>
+								</nav>
+							</div>
+						</div>
+						<div align="center">
+							<form action="main.aph">
+								<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
+								<button class="btn btn-primary btn-lg" >목록</button>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -91,6 +96,28 @@
 		<label>Comments</label>
 		<div class="input-group">
 			<textarea id="content" class="form-control" required></textarea>
+		</div>
+		</div>
+	</form>
+
+	<!-- 댓글 수정 모달 -->
+	<form class="modal-part" id="modal-login-update">
+		<p>주의! 친구가 바꾸기를 눌렀을 때 해당 알파벳이 있어야만 교환할 수 있어요! </p>
+		<div class="form-group">
+		<label>알파벳</label>
+		<input type="hidden" name="replyNo" id="updateReplyNo">
+		<div class="input-group">
+			<select class="form-control selectric" id="modalAlphabetUpdate" required>
+				<c:forEach items="${requestScope.category}" var="r">
+					<option value="${r.alphabet}">${r.alphabet} (${r.count})</option>
+				</c:forEach>
+			</select>
+		</div>
+		</div>
+		<div class="form-group">
+		<label>Comments</label>
+		<div class="input-group">
+			<textarea id="content-update" class="form-control" required></textarea>
 		</div>
 		</div>
 	</form>
@@ -129,11 +156,22 @@
 			$('#modal-aphReply').click();
 		})
 		
+		
+		$(document).on('click', '#modal-update-btn', function(){
+			//console.log($(this).parent().prev().prev().prev().prev().text()); // 작성한 알파벳 선택
+
+			//console.log($(this).parent().parent().find('input[name="replyNo"]').val());
+
+			$("#modalAlphabetUpdate").val($(this).parent().prev().prev().prev().prev().text());
+
+			$('#content-update').text($(this).parent().prev().prev().text())
+			$('#updateReplyNo').val($(this).parent().parent().find('input[name="replyNo"]').val());
+			$('#modal-update').click();
+		})
+		
 
 
 		$(document).on('click', '.pagingBtn', function(){
-
-
 			
 			currentPage = $(this).text().charAt(0);
 
@@ -219,6 +257,63 @@
 		});
 		
 		
+		// 업데이트 모달
+		$("#modal-update").fireModal({
+			title: '댓글수정',
+			body: $("#modal-login-update"),
+			footerClass: 'bg-whitesmoke',
+			autoFocus: false,
+			onFormSubmit: function(modal, e, form) {
+			// Form Data
+			//let form_data = $(e.target).serialize();
+			//console.log(form_data)
+
+		
+			// DO AJAX HERE
+				/*
+			let fake_ajax = setTimeout(function() {
+				form.stopProgress();
+				modal.find('.modal-body').prepend('<div class="alert alert-info">Please check your browser console</div>')
+		
+				clearInterval(fake_ajax);
+			}, 1500);
+			*/
+
+			$.ajax({
+				url : 'updateReply.aph',
+				data : {
+					alphabet : $('#modalAlphabetUpdate').val(),
+					replyContent : $('#content-update').val(),
+					replyNo : $('#updateReplyNo').val()
+				},
+				success : function(result){
+
+					if(result > 0){
+						window.location.reload();
+					}
+					
+				}
+			})
+
+
+			e.preventDefault();
+			},
+			shown: function(modal, form) {
+			//console.log(form)
+			},
+			buttons: [
+			{
+				text: '등록',
+				submit: true,
+				class: 'btn btn-primary btn-shadow',
+				handler: function(modal) {
+				}
+			}
+			]
+		});
+		
+		
+		
 
 	</script>
 
@@ -246,16 +341,14 @@
 				value += '<tr><td colspan="6"><h3>comments('+ list.length +')</h3></td><td><button class="btn btn-warning" id="modal-fake">댓글작성</button></td></tr>'
 			}
 			else{
-
-
 				value = '<tr><td colspan="6"><h3>comments('+ list.length +')</h3></td><td></td></tr>'
 			}
 
 			 
 			 for(let i in list){
 
-				value += '<tr><td class="tdStyle"><input type="hidden" value="'+ list[i].replyNo +'" id="replyNo"></td>'
-						+ '<td class="tdStyle"><input type="hidden" value="'+ list[i].replyMno +'" id="replyMno" ></td>'
+				value += '<tr><td class="tdStyle"><input type="hidden" value="'+ list[i].replyNo +'" name="replyNo"></td>'
+						+ '<td class="tdStyle"><input type="hidden" value="'+ list[i].replyMno +'" name="replyMno" ></td>'
 				   if(list[i].replySelected == 'Y'){
 					  value += '<td><div class="badge badge-success">selected</div></td>'
 				   }
@@ -271,9 +364,14 @@
 					  
 					  value += '<td><button type="button" class="btn btn-primary btn-sm" onclick="changeAlphabet(this);">바꾸기</button></td></tr>'
 				   }
-				   else{
-					  value += '<td></td></tr>'
+				   else if('${requestScope.market.sellingStatus}' === 'Y' && '${sessionScope.loginUser.memberId}' == list[i].replyWriter){
+						value += '<td><button type="button" class="btn btn-primary btn-sm" id="modal-update-btn">수정</button></td></tr>'
 				   }
+				   /*
+				   else{
+					  value += '<td><button type="button" class="btn btn-primary btn-sm" id="modal-update-btn">수정</button></td></tr>'
+				   }
+				   */
 			 }
 
 			 $('#commentsArea').html(value);
@@ -333,7 +431,7 @@
 	
 
 	function changeAlphabet(btn){
-	
+
         if (confirm('Do you really want to trade it??')) {
 			
 
@@ -343,10 +441,10 @@
 					classNo : '${requestScope.market.classNo}',
 					marketMno : '${sessionScope.loginUser.memberNo}',
 					marketAlphabet : '${requestScope.market.alphabet}',
-					replyMno : $('#replyMno').val(),
+					replyMno : $(btn).parent().parent().find('input[name="replyMno"]').val(),
 					replyAlphabet : $(btn).parent().prev().prev().prev().prev().text(),
 					marketNo : '${requestScope.market.marketBno}',
-					replyNo : $('#replyNo').val()
+					replyNo : $(btn).parent().parent().find('input[name="replyNo"]').val()
 				},
 				success : function(result){
 					if(result == 'statusSuccess'){
@@ -364,7 +462,7 @@
 					}
 
 
-					selectPageButton(1);
+					window.location.reload();
 
 
 				}
@@ -381,6 +479,6 @@
 
 
 
-	<!-- Page Specific JS File 
+	 <!-- Page Specific JS File  -->
 	<script src="${contextPath}/resources/assets/js/page/bootstrap-modal.js"></script>
 </html>
