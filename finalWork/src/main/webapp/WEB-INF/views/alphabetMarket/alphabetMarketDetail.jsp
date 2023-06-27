@@ -160,7 +160,9 @@
 		$(document).on('click', '#modal-update-btn', function(){
 			//console.log($(this).parent().prev().prev().prev().prev().text()); // 작성한 알파벳 선택
 
-			console.log($(this).parent().parent().find('input[name="replyNo"]').val());
+			//console.log($(this).parent().parent().find('input[name="replyNo"]').val());
+
+			$("#modalAlphabetUpdate").val($(this).parent().prev().prev().prev().prev().text());
 
 			$('#content-update').text($(this).parent().prev().prev().text())
 			$('#updateReplyNo').val($(this).parent().parent().find('input[name="replyNo"]').val());
