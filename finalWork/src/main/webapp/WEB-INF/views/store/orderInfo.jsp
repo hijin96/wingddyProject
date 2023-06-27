@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,6 +40,7 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="card-body">
+								<h4>상품구매목록</h4>
 									<table class="table">
 										<thead>
 											<tr>
@@ -46,21 +49,23 @@
 												<th>구매일자 </th>
 												<th>금액</th>
 												<th>수량</th>
-												<th>소계</th>													
+												<th>소계</th>												
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td class="shoppingdetail" >이미지</td>
-												<td class="name-pr">아이스아메리카노 </td>
-												<td class="name-pr"> 20230601랜덤자리5개</td>
-												<td class="produce-pr">
-													5,000
-												</td>
-												<!-- <td class="quantity-box">In Stock</td> -->
-												<td class="price-pr"> 결제 금액 </td>
-												<td class="shoppingdetail">소계</td>
-											</tr>
+											<c:forEach var="order" items="${orderList }" varStatus="status">
+													<tr>
+														<td class="thumbnail-img" width="15%" height="30px"><img class="img-fluid" src="./${order.filePath}/${order.changeName}"  alt=""/></td>
+														<td class="name-pr">${order.spName } </td>
+														<td class="name-pr"> ${order.orderDay }</td>
+														<td class="produce-pr">${order.spPrice }
+															
+														</td>
+														<!-- <td class="quantity-box">In Stock</td> -->
+														<td class="price-pr">${order.buyCount }</td>
+														<td class="shoppingdetail">${order.totPrice}</td>
+													</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>

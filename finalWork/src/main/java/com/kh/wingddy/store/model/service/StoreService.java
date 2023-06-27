@@ -41,8 +41,8 @@ public interface StoreService {
 	ArrayList<Cart> buyCartSelect(String[] cartNo);
 
 	
-	//장바구니 삭제
-	int deleteCart(Cart cart);
+	//장바구니 삭제ajax
+	int deleteCart(HashMap<String, Object> map);
 	//구매하기페이지 
 	int createOrderNo();
 	//구매정보등록
@@ -69,6 +69,7 @@ public interface StoreService {
 	int checkWishList(HashMap<String, Object> map);
 	int WishListDelete(HashMap<String, Object> map);
 	int updateBuyCount(HashMap<String, Object> map);
+	ArrayList<Cart> orderList(int memberNo);
 	
 	
 	

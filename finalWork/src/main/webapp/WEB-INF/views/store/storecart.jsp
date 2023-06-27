@@ -79,7 +79,7 @@
 												<th>수량</th>
 												<th>수량수정</th>
 												<th>소계</th>
-												<th>수정</th>
+												<!-- <th>수정</th> -->
 												
 											</tr>
 											<c:forEach var="cart" items="${cartList }" varStatus="status">
@@ -102,7 +102,7 @@
 													<input type="number" size="4"  min="0" step="1" class="c-input-text qty text" id="countUpdate${status.index }"></td>
 													<td id="totalPrice${status.index}">${cart.totPrice}</td>
 													<input type="hidden" id="cartNo${status.index}" name="cartNo" value="${cart.cartNo }">
-													<td> <button type="button" id="cartUpdate${status.index }" class="btn btn-secondary"  onclick="cartUpdate();">수정</button></td>
+													<%-- <td> <button type="button" id="cartUpdate${status.index }" name="cartUpdate" class="btn btn-secondary"  >수정</button></td> --%>
 												</tr>
 											</c:forEach>
 											
@@ -120,7 +120,7 @@
 							<div class="update-box ">
 								<input type="button" value="구매하기" name="buyCart" id="realBuy"  onclick="buyCartpage()" class="btn btn-primary"> 
 								<input type="button" value="삭제하기" name="cartDelete" class="btn btn-secondary" onclick="cartDelete();" >
-							<!-- 	<input type="button" value="수량수정" name="cartUpdate" class="btn btn-secondary" onclick="cartUpdate();" > -->
+							 	<!-- <input type="button" value="수량수정" name="cartUpdate" class="btn btn-secondary" onclick="cartUpdate();" > -->
 							</div>
 						</div>
 					</div>
@@ -186,7 +186,7 @@
 
 							})
 		</script>
-		<script>
+		<script>//체크하여 구매 값 체크
 			$(function() {
 				$('input[name=buyCheckBox]').click(
 						function() {
@@ -207,6 +207,7 @@
 						});
 				
 			});
+		//구매하기 페이지로 이동
 			   function buyCartpage() {
 			        // Get the checked checkboxes
 			        let checkAll = $('input[name=buyCheckBox]').filter(':checked');
@@ -229,7 +230,6 @@
 
 		<script>
 			//장바구니 삭제
-			
 			function cartDelete() {
 				let cartNos = [];
 				let checkAll = $('input[name=buyCheckBox]').filter(':checked');
@@ -264,17 +264,25 @@
 				  
 				  })
 			}
-			  //장바구니 수정 (cartNo, countUpdate의 수량 같이 가져가기)
+			</script>
+
+			
+			 <script>
+ 			  //장바구니 수정 (cartNo, countUpdate의 수량 같이 가져가기)
 			   function cartUpdate(){
-				   let index =0;
-				  
-					let checkAll = $('input[name=buyCheckBox]').filter(':checked');
+				   	let countUpdate =0;
+				   	//let cartUpdate=cartUpdate+index
+				   	//체크박스 길이 만큼 
+				 
+					   let checkAll = $('input[name=buyCheckBox]');
+					   console.log('checkAll: '+checkAll[0].value);
 					  for (var i = 0; i < checkAll.length; i++) {
-				                index = checkAll[i].value;
+				                let index = checkAll[i].value;
+				                console.log('index: '+ index);
+				                let cartNo = $('#cartNo' + index).val(); 
+				                console.log('cartNo: '+ cartNo)
 					  }
-					  
-					  let cartNo = $('#cartNo' + index).val();
-					  let countUpdate = $('#countUpdate'+ index).val();
+					  console.log('index: '+ index);
 					  Number(countUpdate)
 					  console.log('countUpdate: ' + countUpdate)
 					   console.log('carNo:cartNo: ' + cartNo)
@@ -296,7 +304,9 @@
  					  	}
 					  })
 			   }
-		</script>
+			  
+			   
+		</script> 
 
 
 
