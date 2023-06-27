@@ -195,7 +195,7 @@
                                 + '<div class="time">' + list[i].sendDate + '</div>'
                                 + '</div> </a>'
                         }
-
+ 
                         if(list.length != 0){
                           $('#messageBeep').attr('class','nav-link nav-link-lg message-toggle beep');
                         }
@@ -203,7 +203,7 @@
                           $('#messageBeep').attr('class','nav-link nav-link-lg message-toggle');
                         }
 
-
+ 
 
                         $('#messageArea').html(value);
                       }
@@ -352,7 +352,7 @@
                <c:if test ="${not empty loginUser&& (loginUser.memberType eq ('T')or loginUser.memberType eq ('A'))}">
                 <li><a class="nav-link" href="cartDirect">장바구니</a></li>
                 <li><a class="nav-link" href="storewish">위시리스트</a></li>
-                <!-- <li><a class="nav-link" href="storebuy">구매목록</a></li> -->
+                 <li><a class="nav-link" href="orderInfo">구매목록</a></li>
                </c:if> 
               </ul>
             </li>

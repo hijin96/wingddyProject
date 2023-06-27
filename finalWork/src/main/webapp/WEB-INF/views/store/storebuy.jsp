@@ -35,11 +35,11 @@
 							
 							<div class="row">
 										<div class="col-sm-6 col-lg-6 mb-3">
+								<form class="needs-validation" action="storeBuySuccess" method="post" >
 											<div class="checkout-address">
 														<div class="title-left">
 															<h3>결제하기</h3>
 														</div>
-												<form class="needs-validation" action="storeBuySuccess" method="post" >
 													
 													<div class="row">
 														<div class="col-md-6 mb-3">
@@ -147,8 +147,8 @@
 												</div>
 												<div class="col-12 d-flex shopping-box"> <button type="submit" class="btn btn-primary btn-lg btn-block">결제하기</button> </div>
 											</div>
-									</div>
 								</form>
+									</div>
 								
 							</div>
 				
@@ -157,24 +157,21 @@
 					<!-- End Cart -->
 					<script>
 
-					//document.domain =  "http://localhost:8007/wingddy/address.do";
-					 function goPopup(){
+						//document.domain =  "http://localhost:8007/wingddy/address.do";
+						function goPopup(){
 				            var url = "address.do";
 				            var name = "pop";
 				            var option = "width=570,height=420, scrollbars=yes, resizable=yes"
 				            window.open(url, name, option);
 				        }
-					function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn
-								, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
-						// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-						
-						document.getElementById("roadAddrPart1").value = roadAddrPart1;
-						document.getElementById("roadAddrPart2").value = roadAddrPart2;
-						document.getElementById("addrDetail").value = addrDetail;
-						document.getElementById("zipNo").value = zipNo;
-					}
-
-					
+						function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn
+									, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
+							// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+							document.getElementById("roadAddrPart1").value = roadAddrPart1;
+							document.getElementById("roadAddrPart2").value = roadAddrPart2;
+							document.getElementById("addrDetail").value = addrDetail;
+							document.getElementById("zipNo").value = zipNo;
+						}
 					
 					</script>
 					<script>

@@ -66,9 +66,9 @@ public class StoreDao {
 		return sqlSession.update("storeMapper.updateStoreCart", cart);
 	}
 
-	public int deleteStoreCart(SqlSessionTemplate sqlSession, Cart cart) {
+	public int deleteStoreCart(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 
-		return sqlSession.delete("storeMapper.deleteStoreCart", cart);
+		return sqlSession.delete("storeMapper.deleteStoreCart", map);
 	}
 
 	public ArrayList<Cart> selectStoreCart(SqlSessionTemplate sqlSession, int MemberNo) {
@@ -152,6 +152,11 @@ public class StoreDao {
 
 	public int updateBuyCount(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return sqlSession.update("storeMapper.updateBuyCount",map);
+	}
+
+	public ArrayList<Cart> selectList(SqlSessionTemplate sqlSession, int memberNo) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("storeMapper.orderInfo",memberNo);
 	}
 
 

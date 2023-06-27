@@ -105,8 +105,8 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public int deleteCart(Cart cart) {
-		return storeDao.deleteStoreCart(sqlSession, cart);
+	public int deleteCart(HashMap<String, Object> map) {
+		return storeDao.deleteStoreCart(sqlSession, map);
 	}
 
 	// 장바구니 목록보기
@@ -193,6 +193,12 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public int updateBuyCount(HashMap<String, Object> map) {
 		return storeDao.updateBuyCount(sqlSession,map);
+	}
+
+	@Override
+	public ArrayList<Cart> orderList(int memberNo) {
+		// TODO Auto-generated method stub
+		return storeDao.selectList(sqlSession, memberNo);
 	}
 
 }

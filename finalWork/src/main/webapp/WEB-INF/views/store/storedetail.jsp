@@ -119,11 +119,11 @@
 									
 										console.log('amount' +typeof(amount));
 										console.log('buyCount' + typeof(buyCount));
-										console.log('emptyloginUser'+emptyloginUser);
+										console.log('emptyloginUser: '+emptyloginUser);
 										$('#cart').click(function(){
 											
-											console.log("buycount"+buyCount);
-											if( buyCount<'0'||buyCount==''){
+											console.log("buycount: "+buyCount.val());
+											if( buyCount.val()<'0'||buyCount.val()==''||buyCount.val()==null){
 												alert("수량을체크해주세요");
 												return;
 											}
@@ -143,23 +143,35 @@
 													  created: function(modal) {
 													  modal.find('.modal-footer').prepend('<div class="mr-auto"><a href="cartDirect">장바구니페이지로 이동</a></div>');
 													  },
-													 type: 'POST', buttons: [
-														    {
-														        text: '장바구니 삭제',
-														        class: 'btn btn-primary btn-shadow',
+													 type: 'POST'
+													   , buttons: [
+														    {    text: '장바구니 삭제',
+														        class: 'btn btn-primary btn-shadow', 
 														        submit: true,
 														        handler: function(modal) {
-														        	$.ajax({
+														         	$.ajax({
 														        		url: 'deletestorecart.do',
-																		data: { spNo: spNo,
-																				buyCount:buyCount,
-																				spPrice: spPrice
+																		data: { spNo: spNo
+																				/* buyCount:buyCount,
+																				spPrice: spPrice */
 																		},
-																		type: 'POST'
-														        	})
+																		type: 'POST',
+																		success: function(data){
+																			if(data=='1'){
+																				alert('삭제성공');
+																			}else{
+																				console.log('에러');
+																				alert('삭제실패');
+																			}
+																		},error:function(){
+																			console.log('에러');
+																			alert('에러');
+																		}
+														        	}); 
+														        	
 														        }
 														      }
-														    ]
+														    ]  
 													});
 											}else{
 												alert("로그인 후 이용해주세요");
@@ -174,6 +186,10 @@
 												alert("구매는 로그인후 이용하세요");
 												window.location.href='http://localhost:8007/wingddy/'
 												
+											}
+											if( buyCount.val()<'0'||buyCount.val()==''||buyCount.val()==null){
+												alert("수량을체크해주세요");
+												return;
 											}
 											if(amount<Number(buyCount.val())){
 												alert("구매수량이 판매수량보다 많습니다. 수량을 수정해주세요");
