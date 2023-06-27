@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.wingddy.classroom.model.service.ClassroomService;
 import com.kh.wingddy.common.model.vo.Attachment;
 import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.member.model.service.KakaoService;
@@ -28,6 +28,9 @@ public class KakaoController {
 	
 	@Autowired
 	private KakaoService kakaoService;
+	
+	@Autowired
+	private ClassroomService classroomService;
 	
 	
 	private RenameFile renameFile = new RenameFile();
@@ -48,6 +51,7 @@ public class KakaoController {
 			System.out.println("로그인 성공된 멤버 : " + loginUser);
 			session.setAttribute("accessToken", accessToken);
 			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("classList", classroomService.selectClassList(loginUser));
 			session.setAttribute("profile", (String)userInfo.get("profileUrl"));
 			mv.setViewName("redirect:/");
 		} else {
