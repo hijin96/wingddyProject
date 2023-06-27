@@ -68,7 +68,6 @@
 								<button class="btn btn-primary btn-lg" >목록</button>
 							</form>
 						</div>
-						
 					</div>
 				</div>
 			</div>
@@ -259,8 +258,8 @@
 			 
 			 for(let i in list){
 
-				value += '<tr><td class="tdStyle"><input type="hidden" value="'+ list[i].replyNo +'" id="replyNo"></td>'
-						+ '<td class="tdStyle"><input type="hidden" value="'+ list[i].replyMno +'" id="replyMno" ></td>'
+				value += '<tr><td class="tdStyle"><input type="hidden" value="'+ list[i].replyNo +'" name="replyNo"></td>'
+						+ '<td class="tdStyle"><input type="hidden" value="'+ list[i].replyMno +'" name="replyMno" ></td>'
 				   if(list[i].replySelected == 'Y'){
 					  value += '<td><div class="badge badge-success">selected</div></td>'
 				   }
@@ -338,7 +337,7 @@
 	
 
 	function changeAlphabet(btn){
-	
+
         if (confirm('Do you really want to trade it??')) {
 			
 
@@ -348,10 +347,10 @@
 					classNo : '${requestScope.market.classNo}',
 					marketMno : '${sessionScope.loginUser.memberNo}',
 					marketAlphabet : '${requestScope.market.alphabet}',
-					replyMno : $('#replyMno').val(),
+					replyMno : $(btn).parent().parent().find('input[name="replyMno"]').val(),
 					replyAlphabet : $(btn).parent().prev().prev().prev().prev().text(),
 					marketNo : '${requestScope.market.marketBno}',
-					replyNo : $('#replyNo').val()
+					replyNo : $(btn).parent().parent().find('input[name="replyNo"]').val()
 				},
 				success : function(result){
 					if(result == 'statusSuccess'){
@@ -369,7 +368,7 @@
 					}
 
 
-					selectPageButton(1);
+					window.location.reload();
 
 
 				}
