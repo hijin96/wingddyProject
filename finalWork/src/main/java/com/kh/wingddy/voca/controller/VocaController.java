@@ -272,26 +272,31 @@ public class VocaController {
         }
     }
     
+    /**
+     * PAPAGO API 결과값을 Voca 객체에 담아서 리턴
+     * 
+     * @param text : 입력받은 검색 단어
+     * @param result : API를 통해 돌아온 결과 값
+     * @param source : 입력받은 단어의 언어 타입
+     */
     private Voca checkList(String text, String result, String source){
-    	Voca vc = new Voca();
+    	Voca vc = null;
     	
-    	JsonObject jObj = new JsonParser().parse(result).getAsJsonObject()
-    									  .get("message").getAsJsonObject()
-    									  .get("result").getAsJsonObject();
+    	JsonObject resultObj = new JsonParser().parse(result).getAsJsonObject()
+									    	   .get("message").getAsJsonObject()
+	    									   .get("result").getAsJsonObject();
     	
-    	String engineType = jObj.get("engineType").getAsString();
-    	String transText = jObj.get("translatedText").getAsString();
+    	String engineType = resultObj.get("engineType").getAsString();
+    	String transText = resultObj.get("translatedText").getAsString().replace('.',' ');
     	
     	if(engineType.equals("PRETRANS")) {
-    		if(source.equals("en") && !((transText.length() == 1) && (transText.charAt(0) >= 'A' || transText.charAt(0) <= 'z'))) {
-	    		vc.setVocaEnglish(text);
-	    		vc.setVocaKorean(transText.replace('.',' '));
-    		} else if(source.equals("ko")){
-    			vc.setVocaEnglish(transText.replace('.',' '));
-    			vc.setVocaKorean(text);
-    		} else {
-    			return null;
-    		}
+    		vc = new Voca();
+    		
+	    	String en = source.equals("ko") ? transText : text;
+	    	String kr = source.equals("en") ? text : transText;
+	    	
+	    	vc.setVocaEnglish(en);
+			vc.setVocaKorean(kr);
     	}
     	return vc;
     }
