@@ -190,7 +190,7 @@ public class KakaoServiceImpl implements KakaoService {
 		
 		return id;
 	}
-
+	/*
 	@Override
 	public String dropKakaoMember(String memberId) throws IOException {
 		
@@ -241,7 +241,7 @@ public class KakaoServiceImpl implements KakaoService {
 		
 		return id;
 	}
-
+	*/
 	
 	@Override
 	public String logoutKakao() throws IOException {

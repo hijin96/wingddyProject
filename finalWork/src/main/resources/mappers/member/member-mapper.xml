@@ -176,4 +176,12 @@
 		       FILE_LEVEL = 1    
 		             
 	</delete>
+	
+	<delete id="dropClassroom" parameterType="_int">
+		DELETE
+		  FROM
+		       CLASSROOM
+		 WHERE
+		       TEACHER_NO = #{memberNo}
+	</delete>
 </mapper>
