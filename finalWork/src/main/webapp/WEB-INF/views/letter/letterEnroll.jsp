@@ -36,7 +36,7 @@
 											
 											<input type="radio" name="recipient" value="${myManitti}" id="myManitti">마니띠에게
 											
-											<button type="button" onclick="noneCheck();" class="btn btn-primary">선택취소</button>
+											<!--<button type="button" onclick="noneCheck();" class="btn btn-primary">선택취소</button>-->
 											
 										</c:when>
 										<c:otherwise>
@@ -87,7 +87,37 @@
 										$("#recipientSelect").val('');
 							
 									})
-							
+							/*
+									$(document).ready(function() {
+										$("#recipientSelect").click(function(){
+
+											console.log($("#recipientSelect").prop("disabled"));
+											
+											if($("#recipientSelect").prop("disabled")){
+												$("#recipientSelect").prop("disabled", false);
+												noneCheck();
+											}
+											
+										});
+									});
+									*/
+
+									
+									function test(){
+
+										if($("#recipientSelect").prop("disabled")){  
+											$("#recipientSelect").prop("disabled", false);
+
+											
+										}
+										
+										noneCheck();
+										
+											
+									}
+									
+
+									/*
 									$(document).ready(function() {
 										$("#recipientSelect").on("change", function() {
 										if ($(this).val() !== "") {
@@ -96,14 +126,15 @@
 
 									});
 									})
+									*/
 									
 
 								</script>
 
 									<div class="form-group row mb-4">
 									<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">To</label>
-									<div class="col-sm-12 col-md-7">
-										<select class="form-control selectric" id="recipientSelect" name="recipient" required>
+									<div class="col-sm-12 col-md-7" onclick="test();">
+										<select class="form-control selectric" id="recipientSelect" name="recipient" required >
 											<option value="">-</option>
 											<c:forEach items="${requestScope.recipientList}" var="r">
 												<c:if test="${r.memberNo ne sessionScope.loginUser.memberNo}">
