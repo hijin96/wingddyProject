@@ -98,4 +98,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.dropMember(sqlSession, m);
 	}
 
+	@Override
+	public int dropEmploy(int memberNo) {
+		return memberDao.dropEmploy(sqlSession, memberNo);
+	}
+
 }
