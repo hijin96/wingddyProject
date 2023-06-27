@@ -48,22 +48,27 @@
 					<div class="card-body">
 						
 						<div class="card">	
-								<div class="card-body p-0">
-									
-									<input type="hidden" class="btn btn-warning" id="modal-aphReply" ></input>
+							<div class="card-body p-0">
+								<input type="hidden" class="btn btn-warning" id="modal-aphReply" />
 								<div class="table-responsive">
 									<table class="table table-striped table-md" id="commentsArea">
 									</table>
 								</div>
-								</div>
-								<div class="card-footer text-center">
-									<nav class="d-inline-block">
-										<ul class="pagination mb-0" id="commentList">
-
-										</ul>
-									</nav>
-								</div>
 							</div>
+							<div class="card-footer text-center">
+								<nav class="d-inline-block">
+									<ul class="pagination mb-0" id="commentList">
+									</ul>
+								</nav>
+							</div>
+						</div>
+						<div align="center">
+							<form action="main.aph">
+								<input type="hidden" name="cno" value="${requestScope.classroom.classNo}" /> 
+								<button class="btn btn-primary btn-lg" >목록</button>
+							</form>
+						</div>
+						
 					</div>
 				</div>
 			</div>
