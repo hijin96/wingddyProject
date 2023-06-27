@@ -44,4 +44,6 @@ public interface MemberService {
 	// 회원가입 진행 
 	public int dropMember(Member m);
 	
+	public int dropEmploy(int memberNo);
+	
 }

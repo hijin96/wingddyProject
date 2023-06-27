@@ -96,7 +96,7 @@ public class MemberController {
 		return "common/enrollForm";
 	}
 	
-	@RequestMapping("enrollMember.me")
+	@PostMapping("enrollMember.me")
 	public String insertMember(Member m,
 							   MultipartFile upfile,
 							   HttpSession session,
@@ -164,8 +164,9 @@ public class MemberController {
 		if(m != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginPwd)) {
 			
 			 Member correct = memberService.loginMember(m);
-			 
-			 result = "1";
+			 if(correct != null) {
+				 result = "1";
+			 }
 		}
 		return result;
 	}

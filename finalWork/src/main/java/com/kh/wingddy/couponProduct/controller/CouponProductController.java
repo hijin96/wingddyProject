@@ -105,7 +105,7 @@ public class CouponProductController {
 	 */
 	@RequestMapping("enroll.cp")
 	public String insertCouponProduct(CouponProduct cp, Model model, HttpServletRequest request){
-		//System.out.println(cp);
+
 		if(cpService.insertCouponProduct(cp) > 0) {
 			request.setAttribute("couponCno", cp.getClassNo());
 			return "sideBar/sideBar";

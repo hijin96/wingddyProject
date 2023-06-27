@@ -50,7 +50,7 @@
 	            </div>
 				<div class="form-check" id="selling">
 					<input class="form-check-input" type="checkbox" id="sellingCheck">
-					<label class="form-check-label" for="defaultCheck1">
+					<label class="form-check-label" for="sellingCheck">
 					  거래완료 안보기 
 					</label><br>
 					<form action="enroll.aph" method="POST">

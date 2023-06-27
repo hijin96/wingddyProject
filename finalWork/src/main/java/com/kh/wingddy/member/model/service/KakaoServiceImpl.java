@@ -248,7 +248,7 @@ public class KakaoServiceImpl implements KakaoService {
 
 		String restKey = "af6d74bf8700ecc5864ca816dbce8bee";
 		String kakaoUrl = "https://kauth.kakao.com/oauth/logout?client_id=" + restKey ;
-			   kakaoUrl += "&logout_redirect_uri=http://localhost:8007/wingddy/";
+			   kakaoUrl += "&logout_redirect_uri=http://localhost:8007/wingddy/logoutKakaoRestKey.me";
 		String responseData = null;
 		try {
 			url = new URL(kakaoUrl);
@@ -256,15 +256,16 @@ public class KakaoServiceImpl implements KakaoService {
 			
 			urlConnection.setRequestMethod("GET");
 			
+			
 			br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
 			
 			String line = "";
-			responseData = "";
 			while((line = br.readLine()) != null) {
 				responseData += line;
+				System.out.println("로그아웃 : " + line);
 			}
 			
-			System.out.println("로그아웃 : " + responseData);
+			System.out.println("로그아웃 : " + line);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

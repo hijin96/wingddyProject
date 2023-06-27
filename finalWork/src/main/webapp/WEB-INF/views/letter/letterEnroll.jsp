@@ -32,29 +32,45 @@
 										<c:when test="${not empty myManitti}">
 											
 											<p style="font-size: larger; font-weight: bolder;">'마니띠에게' 클릭 시 익명으로 보낼 수 있어요!</p>
-											<input type="radio" name="recipient" value="${myManitto}">마니또에게
+											<input type="radio" name="recipient" value="${myManitto}" id="myManitto">마니또에게
 											
-											<input type="radio" name="recipient" value="${myManitti}">마니띠에게
+											<input type="radio" name="recipient" value="${myManitti}" id="myManitti">마니띠에게
 											
 											<button type="button" onclick="noneCheck();" class="btn btn-primary">선택취소</button>
 											
 										</c:when>
 										<c:otherwise>
 											<p style="font-size: larger; font-weight: bolder;">마니또게임을 하고 있지 않아요!</p>
-											
 										</c:otherwise>
 									</c:choose>
 								</div>
 								<script>
 
 									$("input:radio[name='recipient']").change(function() {
+
+										var id = $(this).prop("id");
+										
+										/*
 										if ($(this).val() === "${myManitto}") {
 											$("input[name='toManitto']").val("Y");
 											$("input[name='anonymous']").val("N");
-										} else {
+										} 
+										if ($(this).val() === "${myManitto}"){
 											$("input[name='toManitto']").val("N");
 											$("input[name='anonymous']").val("Y");
 										}
+										*/
+
+										if(id === 'myManitto'){
+											$("input[name='toManitto']").val("Y");
+											$("input[name='anonymous']").val("N");
+										}else{
+											$("input[name='toManitto']").val("N");
+											$("input[name='anonymous']").val("Y");
+										}
+
+										//console.log("toManitto : " + $("input[name='toManitto']").val());
+										//console.log("anonymous : "+$("input[name='anonymous']").val());
 									})
 									
 									function noneCheck(){
