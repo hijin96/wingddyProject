@@ -15,7 +15,7 @@
 
     #mainLetter{
         margin-top: 50px;
-        color: rgba(255, 43, 15, 0.846);
+        color: rgba(255, 73, 49, 0.846);
     }
 </style>
 </head>
