@@ -271,7 +271,7 @@
                 </c:choose>
                   <div class="d-sm-none d-lg-inline-block">${loginUser.memberName}</div></a>
                   <div class="dropdown-menu dropdown-menu-right">
-                  <a href="" class="dropdown-item has-icon">
+                  <a href="profile.me" class="dropdown-item has-icon">
                   <i class="far fa-user"></i> 프로필
                   </a>
                   <div class="dropdown-divider"></div>
