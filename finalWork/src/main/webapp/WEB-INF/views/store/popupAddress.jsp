@@ -65,6 +65,8 @@
 		주소팝업API를 제외하시고 테스트 하시기 바랍니다.
 */
 
+//alert('${loginUser}');
+
 function init(){
 	var url = location.href;
 	var confmKey = "U01TX0FVVEgyMDIzMDYxNTE3MzU0MzExMzg1MzY=";
@@ -81,7 +83,7 @@ function init(){
 	}else{
 		opener.jusoCallBack("<%=roadFullAddr%>","<%=roadAddrPart1%>","<%=addrDetail%>","<%=roadAddrPart2%>","<%=engAddr%>","<%=jibunAddr%>","<%=zipNo%>", "<%=admCd%>", "<%=rnMgtSn%>", "<%=bdMgtSn%>", "<%=detBdNmList%>", "<%=bdNm%>", "<%=bdKdcd%>", "<%=siNm%>", "<%=sggNm%>", "<%=emdNm%>", "<%=liNm%>", "<%=rn%>", "<%=udrtYn%>", "<%=buldMnnm%>", "<%=buldSlno%>", "<%=mtYn%>", "<%=lnbrMnnm%>", "<%=lnbrSlno%>", "<%=emdNo%>");
 		window.close();
-		}
+	}
 }
 </script>
 <body onload="init();">

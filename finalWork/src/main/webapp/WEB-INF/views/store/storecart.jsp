@@ -79,7 +79,7 @@
 												<th>수량</th>
 												<th>수량수정</th>
 												<th name="cartU">소계</th>
-												<!-- <th>수정</th> -->
+												 <th>수정</th>
 												
 											</tr>
 											<c:forEach var="cart" items="${cartList }" varStatus="status">
@@ -99,10 +99,11 @@
 													<td class="align-middle">${cart.spPrice}</td>
 													<td>${cart.buyCount }</td>
 													<td>
-													<input type="number" size="4"  min="0" step="1" class="c-input-text qty text" id="countUpdate${status.index }"></td>
+													<input type="number" size="4"  min="0" step="1" class="c-input-text qty text" id="countUpdate${status.index }" name="countUpdate"></td>
 													<td id="totalPrice${status.index}">${cart.totPrice}</td>
-													<input type="hidden" id="cartNo${status.index}" name="cartNo" value="${cart.cartNo }">
+													
 													<td> <button type="button" id="cartUpdate${status.index }" name="cartUpdate" class="btn btn-secondary" >수정</button></td> 
+													<input type="hidden" id="cartNo${status.index}" name="cartNo" value="${cart.cartNo }">
 												</tr>
 											</c:forEach>
 											
@@ -268,19 +269,30 @@
 			<script>
 			////임시용 장바구니 수정
 			$('button[name=cartUpdate]').click(function(){
-				console.log('임시용 장바구니 수정');
-				var index = $(this);
+				//수정된수량
+				var update = $(this).parent().parent().find('input[name="countUpdate"]').val();
+				//수정할 카트번호
+				var clickCartNo = $(this).parent().parent().find('input[name="cartNo"]').val();
+				$.ajax({
+					url:  'buyCountUpdate'
+				  ,data:{cartNo:clickCartNo,  buyCount:update }
+				  ,success: function(data){
+			  		 if(data==1){
+			  			 alert("수정성공");
+			  			 location.reload();
+			  		 }else{
+			  			 console.log('실패');
+			  		 }
+			  	 }
+				  	,error:function(){
+				  		console.log('에러');
+				  	
+				  	}
 				
-				let check = $('input[name=cartU]').childNodes;
 				
-				console.log('check: '+ check);
-				console.log('index: '+ index);
-				var click = $('button[name=cartUpdate]').parents();
-				console.log('click: '+ click);
-				
+				});
 				
 			});
-			
 			
 			</script>
 			

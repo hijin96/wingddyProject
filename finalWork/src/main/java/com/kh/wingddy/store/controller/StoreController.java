@@ -111,22 +111,12 @@ public class StoreController {
 		return new Gson().toJson(storeService.insertStoreCart(cart));
 	}
 
-	// 장바구니 삭제ajax
-	/*
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(value = "deletestorecart.do", produces =
-	 * "application/json;charset=UTF-8") public String ajaxDeleteStoreCart(Cart
-	 * cart, HttpSession session) { System.out.println("장바구니 삭제 페이지로 옴"); Member m =
-	 * ((Member) session.getAttribute("loginUser"));
-	 * cart.setMemberNo(m.getMemberNo()); return new
-	 * Gson().toJson(storeService.deleteCart(cart)); }
-	 */
+
 	// 장바구니 삭제ajax
 	@ResponseBody
 	@RequestMapping(value = "deletestorecart.do", produces = "application/json;charset=UTF-8")
 	public String ajaxDeleteStoreCart(Cart cart, HttpSession session,int spNo) {
-		System.out.println("장바구니 삭제 페이지로 옴");
+		
 		Member m = ((Member) session.getAttribute("loginUser"));
 		cart.setMemberNo(m.getMemberNo());
 		int memberNo = ((Member) session.getAttribute("loginUser")).getMemberNo();
@@ -220,12 +210,12 @@ public class StoreController {
 		order.setOrderNo(orderNo);
 		int memberNo = ((Member) session.getAttribute("loginUser")).getMemberNo();
 		// System.out.println("구매하기 페이지는 들어옴");
-		System.out.println("address1차: " + address);
+		//System.out.println("address1차: " + address);
 		String address1 = address.getRoadAddrPart1();
 		String address2 = address.getRoadAddrPart2();
 		String address3 = address.getAddrDetail();
 		order.setOrderAddress(address1 + address2 + address3);
-		System.out.println("address2차: " + order);
+	//	System.out.println("address2차: " + order);
 
 		if (storeService.orderAllSuccess(order) > 0) {
 			HashMap<String, Object> map = new HashMap();

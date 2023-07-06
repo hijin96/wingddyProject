@@ -101,9 +101,9 @@ public class LetterDao {
 	
 	public ArrayList<Letter> unReadLetter(SqlSessionTemplate session, int memberNo){
 		
-		return (ArrayList)session.selectList("letterMapper.unReadLetter", memberNo);
+		  return (ArrayList)session.selectList("letterMapper.unReadLetter", memberNo);
+		 //return null;
 	}
-	
 	public int markAll(SqlSessionTemplate session, int memberNo){
 		
 		return session.update("letterMapper.markAll", memberNo);

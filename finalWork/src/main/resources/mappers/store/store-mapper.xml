@@ -372,6 +372,7 @@
 	
 	</delete>
 	<update id="updateBuyCount" parameterType="java.util.HashMap">
+	
 	 UPDATE 
 	 	 S_CART 
 	 SET  
@@ -379,6 +380,7 @@
 	  WHERE 
 	     MEMBER_NO=#{memberNo} 
 	  AND CART_NO = #{cartNo}
+	  
 	</update>
 	<select id="orderInfo" resultMap="CartResultSet,storeResultSet">
 	      SELECT 
