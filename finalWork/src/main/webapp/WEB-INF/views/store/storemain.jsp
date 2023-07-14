@@ -55,6 +55,34 @@
 						</form>
 					</div>
 				</c:if>
+				<!--검색창  -->
+				
+				<div class="card-body">
+                    <div class="float-left">
+                      <select class="form-control selectric">
+                        <option>Action For Selected</option>
+                        <option>Move to Draft</option>
+                        <option>Move to Pending</option>
+                        <option>Delete Pemanently</option>
+                      </select>
+                    </div>
+                    <div class="float-right">
+                      <form action="search.do" method="get">
+                      <input type="hidden" name="currentPage" value="1">
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Search" name="keyword" value="${keyword }">
+                          <div class="input-group-append">                                            
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
+                    <div class="clearfix mb-3"></div>
+                 </div>
+				<!-- 검색창 끝  -->
+				
+				
 				<c:if test="${not empty loginUser&& (loginUser.memberType eq ('T')or loginUser.memberType eq ('A'))}">
 				<div class="product-categorie-box">
 					<div class="tab-content">
@@ -107,27 +135,26 @@
 				</div>
 				
 				<script>
-					$(function() {
+					/* $(function() {
 						$('.mask-icon').click(
 								function() {
 									location.href = 'storedetail?spNo='
 											+ $(this).find('.spNo').text();
 								})
-					})
+					}) */
 
 					$(function() {
 						$('.products-single').click(
 								function() {
-
 									location.href = 'storedetail?spNo='
 											+ $(this).find('.spNo').text();
 								})
 					})
-				</script>
-				<script>
+				
 					$('#storeAdd').click(function() {
 						var fileNo = $('fileNo').val();
 					})
+					
 				</script>
 
 

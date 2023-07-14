@@ -179,14 +179,12 @@
 						$('#kakaoPay').click(function(){
 						   $.ajax({
 							   
-							 url:'/payment/ready',
+							 url:'payment/ready',
 							 data :{
 								 odr_name : $("input[name='spName']").val(),
-								 odr_addr : $("input[name='roadAddrPart1']").val(),
-								 odr_addr : $("input[name='roadAddrPart2']").val(),
 								 odr_total_price : $("input[name='sumPrice']").val()
 								 
-							 },type: 'get',
+							 },type: 'post',
 						    	 success: function(response){
 								 alert(response.next_redirect_po_url);
 								 location.href=response_redirect_pc_url;

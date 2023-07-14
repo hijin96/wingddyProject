@@ -30,6 +30,10 @@
 .ck-editor__editable {
 	min-height: 300px;
 }
+.card-outline-secondary{
+	width: 100%;
+	
+	margin: 0 auto;}
 </style>
 <meta charset="UTF-8">
 <title>상품디테일</title>
@@ -41,39 +45,20 @@
 			<jsp:include page="../sideBar/sideBar.jsp" />
 			<div class="main-content">
 				<br> <br> <br> <br> <br> <br>
-
-				<div class="shop-detail-box-main">
-					<div class="container">
-						<div class="row">
-							<div class="col-xl-5 col-lg-5 col-md-6">
-								<div id="carousel-example-1"
-									class="single-product-slider carousel slide"
-									data-ride="carousel">
-									<div class="carousel-inner" role="listbox">
-										<div class="carousel-item active">
-										<img class="d-block w-100"
-												src="${contextPath}/${s.filePath}/${s.changeName}"
-												alt="상품썸네일">
-										</div>
-
+				<script src="/wingddy/resources/ckeditor/ckeditor.js"></script>
+				<form  method="POST" id="form">
+					<div class="shop-detail-box-main">
+						<div class="container">
+							<div class="row">
+								
+								<div class="col-xl-5 col-lg-5 col-md-6">
+									<div class="carousel-item active">
+										<img class="d-block w-100" src="${contextPath}/${s.filePath}/${s.changeName}" alt="상품썸네일">
 									</div>
-									<a class="carousel-control-prev" href="#carousel-example-1"
-										role="button" data-slide="prev"> 
-										<i class="fa fa-angle-left" aria-hidden="true"></i> 
-										<span class="sr-only">Previous</span>
-									</a> <a class="carousel-control-next" href="#carousel-example-1"
-										role="button" data-slide="next"> <i
-										class="fa fa-angle-right" aria-hidden="true"></i> <span
-										class="sr-only">Next</span>
-									</a>
-
 								</div>
-							</div>
-							<div class="col-xl-7 col-lg-7 col-md-6">
-								<div class="single-product-details">
-									<form  action="storebuybasket" method="POST" id="form">
-									
-									 	<input type="hidden" name="spName" value="${s.spName}">
+								<div class="col-xl-7 col-lg-7 col-md-6">
+									<div class="single-product-details">
+										<input type="hidden" name="spName" value="${s.spName}">
 										<h2>${s.spName}</h2>
 										<h5>
 											<span><input type="hidden" value="${s.spPrice}" name="spPrice">${s.spPrice}원<span>
@@ -95,7 +80,10 @@
 										<div class="price-box-bar">
 											<div class="cart-and-bay-btn">
 												<input type="hidden" name="fileNo" value="${s.fileNo }">
-												
+												<input type="hidden" name="changeName" value="${s.changeName}">
+												<c:if test="${not empty loginUser&& loginUser.memberType eq ('A')}">
+													<button type='button' onclick="edit()" class="btn btn-warning" >수정</button>
+												</c:if>
 												<button type='button' onclick="buyCart()" class="btn btn-info" >구매하기</button>
 												<button class="btn btn-primary trigger--fire-modal-6" id="cart" type="button">장바구니!!</button>
 													<div class="add-to-btn">
@@ -106,211 +94,205 @@
 													</div>
 											</div>
 										</div>
-									</form>
-										<!--장바구니 모달창 -->
-									<script>
-										
-										
-										let spNo = ${s.spNo};
-										let spPrice = ${s.spPrice};
-										let emptyloginUser = ${not empty loginUser};
-										let amount =${s.amount };
-										let buyCount = $('#buyCount');
-									
-										console.log('amount' +typeof(amount));
-										console.log('buyCount' + typeof(buyCount));
-										console.log('emptyloginUser: '+emptyloginUser);
-										$('#cart').click(function(){
-											
-											console.log("buycount: "+buyCount.val());
-											if( buyCount.val()<'0'||buyCount.val()==''||buyCount.val()==null){
-												alert("수량을체크해주세요");
-												return;
-											}
-											if(emptyloginUser== true){
-												$.ajax({
-													url: 'storecart.do',
-													data: { spNo: spNo,
-														buyCount:buyCount.val(),
-														spPrice: spPrice
-														
-													},
-													type: 'POST'
-												});
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--콘텐츠영역  -->
+						<div class="ck-body-wrapper">
+							<div id="editor">${s.spContent }</div>
+						</div>
+					</div>
+				</form>	
+						<!--장바구니 모달창 -->
+						<script>
+							let spNo = ${s.spNo};
+							let spPrice = ${s.spPrice};
+							let emptyloginUser = ${not empty loginUser};
+							let amount =${s.amount };
+							let buyCount = $('#buyCount');
+							$('#cart').click(function(){
+								if( buyCount.val()<'0'||buyCount.val()==''||buyCount.val()==null){
+									alert("수량을체크해주세요");
+									return;
+								}
+								if(emptyloginUser== true){
+									$.ajax({
+										url: 'storecart.do',
+										data: { spNo: spNo,
+											buyCount:buyCount.val(),
+											spPrice: spPrice
+										},
+										type: 'POST',
+										success: function(data){
+											if(data=="1"){
 												$("#cart").fireModal({
-													  title: '장바구니',
-													  body: '<p>장바구니담기성공.</p>',
-													  created: function(modal) {
-													  modal.find('.modal-footer').prepend('<div class="mr-auto"><a href="cartDirect">장바구니페이지로 이동</a></div>');
-													  },
-													 type: 'POST'
-													   , buttons: [
-														    {    text: '장바구니 삭제',
-														        class: 'btn btn-primary btn-shadow', 
-														        submit: true,
-														        handler: function(modal) {
-														         	$.ajax({
-														        		url: 'deletestorecart.do',
-																		data: { spNo: spNo
-																				/* buyCount:buyCount,
-																				spPrice: spPrice */
-																		},
+													title: '장바구니',
+														body: '<p>장바구니담기성공.</p>',
+														created: function(modal) {
+															modal.find('.modal-footer').prepend('<div class="mr-auto"><a href="cartDirect">장바구니페이지로 이동</a></div>');
+														},
+														type: 'POST'
+														, buttons: [
+															{ text: '장바구니 삭제',
+															class: 'btn btn-primary btn-shadow', 
+															submit: true,
+															handler: function(modal) {
+																$.ajax({
+																		url: 'deletestorecart.do',
+																		data: { spNo: spNo},
 																		type: 'POST',
 																		success: function(data){
 																			if(data=='1'){
 																				alert('삭제성공');
-																			}else{
-																				console.log('에러');
-																				alert('삭제실패');
-																			}
+																				}else{
+																					alert('삭제실패');
+																				}
 																		},error:function(){
-																			console.log('에러');
 																			alert('에러');
 																		}
-														        	}); 
-														        	
-														        }
-														      }
-														    ]  
-													});
-											}else{
-												alert("로그인 후 이용해주세요");
-											
+																		}); 
+																	}
+																}
+															]  
+												})//model끝
 											}
-
-										});
-										function buyCart(){
-											console.log('amount : '+ amount);
-											console.log('buy:  ' + buyCount.val());
-											if(emptyloginUser==false){
-												alert("구매는 로그인후 이용하세요");
-												window.location.href='http://localhost:8007/wingddy/'
-												
-											}
-											if( buyCount.val()<'0'||buyCount.val()==''||buyCount.val()==null){
-												alert("수량을체크해주세요");
-												return;
-											}
-											if(amount<Number(buyCount.val())){
-												alert("구매수량이 판매수량보다 많습니다. 수량을 수정해주세요");
-											}else{
-												document.getElementById('form').submit();
-											}
-												
+										}//succ끝
+										,error: function(){
+											alert("장바구니담기 실패");
 										}
+
+									});//Ajax끝
+								}else{
+									alert("로그인 후 이용해주세요");
+								}
+							});
+							
+							function buyCart(){
+								console.log('amount : '+ amount);
+								console.log('buy:  ' + buyCount.val());
+								if(emptyloginUser==false){
+									alert("구매는 로그인후 이용하세요");
+									window.location.href='http://localhost:8007/wingddy/'
+									
+								}
+								if( buyCount.val()<'0'||buyCount.val()==''||buyCount.val()==null){
+									alert("수량을체크해주세요");
+									return;
+								}
+								if(amount<Number(buyCount.val())){
+									alert("구매수량이 판매수량보다 많습니다. 수량을 수정해주세요");
+								}else{
+									//document.getElementById('form').submit();
+									var form = document.getElementById('form')
+									form.action = "storebuybasket"
+									form.submit();
+									
+								}
+							}
+							function wishList(){
+								console.log('위시리스트클릭');
+								$.ajax({
+									url:'storeWishListInsert'
+									,data : {
+										spNo:spNo
+									}
+									,type:'get'
+									,success : function(data){
+										if(data=="1"){
+											alert('위시리스트에 담겼습니다.');
+										}else{
+											alert("위시리스트 담기 실패, 이미 담겨있는지 확인해보세요");
+										}
+									
+									},error: function(error){
+										console.log()
+									}
 										
-										function wishList(){
-											console.log('위시리스트클릭');
-											$.ajax({
-												url:'storeWishListInsert'
-												,data : {
-													spNo:spNo
-												}
-												,type:'get'
-												,success : function(data){
-													if(data=="1"){
-														alert('위시리스트에 담겼습니다.');
-													}else{
-														alert("위시리스트 담기 실패, 이미 담겨있는지 확인해보세요");
-													}
-												
-												},error: function(error){
-													console.log()
-												}
-													
-											});
-										}
-								     </script>
-									<div class="add-to-btn"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!--콘텐츠영역  -->
-				<script src="/wingddy/resources/ckeditor/ckeditor.js"></script>
-				<div class="ck-body-wrapper">
-					<div id="editor">${s.spContent }</div>
-				</div>
-				<!-- 나중에 readOnly로 바꾸기 
-				<script>
-					  ClassicEditor.create( document.querySelector( '#editor' ), {
-					       
-					    } ).then( editor => {
-					        const toolbarElement = editor.ui.view.toolbar.element;
-					       
-					        editor.on( 'change:isReadOnly', ( evt, propertyName, isReadOnly ) => {
-					            if ( isReadOnly ) {
-					                toolbarElement.style.display = 'none';
-					            } else {
-					                toolbarElement.style.display = 'flex';
-					            }
-					        } );
-					    } )
-					    .catch( error => {
-					        console.log( error );
-					    } ); 
-				</script> -->
-
+								});
+							}
+							function edit(){
+								var form = document.getElementById('form')
+								form.action = "editStore.do"
+								form.submit();
+								
+							}
+					     </script>
 				<!--댓글란-->
 				<div class="row my-5">
 					<div class="card card-outline-secondary my-4">
 						<div class="card-header">
 							<h2>상품후기</h2>
 						</div>
+					
 						<div class="card-body">
-							<div class="media mb-3">
-								<div class="mr-2">
-									<img class="rounded-circle border p-1"
-										src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_160c142c97c%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_160c142c97c%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213.5546875%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
-										alt="Generic placeholder image">
-								</div>
-								<div class="media-body">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit. Omnis et enim aperiam inventore, similique
-										necessitatibus neque non! Doloribus, modi sapiente laboriosam
-										aperiam fugiat laborum. Sequi mollitia, necessitatibus quae
-										sint natus.</p>
-									<small class="text-muted">작성일</small>
+							<div class="form-group">
+		                     	<label>댓글등록</label>
+		                     	<textarea class="form-control" id="reviewComment"></textarea>
+		                     	<br>
+		                     	<button type="button" onclick="review()" class="buttons btn btn-outline-primary">등록</button>
+		                     	<button type="reset" class="buttons btn btn-outline-danger">취소</button>
+                   			</div>
+                   			<hr>
+              
+							<div class="media col-mb-3">
+								<div class="media-body" id="reviewList">
 								</div>
 							</div>
-							<hr>
-							<div class="media mb-3">
-								<div class="mr-2">
-									<img class="rounded-circle border p-1"
-										src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_160c142c97c%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_160c142c97c%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213.5546875%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
-										alt="Generic placeholder image">
-								</div>
-								<div class="media-body">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit. Omnis et enim aperiam inventore, similique
-										necessitatibus neque non! Doloribus, modi sapiente laboriosam
-										aperiam fugiat laborum. Sequi mollitia, necessitatibus quae
-										sint natus.</p>
-									<small class="text-muted">작성일</small>
-								</div>
-							</div>
-							<hr>
-							<div class="media mb-3">
-								<div class="mr-2">
-									<img class="rounded-circle border p-1"
-										src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_160c142c97c%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_160c142c97c%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213.5546875%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
-										alt="Generic placeholder image">
-								</div>
-								<div class="media-body">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit. Omnis et enim aperiam inventore, similique
-										necessitatibus neque non! Doloribus, modi sapiente laboriosam
-										aperiam fugiat laborum. Sequi mollitia, necessitatibus quae
-										sint natus.</p>
-									<small class="text-muted">Posted by Anonymous on 3/1/18</small>
-								</div>
-							</div>
-							<hr>
-							<a href="#" class="btn hvr-hover">상품후기더보기</a>
+								<a href="#" class="btn hvr-hover">상품후기더보기</a>
 						</div>
 					</div>
 				</div>
+				 <script>
+							function review(){
+								if($('#reviewComment').val().trim() !=''){
+									$.ajax({
+										url:'insertReview.bo'
+										,data: { spNo: '${s.spNo}'
+												,memberNo : '${loginUser.memberNo}'
+												,reCom: $('#reviewComment').val()
+											  }
+										,success : 
+											function(reviewInsert){
+											if(reviewInsert=="1"){
+												alert("작성성공");
+												$('#reviewComment').val('')
+											}else{
+												alert("작성실패,구매자만 작성가능합니다.");
+											}
+										},error: function(){
+											alert("에러");
+										}
+									});
+								}
+							}
+							$(function(){
+								selectReviewList();
+								setInterval(selectReviewList, 5000);
+							})
+							function selectReviewList(){
+								$.ajax({
+									 url:'rlist.do'
+									,data:{
+										spNo:'${s.spNo}'
+									},success: function(list){
+										let value=""
+										for (let i in list){
+											value+='<p>'+list[i].reCom+'</p>'
+													+'<small class="text-muted col-sm-6 col-md-8">'+list[i].reDate+'</small>'
+													+'<small class="text-muted col-6 col-md-4">'+list[i].memberName+'</small>'
+													+'<hr>'
+										};
+										$('#reviewList').html(value);
+										
+									},error: function(){
+										console.log('댓글 실패');
+									}
+								})
+								
+							}
+					</script>
+
 
 
 

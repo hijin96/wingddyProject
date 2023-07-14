@@ -40,6 +40,19 @@
 							<div class="col-lg-12">
 								<div class="table-main table-responsive">
 									<span>*이미지 클릭시 상품상세페이지로 이동합니다.</span>
+									<div class="card-header">
+					                    <h4>위시리스트</h4>
+					                    <div class="card-header-form">
+					                      <form>
+					                        <div class="input-group">
+					                          <input type="text" class="form-control" placeholder="Search">
+					                          <div class="input-group-btn">
+					                            <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+					                          </div>
+					                        </div>
+					                      </form>
+					                    </div>
+					                  </div>
 									<table class="table table-striped" >
 										<tbody>
 											<tr>
@@ -51,6 +64,7 @@
 															onclick="wishListAll();"> 
 															<label for="wishList-all" class="custom-control-label"
 															name="wishList-all">&nbsp;</label>
+															
 													</div>
 												</th>
 												<th>상품번호</th>
@@ -84,7 +98,23 @@
 										</tbody>
 									</table>
 									<input type="button" value="삭제하기" name="wishDelete" class="btn btn-info" onclick="wishDelete();" >
-								<!-- 	<input type="button" value="장바구니추가" name="updateCart" class="btn btn-primary" onclick="updateCart();" > -->
+									<div class="card-footer text-right">
+					                    <nav class="d-inline-block">
+					                      <ul class="pagination mb-0">
+					                        <li class="page-item disabled">
+					                          <a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
+					                        </li>
+					                        <li class="page-item active"><a class="page-link" href="#">1 <span class="sr-only">(current)</span></a></li>
+					                        <li class="page-item">
+					                          <a class="page-link" href="#">2</a>
+					                        </li>
+					                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+					                        <li class="page-item">
+					                          <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+					                        </li>
+					                      </ul>
+					                    </nav>
+					                </div>
 								</div>
 							</div>
 						</div>

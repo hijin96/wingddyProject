@@ -22,6 +22,7 @@ import com.kh.wingddy.store.model.vo.KakaoApproveResponse;
 import com.kh.wingddy.store.model.vo.KakaoPayAmount;
 import com.kh.wingddy.store.model.vo.KakaopayReadyResponse;
 import com.kh.wingddy.store.model.vo.Order;
+import com.kh.wingddy.store.model.vo.Review;
 import com.kh.wingddy.store.model.vo.Store;
 import com.kh.wingddy.store.model.vo.Wish;
 
@@ -66,15 +67,26 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		return storeDao.insertStoreBoard(sqlSession, at, s);
 	}
-
+	//게시글* 썸네일 수정
 	@Override
-	public int updateStoreBoard(int spNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateStoreBoardAll(Store s,Attachment at) {
+		
+		return storeDao.updateStoreBoardAll(sqlSession,s,at);
+	}
+	//게시글만 수정
+	@Override
+	public int updateStoreBoard(Store s) {
+		return storeDao.updateStoreBoard(sqlSession,s);
 	}
 
+	//썸네일 수정
 	@Override
-	public int deltetStoreBoard(int spNo) {
+	public int updateFile(Attachment at) {
+		return storeDao.updateFile(sqlSession,at);
+	}
+	
+	@Override
+	public int deleteStoreBoard(int spNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -200,5 +212,32 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		return storeDao.selectList(sqlSession, memberNo);
 	}
+
+	//리뷰등록
+	@Override
+	public int insertReview(HashMap<String, Object> map) {
+		if(storeDao.checkBuyUser(sqlSession, map) >0) {
+		return storeDao.insertReview(sqlSession,map);
+		}
+		return 0;
+	}
+	//Review리스트
+	@Override
+	public ArrayList<Review> selectReviewList(int spNo) {
+		return storeDao.selectReviewList(sqlSession,spNo);
+	}
+	//검색개수세기
+	@Override
+	public int selectSearchCount(String keyword) {
+		return storeDao.selectSearchCount(sqlSession,keyword);
+	}
+
+	//상품검색하기
+	@Override
+	public ArrayList<Store> selectSearchList(String keyword, PageInfo pageInfo) {
+		return storeDao.selectSearchList(sqlSession,keyword,pageInfo);
+	}
+
+
 
 }

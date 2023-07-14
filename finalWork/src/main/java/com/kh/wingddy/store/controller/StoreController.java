@@ -32,6 +32,7 @@ import com.kh.wingddy.store.model.service.StoreService;
 import com.kh.wingddy.store.model.vo.Address;
 import com.kh.wingddy.store.model.vo.Cart;
 import com.kh.wingddy.store.model.vo.Order;
+import com.kh.wingddy.store.model.vo.Review;
 import com.kh.wingddy.store.model.vo.Store;
 import com.kh.wingddy.store.model.vo.Wish;
 
@@ -65,7 +66,6 @@ public class StoreController {
 	public ModelAndView storeDetail(int spNo, ModelAndView mv) {
 		if (storeService.inceraseCount(spNo) > 0) {
 			mv.addObject("s", storeService.selectStoreBoard(spNo)).setViewName("store/storedetail");
-
 		} else {
 			mv.addObject("errorMsg", "게시글조회실패");
 			mv.setViewName("common/errorPage");
@@ -108,7 +108,9 @@ public class StoreController {
 	public String ajaxStoreCart(Store s, Cart cart, HttpSession session) {
 		Member m = ((Member) session.getAttribute("loginUser"));
 		cart.setMemberNo(m.getMemberNo());
-		return new Gson().toJson(storeService.insertStoreCart(cart));
+	
+		return storeService.insertStoreCart(cart) >0 ? "1": "0";
+		
 	}
 
 
@@ -123,24 +125,21 @@ public class StoreController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
 		map.put("spNo",spNo);
-		
 		return new Gson().toJson(storeService.deleteCart(map));
 	}
 	
 	// 장바구니 개수수정
 	@ResponseBody
 	@RequestMapping(value = "buyCountUpdate", produces = "application/json;charset=UTF-8")
-	public String updateBuyCount(String[] cartNo, String[] buyCount, HttpSession session, Model model) {
+	public String updateBuyCount(String cartNo, String buyCount, HttpSession session, Model model) {
 		int memberNo = ((Member) session.getAttribute("loginUser")).getMemberNo();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
 		map.put("buyCount", buyCount);
 		map.put("cartNo", cartNo);
-		if (storeService.updateBuyCount(map) > 0) {
-			return "1";
-		} else {
-			return "0";
-		}
+		
+		return storeService.updateBuyCount(map) > 0 ? "1" : "0" ;
+	
 	}
 
 	// 체크박스로 장바구니 삭제 ajax
@@ -153,13 +152,8 @@ public class StoreController {
 		HashMap<String, Object> map = new HashMap();
 		map.put("memberNo", memberNo);
 		map.put("cartNo", cartNo);
-
-		if (storeService.CheckBoxCartDelete(map) > 0) {
-			return "1";
-		} else {
-			return "0";
-		}
-		// return new Gson().toJson(storeService.CheckBoxCartDelete(map));
+		
+		return storeService.CheckBoxCartDelete(map) > 0 ? "1" :"0" ;
 	}
 
 	// 위시리스트 삭제
@@ -167,17 +161,17 @@ public class StoreController {
 	@RequestMapping(value = "wishCheckDelete", produces = "application/json;charset=UTF-8")
 	public String ajaxWishListDelete(@RequestParam(name = "spNo", required = false) int[] spNo, HttpSession session,
 			Model model) {
-		System.out.println("여기는 오나");
 		int memberNo = ((Member) session.getAttribute("loginUser")).getMemberNo();
 		HashMap<String, Object> map = new HashMap();
 		map.put("memberNo", memberNo);
 		map.put("spNo", spNo);
-		System.out.println("MAP" + map);
-		if (storeService.WishListDelete(map) > 0) {
-			return "1";
-		} else {
-			return "0";
-		}
+		
+		return storeService.WishListDelete(map) > 0 ? "1" :"0" ;
+		
+		/*
+		 * if (storeService.WishListDelete(map) > 0) { return "1"; } else { return "0";
+		 * }
+		 */
 	}
 
 	// 구매하기페이지!
@@ -187,8 +181,6 @@ public class StoreController {
 		// order정보를 생성후 orderNumber를 확인하고 그 이후에 구매하기 페이지로 넘어옴
 		Member m = ((Member) session.getAttribute("loginUser"));
 		order.setMemberNo(m.getMemberNo());
-
-		// System.out.println("구매하기페이지 ORDER"+ order );
 		int sumPrice = 0;
 		ArrayList<Cart> cartList = storeService.buyCartSelect(cartNo);
 		for (int i = 0; i < cartList.size(); i++) {
@@ -203,29 +195,24 @@ public class StoreController {
 	// ->구매가 성공적으로 이루어지면 메인 페이지 이동
 	@RequestMapping("storeBuySuccess")
 	public String storeBuySuccess(@RequestParam("sumPrice") int sumPrice,
-			@RequestParam(value = "cartNo") String[] cartNo, Model model, Order order, Address address,
+			@RequestParam(value = "cartNo") String[] cartNo, Model model, Order order, Address address,HttpSession session,
 			HttpServletRequest request) {
-		HttpSession session = request.getSession();
 		int orderNo = storeService.createOrderNo();
 		order.setOrderNo(orderNo);
 		int memberNo = ((Member) session.getAttribute("loginUser")).getMemberNo();
-		// System.out.println("구매하기 페이지는 들어옴");
-		//System.out.println("address1차: " + address);
 		String address1 = address.getRoadAddrPart1();
 		String address2 = address.getRoadAddrPart2();
 		String address3 = address.getAddrDetail();
 		order.setOrderAddress(address1 + address2 + address3);
-	//	System.out.println("address2차: " + order);
-
 		if (storeService.orderAllSuccess(order) > 0) {
 			HashMap<String, Object> map = new HashMap();
 			map.put("cartNo", cartNo);
 			map.put("orderNo", orderNo);
 			map.put("memberNo", memberNo);
-			// 리스트로 가져가서 업데이트!
+		
 			storeService.orderSuccessUpdateCart(map);
 		}
-		// redirect는 주소값
+		
 		return "redirect:/storemain";
 	}
 
@@ -280,35 +267,26 @@ public class StoreController {
 
 	// 게시판 글쓰기 최종
 	@RequestMapping("storeWriter")
-	public ModelAndView storeInsert(ModelAndView mv) {
-		Store s = new Store();
-		s.setFileNo(storeService.createFileNo());
+	public ModelAndView storeInsert(ModelAndView mv,Store s) {
 		int fileNo = storeService.createFileNo();
-		// mv.addObject(fileNo);
 		mv.addObject("fileNo", fileNo);
 		mv.setViewName("store/storeWriter");
-
 		return mv;
 	}
 
 	// 게시판 글 등록
 	@RequestMapping("insertstore.do")
 	public String insertStoreBoard(Store s, MultipartFile upfile, HttpSession session, Model model) {
-		// HashMap<String, Object> map = new HashMap<String, Object>();
+	
 		Member m = ((Member) session.getAttribute("loginUser"));
 		Attachment at = new Attachment();
-		// String savePath =
-		// session.getServletContext().getRealPath("/resources/uploadFiles/");
 		String changeName = rename.fileName(upfile, session);
 		at.setOriginName(upfile.getOriginalFilename());
 		at.setChangeName(changeName);
 		at.setFilePath("resources/uploadFiles/");
-
 		at.setFileNo(s.getFileNo());
 		at.setMemberNo(m.getMemberNo());
-
 		if (storeService.insertStoreBoard(s, at) > 0) {
-
 			return "redirect:storemain";
 		} else {
 			model.addAttribute("errorMsg", "게시글작성실패");
@@ -350,13 +328,83 @@ public class StoreController {
 		map.put("uploaded", true);
 		map.put("url", uploadPath);
 
-		// System.out.println(savePath);
-
-		// 경로 지정하는것 어려워했음 ㅠ
-		// JSON이 버전에 따라 사용법이 다름
 		return new Gson().toJson(map);
 
 	}
+	//리뷰등록 ->체크 후 등록 안됨
+	@ResponseBody
+	@RequestMapping(value="insertReview.bo")
+	public String AjaxReview(int spNo,int memberNo,String reCom){
+		HashMap<String, Object> map = new HashMap();
+		map.put("spNo",spNo);
+		map.put("memberNo",memberNo);
+		map.put("reCom",reCom);
+		
+		return storeService.insertReview(map)> 0 ? "1" : "0" ;
+	}
+	@ResponseBody
+	@RequestMapping(value="rlist.do", produces = "application/json;charset-8")
+	public String AjaxReviewList(int spNo) {
+		return new Gson().toJson(storeService.selectReviewList(spNo));
+	}
 	
+	//검색하기
+	@RequestMapping("search.do")
+	public String Search(String keyword,@RequestParam(value = "cPage", defaultValue = "1") int currentPage,Model m) {
+		int searchCount = storeService.selectSearchCount(keyword);
+		PageInfo pageInfo = Pageination.getPageInfo(searchCount, currentPage, 9, 5);
+		ArrayList<Store> goodsList = storeService.selectSearchList(keyword,pageInfo);
+		m.addAttribute("pageInfo", pageInfo);
+		m.addAttribute("goodsList", goodsList);
+		return  "store/storemain";
+	}
+	//게시글 수정하기
+	@RequestMapping("editStore.do")
+	public String EditStore(int spNo,Model m) {
+		m.addAttribute("s",storeService.selectStoreBoard(spNo));
+		return "store/updateStoreForm";
+	}
+	//수정등록하기
+	@RequestMapping("update.bo")
+	public String UpdateStoreBoard(Store s,Model m,MultipartFile reUpfile,HttpSession session,int fileNo, Attachment at) {
+		//썸네일만 수정 (AT)
+		//썸네일과 게시글 수정 (aT,S)
+		//게시글만 수정 (S)
+		
+		//썸네일을 수정하는 경우 
+		if(!reUpfile.getOriginalFilename().equals("")) {
+			String changeName = rename.fileName(reUpfile, session);
+			at.setMemberNo(((Member) session.getAttribute("loginUser")).getMemberNo());
+			at.setChangeName(changeName);
+			at.setOriginName(reUpfile.getOriginalFilename());
+			at.setFileNo(fileNo);
+			s.setChangeName("resources/uploadFiles/" + changeName);
+			//썸네일 게시글 모두 수정하는 경우
+			if(storeService.updateStoreBoardAll(s,at)>0 || storeService.updateFile(at)>0) {
+				session.setAttribute("alertMsg", "게시글 수정완료");
+				return "redirect:storedetail?spNo="+ s.getSpNo();
+			}else {
+				session.setAttribute("errorMsg", "수정실패");
+				return "common/errorPage";
+			}
+
+		}else {
+			//게시글만 수정하는 경우 
+			if(storeService.updateStoreBoard(s)>0) {
+				session.setAttribute("alertMsg", "게시글 수정완료");
+				return "redirect:storedetail?spNo="+ s.getSpNo();
+			}else {
+				session.setAttribute("errorMsg", "수정실패");
+				return "common/errorPage";
+			}
+			
+		
+		}
+
+	
+		
+
+	}
+
 
 }

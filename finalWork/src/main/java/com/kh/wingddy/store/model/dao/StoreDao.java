@@ -14,6 +14,7 @@ import com.kh.wingddy.common.model.vo.PageInfo;
 import com.kh.wingddy.common.template.RenameFile;
 import com.kh.wingddy.store.model.vo.Cart;
 import com.kh.wingddy.store.model.vo.Order;
+import com.kh.wingddy.store.model.vo.Review;
 import com.kh.wingddy.store.model.vo.Store;
 import com.kh.wingddy.store.model.vo.Wish;
 
@@ -32,12 +33,13 @@ public class StoreDao {
 		// (ArrayList)sqlSession.selectList("storeMapper.selectList",null, rowBounds));
 		return (ArrayList) sqlSession.selectList("storeMapper.selectList", null, rowBounds);
 	}
-
+	//게시판 등록
 	public int insertStoreBoard(SqlSessionTemplate sqlSession, Attachment at, Store s) {
-		if (sqlSession.insert("storeMapper.insertStoreAttachment", at) > 0) {
-			return sqlSession.insert("storeMapper.insertStore", s);
-		}
-		return 0;
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("s", s);
+		map.put("at", at);
+		return sqlSession.insert("storeMapper.insertAll",map);
 	}
 
 	public int createFileNo(SqlSessionTemplate sqlSession) {
@@ -118,9 +120,9 @@ public class StoreDao {
 	//map안에 arryalist으로 가져가서 업데이트 해보기
 	public int orderCartUpdate(SqlSessionTemplate sqlSession, ArrayList<HashMap<String, Object>> listAll) {
 		// TODO Auto-generated method stub
-		System.out.println("dao orderCartUpdate: " + listAll);
+		
 		int success = sqlSession.update("storeMapper.orderCartUpdate",listAll);
-		System.out.println("dao ArrayList: "+ success);
+		
 		return success;
 	}
 	//체크박스로 장바구니 삭제
@@ -139,9 +141,7 @@ public class StoreDao {
 	}
 
 	public ArrayList<Wish> wishList(SqlSessionTemplate sqlSession, int memberNo) {
-		// TODO Auto-generated method stub
 		ArrayList<Wish> wishList =(ArrayList)sqlSession.selectList("storeMapper.wishList",memberNo);
-		System.out.println("dao: " + wishList);
 		return wishList;
 	}
 
@@ -158,6 +158,50 @@ public class StoreDao {
 		// TODO Auto-generated method stub
 		return (ArrayList)sqlSession.selectList("storeMapper.orderInfo",memberNo);
 	}
+	
+	public int checkBuyUser(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.selectOne("storeMapper.checkBuyUser",map);
+	}
+	public int insertReview(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.insert("storeMapper.insertReview", map);
+	}
+	//댓글목록 리스트
+	public ArrayList<Review> selectReviewList(SqlSessionTemplate sqlSession, int spNo) {
+		return (ArrayList)sqlSession.selectList("storeMapper.selectReviewList",spNo);
+	}
+	//검색개수 조회
+	public int selectSearchCount(SqlSessionTemplate sqlSession, String keyword) {
+		return sqlSession.selectOne("storeMapper.selectSearchCount",keyword);
+	}
+	//검색
+	public ArrayList<Store> selectSearchList(SqlSessionTemplate sqlSession, String keyword, PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getBoardLimit());
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rowBounds", rowBounds);
+		map.put("keyword", keyword);
+		return (ArrayList)sqlSession.selectList("storeMapper.selectSearchList",map);
+	}
+	//게시글*썸네일 수정
+	public int updateStoreBoardAll(SqlSessionTemplate sqlSession, Store s, Attachment at) {
+		if(sqlSession.update("storeMapper.updateStoreAttachment",at)>0) {
+			return	sqlSession.update("storeMapper.updateStoreBoard",s);
+		}
+		return 0;
+	}
+	//게시글만 수정
+	public int updateStoreBoard(SqlSessionTemplate sqlSession,Store s) {
+		return	sqlSession.update("storeMapper.updateStoreBoard",s);
+	}
+	//썸네일만 수정
+	public int updateFile(SqlSessionTemplate sqlSession,  Attachment at) {
+		return sqlSession.update("storeMapper.updateFile", at);
+	}
+
+
+
+
+
 
 
 

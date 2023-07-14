@@ -59,7 +59,14 @@
 		<result column="SP_NO" property="spNo"/>
 		<result column="CHANGE_NAME" property="changeName"/>
 		<result column="FILE_PATH" property="filePath"/>
-				<result column="SP_NAME" property="spName"/>
+		<result column="SP_NAME" property="spName"/>
+	</resultMap>
+	<resultMap type="review" id="ReviewResultSet">
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="MEMBER_Name" property="memberName"/>
+		<result column="SP_NO" property="spNo"/>
+		<result column="RE_DATE" property="reDate"/>
+		<result column="RE_COM" property="reCom"/>
 	</resultMap>
 
 	
@@ -129,6 +136,45 @@
 			,SYSDATE)	
 	
 		
+	</insert>
+	<insert id="insertAll" parameterType="java.util.HashMap">
+	INSERT  ALL
+		INTO	
+				ATTACHMENT
+				(FILE_NO
+				,MEMBER_NO
+				,ORIGIN_NAME
+				,CHANGE_NAME
+				,FILE_LEVEL
+				,FILE_PATH)
+		VALUES
+				(#{at.fileNo}
+				,#{at.memberNo}
+				,#{at.originName}
+				,#{at.changeName}
+				,2
+				,#{at.filePath})
+				
+		INTO
+				S_STORE
+				(SP_NO
+				 ,FILE_NO
+				,SP_NAME
+				,SP_CONTENT
+				,SP_PRICE
+				,AMOUNT
+				,SP_ONECOM
+				,SP_DAY)
+		VALUES
+			(SEQ_SP_NO.NEXTVAL
+			,#{s.fileNo}
+			,#{s.spName}
+			,#{s.spContent}
+			,#{s.spPrice}
+			,#{s.amount}
+			,#{s.spOnecom}
+			,SYSDATE)
+	SELECT * FROM DUAL
 	</insert>
 	
 	<select id="createFileNo" resultType="_int">
@@ -224,11 +270,10 @@
 		FROM S_CART 
 	WHERE 
 		MEMBER_NO= #{memberNo}
-		AND CART_NO IN
-	<foreach collection="cartNo" item="cartNo"  index="i" separator="," open="(" close=")"> 
-	#{cartNo}
-	</foreach>
-	
+	AND CART_NO IN
+		<foreach collection="cartNo" item="cartNo"  index="i" separator="," open="(" close=")"> 
+		#{cartNo}
+		</foreach>
 	</delete>
 
 	
@@ -372,7 +417,6 @@
 	
 	</delete>
 	<update id="updateBuyCount" parameterType="java.util.HashMap">
-	
 	 UPDATE 
 	 	 S_CART 
 	 SET  
@@ -380,7 +424,6 @@
 	  WHERE 
 	     MEMBER_NO=#{memberNo} 
 	  AND CART_NO = #{cartNo}
-	  
 	</update>
 	<select id="orderInfo" resultMap="CartResultSet,storeResultSet">
 	      SELECT 
@@ -398,5 +441,89 @@
          AND S_CART.ORDER_YN='Y'
          ORDER BY ORDER_DAY DESC
 	</select>
-
+	<insert id="insertReview"  parameterType="java.util.HashMap">
+	INSERT
+		INTO S_REVIEW 
+				(MEMBER_NO
+				,SP_NO
+				,RE_DATE
+				,RE_COM)
+			VALUES(
+				#{memberNo}
+				,#{spNo}
+				,SYSDATE
+				,#{reCom}
+				)
+	</insert>
+	<select id="checkBuyUser" parameterType="java.util.HashMap"  resultType="_int">
+	SELECT COUNT (*)
+		FROM S_CART
+		WHERE SP_NO=#{spNo}
+		 AND ORDER_YN='Y'
+		 AND MEMBER_NO=#{memberNo}
+	</select>
+	<select id="selectReviewList" resultMap="ReviewResultSet">
+		SELECT MEMBER_NAME 
+			   ,SP_NO,RE_COM
+			   ,TO_CHAR(RE_DATE,'YYYY-MM-DD HH24:MI:SS') AS "RE_DATE"
+		FROM S_REVIEW
+		JOIN MEMBER ON S_REVIEW.MEMBER_NO= MEMBER.MEMBER_NO
+		WHERE S_REVIEW.SP_NO=#{spNo}
+		ORDER BY RE_DATE DESC
+		
+	</select>
+	<select id="selectSearchCount" resultType="_int">
+	SELECT COUNT(*)
+	FROM S_STORE
+     WHERE AMOUNT >0 
+     AND SP_NAME 
+     LIKE '%' || #{keyword}||'%'
+	</select>
+	<select id="selectSearchList" resultMap="storeResultSet" parameterType="java.util.HashMap">
+	 SELECT 
+				S.SP_NO
+				,S.FILE_NO
+				,S.SP_NAME
+				,S.SP_CONTENT 
+				,S.SP_PRICE
+				,S.AMOUNT
+				,S.VIEW_COUNT 
+				,S.SP_ONECOM
+				,S.SP_DAY 
+                ,A.FILE_NO
+                ,A.FILE_PATH
+                ,A.CHANGE_NAME
+                
+		FROM
+			S_STORE S
+        JOIN ATTACHMENT A  ON (S.FILE_NO= A.FILE_NO)
+        WHERE AMOUNT > 0
+        AND   S.SP_NAME LIKE '%' || #{keyword}||'%'
+		ORDER
+			BY
+				S.SP_NO DESC
+	</select>
+	<update id="updateStoreBoard">
+	UPDATE 
+   			 S_STORE
+		SET 
+		  SP_NAME = #{spName}
+		, SP_CONTENT=#{spContent}
+		, SP_PRICE=#{spPrice}
+		,AMOUNT=#{amount}
+		,SP_ONECOM=#{spOnecom}
+		WHERE SP_NO=#{spNo}
+	</update>
+	<update id="updateStoreAttachment" parameterType="Attachment">
+	UPDATE
+			ATTACHMENT
+	SET
+		 MEMBER_NO = #{memberNo}
+		,ORIGIN_NAME= #{originName}
+		,CHANGE_NAME= #{changeName}
+		
+	WHERE
+		FILE_NO = #{fileNo}
+	</update>
+	
 </mapper>

@@ -12,6 +12,7 @@ import com.kh.wingddy.store.model.vo.KakaoApproveResponse;
 import com.kh.wingddy.store.model.vo.KakaoPayAmount;
 import com.kh.wingddy.store.model.vo.KakaopayReadyResponse;
 import com.kh.wingddy.store.model.vo.Order;
+import com.kh.wingddy.store.model.vo.Review;
 import com.kh.wingddy.store.model.vo.Store;
 import com.kh.wingddy.store.model.vo.Wish;
 
@@ -28,9 +29,9 @@ public interface StoreService {
 	//썸네일 번호 생성
 	int createFileNo();
 	//게시글 수정하기
-	int updateStoreBoard(int spNo);
+	int updateStoreBoardAll(Store s,Attachment at);
 	//게시글 삭제하기
-	int deltetStoreBoard(int spNo);
+	int deleteStoreBoard(int spNo);
 	//게시글 상세보기
 	Store selectStoreBoard(int spNo);
 	//장바구니추가
@@ -50,7 +51,9 @@ public interface StoreService {
 	
 	//위시리스트 추가 및 삭제
 	//댓글리스트 조회
+	ArrayList<Review> selectReviewList(int spNo);
 	//댓글 작성하기 
+	int insertReview(HashMap<String, Object> map);
 	//댓글 수정하기
 	//댓글 삭제하기
 	
@@ -70,6 +73,19 @@ public interface StoreService {
 	int WishListDelete(HashMap<String, Object> map);
 	int updateBuyCount(HashMap<String, Object> map);
 	ArrayList<Cart> orderList(int memberNo);
+	//검색개수 세기
+	int selectSearchCount(String keyword);
+	//검색목록조회
+	ArrayList<Store> selectSearchList(String keyword, PageInfo pageInfo);
+	//썸네일수정
+	int updateFile( Attachment at);
+	//게시글만 수정
+	int updateStoreBoard(Store s);
+	
+	
+	
+	
+
 	
 	
 	

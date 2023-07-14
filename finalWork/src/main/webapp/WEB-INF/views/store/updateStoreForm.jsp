@@ -35,40 +35,40 @@
 			<br><br><br><br><br><br>
  			<div class="ck-body-wrapper">
 				<div>
-					<form action="insertstore.do" method="POST" enctype="multipart/form-data">
+					<form action="update.bo" method="POST" enctype="multipart/form-data">
 						<div class="card-body">
-
-
 							<div class="form-group row mb-4">
 								<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="spName">상품명</label>
 								<div class="col-sm-12 col-md-7">
-									<input type="text" class="form-control" name="spName" required>
+									<input type="text" class="form-control" name="spName" value="${s.spName }" required>
 								</div>					  
 								<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="amount">수량</label>
 								<div class="col-sm-12 col-md-7">
-									<input type="number"  class="form-control" value="0" name="amount" required>
+									<input type="number"  class="form-control"  name="amount"  value="${s.amount }" required>
 								</div>
 								<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="spPrice">가격</label>
 								<div class="col-sm-12 col-md-7">
-									<input type="number"  class="form-control" value="0" name="spPrice" required>
+									<input type="number"  class="form-control" name="spPrice" value="${s.spPrice }" required>
 								</div>
 			
-								<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="spOnecom">한줄소개</label>
+								<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="spOnecom" >한줄소개</label>
 								<div class="col-sm-12 col-md-7">
-									<input type="text"  class="form-control" name="spOnecom" required>
-									<textarea name="spContent" id="editor"></textarea>
-									<span>썸네일 선택
-									<input class="note-image-input note-form-control note-input" type="file" name="upfile" accept="image/*" multiple="multiple" required>
+									<input type="text"  class="form-control" name="spOnecom" value="${s.spOnecom}" required>
+									<textarea name="spContent" id="editor" value="${s.spContent }"></textarea>
+									<span>
+										기존의 썸네일
+										<a href="${s.filePath }/${s.changeName}" download="${s.changeName}">${s.changeName}</a>
 									</span>
-									
-									<input type="hidden" value="${fileNo }" name="fileNo"/>
-								
+									<span>썸네일 선택
+										<input class="note-image-input note-form-control note-input" type="file" name="reUpfile" accept="image/*" multiple="multiple">
+									</span> 
+									<input type="hidden" value="${s.fileNo }" name="fileNo"/>
+									<input type="hidden" value="${s.spNo }" name="spNo"/>
 									<div>
 										<input type="button" class="btn btn-secondary mt-3 mx-2" value="작성취소" /> 
-										<input type="submit" class="btn btn-primary mt-3 mx-2" value="작성완료"  />
+										<input type="submit" class="btn btn-primary mt-3 mx-2" value="수정하기"  />
 									</div>
 								</div>
-						
 							</div>
 						</div>	
 					</form> 
